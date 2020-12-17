@@ -1,4 +1,4 @@
-/** 
+/**
   ******************************************************************************
   * @file    Examples_LL/RTC/RTC_Alarm/Src/stm32g0xx_it.c
   * @author  MCD Application Team
@@ -8,11 +8,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -47,7 +47,7 @@
   * @param  None
   * @retval None
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
 }
 
@@ -56,12 +56,12 @@ void NMI_Handler(void)
   * @param  None
   * @retval None
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Hard Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -69,7 +69,7 @@ void HardFault_Handler(void)
   * @param  None
   * @retval None
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
 }
 
@@ -78,7 +78,7 @@ void SVC_Handler(void)
   * @param  None
   * @retval None
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
 }
 
@@ -87,7 +87,7 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
 }
 
@@ -103,23 +103,24 @@ void SysTick_Handler(void)
   * @param  None
   * @retval None
   */
-void RTC_TAMP_IRQHandler(void)
+void RTC_TAMP_IRQHandler( void )
 {
-  /* Get the Alarm interrupt source enable status */
-  if(LL_RTC_IsEnabledIT_ALRA(RTC) != 0)
-  {
-    /* Get the pending status of the Alarm Interrupt */
-    if(LL_RTC_IsActiveFlag_ALRA(RTC) != 0)
+    /* Get the Alarm interrupt source enable status */
+    if( LL_RTC_IsEnabledIT_ALRA( RTC ) != 0 )
     {
-      /* Alarm callback */ 
-      Alarm_Callback();
-      
-      /* Clear the Alarm interrupt pending bit */
-      LL_RTC_ClearFlag_ALRA(RTC);
+        /* Get the pending status of the Alarm Interrupt */
+        if( LL_RTC_IsActiveFlag_ALRA( RTC ) != 0 )
+        {
+            /* Alarm callback */
+            Alarm_Callback();
+
+            /* Clear the Alarm interrupt pending bit */
+            LL_RTC_ClearFlag_ALRA( RTC );
+        }
     }
-  }
-  /* Clear the EXTI's Flag for RTC Alarm */
-  LL_EXTI_ClearFallingFlag_0_31(LL_EXTI_LINE_19);
+
+    /* Clear the EXTI's Flag for RTC Alarm */
+    LL_EXTI_ClearFallingFlag_0_31( LL_EXTI_LINE_19 );
 }
 
 /**

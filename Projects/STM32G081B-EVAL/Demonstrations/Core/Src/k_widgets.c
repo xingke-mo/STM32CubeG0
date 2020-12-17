@@ -26,12 +26,13 @@
 /* External variables --------------------------------------------------------*/
 /* Private defines -----------------------------------------------------------*/
 /* Private typedef -----------------------------------------------------------*/
-typedef struct {
-  kWidgetsProgressBar_t progressBar;
-  uint32_t             progress;
-  uint32_t             maxValue;
-  uint32_t             step;
-}ProgressBar_t;
+typedef struct
+{
+    kWidgetsProgressBar_t progressBar;
+    uint32_t             progress;
+    uint32_t             maxValue;
+    uint32_t             step;
+} ProgressBar_t;
 
 /* Private macros ------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -43,29 +44,29 @@ typedef struct {
 /******************************************************************************/
 /**
   * @brief  Create a progress bar
-  * @param  pProgressBar Progress Bar descriptor 
-  * @param  MaxValue Maximum representable value 
+  * @param  pProgressBar Progress Bar descriptor
+  * @param  MaxValue Maximum representable value
   * @retval Progress bar handle
   */
-void * kWidgets_ProgressBarCreate(kWidgetsProgressBar_t * pProgressBar, uint32_t MaxValue)
+void *kWidgets_ProgressBarCreate( kWidgetsProgressBar_t *pProgressBar, uint32_t MaxValue )
 {
-  ProgressBar_t * pb = (ProgressBar_t *)NULL;
-  
-  pb = (ProgressBar_t *) malloc(sizeof(ProgressBar_t));
-  
-  if (pb != NULL)
-  {
-    memcpy(&(pb->progressBar), pProgressBar, sizeof(kWidgetsProgressBar_t));
-    pb->progress = 0;
-    pb->maxValue = MaxValue;
-    pb->step =  MaxValue / pb->progressBar.width;
-    BSP_LCD_SetTextColor(pProgressBar->backgroungColor);
-    BSP_LCD_FillRect(pProgressBar->xpos+1, pProgressBar->ypos+1, pProgressBar->width-2, pProgressBar->height-2); 
-    BSP_LCD_SetTextColor(pProgressBar->textColor);
-    BSP_LCD_DrawRect(pProgressBar->xpos, pProgressBar->ypos, pProgressBar->width, pProgressBar->height);
-  }
-  
-  return (void *)pb;
+    ProgressBar_t *pb = ( ProgressBar_t * )NULL;
+
+    pb = ( ProgressBar_t * ) malloc( sizeof( ProgressBar_t ) );
+
+    if( pb != NULL )
+    {
+        memcpy( &( pb->progressBar ), pProgressBar, sizeof( kWidgetsProgressBar_t ) );
+        pb->progress = 0;
+        pb->maxValue = MaxValue;
+        pb->step =  MaxValue / pb->progressBar.width;
+        BSP_LCD_SetTextColor( pProgressBar->backgroungColor );
+        BSP_LCD_FillRect( pProgressBar->xpos + 1, pProgressBar->ypos + 1, pProgressBar->width - 2, pProgressBar->height - 2 );
+        BSP_LCD_SetTextColor( pProgressBar->textColor );
+        BSP_LCD_DrawRect( pProgressBar->xpos, pProgressBar->ypos, pProgressBar->width, pProgressBar->height );
+    }
+
+    return ( void * )pb;
 }
 
 /**
@@ -73,9 +74,9 @@ void * kWidgets_ProgressBarCreate(kWidgetsProgressBar_t * pProgressBar, uint32_t
   * @param  hwidgetProgressBar Progress bar handle
   * @retval None
   */
-void kWidgets_ProgressBarDestroy(void * hwidgetProgressBar)
+void kWidgets_ProgressBarDestroy( void *hwidgetProgressBar )
 {
-  free(hwidgetProgressBar);
+    free( hwidgetProgressBar );
 }
 
 /**
@@ -84,23 +85,23 @@ void kWidgets_ProgressBarDestroy(void * hwidgetProgressBar)
   * @param  Progress progress bar update
   * @retval None
   */
-void kWidgets_ProgressBarUpdate(void * hwidgetProgressBar, uint32_t Progress)
+void kWidgets_ProgressBarUpdate( void *hwidgetProgressBar, uint32_t Progress )
 {
-  ProgressBar_t * pb = (ProgressBar_t *) hwidgetProgressBar;
-  uint32_t width;
-  uint32_t step = pb->step;
-  
-  width = Progress - pb->progress;
-  
-  if (width >= step )
-  {
-    BSP_LCD_SetTextColor(pb->progressBar.textColor);
-    BSP_LCD_FillRect(pb->progressBar.xpos + (uint32_t)(pb->progress/step),
-                     pb->progressBar.ypos,
-                     width/step,
-                     pb->progressBar.height);
-    pb->progress += step;
-  }
+    ProgressBar_t *pb = ( ProgressBar_t * ) hwidgetProgressBar;
+    uint32_t width;
+    uint32_t step = pb->step;
+
+    width = Progress - pb->progress;
+
+    if( width >= step )
+    {
+        BSP_LCD_SetTextColor( pb->progressBar.textColor );
+        BSP_LCD_FillRect( pb->progressBar.xpos + ( uint32_t )( pb->progress / step ),
+                          pb->progressBar.ypos,
+                          width / step,
+                          pb->progressBar.height );
+        pb->progress += step;
+    }
 }
 
 /**
@@ -108,22 +109,22 @@ void kWidgets_ProgressBarUpdate(void * hwidgetProgressBar, uint32_t Progress)
   * @param  hwidgetProgressBar Progress bar handle
   * @retval None
   */
-void kWidgets_ProgressBarReset(void * hwidgetProgressBar)
+void kWidgets_ProgressBarReset( void *hwidgetProgressBar )
 {
-  ProgressBar_t * pb = (ProgressBar_t *) hwidgetProgressBar;
-  
-  pb->progress = 0;
-  BSP_LCD_SetBackColor(pb->progressBar.backgroungColor);
-  BSP_LCD_SetTextColor(pb->progressBar.backgroungColor);  
-  BSP_LCD_FillRect(pb->progressBar.xpos,
-                   pb->progressBar.ypos,
-                   pb->progressBar.width, 
-                   pb->progressBar.height);
-  BSP_LCD_SetTextColor(pb->progressBar.textColor);
-  BSP_LCD_DrawRect(pb->progressBar.xpos,
-                   pb->progressBar.ypos,
-                   pb->progressBar.width, 
-                   pb->progressBar.height);
+    ProgressBar_t *pb = ( ProgressBar_t * ) hwidgetProgressBar;
+
+    pb->progress = 0;
+    BSP_LCD_SetBackColor( pb->progressBar.backgroungColor );
+    BSP_LCD_SetTextColor( pb->progressBar.backgroungColor );
+    BSP_LCD_FillRect( pb->progressBar.xpos,
+                      pb->progressBar.ypos,
+                      pb->progressBar.width,
+                      pb->progressBar.height );
+    BSP_LCD_SetTextColor( pb->progressBar.textColor );
+    BSP_LCD_DrawRect( pb->progressBar.xpos,
+                      pb->progressBar.ypos,
+                      pb->progressBar.width,
+                      pb->progressBar.height );
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

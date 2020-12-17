@@ -9,11 +9,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -36,7 +36,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
- 
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -71,69 +71,69 @@ extern CEC_HandleTypeDef hcec;
 /**
   * @brief This function handles Non maskable interrupt.
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
-  /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
+    /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
 
-  /* USER CODE END NonMaskableInt_IRQn 0 */
-  /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
+    /* USER CODE END NonMaskableInt_IRQn 0 */
+    /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
 
-  /* USER CODE END NonMaskableInt_IRQn 1 */
+    /* USER CODE END NonMaskableInt_IRQn 1 */
 }
 
 /**
   * @brief This function handles Hard fault interrupt.
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* USER CODE BEGIN HardFault_IRQn 0 */
+    /* USER CODE BEGIN HardFault_IRQn 0 */
 
-  /* USER CODE END HardFault_IRQn 0 */
-  while (1)
-  {
-    /* USER CODE BEGIN W1_HardFault_IRQn 0 */
-    /* USER CODE END W1_HardFault_IRQn 0 */
-  }
+    /* USER CODE END HardFault_IRQn 0 */
+    while( 1 )
+    {
+        /* USER CODE BEGIN W1_HardFault_IRQn 0 */
+        /* USER CODE END W1_HardFault_IRQn 0 */
+    }
 }
 
 /**
   * @brief This function handles System service call via SWI instruction.
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
-  /* USER CODE BEGIN SVC_IRQn 0 */
+    /* USER CODE BEGIN SVC_IRQn 0 */
 
-  /* USER CODE END SVC_IRQn 0 */
-  /* USER CODE BEGIN SVC_IRQn 1 */
+    /* USER CODE END SVC_IRQn 0 */
+    /* USER CODE BEGIN SVC_IRQn 1 */
 
-  /* USER CODE END SVC_IRQn 1 */
+    /* USER CODE END SVC_IRQn 1 */
 }
 
 /**
   * @brief This function handles Pendable request for system service.
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
-  /* USER CODE BEGIN PendSV_IRQn 0 */
+    /* USER CODE BEGIN PendSV_IRQn 0 */
 
-  /* USER CODE END PendSV_IRQn 0 */
-  /* USER CODE BEGIN PendSV_IRQn 1 */
+    /* USER CODE END PendSV_IRQn 0 */
+    /* USER CODE BEGIN PendSV_IRQn 1 */
 
-  /* USER CODE END PendSV_IRQn 1 */
+    /* USER CODE END PendSV_IRQn 1 */
 }
 
 /**
   * @brief This function handles System tick timer.
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
-  /* USER CODE BEGIN SysTick_IRQn 0 */
+    /* USER CODE BEGIN SysTick_IRQn 0 */
 
-  /* USER CODE END SysTick_IRQn 0 */
-  HAL_IncTick();
-  /* USER CODE BEGIN SysTick_IRQn 1 */
+    /* USER CODE END SysTick_IRQn 0 */
+    HAL_IncTick();
+    /* USER CODE BEGIN SysTick_IRQn 1 */
 
-  /* USER CODE END SysTick_IRQn 1 */
+    /* USER CODE END SysTick_IRQn 1 */
 }
 
 /******************************************************************************/
@@ -146,26 +146,26 @@ void SysTick_Handler(void)
 /**
   * @brief This function handles HDMI-CEC global interrupt / HDMI-CEC wake-up interrupt through EXTI line 27.
   */
-void CEC_IRQHandler(void)
+void CEC_IRQHandler( void )
 {
-  /* USER CODE BEGIN CEC_IRQn 0 */
+    /* USER CODE BEGIN CEC_IRQn 0 */
 
-  /* USER CODE END CEC_IRQn 0 */
-  HAL_CEC_IRQHandler(&hcec);
-  /* USER CODE BEGIN CEC_IRQn 1 */
+    /* USER CODE END CEC_IRQn 0 */
+    HAL_CEC_IRQHandler( &hcec );
+    /* USER CODE BEGIN CEC_IRQn 1 */
 
-  /* USER CODE END CEC_IRQn 1 */
+    /* USER CODE END CEC_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
- /**
-  * @brief  This function handles External EXTI_Line0_1 interrupt request.
-  * @param  None
-  * @retval None
-  */
-void EXTI0_1_IRQHandler(void)
+/**
+ * @brief  This function handles External EXTI_Line0_1 interrupt request.
+ * @param  None
+ * @retval None
+ */
+void EXTI0_1_IRQHandler( void )
 {
-  HAL_GPIO_EXTI_IRQHandler(SEL_JOY_PIN);
+    HAL_GPIO_EXTI_IRQHandler( SEL_JOY_PIN );
 }
 
 /**
@@ -173,10 +173,10 @@ void EXTI0_1_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void EXTI2_3_IRQHandler(void)
+void EXTI2_3_IRQHandler( void )
 {
-  HAL_GPIO_EXTI_IRQHandler(UP_JOY_PIN);
-  HAL_GPIO_EXTI_IRQHandler(DOWN_JOY_PIN);
+    HAL_GPIO_EXTI_IRQHandler( UP_JOY_PIN );
+    HAL_GPIO_EXTI_IRQHandler( DOWN_JOY_PIN );
 }
 
 /**
@@ -184,11 +184,11 @@ void EXTI2_3_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void EXTI4_15_IRQHandler(void)
+void EXTI4_15_IRQHandler( void )
 {
-  HAL_GPIO_EXTI_IRQHandler(LEFT_JOY_PIN);
-  HAL_GPIO_EXTI_IRQHandler(RIGHT_JOY_PIN);	
-  HAL_GPIO_EXTI_IRQHandler(TAMPER_BUTTON_PIN);
+    HAL_GPIO_EXTI_IRQHandler( LEFT_JOY_PIN );
+    HAL_GPIO_EXTI_IRQHandler( RIGHT_JOY_PIN );
+    HAL_GPIO_EXTI_IRQHandler( TAMPER_BUTTON_PIN );
 }
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

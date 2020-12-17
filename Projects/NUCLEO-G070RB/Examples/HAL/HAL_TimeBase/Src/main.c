@@ -1,18 +1,18 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file    HAL/HAL_TimeBase/Src/main.c 
+  * @file    HAL/HAL_TimeBase/Src/main.c
   * @author  MCD Application Team
   * @brief   This example describes how to configure HAL time base using
   *          the STM32G0xx HAL API.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -51,7 +51,7 @@ uint32_t                 uwIncrementState = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
-void SystemClock_Config(void);
+void SystemClock_Config( void );
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
 
@@ -66,168 +66,172 @@ void SystemClock_Config(void);
   * @brief  The application entry point.
   * @retval int
   */
-int main(void)
+int main( void )
 {
-  /* USER CODE BEGIN 1 */
+    /* USER CODE BEGIN 1 */
 
-  /* USER CODE END 1 */
+    /* USER CODE END 1 */
 
-  /* MCU Configuration--------------------------------------------------------*/
+    /* MCU Configuration--------------------------------------------------------*/
 
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+    HAL_Init();
 
-  /* USER CODE BEGIN Init */
+    /* USER CODE BEGIN Init */
 
-  /* USER CODE END Init */
+    /* USER CODE END Init */
 
-  /* Configure the system clock */
-  SystemClock_Config();
+    /* Configure the system clock */
+    SystemClock_Config();
 
-  /* USER CODE BEGIN SysInit */
+    /* USER CODE BEGIN SysInit */
 
-  /* USER CODE END SysInit */
+    /* USER CODE END SysInit */
 
-  /* Initialize all configured peripherals */
-  /* USER CODE BEGIN 2 */
-  /* Configure LED4 */
-  BSP_LED_Init(LED4);
+    /* Initialize all configured peripherals */
+    /* USER CODE BEGIN 2 */
+    /* Configure LED4 */
+    BSP_LED_Init( LED4 );
 
-  /* Configure User push-button */
-  BSP_PB_Init(BUTTON_USER, BUTTON_MODE_EXTI);
-  /* USER CODE END 2 */
+    /* Configure User push-button */
+    BSP_PB_Init( BUTTON_USER, BUTTON_MODE_EXTI );
+    /* USER CODE END 2 */
 
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-    /* USER CODE END WHILE */
+    /* Infinite loop */
+    /* USER CODE BEGIN WHILE */
+    while( 1 )
+    {
+        /* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */
-    /* Insert a 1s delay */
-    HAL_Delay(1000);
-    
-    /* Toggle LED4 */
-    BSP_LED_Toggle(LED4);
-  }
-  /* USER CODE END 3 */
+        /* USER CODE BEGIN 3 */
+        /* Insert a 1s delay */
+        HAL_Delay( 1000 );
+
+        /* Toggle LED4 */
+        BSP_LED_Toggle( LED4 );
+    }
+
+    /* USER CODE END 3 */
 }
 
 /**
   * @brief System Clock Configuration
   * @retval None
   */
-void SystemClock_Config(void)
+void SystemClock_Config( void )
 {
-  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
-  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+    RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+    RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
-  /** Initializes the RCC Oscillators according to the specified parameters
-  * in the RCC_OscInitTypeDef structure.
-  */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-  RCC_OscInitStruct.HSIDiv = RCC_HSI_DIV1;
-  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLM = RCC_PLLM_DIV4;
-  RCC_OscInitStruct.PLL.PLLN = 70;
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV10;
-  RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV5;
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /** Initializes the CPU, AHB and APB buses clocks
-  */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+    /** Initializes the RCC Oscillators according to the specified parameters
+    * in the RCC_OscInitTypeDef structure.
+    */
+    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+    RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+    RCC_OscInitStruct.HSIDiv = RCC_HSI_DIV1;
+    RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+    RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+    RCC_OscInitStruct.PLL.PLLM = RCC_PLLM_DIV4;
+    RCC_OscInitStruct.PLL.PLLN = 70;
+    RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV10;
+    RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV5;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
-  {
-    Error_Handler();
-  }
+    if( HAL_RCC_OscConfig( &RCC_OscInitStruct ) != HAL_OK )
+    {
+        Error_Handler();
+    }
+
+    /** Initializes the CPU, AHB and APB buses clocks
+    */
+    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
+                                  | RCC_CLOCKTYPE_PCLK1;
+    RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+    RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+
+    if( HAL_RCC_ClockConfig( &RCC_ClkInitStruct, FLASH_LATENCY_2 ) != HAL_OK )
+    {
+        Error_Handler();
+    }
 }
 
 /* USER CODE BEGIN 4 */
 
 /**
-  * @brief  This function configures the TIM3 as a time base source. 
-  *         The time source is configured  to have 1ms time base with a dedicated 
-  *         Tick interrupt priority. 
+  * @brief  This function configures the TIM3 as a time base source.
+  *         The time source is configured  to have 1ms time base with a dedicated
+  *         Tick interrupt priority.
   * @note   This function is called  automatically at the beginning of program after
-  *         reset by HAL_Init() or at any time when clock is configured, by HAL_RCC_ClockConfig(). 
+  *         reset by HAL_Init() or at any time when clock is configured, by HAL_RCC_ClockConfig().
   * @param  TickPriority: Tick interrupt priority.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_InitTick (uint32_t TickPriority)
+HAL_StatusTypeDef HAL_InitTick( uint32_t TickPriority )
 {
-  RCC_ClkInitTypeDef    clkconfig;
-  uint32_t              uwTimclock, uwAPB1Prescaler = 0;
-  uint32_t              uwPrescalerValue = 0;
-  uint32_t              pFLatency;
-  
+    RCC_ClkInitTypeDef    clkconfig;
+    uint32_t              uwTimclock, uwAPB1Prescaler = 0;
+    uint32_t              uwPrescalerValue = 0;
+    uint32_t              pFLatency;
+
     /*Configure the TIM3 IRQ priority */
-  HAL_NVIC_SetPriority(TIM3_IRQn, TickPriority ,0);
-  
-  /* Enable the TIM3 global Interrupt */
-  HAL_NVIC_EnableIRQ(TIM3_IRQn);
-  
-  /* Enable TIM3 clock */
-  __HAL_RCC_TIM3_CLK_ENABLE();
-  
-  /* Get clock configuration */
-  HAL_RCC_GetClockConfig(&clkconfig, &pFLatency);
-  
-  /* Get APB1 prescaler */
-  uwAPB1Prescaler = clkconfig.APB1CLKDivider;
-  
-  /* Compute TIM3 clock */
-  if (uwAPB1Prescaler == RCC_HCLK_DIV1) 
-  {
-    uwTimclock = HAL_RCC_GetPCLK1Freq();
-  }
-  else
-  {
-    uwTimclock = 2*HAL_RCC_GetPCLK1Freq();
-  }
+    HAL_NVIC_SetPriority( TIM3_IRQn, TickPriority, 0 );
 
-  /* Compute the prescaler value to have TIM3 counter clock equal to 1MHz */
-  uwPrescalerValue = (uint32_t) ((uwTimclock / 1000000) - 1);
-  
-  /* Initialize TIM3 */
-  htim3.Instance = TIM3;
-    
-  /* Initialize TIMx peripheral as follow:
-       + Period = [(TIM3CLK/1000) - 1]. to have a (1/1000) s time base.
-       + Prescaler = (uwTimclock/1000000 - 1) to have a 1MHz counter clock.
-       + ClockDivision = 0
-       + Counter direction = Up
-  */
-  htim3.Init.Period = (1000000 / 1000) - 1;
-  htim3.Init.Prescaler = uwPrescalerValue;
-  htim3.Init.ClockDivision = 0;
-  htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  if(HAL_TIM_Base_Init(&htim3) != HAL_OK)
-  {
-    /* Initialization Error */
-    Error_Handler();
-  }
-  
-  /* Start the TIM time Base generation in interrupt mode */
-  if(HAL_TIM_Base_Start_IT(&htim3) != HAL_OK)
-  {
-    /* Starting Error */
-    Error_Handler();
-  }
- 
+    /* Enable the TIM3 global Interrupt */
+    HAL_NVIC_EnableIRQ( TIM3_IRQn );
 
-   /* Return function status */
-  return HAL_OK;
+    /* Enable TIM3 clock */
+    __HAL_RCC_TIM3_CLK_ENABLE();
+
+    /* Get clock configuration */
+    HAL_RCC_GetClockConfig( &clkconfig, &pFLatency );
+
+    /* Get APB1 prescaler */
+    uwAPB1Prescaler = clkconfig.APB1CLKDivider;
+
+    /* Compute TIM3 clock */
+    if( uwAPB1Prescaler == RCC_HCLK_DIV1 )
+    {
+        uwTimclock = HAL_RCC_GetPCLK1Freq();
+    }
+    else
+    {
+        uwTimclock = 2 * HAL_RCC_GetPCLK1Freq();
+    }
+
+    /* Compute the prescaler value to have TIM3 counter clock equal to 1MHz */
+    uwPrescalerValue = ( uint32_t )( ( uwTimclock / 1000000 ) - 1 );
+
+    /* Initialize TIM3 */
+    htim3.Instance = TIM3;
+
+    /* Initialize TIMx peripheral as follow:
+         + Period = [(TIM3CLK/1000) - 1]. to have a (1/1000) s time base.
+         + Prescaler = (uwTimclock/1000000 - 1) to have a 1MHz counter clock.
+         + ClockDivision = 0
+         + Counter direction = Up
+    */
+    htim3.Init.Period = ( 1000000 / 1000 ) - 1;
+    htim3.Init.Prescaler = uwPrescalerValue;
+    htim3.Init.ClockDivision = 0;
+    htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
+
+    if( HAL_TIM_Base_Init( &htim3 ) != HAL_OK )
+    {
+        /* Initialization Error */
+        Error_Handler();
+    }
+
+    /* Start the TIM time Base generation in interrupt mode */
+    if( HAL_TIM_Base_Start_IT( &htim3 ) != HAL_OK )
+    {
+        /* Starting Error */
+        Error_Handler();
+    }
+
+
+    /* Return function status */
+    return HAL_OK;
 }
 
 /**
@@ -236,10 +240,10 @@ HAL_StatusTypeDef HAL_InitTick (uint32_t TickPriority)
   * @param  None
   * @retval None
   */
-void HAL_SuspendTick(void)
+void HAL_SuspendTick( void )
 {
-  /* Disable TIM3 update Interrupt */
-  __HAL_TIM_DISABLE_IT(&htim3, TIM_IT_UPDATE);
+    /* Disable TIM3 update Interrupt */
+    __HAL_TIM_DISABLE_IT( &htim3, TIM_IT_UPDATE );
 }
 
 /**
@@ -248,10 +252,10 @@ void HAL_SuspendTick(void)
   * @param  None
   * @retval None
   */
-void HAL_ResumeTick(void)
+void HAL_ResumeTick( void )
 {
-  /* Enable TIM3 Update interrupt */
-  __HAL_TIM_ENABLE_IT(&htim3, TIM_IT_UPDATE);
+    /* Enable TIM3 Update interrupt */
+    __HAL_TIM_ENABLE_IT( &htim3, TIM_IT_UPDATE );
 }
 
 /**
@@ -262,9 +266,9 @@ void HAL_ResumeTick(void)
   * @param  htim : TIM handle
   * @retval None
   */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+void HAL_TIM_PeriodElapsedCallback( TIM_HandleTypeDef *htim )
 {
-  HAL_IncTick();
+    HAL_IncTick();
 }
 
 /**
@@ -272,27 +276,27 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   * @param GPIO_Pin: Specifies the pins connected EXTI line
   * @retval None
   */
-void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
+void HAL_GPIO_EXTI_Falling_Callback( uint16_t GPIO_Pin )
 {
-  if(GPIO_Pin == USER_BUTTON_PIN)
-  {
-    if (uwIncrementState == 0)
+    if( GPIO_Pin == USER_BUTTON_PIN )
     {
-      /* Suspend tick increment */
-      HAL_SuspendTick();
-      
-      /* Change the Push button state */
-      uwIncrementState = 1;
+        if( uwIncrementState == 0 )
+        {
+            /* Suspend tick increment */
+            HAL_SuspendTick();
+
+            /* Change the Push button state */
+            uwIncrementState = 1;
+        }
+        else
+        {
+            /* Resume tick increment */
+            HAL_ResumeTick();
+
+            /* Change the Push button state */
+            uwIncrementState = 0;
+        }
     }
-    else
-    {
-      /* Resume tick increment */
-      HAL_ResumeTick();
-      
-      /* Change the Push button state */
-      uwIncrementState = 0;
-    }
-  }  
 }
 
 /* USER CODE END 4 */
@@ -301,14 +305,15 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
   * @brief  This function is executed in case of error occurrence.
   * @retval None
   */
-void Error_Handler(void)
+void Error_Handler( void )
 {
-  /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
-  while(1) 
-  {
-  }
-  /* USER CODE END Error_Handler_Debug */
+    /* USER CODE BEGIN Error_Handler_Debug */
+    /* User can add his own implementation to report the HAL error return state */
+    while( 1 )
+    {
+    }
+
+    /* USER CODE END Error_Handler_Debug */
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -319,12 +324,12 @@ void Error_Handler(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t *file, uint32_t line)
+void assert_failed( uint8_t *file, uint32_t line )
 {
-  /* USER CODE BEGIN 6 */
-  /* User can add his own implementation to report the file name and line number,
-    ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-  /* USER CODE END 6 */
+    /* USER CODE BEGIN 6 */
+    /* User can add his own implementation to report the file name and line number,
+      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
 

@@ -31,16 +31,16 @@ EndBSPDependencies */
 /* Private macro -------------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
 
-static int8_t TEMPLATE_CUSTOM_HID_Init(void);
-static int8_t TEMPLATE_CUSTOM_HID_DeInit(void);
-static int8_t TEMPLATE_CUSTOM_HID_OutEvent(uint8_t event_idx, uint8_t state);
+static int8_t TEMPLATE_CUSTOM_HID_Init( void );
+static int8_t TEMPLATE_CUSTOM_HID_DeInit( void );
+static int8_t TEMPLATE_CUSTOM_HID_OutEvent( uint8_t event_idx, uint8_t state );
 /* Private variables ---------------------------------------------------------*/
 USBD_CUSTOM_HID_ItfTypeDef USBD_CustomHID_template_fops =
 {
-  TEMPLATE_CUSTOM_HID_ReportDesc,
-  TEMPLATE_CUSTOM_HID_Init,
-  TEMPLATE_CUSTOM_HID_DeInit,
-  TEMPLATE_CUSTOM_HID_OutEvent,
+    TEMPLATE_CUSTOM_HID_ReportDesc,
+    TEMPLATE_CUSTOM_HID_Init,
+    TEMPLATE_CUSTOM_HID_DeInit,
+    TEMPLATE_CUSTOM_HID_OutEvent,
 };
 
 /* Private functions ---------------------------------------------------------*/
@@ -51,9 +51,9 @@ USBD_CUSTOM_HID_ItfTypeDef USBD_CustomHID_template_fops =
   * @param  None
   * @retval Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
   */
-static int8_t TEMPLATE_CUSTOM_HID_Init(void)
+static int8_t TEMPLATE_CUSTOM_HID_Init( void )
 {
-  return (0);
+    return ( 0 );
 }
 
 /**
@@ -62,12 +62,12 @@ static int8_t TEMPLATE_CUSTOM_HID_Init(void)
   * @param  None
   * @retval Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
   */
-static int8_t TEMPLATE_CUSTOM_HID_DeInit(void)
+static int8_t TEMPLATE_CUSTOM_HID_DeInit( void )
 {
-  /*
-     Add your deinitialization code here
-  */
-  return (0);
+    /*
+       Add your deinitialization code here
+    */
+    return ( 0 );
 }
 
 
@@ -78,14 +78,14 @@ static int8_t TEMPLATE_CUSTOM_HID_DeInit(void)
   * @param  state: event state
   * @retval Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
   */
-static int8_t TEMPLATE_CUSTOM_HID_OutEvent(uint8_t event_idx, uint8_t state)
+static int8_t TEMPLATE_CUSTOM_HID_OutEvent( uint8_t event_idx, uint8_t state )
 {
-  UNUSED(event_idx);
-  UNUSED(state);
+    UNUSED( event_idx );
+    UNUSED( state );
 
-  /* Start next USB packet transfer once data processing is completed */
-  USBD_CUSTOM_HID_ReceivePacket(&USBD_Device);
+    /* Start next USB packet transfer once data processing is completed */
+    USBD_CUSTOM_HID_ReceivePacket( &USBD_Device );
 
-  return (0);
+    return ( 0 );
 }
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -12,7 +12,7 @@
 /*--------------------------------------------------------------------------------*/
 /* Declare Module Variables */
 /*--------------------------------------------------------------------------------*/
-extern const char * JTEST_CYCLE_STRF;
+extern const char *JTEST_CYCLE_STRF;
 
 /*--------------------------------------------------------------------------------*/
 /* Macros and Defines */
@@ -36,7 +36,7 @@ extern const char * JTEST_CYCLE_STRF;
         __jtest_cycle_end_count =                       \
             JTEST_SYSTICK_VALUE(SysTick);               \
                                                         \
-		JTEST_SYSTICK_RESET(SysTick);                   \
+        JTEST_SYSTICK_RESET(SysTick);                   \
         JTEST_DUMP_STRF(JTEST_CYCLE_STRF,               \
                         STR(fn_call),                   \
                         (JTEST_SYSTICK_INITIAL_VALUE -  \
@@ -58,7 +58,7 @@ extern const char * JTEST_CYCLE_STRF;
         __jtest_cycle_end_count =                       \
             JTEST_SYSTICK_VALUE(SysTick);               \
                                                         \
-		JTEST_SYSTICK_RESET(SysTick);           \
+        JTEST_SYSTICK_RESET(SysTick);           \
         JTEST_DUMP_STRF(JTEST_CYCLE_STRF,               \
                         (JTEST_SYSTICK_INITIAL_VALUE -  \
                          __jtest_cycle_end_count));     \
@@ -69,7 +69,7 @@ extern const char * JTEST_CYCLE_STRF;
 #define JTEST_COUNT_CYCLES(fn_call)                     \
     do                                                  \
     {                                                   \
-		fn_call;   										\
+        fn_call;                                        \
     } while (0)
 
 #endif

@@ -71,69 +71,69 @@
 /**
   * @brief This function handles Non maskable interrupt.
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
-  /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
+    /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
 
-  /* USER CODE END NonMaskableInt_IRQn 0 */
-  /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
+    /* USER CODE END NonMaskableInt_IRQn 0 */
+    /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
 
-  /* USER CODE END NonMaskableInt_IRQn 1 */
+    /* USER CODE END NonMaskableInt_IRQn 1 */
 }
 
 /**
   * @brief This function handles Hard fault interrupt.
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* USER CODE BEGIN HardFault_IRQn 0 */
+    /* USER CODE BEGIN HardFault_IRQn 0 */
 
-  /* USER CODE END HardFault_IRQn 0 */
-  while (1)
-  {
-    /* USER CODE BEGIN W1_HardFault_IRQn 0 */
-    /* USER CODE END W1_HardFault_IRQn 0 */
-  }
+    /* USER CODE END HardFault_IRQn 0 */
+    while( 1 )
+    {
+        /* USER CODE BEGIN W1_HardFault_IRQn 0 */
+        /* USER CODE END W1_HardFault_IRQn 0 */
+    }
 }
 
 /**
   * @brief This function handles System service call via SWI instruction.
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
-  /* USER CODE BEGIN SVC_IRQn 0 */
+    /* USER CODE BEGIN SVC_IRQn 0 */
 
-  /* USER CODE END SVC_IRQn 0 */
-  /* USER CODE BEGIN SVC_IRQn 1 */
+    /* USER CODE END SVC_IRQn 0 */
+    /* USER CODE BEGIN SVC_IRQn 1 */
 
-  /* USER CODE END SVC_IRQn 1 */
+    /* USER CODE END SVC_IRQn 1 */
 }
 
 /**
   * @brief This function handles Pendable request for system service.
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
-  /* USER CODE BEGIN PendSV_IRQn 0 */
+    /* USER CODE BEGIN PendSV_IRQn 0 */
 
-  /* USER CODE END PendSV_IRQn 0 */
-  /* USER CODE BEGIN PendSV_IRQn 1 */
+    /* USER CODE END PendSV_IRQn 0 */
+    /* USER CODE BEGIN PendSV_IRQn 1 */
 
-  /* USER CODE END PendSV_IRQn 1 */
+    /* USER CODE END PendSV_IRQn 1 */
 }
 
 /**
   * @brief This function handles System tick timer.
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
-  /* USER CODE BEGIN SysTick_IRQn 0 */
+    /* USER CODE BEGIN SysTick_IRQn 0 */
 
-  /* USER CODE END SysTick_IRQn 0 */
+    /* USER CODE END SysTick_IRQn 0 */
 
-  /* USER CODE BEGIN SysTick_IRQn 1 */
+    /* USER CODE BEGIN SysTick_IRQn 1 */
 
-  /* USER CODE END SysTick_IRQn 1 */
+    /* USER CODE END SysTick_IRQn 1 */
 }
 
 /******************************************************************************/
@@ -146,65 +146,66 @@ void SysTick_Handler(void)
 /**
   * @brief This function handles DMA1 channel 1 interrupt.
   */
-void DMA1_Channel1_IRQHandler(void)
+void DMA1_Channel1_IRQHandler( void )
 {
-  /* USER CODE BEGIN DMA1_Channel1_IRQn 0 */
+    /* USER CODE BEGIN DMA1_Channel1_IRQn 0 */
 
-  if (LL_DMA_IsActiveFlag_TC1(DMA1))
-  {
-    LL_DMA_ClearFlag_GI1(DMA1);
-    /* Call function Transmission complete Callback */
-    DMA1_TransmitComplete_Callback();
-  }
-  else if (LL_DMA_IsActiveFlag_TE1(DMA1))
-  {
-    /* Call Error function */
-    USART_TransferError_Callback();
-  }
-  /* USER CODE END DMA1_Channel1_IRQn 0 */
+    if( LL_DMA_IsActiveFlag_TC1( DMA1 ) )
+    {
+        LL_DMA_ClearFlag_GI1( DMA1 );
+        /* Call function Transmission complete Callback */
+        DMA1_TransmitComplete_Callback();
+    }
+    else if( LL_DMA_IsActiveFlag_TE1( DMA1 ) )
+    {
+        /* Call Error function */
+        USART_TransferError_Callback();
+    }
 
-  /* USER CODE BEGIN DMA1_Channel1_IRQn 1 */
+    /* USER CODE END DMA1_Channel1_IRQn 0 */
 
-  /* USER CODE END DMA1_Channel1_IRQn 1 */
+    /* USER CODE BEGIN DMA1_Channel1_IRQn 1 */
+
+    /* USER CODE END DMA1_Channel1_IRQn 1 */
 }
 
 /**
   * @brief This function handles DMA1 channel 2 and channel 3 interrupts.
   */
-void DMA1_Channel2_3_IRQHandler(void)
+void DMA1_Channel2_3_IRQHandler( void )
 {
-  /* USER CODE BEGIN DMA1_Channel2_3_IRQn 0 */
+    /* USER CODE BEGIN DMA1_Channel2_3_IRQn 0 */
 
-  if (LL_DMA_IsActiveFlag_TC2(DMA1))
-  {
-    LL_DMA_ClearFlag_GI2(DMA1);
-    /* Call function Reception complete Callback */
-    DMA1_ReceiveComplete_Callback();
-  }
-  else if (LL_DMA_IsActiveFlag_TE2(DMA1))
-  {
-    /* Call Error function */
-    USART_TransferError_Callback();
-  }
+    if( LL_DMA_IsActiveFlag_TC2( DMA1 ) )
+    {
+        LL_DMA_ClearFlag_GI2( DMA1 );
+        /* Call function Reception complete Callback */
+        DMA1_ReceiveComplete_Callback();
+    }
+    else if( LL_DMA_IsActiveFlag_TE2( DMA1 ) )
+    {
+        /* Call Error function */
+        USART_TransferError_Callback();
+    }
 
-  /* USER CODE END DMA1_Channel2_3_IRQn 0 */
+    /* USER CODE END DMA1_Channel2_3_IRQn 0 */
 
-  /* USER CODE BEGIN DMA1_Channel2_3_IRQn 1 */
+    /* USER CODE BEGIN DMA1_Channel2_3_IRQn 1 */
 
-  /* USER CODE END DMA1_Channel2_3_IRQn 1 */
+    /* USER CODE END DMA1_Channel2_3_IRQn 1 */
 }
 
 /**
   * @brief This function handles USART2 global interrupt / USART2 wake-up interrupt through EXTI line 26.
   */
-void USART2_IRQHandler(void)
+void USART2_IRQHandler( void )
 {
-  /* USER CODE BEGIN USART2_IRQn 0 */
+    /* USER CODE BEGIN USART2_IRQn 0 */
 
-  /* USER CODE END USART2_IRQn 0 */
-  /* USER CODE BEGIN USART2_IRQn 1 */
+    /* USER CODE END USART2_IRQn 0 */
+    /* USER CODE BEGIN USART2_IRQn 1 */
 
-  /* USER CODE END USART2_IRQn 1 */
+    /* USER CODE END USART2_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
@@ -213,16 +214,16 @@ void USART2_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void USER_BUTTON_IRQHANDLER(void)
+void USER_BUTTON_IRQHANDLER( void )
 {
-  /* Manage Flags */
-  if (LL_EXTI_IsActiveFallingFlag_0_31(USER_BUTTON_EXTI_LINE) != RESET)
-  {
-    LL_EXTI_ClearFallingFlag_0_31(USER_BUTTON_EXTI_LINE);
+    /* Manage Flags */
+    if( LL_EXTI_IsActiveFallingFlag_0_31( USER_BUTTON_EXTI_LINE ) != RESET )
+    {
+        LL_EXTI_ClearFallingFlag_0_31( USER_BUTTON_EXTI_LINE );
 
-    /* Handle User push-button press in dedicated function */
-    UserButton_Callback();
-  }
+        /* Handle User push-button press in dedicated function */
+        UserButton_Callback();
+    }
 }
 
 /* USER CODE END 1 */

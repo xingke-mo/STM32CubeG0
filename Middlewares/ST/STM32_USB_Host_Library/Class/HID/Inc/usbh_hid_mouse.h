@@ -52,9 +52,9 @@ extern "C" {
 
 typedef struct _HID_MOUSE_Info
 {
-  uint8_t              x;
-  uint8_t              y;
-  uint8_t              buttons[3];
+    uint8_t              x;
+    uint8_t              y;
+    uint8_t              buttons[3];
 }
 HID_MOUSE_Info_TypeDef;
 
@@ -86,8 +86,8 @@ HID_MOUSE_Info_TypeDef;
 /** @defgroup USBH_HID_MOUSE_Exported_FunctionsPrototype
   * @{
   */
-USBH_StatusTypeDef USBH_HID_MouseInit(USBH_HandleTypeDef *phost);
-HID_MOUSE_Info_TypeDef *USBH_HID_GetMouseInfo(USBH_HandleTypeDef *phost);
+USBH_StatusTypeDef USBH_HID_MouseInit( USBH_HandleTypeDef *phost );
+HID_MOUSE_Info_TypeDef *USBH_HID_GetMouseInfo( USBH_HandleTypeDef *phost );
 
 /**
   * @}

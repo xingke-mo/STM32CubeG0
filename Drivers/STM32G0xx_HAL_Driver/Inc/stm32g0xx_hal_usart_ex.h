@@ -240,8 +240,8 @@ extern "C" {
   */
 
 /* IO operation functions *****************************************************/
-void HAL_USARTEx_RxFifoFullCallback(USART_HandleTypeDef *husart);
-void HAL_USARTEx_TxFifoEmptyCallback(USART_HandleTypeDef *husart);
+void HAL_USARTEx_RxFifoFullCallback( USART_HandleTypeDef *husart );
+void HAL_USARTEx_TxFifoEmptyCallback( USART_HandleTypeDef *husart );
 
 /**
   * @}
@@ -252,13 +252,13 @@ void HAL_USARTEx_TxFifoEmptyCallback(USART_HandleTypeDef *husart);
   */
 
 /* Peripheral Control functions ***********************************************/
-HAL_StatusTypeDef HAL_USARTEx_EnableSlaveMode(USART_HandleTypeDef *husart);
-HAL_StatusTypeDef HAL_USARTEx_DisableSlaveMode(USART_HandleTypeDef *husart);
-HAL_StatusTypeDef HAL_USARTEx_ConfigNSS(USART_HandleTypeDef *husart, uint32_t NSSConfig);
-HAL_StatusTypeDef HAL_USARTEx_EnableFifoMode(USART_HandleTypeDef *husart);
-HAL_StatusTypeDef HAL_USARTEx_DisableFifoMode(USART_HandleTypeDef *husart);
-HAL_StatusTypeDef HAL_USARTEx_SetTxFifoThreshold(USART_HandleTypeDef *husart, uint32_t Threshold);
-HAL_StatusTypeDef HAL_USARTEx_SetRxFifoThreshold(USART_HandleTypeDef *husart, uint32_t Threshold);
+HAL_StatusTypeDef HAL_USARTEx_EnableSlaveMode( USART_HandleTypeDef *husart );
+HAL_StatusTypeDef HAL_USARTEx_DisableSlaveMode( USART_HandleTypeDef *husart );
+HAL_StatusTypeDef HAL_USARTEx_ConfigNSS( USART_HandleTypeDef *husart, uint32_t NSSConfig );
+HAL_StatusTypeDef HAL_USARTEx_EnableFifoMode( USART_HandleTypeDef *husart );
+HAL_StatusTypeDef HAL_USARTEx_DisableFifoMode( USART_HandleTypeDef *husart );
+HAL_StatusTypeDef HAL_USARTEx_SetTxFifoThreshold( USART_HandleTypeDef *husart, uint32_t Threshold );
+HAL_StatusTypeDef HAL_USARTEx_SetRxFifoThreshold( USART_HandleTypeDef *husart, uint32_t Threshold );
 
 /**
   * @}

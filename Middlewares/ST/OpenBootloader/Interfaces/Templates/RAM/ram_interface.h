@@ -26,9 +26,9 @@
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void OPENBL_RAM_JumpToAddress(uint32_t Address);
-uint8_t OPENBL_RAM_Read(uint32_t Address);
-void OPENBL_RAM_Write(uint32_t Address, uint8_t *Data, uint32_t DataLength);
+void OPENBL_RAM_JumpToAddress( uint32_t Address );
+uint8_t OPENBL_RAM_Read( uint32_t Address );
+void OPENBL_RAM_Write( uint32_t Address, uint8_t *Data, uint32_t DataLength );
 
 #endif /* RAM_INTERFACE_H */
 

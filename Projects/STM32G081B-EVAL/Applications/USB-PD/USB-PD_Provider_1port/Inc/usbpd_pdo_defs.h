@@ -21,7 +21,7 @@
 #define __USBPD_PDO_DEF_H_
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -86,39 +86,39 @@ extern uint32_t PORT0_PDO_ListSNK[USBPD_MAX_NB_PDO];
 /* Definition of Source PDO for Port 0 */
 uint32_t PORT0_PDO_ListSRC[USBPD_MAX_NB_PDO] =
 {
-  /* PDO 1 */
-        (0x0201912CU),
-  /* PDO 2 */
-        (0x00000000U),
-  /* PDO 3 */
-        (0x00000000U),
-  /* PDO 4 */
-        (0x00000000U),
-  /* PDO 5 */
-        (0x00000000U),
-  /* PDO 6 */
-        (0x00000000U),
-  /* PDO 7 */
-        (0x00000000U)
+    /* PDO 1 */
+    ( 0x0201912CU ),
+    /* PDO 2 */
+    ( 0x00000000U ),
+    /* PDO 3 */
+    ( 0x00000000U ),
+    /* PDO 4 */
+    ( 0x00000000U ),
+    /* PDO 5 */
+    ( 0x00000000U ),
+    /* PDO 6 */
+    ( 0x00000000U ),
+    /* PDO 7 */
+    ( 0x00000000U )
 };
 
 /* Definition of Sink PDO for Port 0 */
 uint32_t PORT0_PDO_ListSNK[USBPD_MAX_NB_PDO] =
 {
-  /* PDO 1 */
-        (0x00000000U),
-  /* PDO 2 */
-        (0x00000000U),
-  /* PDO 3 */
-        (0x00000000U),
-  /* PDO 4 */
-        (0x00000000U),
-  /* PDO 5 */
-        (0x00000000U),
-  /* PDO 6 */
-        (0x00000000U),
-  /* PDO 7 */
-        (0x00000000U)
+    /* PDO 1 */
+    ( 0x00000000U ),
+    /* PDO 2 */
+    ( 0x00000000U ),
+    /* PDO 3 */
+    ( 0x00000000U ),
+    /* PDO 4 */
+    ( 0x00000000U ),
+    /* PDO 5 */
+    ( 0x00000000U ),
+    /* PDO 6 */
+    ( 0x00000000U ),
+    /* PDO 7 */
+    ( 0x00000000U )
 };
 
 #endif

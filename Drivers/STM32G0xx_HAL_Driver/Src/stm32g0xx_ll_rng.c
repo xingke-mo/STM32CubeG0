@@ -23,9 +23,9 @@
 #include "stm32g0xx_ll_bus.h"
 
 #ifdef  USE_FULL_ASSERT
-#include "stm32_assert.h"
+    #include "stm32_assert.h"
 #else
-#define assert_param(expr) ((void)0U)
+    #define assert_param(expr) ((void)0U)
 #endif
 
 /** @addtogroup STM32G0xx_LL_Driver
@@ -69,16 +69,16 @@
   *          - SUCCESS: RNG registers are de-initialized
   *          - ERROR: not applicable
   */
-ErrorStatus LL_RNG_DeInit(RNG_TypeDef *RNGx)
+ErrorStatus LL_RNG_DeInit( RNG_TypeDef *RNGx )
 {
-  /* Check the parameters */
-  assert_param(IS_RNG_ALL_INSTANCE(RNGx));
-  /* Enable RNG reset state */
-  LL_AHB1_GRP1_ForceReset(LL_AHB1_GRP1_PERIPH_RNG);
+    /* Check the parameters */
+    assert_param( IS_RNG_ALL_INSTANCE( RNGx ) );
+    /* Enable RNG reset state */
+    LL_AHB1_GRP1_ForceReset( LL_AHB1_GRP1_PERIPH_RNG );
 
-  /* Release RNG from reset state */
-  LL_AHB1_GRP1_ReleaseReset(LL_AHB1_GRP1_PERIPH_RNG);
-  return (SUCCESS);
+    /* Release RNG from reset state */
+    LL_AHB1_GRP1_ReleaseReset( LL_AHB1_GRP1_PERIPH_RNG );
+    return ( SUCCESS );
 }
 
 /**
@@ -90,16 +90,16 @@ ErrorStatus LL_RNG_DeInit(RNG_TypeDef *RNGx)
   *          - SUCCESS: RNG registers are initialized according to RNG_InitStruct content
   *          - ERROR: not applicable
   */
-ErrorStatus LL_RNG_Init(RNG_TypeDef *RNGx, LL_RNG_InitTypeDef *RNG_InitStruct)
+ErrorStatus LL_RNG_Init( RNG_TypeDef *RNGx, LL_RNG_InitTypeDef *RNG_InitStruct )
 {
-  /* Check the parameters */
-  assert_param(IS_RNG_ALL_INSTANCE(RNGx));
-  assert_param(IS_LL_RNG_CED(RNG_InitStruct->ClockErrorDetection));
+    /* Check the parameters */
+    assert_param( IS_RNG_ALL_INSTANCE( RNGx ) );
+    assert_param( IS_LL_RNG_CED( RNG_InitStruct->ClockErrorDetection ) );
 
-  /* Clock Error Detection configuration */
-  MODIFY_REG(RNGx->CR, RNG_CR_CED, RNG_InitStruct->ClockErrorDetection);
+    /* Clock Error Detection configuration */
+    MODIFY_REG( RNGx->CR, RNG_CR_CED, RNG_InitStruct->ClockErrorDetection );
 
-  return (SUCCESS);
+    return ( SUCCESS );
 }
 
 /**
@@ -108,10 +108,10 @@ ErrorStatus LL_RNG_Init(RNG_TypeDef *RNGx, LL_RNG_InitTypeDef *RNG_InitStruct)
   *                       whose fields will be set to default values.
   * @retval None
   */
-void LL_RNG_StructInit(LL_RNG_InitTypeDef *RNG_InitStruct)
+void LL_RNG_StructInit( LL_RNG_InitTypeDef *RNG_InitStruct )
 {
-  /* Set RNG_InitStruct fields to default values */
-  RNG_InitStruct->ClockErrorDetection = LL_RNG_CED_ENABLE;
+    /* Set RNG_InitStruct fields to default values */
+    RNG_InitStruct->ClockErrorDetection = LL_RNG_CED_ENABLE;
 
 }
 /**

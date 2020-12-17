@@ -22,15 +22,15 @@
 extern "C" {
 #endif
 
-  /* Includes ----------------------------------------------------------------*/
+/* Includes ----------------------------------------------------------------*/
 #include <stdint.h>
 
 /* Exported types ------------------------------------------------------------*/
-/* Exported constants --------------------------------------------------------*/  
+/* Exported constants --------------------------------------------------------*/
 /* Exported macros -----------------------------------------------------------*/
 
 /* Exported functions --------------------------------------------------------*/
-void      UTILS_DisplayBuildOption(uint32_t Timeout);
+void      UTILS_DisplayBuildOption( uint32_t Timeout );
 #ifdef __cplusplus
 }
 #endif

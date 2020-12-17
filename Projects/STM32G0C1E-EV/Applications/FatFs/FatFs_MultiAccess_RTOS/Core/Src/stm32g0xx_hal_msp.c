@@ -53,7 +53,7 @@
 
 /* External functions --------------------------------------------------------*/
 /* USER CODE BEGIN ExternalFunctions */
-extern void Error_Handler(void);
+extern void Error_Handler( void );
 /* USER CODE END ExternalFunctions */
 
 /* USER CODE BEGIN 0 */
@@ -62,18 +62,18 @@ extern void Error_Handler(void);
 /**
   * Initializes the Global MSP.
   */
-void HAL_MspInit(void)
+void HAL_MspInit( void )
 {
-  /* USER CODE BEGIN MspInit 0 */
+    /* USER CODE BEGIN MspInit 0 */
 
-  /* USER CODE END MspInit 0 */
+    /* USER CODE END MspInit 0 */
 
 
-  /* System interrupt init*/
+    /* System interrupt init*/
 
-  /* USER CODE BEGIN MspInit 1 */
+    /* USER CODE BEGIN MspInit 1 */
 
-  /* USER CODE END MspInit 1 */
+    /* USER CODE END MspInit 1 */
 }
 
 /* USER CODE BEGIN 1 */

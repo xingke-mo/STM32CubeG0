@@ -80,19 +80,19 @@
   * @{
   */
 
-static uint8_t USBD_BB_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx);
-static uint8_t USBD_BB_DeInit(USBD_HandleTypeDef *pdev, uint8_t cfgidx);
-static uint8_t USBD_BB_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req);
-static uint8_t USBD_BB_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum);
-static uint8_t USBD_BB_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum);
-static uint8_t USBD_BB_EP0_RxReady(USBD_HandleTypeDef *pdev);
+static uint8_t USBD_BB_Init( USBD_HandleTypeDef *pdev, uint8_t cfgidx );
+static uint8_t USBD_BB_DeInit( USBD_HandleTypeDef *pdev, uint8_t cfgidx );
+static uint8_t USBD_BB_Setup( USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req );
+static uint8_t USBD_BB_DataIn( USBD_HandleTypeDef *pdev, uint8_t epnum );
+static uint8_t USBD_BB_DataOut( USBD_HandleTypeDef *pdev, uint8_t epnum );
+static uint8_t USBD_BB_EP0_RxReady( USBD_HandleTypeDef *pdev );
 
-static uint8_t *USBD_BB_GetCfgDesc(uint16_t *length);
-static uint8_t *USBD_BB_GetDeviceQualifierDesc(uint16_t *length);
-static uint8_t *USBD_BB_GetOtherSpeedCfgDesc(uint16_t *length);
+static uint8_t *USBD_BB_GetCfgDesc( uint16_t *length );
+static uint8_t *USBD_BB_GetDeviceQualifierDesc( uint16_t *length );
+static uint8_t *USBD_BB_GetOtherSpeedCfgDesc( uint16_t *length );
 
 #if (USBD_CLASS_BOS_ENABLED == 1)
-USBD_BB_DescHeader_t *USBD_BB_GetNextDesc(uint8_t *pbuf, uint16_t *ptr);
+    USBD_BB_DescHeader_t *USBD_BB_GetNextDesc( uint8_t *pbuf, uint16_t *ptr );
 #endif
 
 
@@ -106,99 +106,99 @@ USBD_BB_DescHeader_t *USBD_BB_GetNextDesc(uint8_t *pbuf, uint16_t *ptr);
   */
 USBD_ClassTypeDef  USBD_BB =
 {
-  USBD_BB_Init,             /* Init */
-  USBD_BB_DeInit,           /* DeInit */
-  USBD_BB_Setup,            /* Setup */
-  NULL,                     /* EP0_TxSent */
-  USBD_BB_EP0_RxReady,      /* EP0_RxReady */
-  USBD_BB_DataIn,           /* DataIn */
-  USBD_BB_DataOut,          /* DataOut */
-  NULL,                     /* SOF */
-  NULL,
-  NULL,
-  USBD_BB_GetCfgDesc,
-  USBD_BB_GetCfgDesc,
-  USBD_BB_GetOtherSpeedCfgDesc,
-  USBD_BB_GetDeviceQualifierDesc,
+    USBD_BB_Init,             /* Init */
+    USBD_BB_DeInit,           /* DeInit */
+    USBD_BB_Setup,            /* Setup */
+    NULL,                     /* EP0_TxSent */
+    USBD_BB_EP0_RxReady,      /* EP0_RxReady */
+    USBD_BB_DataIn,           /* DataIn */
+    USBD_BB_DataOut,          /* DataOut */
+    NULL,                     /* SOF */
+    NULL,
+    NULL,
+    USBD_BB_GetCfgDesc,
+    USBD_BB_GetCfgDesc,
+    USBD_BB_GetOtherSpeedCfgDesc,
+    USBD_BB_GetDeviceQualifierDesc,
 #if (USBD_SUPPORT_USER_STRING_DESC == 1U)
-  NULL,
+    NULL,
 #endif
 };
 
 /* USB Standard Device Qualifier Descriptor */
 __ALIGN_BEGIN static uint8_t USBD_BB_DeviceQualifierDesc[USB_LEN_DEV_QUALIFIER_DESC]  __ALIGN_END =
 {
-  USB_LEN_DEV_QUALIFIER_DESC,     /* bLength */
-  USB_DESC_TYPE_DEVICE_QUALIFIER, /* bDescriptorType */
-  0x01,                           /* bcdUSB */
-  0x20,
-  0x11,                           /* bDeviceClass */
-  0x00,                           /* bDeviceSubClass */
-  0x00,                           /* bDeviceProtocol */
-  0x40,                           /* bMaxPacketSize0 */
-  0x01,                           /* bNumConfigurations */
-  0x00,                           /* bReserved */
+    USB_LEN_DEV_QUALIFIER_DESC,     /* bLength */
+    USB_DESC_TYPE_DEVICE_QUALIFIER, /* bDescriptorType */
+    0x01,                           /* bcdUSB */
+    0x20,
+    0x11,                           /* bDeviceClass */
+    0x00,                           /* bDeviceSubClass */
+    0x00,                           /* bDeviceProtocol */
+    0x40,                           /* bMaxPacketSize0 */
+    0x01,                           /* bNumConfigurations */
+    0x00,                           /* bReserved */
 };
 
 /* USB device Configuration Descriptor */
 __ALIGN_BEGIN static uint8_t USBD_BB_CfgDesc[USB_BB_CONFIG_DESC_SIZ]  __ALIGN_END =
 {
-  0x09,                        /* bLength: Configuration Descriptor size */
-  USB_DESC_TYPE_CONFIGURATION, /* bDescriptorType: Configuration */
-  USB_BB_CONFIG_DESC_SIZ,      /* wTotalLength: Bytes returned */
-  0x00,
-  0x01,                        /* bNumInterfaces: 1 interface */
-  0x01,                        /* bConfigurationValue: Configuration value */
-  USBD_IDX_CONFIG_STR,         /* iConfiguration: Index of string descriptor describing the configuration */
+    0x09,                        /* bLength: Configuration Descriptor size */
+    USB_DESC_TYPE_CONFIGURATION, /* bDescriptorType: Configuration */
+    USB_BB_CONFIG_DESC_SIZ,      /* wTotalLength: Bytes returned */
+    0x00,
+    0x01,                        /* bNumInterfaces: 1 interface */
+    0x01,                        /* bConfigurationValue: Configuration value */
+    USBD_IDX_CONFIG_STR,         /* iConfiguration: Index of string descriptor describing the configuration */
 #if (USBD_SELF_POWERED == 1U)
-  0xC0,                        /* bmAttributes: Bus Powered according to user configuration */
+    0xC0,                        /* bmAttributes: Bus Powered according to user configuration */
 #else
-  0x80,                        /* bmAttributes: Bus Powered according to user configuration */
+    0x80,                        /* bmAttributes: Bus Powered according to user configuration */
 #endif
-  USBD_MAX_POWER,              /* MaxPower 100 mA: this current is used for detecting Vbus */
-  /* 09 */
+    USBD_MAX_POWER,              /* MaxPower 100 mA: this current is used for detecting Vbus */
+    /* 09 */
 
-  /************** Descriptor of BillBoard interface ****************/
-  /* 09 */
-  0x09,                        /* bLength: Interface Descriptor size */
-  USB_DESC_TYPE_INTERFACE,     /* bDescriptorType: Interface descriptor type */
-  0x00,                        /* bInterfaceNumber: Number of Interface */
-  0x00,                        /* bAlternateSetting: Alternate setting */
-  0x00,                        /* bNumEndpoints */
-  0x11,                        /* bInterfaceClass: billboard */
-  0x00,                        /* bInterfaceSubClass */
-  0x00,                        /* nInterfaceProtocol */
-  USBD_BB_IF_STRING_INDEX,     /* iInterface: Index of string descriptor */
+    /************** Descriptor of BillBoard interface ****************/
+    /* 09 */
+    0x09,                        /* bLength: Interface Descriptor size */
+    USB_DESC_TYPE_INTERFACE,     /* bDescriptorType: Interface descriptor type */
+    0x00,                        /* bInterfaceNumber: Number of Interface */
+    0x00,                        /* bAlternateSetting: Alternate setting */
+    0x00,                        /* bNumEndpoints */
+    0x11,                        /* bInterfaceClass: billboard */
+    0x00,                        /* bInterfaceSubClass */
+    0x00,                        /* nInterfaceProtocol */
+    USBD_BB_IF_STRING_INDEX,     /* iInterface: Index of string descriptor */
 };
 
 /* USB device Other Speed Configuration Descriptor */
 __ALIGN_BEGIN static uint8_t USBD_BB_OtherSpeedCfgDesc[USB_BB_CONFIG_DESC_SIZ]   __ALIGN_END  =
 {
-  0x09,                        /* bLength: Configuration Descriptor size */
-  USB_DESC_TYPE_OTHER_SPEED_CONFIGURATION,
-  USB_BB_CONFIG_DESC_SIZ,
-  0x00,
-  0x01,                        /* bNumInterfaces: 1 interface */
-  0x01,                        /* bConfigurationValue: */
-  USBD_IDX_CONFIG_STR,         /* iConfiguration: */
+    0x09,                        /* bLength: Configuration Descriptor size */
+    USB_DESC_TYPE_OTHER_SPEED_CONFIGURATION,
+    USB_BB_CONFIG_DESC_SIZ,
+    0x00,
+    0x01,                        /* bNumInterfaces: 1 interface */
+    0x01,                        /* bConfigurationValue: */
+    USBD_IDX_CONFIG_STR,         /* iConfiguration: */
 #if (USBD_SELF_POWERED == 1U)
-  0xC0,                        /* bmAttributes: Bus Powered according to user configuration */
+    0xC0,                        /* bmAttributes: Bus Powered according to user configuration */
 #else
-  0x80,                        /* bmAttributes: Bus Powered according to user configuration */
+    0x80,                        /* bmAttributes: Bus Powered according to user configuration */
 #endif
-  USBD_MAX_POWER,              /* MaxPower 100 mA */
+    USBD_MAX_POWER,              /* MaxPower 100 mA */
 
-  /************** Descriptor of BillBoard interface ****************/
-  /* 09 */
-  0x09,                        /* bLength: Interface Descriptor size */
-  USB_DESC_TYPE_INTERFACE,     /* bDescriptorType: Interface descriptor type */
-  0x00,                        /* bInterfaceNumber: Number of Interface */
-  0x00,                        /* bAlternateSetting: Alternate setting */
-  0x00,                        /* bNumEndpoints*/
-  0x11,                        /* bInterfaceClass: billboard */
-  0x00,                        /* bInterfaceSubClass */
-  0x00,                        /* nInterfaceProtocol */
-  USBD_BB_IF_STRING_INDEX,     /* iInterface: Index of string descriptor */
+    /************** Descriptor of BillBoard interface ****************/
+    /* 09 */
+    0x09,                        /* bLength: Interface Descriptor size */
+    USB_DESC_TYPE_INTERFACE,     /* bDescriptorType: Interface descriptor type */
+    0x00,                        /* bInterfaceNumber: Number of Interface */
+    0x00,                        /* bAlternateSetting: Alternate setting */
+    0x00,                        /* bNumEndpoints*/
+    0x11,                        /* bInterfaceClass: billboard */
+    0x00,                        /* bInterfaceSubClass */
+    0x00,                        /* nInterfaceProtocol */
+    USBD_BB_IF_STRING_INDEX,     /* iInterface: Index of string descriptor */
 } ;
 
 /**
@@ -216,13 +216,13 @@ __ALIGN_BEGIN static uint8_t USBD_BB_OtherSpeedCfgDesc[USB_BB_CONFIG_DESC_SIZ]  
   * @param  cfgidx: Configuration index
   * @retval status
   */
-static uint8_t USBD_BB_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
+static uint8_t USBD_BB_Init( USBD_HandleTypeDef *pdev, uint8_t cfgidx )
 {
-  /* Prevent unused argument compilation warning */
-  UNUSED(pdev);
-  UNUSED(cfgidx);
+    /* Prevent unused argument compilation warning */
+    UNUSED( pdev );
+    UNUSED( cfgidx );
 
-  return (uint8_t)USBD_OK;
+    return ( uint8_t )USBD_OK;
 }
 
 /**
@@ -232,13 +232,13 @@ static uint8_t USBD_BB_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
   * @param  cfgidx: Configuration index
   * @retval status
   */
-static uint8_t USBD_BB_DeInit(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
+static uint8_t USBD_BB_DeInit( USBD_HandleTypeDef *pdev, uint8_t cfgidx )
 {
-  /* Prevent unused argument compilation warning */
-  UNUSED(pdev);
-  UNUSED(cfgidx);
+    /* Prevent unused argument compilation warning */
+    UNUSED( pdev );
+    UNUSED( cfgidx );
 
-  return (uint8_t)USBD_OK;
+    return ( uint8_t )USBD_OK;
 }
 
 /**
@@ -248,61 +248,65 @@ static uint8_t USBD_BB_DeInit(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
   * @param  req: usb requests
   * @retval status
   */
-static uint8_t USBD_BB_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
+static uint8_t USBD_BB_Setup( USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req )
 {
-  USBD_StatusTypeDef ret = USBD_OK;
-  uint16_t status_info = 0U;
-  uint16_t AltSetting = 0U;
+    USBD_StatusTypeDef ret = USBD_OK;
+    uint16_t status_info = 0U;
+    uint16_t AltSetting = 0U;
 
-  switch (req->bmRequest & USB_REQ_TYPE_MASK)
-  {
+    switch( req->bmRequest & USB_REQ_TYPE_MASK )
+    {
     case USB_REQ_TYPE_CLASS:
-      break;
+        break;
+
     case USB_REQ_TYPE_STANDARD:
-      switch (req->bRequest)
-      {
+        switch( req->bRequest )
+        {
         case USB_REQ_GET_STATUS:
-          if (pdev->dev_state == USBD_STATE_CONFIGURED)
-          {
-            (void)USBD_CtlSendData(pdev, (uint8_t *)&status_info, 2U);
-          }
-          else
-          {
-            USBD_CtlError(pdev, req);
-            ret = USBD_FAIL;
-          }
-          break;
+            if( pdev->dev_state == USBD_STATE_CONFIGURED )
+            {
+                ( void )USBD_CtlSendData( pdev, ( uint8_t * )&status_info, 2U );
+            }
+            else
+            {
+                USBD_CtlError( pdev, req );
+                ret = USBD_FAIL;
+            }
+
+            break;
 
         case USB_REQ_GET_INTERFACE:
-          if (pdev->dev_state == USBD_STATE_CONFIGURED)
-          {
-            (void)USBD_CtlSendData(pdev, (uint8_t *)&AltSetting, 1U);
-          }
-          else
-          {
-            USBD_CtlError(pdev, req);
-            ret = USBD_FAIL;
-          }
-          break;
+            if( pdev->dev_state == USBD_STATE_CONFIGURED )
+            {
+                ( void )USBD_CtlSendData( pdev, ( uint8_t * )&AltSetting, 1U );
+            }
+            else
+            {
+                USBD_CtlError( pdev, req );
+                ret = USBD_FAIL;
+            }
+
+            break;
 
         case USB_REQ_SET_INTERFACE:
         case USB_REQ_CLEAR_FEATURE:
-          break;
+            break;
 
         default:
-          USBD_CtlError(pdev, req);
-          ret = USBD_FAIL;
-          break;
-      }
-      break;
+            USBD_CtlError( pdev, req );
+            ret = USBD_FAIL;
+            break;
+        }
+
+        break;
 
     default:
-      USBD_CtlError(pdev, req);
-      ret = USBD_FAIL;
-      break;
-  }
+        USBD_CtlError( pdev, req );
+        ret = USBD_FAIL;
+        break;
+    }
 
-  return (uint8_t)ret;
+    return ( uint8_t )ret;
 }
 
 /**
@@ -312,13 +316,13 @@ static uint8_t USBD_BB_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req
   * @param  epnum: endpoint number
   * @retval status
   */
-static uint8_t USBD_BB_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
+static uint8_t USBD_BB_DataIn( USBD_HandleTypeDef *pdev, uint8_t epnum )
 {
-  /* Prevent unused argument compilation warning */
-  UNUSED(pdev);
-  UNUSED(epnum);
+    /* Prevent unused argument compilation warning */
+    UNUSED( pdev );
+    UNUSED( epnum );
 
-  return (uint8_t)USBD_OK;
+    return ( uint8_t )USBD_OK;
 }
 
 /**
@@ -328,13 +332,13 @@ static uint8_t USBD_BB_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
   * @param  epnum: endpoint number
   * @retval status
   */
-static uint8_t USBD_BB_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum)
+static uint8_t USBD_BB_DataOut( USBD_HandleTypeDef *pdev, uint8_t epnum )
 {
-  /* Prevent unused argument compilation warning */
-  UNUSED(pdev);
-  UNUSED(epnum);
+    /* Prevent unused argument compilation warning */
+    UNUSED( pdev );
+    UNUSED( epnum );
 
-  return (uint8_t)USBD_OK;
+    return ( uint8_t )USBD_OK;
 }
 
 /**
@@ -343,12 +347,12 @@ static uint8_t USBD_BB_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum)
   * @param  pdev: device instance
   * @retval status
   */
-static uint8_t USBD_BB_EP0_RxReady(USBD_HandleTypeDef *pdev)
+static uint8_t USBD_BB_EP0_RxReady( USBD_HandleTypeDef *pdev )
 {
-  /* Prevent unused argument compilation warning */
-  UNUSED(pdev);
+    /* Prevent unused argument compilation warning */
+    UNUSED( pdev );
 
-  return (uint8_t)USBD_OK;
+    return ( uint8_t )USBD_OK;
 }
 
 /**
@@ -358,10 +362,10 @@ static uint8_t USBD_BB_EP0_RxReady(USBD_HandleTypeDef *pdev)
   * @param  length : pointer data length
   * @retval pointer to descriptor buffer
   */
-static uint8_t *USBD_BB_GetCfgDesc(uint16_t *length)
+static uint8_t *USBD_BB_GetCfgDesc( uint16_t *length )
 {
-  *length = (uint16_t)sizeof(USBD_BB_CfgDesc);
-  return USBD_BB_CfgDesc;
+    *length = ( uint16_t )sizeof( USBD_BB_CfgDesc );
+    return USBD_BB_CfgDesc;
 }
 
 /**
@@ -370,10 +374,10 @@ static uint8_t *USBD_BB_GetCfgDesc(uint16_t *length)
   * @param  length : pointer data length
   * @retval pointer to descriptor buffer
   */
-uint8_t *USBD_BB_GetOtherSpeedCfgDesc(uint16_t *length)
+uint8_t *USBD_BB_GetOtherSpeedCfgDesc( uint16_t *length )
 {
-  *length = (uint16_t)sizeof(USBD_BB_OtherSpeedCfgDesc);
-  return USBD_BB_OtherSpeedCfgDesc;
+    *length = ( uint16_t )sizeof( USBD_BB_OtherSpeedCfgDesc );
+    return USBD_BB_OtherSpeedCfgDesc;
 }
 
 /**
@@ -382,10 +386,10 @@ uint8_t *USBD_BB_GetOtherSpeedCfgDesc(uint16_t *length)
   * @param  length : pointer data length
   * @retval pointer to descriptor buffer
   */
-static uint8_t *USBD_BB_GetDeviceQualifierDesc(uint16_t *length)
+static uint8_t *USBD_BB_GetDeviceQualifierDesc( uint16_t *length )
 {
-  *length = (uint16_t)sizeof(USBD_BB_DeviceQualifierDesc);
-  return USBD_BB_DeviceQualifierDesc;
+    *length = ( uint16_t )sizeof( USBD_BB_DeviceQualifierDesc );
+    return USBD_BB_DeviceQualifierDesc;
 }
 
 
@@ -397,14 +401,14 @@ static uint8_t *USBD_BB_GetDeviceQualifierDesc(uint16_t *length)
   * @param  ptr: data pointer inside the descriptor
   * @retval next header
   */
-USBD_BB_DescHeader_t *USBD_BB_GetNextDesc(uint8_t *pbuf, uint16_t *ptr)
+USBD_BB_DescHeader_t *USBD_BB_GetNextDesc( uint8_t *pbuf, uint16_t *ptr )
 {
-  USBD_BB_DescHeader_t *pnext = (USBD_BB_DescHeader_t *)(void *)pbuf;
+    USBD_BB_DescHeader_t *pnext = ( USBD_BB_DescHeader_t * )( void * )pbuf;
 
-  *ptr += pnext->bLength;
-  pnext = (USBD_BB_DescHeader_t *)(void *)(pbuf + pnext->bLength);
+    *ptr += pnext->bLength;
+    pnext = ( USBD_BB_DescHeader_t * )( void * )( pbuf + pnext->bLength );
 
-  return (pnext);
+    return ( pnext );
 }
 
 
@@ -415,31 +419,32 @@ USBD_BB_DescHeader_t *USBD_BB_GetNextDesc(uint8_t *pbuf, uint16_t *ptr)
   * @param  pBosDesc:  pointer to Bos descriptor
   * @retval pointer to Billboard Capability descriptor
   */
-void *USBD_BB_GetCapDesc(USBD_HandleTypeDef *pdev, uint8_t *pBosDesc)
+void *USBD_BB_GetCapDesc( USBD_HandleTypeDef *pdev, uint8_t *pBosDesc )
 {
-  UNUSED(pdev);
+    UNUSED( pdev );
 
-  USBD_BB_DescHeader_t *pdesc = (USBD_BB_DescHeader_t *)(void *)pBosDesc;
-  USBD_BosDescTypedef *desc = (USBD_BosDescTypedef *)(void *)pBosDesc;
-  USBD_BosBBCapDescTypedef *pCapDesc = NULL;
-  uint16_t ptr;
+    USBD_BB_DescHeader_t *pdesc = ( USBD_BB_DescHeader_t * )( void * )pBosDesc;
+    USBD_BosDescTypedef *desc = ( USBD_BosDescTypedef * )( void * )pBosDesc;
+    USBD_BosBBCapDescTypedef *pCapDesc = NULL;
+    uint16_t ptr;
 
-  if (desc->wTotalLength > desc->bLength)
-  {
-    ptr = desc->bLength;
-
-    while (ptr < desc->wTotalLength)
+    if( desc->wTotalLength > desc->bLength )
     {
-      pdesc = USBD_BB_GetNextDesc((uint8_t *)pdesc, &ptr);
+        ptr = desc->bLength;
 
-      if (pdesc->bDevCapabilityType == USBD_BILLBOARD_CAPABILITY)
-      {
-        pCapDesc = (USBD_BosBBCapDescTypedef *)(void *)pdesc;
-        break;
-      }
+        while( ptr < desc->wTotalLength )
+        {
+            pdesc = USBD_BB_GetNextDesc( ( uint8_t * )pdesc, &ptr );
+
+            if( pdesc->bDevCapabilityType == USBD_BILLBOARD_CAPABILITY )
+            {
+                pCapDesc = ( USBD_BosBBCapDescTypedef * )( void * )pdesc;
+                break;
+            }
+        }
     }
-  }
-  return (void *)pCapDesc;
+
+    return ( void * )pCapDesc;
 }
 
 
@@ -451,39 +456,40 @@ void *USBD_BB_GetCapDesc(USBD_HandleTypeDef *pdev, uint8_t *pBosDesc)
   * @param  idx:  Index of requested Alternate Mode descriptor
   * @retval pointer to Alternate Mode descriptor
   */
-void *USBD_BB_GetAltModeDesc(USBD_HandleTypeDef *pdev, uint8_t *pBosDesc, uint8_t idx)
+void *USBD_BB_GetAltModeDesc( USBD_HandleTypeDef *pdev, uint8_t *pBosDesc, uint8_t idx )
 {
-  UNUSED(pdev);
+    UNUSED( pdev );
 
-  USBD_BB_DescHeader_t *pdesc = (USBD_BB_DescHeader_t *)(void *)pBosDesc;
-  USBD_BosDescTypedef *desc = (USBD_BosDescTypedef *)(void *)pBosDesc;
-  USBD_BB_AltModeCapDescTypeDef *pAltModDesc = NULL;
-  uint8_t cnt = 0U;
-  uint16_t ptr;
+    USBD_BB_DescHeader_t *pdesc = ( USBD_BB_DescHeader_t * )( void * )pBosDesc;
+    USBD_BosDescTypedef *desc = ( USBD_BosDescTypedef * )( void * )pBosDesc;
+    USBD_BB_AltModeCapDescTypeDef *pAltModDesc = NULL;
+    uint8_t cnt = 0U;
+    uint16_t ptr;
 
-  if (desc->wTotalLength > desc->bLength)
-  {
-    ptr = desc->bLength;
-
-    while (ptr < desc->wTotalLength)
+    if( desc->wTotalLength > desc->bLength )
     {
-      pdesc = USBD_BB_GetNextDesc((uint8_t *)pdesc, &ptr);
+        ptr = desc->bLength;
 
-      if (pdesc->bDevCapabilityType == USBD_BILLBOARD_ALTMODE_CAPABILITY)
-      {
-        if (cnt == idx)
+        while( ptr < desc->wTotalLength )
         {
-          pAltModDesc = (USBD_BB_AltModeCapDescTypeDef *)(void *)pdesc;
-          break;
+            pdesc = USBD_BB_GetNextDesc( ( uint8_t * )pdesc, &ptr );
+
+            if( pdesc->bDevCapabilityType == USBD_BILLBOARD_ALTMODE_CAPABILITY )
+            {
+                if( cnt == idx )
+                {
+                    pAltModDesc = ( USBD_BB_AltModeCapDescTypeDef * )( void * )pdesc;
+                    break;
+                }
+                else
+                {
+                    cnt++;
+                }
+            }
         }
-        else
-        {
-          cnt++;
-        }
-      }
     }
-  }
-  return (void *)pAltModDesc;
+
+    return ( void * )pAltModDesc;
 }
 #endif
 

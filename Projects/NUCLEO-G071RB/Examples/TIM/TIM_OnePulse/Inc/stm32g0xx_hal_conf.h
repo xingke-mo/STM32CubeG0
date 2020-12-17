@@ -6,11 +6,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -33,7 +33,7 @@ extern "C" {
   * @brief This is the list of modules to be used in the HAL driver
   */
 #define HAL_MODULE_ENABLED
-  /* #define HAL_ADC_MODULE_ENABLED   */
+/* #define HAL_ADC_MODULE_ENABLED   */
 /* #define HAL_CEC_MODULE_ENABLED   */
 /* #define HAL_COMP_MODULE_ENABLED   */
 /* #define HAL_CRC_MODULE_ENABLED   */
@@ -92,7 +92,7 @@ extern "C" {
   *        (when HSE is used as system clock source, directly or through the PLL).
   */
 #if !defined  (HSE_VALUE)
-#define HSE_VALUE    8000000U         /*!< Value of the External oscillator in Hz */                                                                                 
+#define HSE_VALUE    8000000U         /*!< Value of the External oscillator in Hz */
 #endif /* HSE_VALUE */
 
 #if !defined  (HSE_STARTUP_TIMEOUT)
@@ -111,11 +111,11 @@ extern "C" {
 /**
   * @brief Internal Low Speed oscillator (LSI) value.
   */
-#if !defined  (LSI_VALUE) 
+#if !defined  (LSI_VALUE)
 #define LSI_VALUE  32000U                  /*!< LSI Typical Value in Hz*/
 #endif /* LSI_VALUE */                      /*!< Value of the Internal Low Speed oscillator in Hz
 The real value may vary depending on the variations
-in voltage and temperature.*/                                           
+in voltage and temperature.*/
 /**
   * @brief External Low Speed oscillator (LSE) value.
   *        This value is used by the UART, RTC HAL module to compute the system frequency
@@ -130,13 +130,13 @@ in voltage and temperature.*/
 
 /**
   * @brief External clock source for I2S1 peripheral
-  *        This value is used by the RCC HAL module to compute the I2S1 clock source 
+  *        This value is used by the RCC HAL module to compute the I2S1 clock source
   *        frequency.
   */
 #if !defined  (EXTERNAL_I2S1_CLOCK_VALUE)
 #define EXTERNAL_I2S1_CLOCK_VALUE    48000U /*!< Value of the I2S1 External clock source in Hz*/
-#endif /* EXTERNAL_I2S1_CLOCK_VALUE */ 
-   
+#endif /* EXTERNAL_I2S1_CLOCK_VALUE */
+
 /* Tip: To avoid modifying this file each time you need to use different HSE,
    ===  you can define the HSE value in your toolchain compiler preprocessor. */
 
@@ -150,7 +150,7 @@ in voltage and temperature.*/
 #define  PREFETCH_ENABLE              1U
 #define  INSTRUCTION_CACHE_ENABLE     1U
 
-   
+
 /* ################## SPI peripheral configuration ########################## */
 
 /* CRC FEATURE: Use to activate CRC feature inside HAL SPI Driver
@@ -178,7 +178,7 @@ in voltage and temperature.*/
 
 #ifdef HAL_GPIO_MODULE_ENABLED
 #include "stm32g0xx_hal_gpio.h"
-#endif /* HAL_GPIO_MODULE_ENABLED */   
+#endif /* HAL_GPIO_MODULE_ENABLED */
 
 #ifdef HAL_DMA_MODULE_ENABLED
 #include "stm32g0xx_hal_dma.h"
@@ -295,7 +295,7 @@ in voltage and temperature.*/
   */
 #define assert_param(expr) ((expr) ? (void)0U : assert_failed((uint8_t *)__FILE__, __LINE__))
 /* Exported functions ------------------------------------------------------- */
-void assert_failed(uint8_t *file, uint32_t line);
+void assert_failed( uint8_t *file, uint32_t line );
 #else
 #define assert_param(expr) ((void)0U)
 #endif /* USE_FULL_ASSERT */

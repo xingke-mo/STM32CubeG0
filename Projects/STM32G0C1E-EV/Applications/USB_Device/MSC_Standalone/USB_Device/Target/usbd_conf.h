@@ -24,7 +24,7 @@
 #define __USBD_CONF__H__
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -150,8 +150,8 @@
   */
 
 /* Exported functions -------------------------------------------------------*/
-void *USBD_static_malloc(uint32_t size);
-void USBD_static_free(void *p);
+void *USBD_static_malloc( uint32_t size );
+void USBD_static_free( void *p );
 
 /**
   * @}

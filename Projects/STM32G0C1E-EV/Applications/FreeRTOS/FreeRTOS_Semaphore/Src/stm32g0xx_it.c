@@ -71,16 +71,16 @@ extern TIM_HandleTypeDef htim6;
 /**
   * @brief This function handles Hard fault interrupt.
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* USER CODE BEGIN HardFault_IRQn 0 */
+    /* USER CODE BEGIN HardFault_IRQn 0 */
 
-  /* USER CODE END HardFault_IRQn 0 */
-  while (1)
-  {
-    /* USER CODE BEGIN W1_HardFault_IRQn 0 */
-    /* USER CODE END W1_HardFault_IRQn 0 */
-  }
+    /* USER CODE END HardFault_IRQn 0 */
+    while( 1 )
+    {
+        /* USER CODE BEGIN W1_HardFault_IRQn 0 */
+        /* USER CODE END W1_HardFault_IRQn 0 */
+    }
 }
 
 /******************************************************************************/
@@ -93,15 +93,15 @@ void HardFault_Handler(void)
 /**
   * @brief This function handles TIM6, DAC and LPTIM1 global Interrupts.
   */
-void TIM6_DAC_LPTIM1_IRQHandler(void)
+void TIM6_DAC_LPTIM1_IRQHandler( void )
 {
-  /* USER CODE BEGIN TIM6_DAC_LPTIM1_IRQn 0 */
+    /* USER CODE BEGIN TIM6_DAC_LPTIM1_IRQn 0 */
 
-  /* USER CODE END TIM6_DAC_LPTIM1_IRQn 0 */
-  HAL_TIM_IRQHandler(&htim6);
-  /* USER CODE BEGIN TIM6_DAC_LPTIM1_IRQn 1 */
+    /* USER CODE END TIM6_DAC_LPTIM1_IRQn 0 */
+    HAL_TIM_IRQHandler( &htim6 );
+    /* USER CODE BEGIN TIM6_DAC_LPTIM1_IRQn 1 */
 
-  /* USER CODE END TIM6_DAC_LPTIM1_IRQn 1 */
+    /* USER CODE END TIM6_DAC_LPTIM1_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */

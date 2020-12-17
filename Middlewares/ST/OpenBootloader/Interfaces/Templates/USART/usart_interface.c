@@ -31,11 +31,11 @@
 /* Private variables ---------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
-static void OPENBL_USART_Init(void);
+static void OPENBL_USART_Init( void );
 
 /* Private functions ---------------------------------------------------------*/
 
-static void OPENBL_USART_Init(void)
+static void OPENBL_USART_Init( void )
 {
 }
 
@@ -45,7 +45,7 @@ static void OPENBL_USART_Init(void)
  * @brief  This function is used to configure USART pins and then initialize the used USART instance.
  * @retval None.
  */
-void OPENBL_USART_Configuration(void)
+void OPENBL_USART_Configuration( void )
 {
 }
 
@@ -53,29 +53,29 @@ void OPENBL_USART_Configuration(void)
  * @brief  This function is used to detect if there is any activity on USART protocol.
  * @retval None.
  */
-uint8_t OPENBL_USART_ProtocolDetection(void)
+uint8_t OPENBL_USART_ProtocolDetection( void )
 {
-  uint8_t detected;
-  return detected;
+    uint8_t detected;
+    return detected;
 }
 
 /**
  * @brief  This function is used to get the command opcode from the host.
  * @retval Returns the command.
  */
-uint8_t OPENBL_USART_GetCommandOpcode(void)
+uint8_t OPENBL_USART_GetCommandOpcode( void )
 {
-  uint8_t command_opc = 0x0;
-  return command_opc;
+    uint8_t command_opc = 0x0;
+    return command_opc;
 }
 
 /**
   * @brief  This function is used to read one byte from USART pipe.
   * @retval Returns the read byte.
   */
-uint8_t OPENBL_USART_ReadByte(void)
+uint8_t OPENBL_USART_ReadByte( void )
 {
-  return LL_USART_ReceiveData8(USARTx);
+    return LL_USART_ReceiveData8( USARTx );
 }
 
 /**
@@ -83,7 +83,7 @@ uint8_t OPENBL_USART_ReadByte(void)
   * @param  Byte The byte to be sent.
   * @retval None.
   */
-void OPENBL_USART_SendByte(uint8_t Byte)
+void OPENBL_USART_SendByte( uint8_t Byte )
 {
 }
 

@@ -22,7 +22,7 @@
 #define STM32G0XX_NUCLEO_32_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -45,8 +45,8 @@
 
 typedef enum
 {
-  LED3 = 0,
-  LED_GREEN = LED3
+    LED3 = 0,
+    LED_GREEN = LED3
 } Led_TypeDef;
 
 /**
@@ -59,7 +59,7 @@ typedef enum
   */
 
 #if !defined (USE_STM32G0XX_NUCLEO_32)
- #define USE_STM32G0XX_NUCLEO_32
+#define USE_STM32G0XX_NUCLEO_32
 #endif
 
 /** @defgroup STM32G0XX_NUCLEO_LED LED Constants
@@ -127,17 +127,17 @@ typedef enum
   * @{
   */
 
-uint32_t         BSP_GetVersion(void);
+uint32_t         BSP_GetVersion( void );
 
 /** @defgroup STM32G0XX_NUCLEO_LED_Functions LED Functions
   * @{
-  */ 
+  */
 
-void             BSP_LED_Init(Led_TypeDef Led);
-void             BSP_LED_DeInit(Led_TypeDef Led);
-void             BSP_LED_On(Led_TypeDef Led);
-void             BSP_LED_Off(Led_TypeDef Led);
-void             BSP_LED_Toggle(Led_TypeDef Led);
+void             BSP_LED_Init( Led_TypeDef Led );
+void             BSP_LED_DeInit( Led_TypeDef Led );
+void             BSP_LED_On( Led_TypeDef Led );
+void             BSP_LED_Off( Led_TypeDef Led );
+void             BSP_LED_Toggle( Led_TypeDef Led );
 
 /**
   * @}
@@ -170,8 +170,8 @@ void             BSP_LED_Toggle(Led_TypeDef Led);
   * @{
   */
 
-HAL_StatusTypeDef BSP_DIGIT4_SEG7_Init(void);
-HAL_StatusTypeDef BSP_DIGIT4_SEG7_Display(uint32_t Value);
+HAL_StatusTypeDef BSP_DIGIT4_SEG7_Init( void );
+HAL_StatusTypeDef BSP_DIGIT4_SEG7_Display( uint32_t Value );
 
 /**
   * @}

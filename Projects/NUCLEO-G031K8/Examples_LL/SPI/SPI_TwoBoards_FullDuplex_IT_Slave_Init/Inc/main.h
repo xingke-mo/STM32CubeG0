@@ -77,13 +77,13 @@ extern "C" {
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void Error_Handler(void);
+void Error_Handler( void );
 
 /* USER CODE BEGIN EFP */
-void SPI1_Rx_Callback(void);
-void SPI1_Tx_Callback(void);
-void SPI1_TransferError_Callback(void);
-void UserButton_Callback(void);
+void SPI1_Rx_Callback( void );
+void SPI1_Tx_Callback( void );
+void SPI1_TransferError_Callback( void );
+void UserButton_Callback( void );
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

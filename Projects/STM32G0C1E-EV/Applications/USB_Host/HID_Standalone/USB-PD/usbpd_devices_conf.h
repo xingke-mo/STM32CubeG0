@@ -26,7 +26,7 @@
 #define USBPD_DEVICE_CONF_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -121,7 +121,7 @@
 #define TIMX_CHANNEL4_GETFLAG          LL_TIM_IsActiveFlag_CC4
 
 #ifdef __cplusplus
- }
+}
 #endif
 
 #endif /* USBPD_DEVICE_CONF_H */

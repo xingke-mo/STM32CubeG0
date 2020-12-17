@@ -49,12 +49,12 @@
 
 /**
   * @}
-  */ 
+  */
 
 /** @defgroup STM32G0XX_NUCLEO_32_Private_Variables Private Variables
   * @{
   */
-GPIO_TypeDef* LED_PORT[LEDn] = {LED3_GPIO_PORT};
+GPIO_TypeDef *LED_PORT[LEDn] = {LED3_GPIO_PORT};
 const uint16_t LED_PIN[LEDn] = {LED3_PIN};
 
 
@@ -62,8 +62,8 @@ const uint16_t LED_PIN[LEDn] = {LED3_PIN};
  * @brief BUS variables
  */
 #if defined(HAL_I2C_MODULE_ENABLED)
-uint32_t I2c2Timeout = BSP_I2C2_TIMEOUT_MAX;    /*<! Value of Timeout when I2C2 communication fails */
-I2C_HandleTypeDef nucleo32_I2c2;
+    uint32_t I2c2Timeout = BSP_I2C2_TIMEOUT_MAX;    /*<! Value of Timeout when I2C2 communication fails */
+    I2C_HandleTypeDef nucleo32_I2c2;
 #endif /* HAL_I2C_MODULE_ENABLED */
 
 /**
@@ -75,16 +75,16 @@ I2C_HandleTypeDef nucleo32_I2c2;
   */
 
 #if defined(HAL_I2C_MODULE_ENABLED)
-/* I2C2 bus function */
-/* Link function for I2C peripherals */
-void               I2C2_Init(void);
-void               I2C2_Error (void);
-void               I2C2_MspInit(I2C_HandleTypeDef *hi2c);
-void               I2C2_Write(uint8_t Addr, uint8_t Reg, uint8_t Value);
-uint8_t            I2C2_Read(uint8_t Addr, uint8_t Reg);
-HAL_StatusTypeDef  I2C2_WriteBuffer(uint16_t Addr, uint8_t Reg, uint16_t RegSize, uint8_t *pBuffer, uint16_t Length);
-HAL_StatusTypeDef  I2C2_ReadBuffer(uint16_t Addr, uint8_t Reg, uint16_t RegSize, uint8_t *pBuffer, uint16_t Length);
-HAL_StatusTypeDef  I2C2_IsDeviceReady(uint16_t DevAddress, uint32_t Trials);
+    /* I2C2 bus function */
+    /* Link function for I2C peripherals */
+    void               I2C2_Init( void );
+    void               I2C2_Error( void );
+    void               I2C2_MspInit( I2C_HandleTypeDef *hi2c );
+    void               I2C2_Write( uint8_t Addr, uint8_t Reg, uint8_t Value );
+    uint8_t            I2C2_Read( uint8_t Addr, uint8_t Reg );
+    HAL_StatusTypeDef  I2C2_WriteBuffer( uint16_t Addr, uint8_t Reg, uint16_t RegSize, uint8_t *pBuffer, uint16_t Length );
+    HAL_StatusTypeDef  I2C2_ReadBuffer( uint16_t Addr, uint8_t Reg, uint16_t RegSize, uint8_t *pBuffer, uint16_t Length );
+    HAL_StatusTypeDef  I2C2_IsDeviceReady( uint16_t DevAddress, uint32_t Trials );
 #endif /* HAL_I2C_MODULE_ENABLED */
 
 /**
@@ -99,14 +99,14 @@ HAL_StatusTypeDef  I2C2_IsDeviceReady(uint16_t DevAddress, uint32_t Trials);
   * @brief  This method returns the STM32G0XX NUCLEO BSP Driver revision.
   * @retval version : 0xXYZR (8bits for each decimal, R for RC)
   */
-uint32_t BSP_GetVersion(void)
+uint32_t BSP_GetVersion( void )
 {
-  return __STM32G0XX_NUCLEO_32_BSP_VERSION;
+    return __STM32G0XX_NUCLEO_32_BSP_VERSION;
 }
 
 /** @addtogroup STM32G0XX_NUCLEO_LED_Functions
   * @{
-  */ 
+  */
 
 /**
   * @brief  Configures LED GPIO.
@@ -115,21 +115,21 @@ uint32_t BSP_GetVersion(void)
   *         @arg  LED3
   * @retval None
   */
-void BSP_LED_Init(Led_TypeDef Led)
+void BSP_LED_Init( Led_TypeDef Led )
 {
-  GPIO_InitTypeDef  GPIO_InitStruct;
+    GPIO_InitTypeDef  GPIO_InitStruct;
 
-  /* Enable the GPIO_LED Clock */
-  LEDx_GPIO_CLK_ENABLE(Led);
+    /* Enable the GPIO_LED Clock */
+    LEDx_GPIO_CLK_ENABLE( Led );
 
-  /* Configure the GPIO_LED pin */
-  GPIO_InitStruct.Pin = LED_PIN[Led];
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+    /* Configure the GPIO_LED pin */
+    GPIO_InitStruct.Pin = LED_PIN[Led];
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
 
-  HAL_GPIO_Init(LED_PORT[Led], &GPIO_InitStruct);
-  HAL_GPIO_WritePin(LED_PORT[Led], LED_PIN[Led], GPIO_PIN_RESET);
+    HAL_GPIO_Init( LED_PORT[Led], &GPIO_InitStruct );
+    HAL_GPIO_WritePin( LED_PORT[Led], LED_PIN[Led], GPIO_PIN_RESET );
 }
 
 /**
@@ -140,15 +140,15 @@ void BSP_LED_Init(Led_TypeDef Led)
   * @note BSP_LED_DeInit() does not disable the GPIO clock
   * @retval None
   */
-void BSP_LED_DeInit(Led_TypeDef Led)
+void BSP_LED_DeInit( Led_TypeDef Led )
 {
-  GPIO_InitTypeDef  GPIO_InitStruct;
+    GPIO_InitTypeDef  GPIO_InitStruct;
 
-  /* Turn off LED */
-  HAL_GPIO_WritePin(LED_PORT[Led], LED_PIN[Led], GPIO_PIN_RESET);
-  /* DeInit the GPIO_LED pin */
-  GPIO_InitStruct.Pin = LED_PIN[Led];
-  HAL_GPIO_DeInit(LED_PORT[Led], GPIO_InitStruct.Pin);
+    /* Turn off LED */
+    HAL_GPIO_WritePin( LED_PORT[Led], LED_PIN[Led], GPIO_PIN_RESET );
+    /* DeInit the GPIO_LED pin */
+    GPIO_InitStruct.Pin = LED_PIN[Led];
+    HAL_GPIO_DeInit( LED_PORT[Led], GPIO_InitStruct.Pin );
 }
 
 /**
@@ -158,9 +158,9 @@ void BSP_LED_DeInit(Led_TypeDef Led)
   *   @arg  LED3
   * @retval None
   */
-void BSP_LED_On(Led_TypeDef Led)
+void BSP_LED_On( Led_TypeDef Led )
 {
-  HAL_GPIO_WritePin(LED_PORT[Led], LED_PIN[Led], GPIO_PIN_SET);
+    HAL_GPIO_WritePin( LED_PORT[Led], LED_PIN[Led], GPIO_PIN_SET );
 }
 
 /**
@@ -170,9 +170,9 @@ void BSP_LED_On(Led_TypeDef Led)
   *            @arg  LED3
   * @retval None
   */
-void BSP_LED_Off(Led_TypeDef Led)
+void BSP_LED_Off( Led_TypeDef Led )
 {
-  HAL_GPIO_WritePin(LED_PORT[Led], LED_PIN[Led], GPIO_PIN_RESET);
+    HAL_GPIO_WritePin( LED_PORT[Led], LED_PIN[Led], GPIO_PIN_RESET );
 }
 
 /**
@@ -182,9 +182,9 @@ void BSP_LED_Off(Led_TypeDef Led)
   *            @arg  LED3
   * @retval None
   */
-void BSP_LED_Toggle(Led_TypeDef Led)
+void BSP_LED_Toggle( Led_TypeDef Led )
 {
-  HAL_GPIO_TogglePin(LED_PORT[Led], LED_PIN[Led]);
+    HAL_GPIO_TogglePin( LED_PORT[Led], LED_PIN[Led] );
 }
 
 /**
@@ -209,24 +209,24 @@ void BSP_LED_Toggle(Led_TypeDef Led)
   * @brief I2C Bus initialization
   * @retval None
   */
-void I2C2_Init(void)
+void I2C2_Init( void )
 {
-  if(HAL_I2C_GetState(&nucleo32_I2c2) == HAL_I2C_STATE_RESET)
-  {
-    nucleo32_I2c2.Instance              = BSP_I2C2;
-    nucleo32_I2c2.Init.Timing           = I2C2_TIMING;
-    nucleo32_I2c2.Init.OwnAddress1      = 0;
-    nucleo32_I2c2.Init.AddressingMode   = I2C_ADDRESSINGMODE_7BIT;
-    nucleo32_I2c2.Init.DualAddressMode  = I2C_DUALADDRESS_DISABLE;
-    nucleo32_I2c2.Init.OwnAddress2      = 0;
-    nucleo32_I2c2.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
-    nucleo32_I2c2.Init.GeneralCallMode  = I2C_GENERALCALL_DISABLE;
-    nucleo32_I2c2.Init.NoStretchMode    = I2C_NOSTRETCH_DISABLE;
+    if( HAL_I2C_GetState( &nucleo32_I2c2 ) == HAL_I2C_STATE_RESET )
+    {
+        nucleo32_I2c2.Instance              = BSP_I2C2;
+        nucleo32_I2c2.Init.Timing           = I2C2_TIMING;
+        nucleo32_I2c2.Init.OwnAddress1      = 0;
+        nucleo32_I2c2.Init.AddressingMode   = I2C_ADDRESSINGMODE_7BIT;
+        nucleo32_I2c2.Init.DualAddressMode  = I2C_DUALADDRESS_DISABLE;
+        nucleo32_I2c2.Init.OwnAddress2      = 0;
+        nucleo32_I2c2.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
+        nucleo32_I2c2.Init.GeneralCallMode  = I2C_GENERALCALL_DISABLE;
+        nucleo32_I2c2.Init.NoStretchMode    = I2C_NOSTRETCH_DISABLE;
 
-    /* Init the I2C */
-    I2C2_MspInit(&nucleo32_I2c2);
-    HAL_I2C_Init(&nucleo32_I2c2);
-  }
+        /* Init the I2C */
+        I2C2_MspInit( &nucleo32_I2c2 );
+        HAL_I2C_Init( &nucleo32_I2c2 );
+    }
 }
 
 /**
@@ -236,18 +236,18 @@ void I2C2_Init(void)
   * @param  Value Data to be written
   * @retval None
   */
-void I2C2_Write(uint8_t Addr, uint8_t Reg, uint8_t Value)
+void I2C2_Write( uint8_t Addr, uint8_t Reg, uint8_t Value )
 {
-  HAL_StatusTypeDef status = HAL_OK;
+    HAL_StatusTypeDef status = HAL_OK;
 
-  status = HAL_I2C_Mem_Write(&nucleo32_I2c2, Addr, (uint16_t)Reg, I2C_MEMADD_SIZE_8BIT, &Value, 1, I2c2Timeout);
+    status = HAL_I2C_Mem_Write( &nucleo32_I2c2, Addr, ( uint16_t )Reg, I2C_MEMADD_SIZE_8BIT, &Value, 1, I2c2Timeout );
 
-  /* Check the communication status */
-  if(status != HAL_OK)
-  {
-    /* Execute user timeout callback */
-    I2C2_Error();
-  }
+    /* Check the communication status */
+    if( status != HAL_OK )
+    {
+        /* Execute user timeout callback */
+        I2C2_Error();
+    }
 }
 
 /**
@@ -256,20 +256,21 @@ void I2C2_Write(uint8_t Addr, uint8_t Reg, uint8_t Value)
   * @param  Reg Register address
   * @retval Read data
   */
-uint8_t I2C2_Read(uint8_t Addr, uint8_t Reg)
+uint8_t I2C2_Read( uint8_t Addr, uint8_t Reg )
 {
-  HAL_StatusTypeDef status = HAL_OK;
-  uint8_t Value = 0;
+    HAL_StatusTypeDef status = HAL_OK;
+    uint8_t Value = 0;
 
-  status = HAL_I2C_Mem_Read(&nucleo32_I2c2, Addr, Reg, I2C_MEMADD_SIZE_8BIT, &Value, 1, I2c2Timeout);
+    status = HAL_I2C_Mem_Read( &nucleo32_I2c2, Addr, Reg, I2C_MEMADD_SIZE_8BIT, &Value, 1, I2c2Timeout );
 
-  /* Check the communication status */
-  if(status != HAL_OK)
-  {
-    /* Execute user timeout callback */
-    I2C2_Error();
-  }
-  return Value;
+    /* Check the communication status */
+    if( status != HAL_OK )
+    {
+        /* Execute user timeout callback */
+        I2C2_Error();
+    }
+
+    return Value;
 }
 
 /**
@@ -281,19 +282,20 @@ uint8_t I2C2_Read(uint8_t Addr, uint8_t Reg)
   * @param  Length  length of the data
   * @retval 0 if no problems to read multiple data
   */
-HAL_StatusTypeDef I2C2_ReadBuffer(uint16_t Addr, uint8_t Reg, uint16_t RegSize, uint8_t *pBuffer, uint16_t Length)
+HAL_StatusTypeDef I2C2_ReadBuffer( uint16_t Addr, uint8_t Reg, uint16_t RegSize, uint8_t *pBuffer, uint16_t Length )
 {
-  HAL_StatusTypeDef status = HAL_OK;
+    HAL_StatusTypeDef status = HAL_OK;
 
-  status = HAL_I2C_Mem_Read(&nucleo32_I2c2, Addr, Reg, RegSize, pBuffer, Length, I2c2Timeout);
+    status = HAL_I2C_Mem_Read( &nucleo32_I2c2, Addr, Reg, RegSize, pBuffer, Length, I2c2Timeout );
 
-  /* Check the communication status */
-  if(status != HAL_OK)
-  {
-    /* Re-Initiaize the BUS */
-    I2C2_Error();
-  }
-  return status;
+    /* Check the communication status */
+    if( status != HAL_OK )
+    {
+        /* Re-Initiaize the BUS */
+        I2C2_Error();
+    }
+
+    return status;
 }
 
 /**
@@ -303,9 +305,9 @@ HAL_StatusTypeDef I2C2_ReadBuffer(uint16_t Addr, uint8_t Reg, uint16_t RegSize, 
   * @param  Trials Number of trials
   * @retval HAL status
   */
-HAL_StatusTypeDef I2C2_IsDeviceReady(uint16_t DevAddress, uint32_t Trials)
+HAL_StatusTypeDef I2C2_IsDeviceReady( uint16_t DevAddress, uint32_t Trials )
 {
-  return (HAL_I2C_IsDeviceReady(&nucleo32_I2c2, DevAddress, Trials, I2c2Timeout));
+    return ( HAL_I2C_IsDeviceReady( &nucleo32_I2c2, DevAddress, Trials, I2c2Timeout ) );
 }
 
 /**
@@ -317,32 +319,33 @@ HAL_StatusTypeDef I2C2_IsDeviceReady(uint16_t DevAddress, uint32_t Trials)
   * @param  Length buffer size to be written
   * @retval None
   */
-HAL_StatusTypeDef I2C2_WriteBuffer(uint16_t Addr, uint8_t Reg, uint16_t RegSize, uint8_t *pBuffer, uint16_t Length)
+HAL_StatusTypeDef I2C2_WriteBuffer( uint16_t Addr, uint8_t Reg, uint16_t RegSize, uint8_t *pBuffer, uint16_t Length )
 {
-  HAL_StatusTypeDef status = HAL_OK;
+    HAL_StatusTypeDef status = HAL_OK;
 
-  status = HAL_I2C_Mem_Write(&nucleo32_I2c2, Addr, Reg, RegSize, pBuffer, Length, I2c2Timeout);
+    status = HAL_I2C_Mem_Write( &nucleo32_I2c2, Addr, Reg, RegSize, pBuffer, Length, I2c2Timeout );
 
-  /* Check the communication status */
-  if(status != HAL_OK)
-  {
-    /* Re-Initiaize the BUS */
-    I2C2_Error();
-  }
-  return status;
+    /* Check the communication status */
+    if( status != HAL_OK )
+    {
+        /* Re-Initiaize the BUS */
+        I2C2_Error();
+    }
+
+    return status;
 }
 
 /**
   * @brief  Manages error callback to re-initialize I2C.
   * @retval None
   */
-void I2C2_Error(void)
+void I2C2_Error( void )
 {
-  /* De-initialize the I2C communication BUS */
-  HAL_I2C_DeInit(&nucleo32_I2c2);
+    /* De-initialize the I2C communication BUS */
+    HAL_I2C_DeInit( &nucleo32_I2c2 );
 
-  /* Re-Initiaize the I2C communication BUS */
-  I2C2_Init();
+    /* Re-Initiaize the I2C communication BUS */
+    I2C2_Init();
 }
 
 /**
@@ -350,31 +353,31 @@ void I2C2_Error(void)
   * @param hi2c I2C handle
   * @retval None
   */
-void I2C2_MspInit(I2C_HandleTypeDef *hi2c)
+void I2C2_MspInit( I2C_HandleTypeDef *hi2c )
 {
-  GPIO_InitTypeDef GPIO_InitStruct;
+    GPIO_InitTypeDef GPIO_InitStruct;
 
-  /*##-1- Configure the GPIOs ################################################*/
-  /* Enable GPIO clock */
-  BSP_I2C2_GPIO_CLK_ENABLE();
+    /*##-1- Configure the GPIOs ################################################*/
+    /* Enable GPIO clock */
+    BSP_I2C2_GPIO_CLK_ENABLE();
 
-  /* Configure I2C SCL & SDA as alternate function  */
-  GPIO_InitStruct.Pin       = (BSP_I2C2_SCL_PIN| BSP_I2C2_SDA_PIN);
-  GPIO_InitStruct.Mode      = GPIO_MODE_AF_OD;
-  GPIO_InitStruct.Pull      = GPIO_PULLUP;
-  GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_HIGH;
-  GPIO_InitStruct.Alternate = BSP_I2C2_SCL_SDA_AF;
-  HAL_GPIO_Init(BSP_I2C2_GPIO_PORT, &GPIO_InitStruct);
+    /* Configure I2C SCL & SDA as alternate function  */
+    GPIO_InitStruct.Pin       = ( BSP_I2C2_SCL_PIN | BSP_I2C2_SDA_PIN );
+    GPIO_InitStruct.Mode      = GPIO_MODE_AF_OD;
+    GPIO_InitStruct.Pull      = GPIO_PULLUP;
+    GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_HIGH;
+    GPIO_InitStruct.Alternate = BSP_I2C2_SCL_SDA_AF;
+    HAL_GPIO_Init( BSP_I2C2_GPIO_PORT, &GPIO_InitStruct );
 
-  /*##-2- Configure the Eval I2C peripheral #######################################*/
-  /* Enable I2C clock */
-  BSP_I2C2_CLK_ENABLE();
+    /*##-2- Configure the Eval I2C peripheral #######################################*/
+    /* Enable I2C clock */
+    BSP_I2C2_CLK_ENABLE();
 
-  /* Force the I2C peripheral clock reset */
-  BSP_I2C2_FORCE_RESET();
+    /* Force the I2C peripheral clock reset */
+    BSP_I2C2_FORCE_RESET();
 
-  /* Release the I2C peripheral clock reset */
-  BSP_I2C2_RELEASE_RESET();
+    /* Release the I2C peripheral clock reset */
+    BSP_I2C2_RELEASE_RESET();
 }
 
 #endif /*HAL_I2C_MODULE_ENABLED*/
@@ -401,15 +404,15 @@ void I2C2_MspInit(I2C_HandleTypeDef *hi2c)
   * @brief  BSP init of the 4 digits 7 Segment Display shield for Arduino Nano - Gravitech.
   * @retval HAL_StatusTypeDef
   */
-HAL_StatusTypeDef BSP_DIGIT4_SEG7_Init(void)
+HAL_StatusTypeDef BSP_DIGIT4_SEG7_Init( void )
 {
-  uint8_t control[1] = {0x47};
+    uint8_t control[1] = {0x47};
 
-  /* Init I2C */
-  I2C2_Init();
+    /* Init I2C */
+    I2C2_Init();
 
-  /* Configure the SAA1064 component */
-  return I2C2_WriteBuffer(0x70, 0, 1, control, sizeof(control));
+    /* Configure the SAA1064 component */
+    return I2C2_WriteBuffer( 0x70, 0, 1, control, sizeof( control ) );
 }
 
 /**
@@ -419,40 +422,41 @@ HAL_StatusTypeDef BSP_DIGIT4_SEG7_Init(void)
   *         DIGIT4_SEG7_RESET will reset the screen (any value above 9999 will reset the screen also)
   * @retval HAL_StatusTypeDef
   */
-HAL_StatusTypeDef BSP_DIGIT4_SEG7_Display(uint32_t Value)
+HAL_StatusTypeDef BSP_DIGIT4_SEG7_Display( uint32_t Value )
 {
-  const uint8_t lookup[10] = {0x3F,0x06,0x5B,0x4F,0x66,
-                              0x6D,0x7D,0x07,0x7F,0x6F};
+    const uint8_t lookup[10] = {0x3F, 0x06, 0x5B, 0x4F, 0x66,
+                                0x6D, 0x7D, 0x07, 0x7F, 0x6F
+                               };
 
-  uint32_t thousands, hundreds, tens, base;
-  HAL_StatusTypeDef status = HAL_ERROR;
-  uint8_t d1d2d3d4[4];
+    uint32_t thousands, hundreds, tens, base;
+    HAL_StatusTypeDef status = HAL_ERROR;
+    uint8_t d1d2d3d4[4];
 
-  if (Value < 10000)
-  {
-    thousands = Value / 1000;
-    hundreds = (Value - (thousands * 1000)) / 100;
-    tens = (Value - ((thousands * 1000) + (hundreds * 100))) / 10;
-    base = Value - ((thousands * 1000) + (hundreds * 100) + (tens * 10));
+    if( Value < 10000 )
+    {
+        thousands = Value / 1000;
+        hundreds = ( Value - ( thousands * 1000 ) ) / 100;
+        tens = ( Value - ( ( thousands * 1000 ) + ( hundreds * 100 ) ) ) / 10;
+        base = Value - ( ( thousands * 1000 ) + ( hundreds * 100 ) + ( tens * 10 ) );
 
-    d1d2d3d4[3] = lookup[thousands];
-    d1d2d3d4[2] = lookup[hundreds];
-    d1d2d3d4[1] = lookup[tens];
-    d1d2d3d4[0] = lookup[base];
+        d1d2d3d4[3] = lookup[thousands];
+        d1d2d3d4[2] = lookup[hundreds];
+        d1d2d3d4[1] = lookup[tens];
+        d1d2d3d4[0] = lookup[base];
 
-  }
-  else
-  {
-    d1d2d3d4[3] = 0;
-    d1d2d3d4[2] = 0;
-    d1d2d3d4[1] = 0;
-    d1d2d3d4[0] = 0;
-  }
+    }
+    else
+    {
+        d1d2d3d4[3] = 0;
+        d1d2d3d4[2] = 0;
+        d1d2d3d4[1] = 0;
+        d1d2d3d4[0] = 0;
+    }
 
-  /* Send the four digits to the SAA1064 component */
-  status = I2C2_WriteBuffer(0x70, 1, 1, d1d2d3d4, sizeof(d1d2d3d4));
+    /* Send the four digits to the SAA1064 component */
+    status = I2C2_WriteBuffer( 0x70, 1, 1, d1d2d3d4, sizeof( d1d2d3d4 ) );
 
-  return status;
+    return status;
 }
 
 #endif /*HAL_I2C_MODULE_ENABLED*/

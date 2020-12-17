@@ -7,11 +7,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -38,10 +38,10 @@ extern "C" {
   */
 typedef enum
 {
-  HAL_OK       = 0x00U,
-  HAL_ERROR    = 0x01U,
-  HAL_BUSY     = 0x02U,
-  HAL_TIMEOUT  = 0x03U
+    HAL_OK       = 0x00U,
+    HAL_ERROR    = 0x01U,
+    HAL_BUSY     = 0x02U,
+    HAL_TIMEOUT  = 0x03U
 } HAL_StatusTypeDef;
 
 /**
@@ -49,8 +49,8 @@ typedef enum
   */
 typedef enum
 {
-  HAL_UNLOCKED = 0x00U,
-  HAL_LOCKED   = 0x01U
+    HAL_UNLOCKED = 0x00U,
+    HAL_LOCKED   = 0x01U
 } HAL_LockTypeDef;
 
 /* Exported macros -----------------------------------------------------------*/
@@ -108,12 +108,12 @@ typedef enum
 #endif /* USE_RTOS */
 
 #if defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
-  #ifndef __weak  
-    #define __weak  __attribute__((weak))
-  #endif                                
-  #ifndef __packed  
-    #define __packed  __attribute__((packed))
-  #endif 
+#ifndef __weak
+#define __weak  __attribute__((weak))
+#endif
+#ifndef __packed
+#define __packed  __attribute__((packed))
+#endif
 #elif  defined ( __GNUC__ ) && !defined (__CC_ARM) /* GNU Compiler */
 #ifndef __weak
 #define __weak   __attribute__((weak))
@@ -127,12 +127,12 @@ typedef enum
 /* Macro to get variable aligned on 4-bytes, for __ICCARM__ the directive "#pragma data_alignment=4" must be used instead */
 /* GNU Compiler */
 #if defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050) /* ARM Compiler V6 */
-  #ifndef __ALIGN_BEGIN
-    #define __ALIGN_BEGIN
-  #endif
-  #ifndef __ALIGN_END
-    #define __ALIGN_END      __attribute__ ((aligned (4)))
-  #endif
+#ifndef __ALIGN_BEGIN
+#define __ALIGN_BEGIN
+#endif
+#ifndef __ALIGN_END
+#define __ALIGN_END      __attribute__ ((aligned (4)))
+#endif
 #elif defined   (__GNUC__) && !defined (__CC_ARM)  /* GNU Compiler */
 #ifndef __ALIGN_END
 #define __ALIGN_END    __attribute__ ((aligned (4U)))
@@ -192,7 +192,7 @@ typedef enum
   */
 #if defined ( __CC_ARM   ) || (defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)) || defined   (  __GNUC__  )
 /* ARM V4/V5 and V6 & GNU Compiler
-   ------------------------------- 
+   -------------------------------
 */
 #define __NOINLINE __attribute__ ( (noinline) )
 

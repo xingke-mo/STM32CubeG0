@@ -33,43 +33,43 @@
 
 extern USBD_HandleTypeDef hUsbDeviceFS;
 
-static uint16_t USB_DFU_If_Init(void);
-static uint16_t USB_DFU_If_Erase(uint32_t Add);
-static uint16_t USB_DFU_If_Write(uint8_t *pSrc, uint8_t *pDest, uint32_t Len);
-static uint8_t *USB_DFU_If_Read(uint8_t *pSrc, uint8_t *pDest, uint32_t Len);
-static uint16_t USB_DFU_If_DeInit(void);
-static uint16_t USB_DFU_If_GetStatus(uint32_t Add, uint8_t Cmd, uint8_t *pBuffer);
+static uint16_t USB_DFU_If_Init( void );
+static uint16_t USB_DFU_If_Erase( uint32_t Add );
+static uint16_t USB_DFU_If_Write( uint8_t *pSrc, uint8_t *pDest, uint32_t Len );
+static uint8_t *USB_DFU_If_Read( uint8_t *pSrc, uint8_t *pDest, uint32_t Len );
+static uint16_t USB_DFU_If_DeInit( void );
+static uint16_t USB_DFU_If_GetStatus( uint32_t Add, uint8_t Cmd, uint8_t *pBuffer );
 
 #if defined ( __ICCARM__ ) /* IAR Compiler */
-#pragma data_alignment=4
+    #pragma data_alignment=4
 #endif
 __ALIGN_BEGIN USBD_DFU_MediaTypeDef USBD_DFU_Media_fops __ALIGN_END =
 {
-  (uint8_t *)MEDIA_DESC_STR,
-  USB_DFU_If_Init,
-  USB_DFU_If_DeInit,
-  USB_DFU_If_Erase,
-  USB_DFU_If_Write,
-  USB_DFU_If_Read,
-  USB_DFU_If_GetStatus
+    ( uint8_t * )MEDIA_DESC_STR,
+    USB_DFU_If_Init,
+    USB_DFU_If_DeInit,
+    USB_DFU_If_Erase,
+    USB_DFU_If_Write,
+    USB_DFU_If_Read,
+    USB_DFU_If_GetStatus
 };
 
 /**
   * @brief  Memory initialization routine.
   * @retval USBD_OK if operation is successful, MAL_FAIL else.
   */
-uint16_t USB_DFU_If_Init(void)
+uint16_t USB_DFU_If_Init( void )
 {
-  return 0;
+    return 0;
 }
 
 /**
   * @brief  De-Initializes Memory
   * @retval USBD_OK if operation is successful, MAL_FAIL else
   */
-uint16_t USB_DFU_If_DeInit(void)
+uint16_t USB_DFU_If_DeInit( void )
 {
-  return 0;
+    return 0;
 }
 
 /**
@@ -77,27 +77,27 @@ uint16_t USB_DFU_If_DeInit(void)
   * @param  Add: Address of sector to be erased.
   * @retval 0 if operation is successful, MAL_FAIL else.
   */
-uint16_t USB_DFU_If_Erase(uint32_t Add)
+uint16_t USB_DFU_If_Erase( uint32_t Add )
 {
-  uint8_t status;
+    uint8_t status;
 
-  if (OPENBL_MEM_GetReadOutProtectionStatus() != RESET)
-  {
-    status = OPENBL_USB_DnloadRdpNack(&hUsbDeviceFS);
-  }
-  else
-  {
-    if (OPENBL_MEM_GetAddressArea((uint32_t)Add) == AREA_ERROR)
+    if( OPENBL_MEM_GetReadOutProtectionStatus() != RESET )
     {
-      status = OPENBL_USB_SendAddressNack(&hUsbDeviceFS);
+        status = OPENBL_USB_DnloadRdpNack( &hUsbDeviceFS );
     }
     else
     {
-      status = OPENBL_USB_EraseMemory(Add);
+        if( OPENBL_MEM_GetAddressArea( ( uint32_t )Add ) == AREA_ERROR )
+        {
+            status = OPENBL_USB_SendAddressNack( &hUsbDeviceFS );
+        }
+        else
+        {
+            status = OPENBL_USB_EraseMemory( Add );
+        }
     }
-  }
 
-  return status;
+    return status;
 }
 
 /**
@@ -107,28 +107,28 @@ uint16_t USB_DFU_If_Erase(uint32_t Add)
   * @param  Len: Number of data to be written (in bytes).
   * @retval USBD_OK if operation is successful, MAL_FAIL else.
   */
-uint16_t USB_DFU_If_Write(uint8_t *pSrc, uint8_t *pDest, uint32_t Len)
+uint16_t USB_DFU_If_Write( uint8_t *pSrc, uint8_t *pDest, uint32_t Len )
 {
-  uint8_t status;
+    uint8_t status;
 
-  if (OPENBL_MEM_GetReadOutProtectionStatus() != RESET)
-  {
-    status = OPENBL_USB_DnloadRdpNack(&hUsbDeviceFS);
-  }
-  else
-  {
-    if (OPENBL_MEM_GetAddressArea((uint32_t)pDest) == AREA_ERROR)
+    if( OPENBL_MEM_GetReadOutProtectionStatus() != RESET )
     {
-      status = OPENBL_USB_SendAddressNack(&hUsbDeviceFS);
+        status = OPENBL_USB_DnloadRdpNack( &hUsbDeviceFS );
     }
     else
     {
-      OPENBL_USB_WriteMemory(pSrc, pDest, Len);
-      status = 0;
+        if( OPENBL_MEM_GetAddressArea( ( uint32_t )pDest ) == AREA_ERROR )
+        {
+            status = OPENBL_USB_SendAddressNack( &hUsbDeviceFS );
+        }
+        else
+        {
+            OPENBL_USB_WriteMemory( pSrc, pDest, Len );
+            status = 0;
+        }
     }
-  }
 
-  return status;
+    return status;
 }
 
 /**
@@ -138,14 +138,14 @@ uint16_t USB_DFU_If_Write(uint8_t *pSrc, uint8_t *pDest, uint32_t Len)
   * @param  Len: Number of data to be read (in bytes).
   * @retval Pointer to the physical address where data should be read.
   */
-uint8_t *USB_DFU_If_Read(uint8_t *pSrc, uint8_t *pDest, uint32_t Len)
+uint8_t *USB_DFU_If_Read( uint8_t *pSrc, uint8_t *pDest, uint32_t Len )
 {
-  if (OPENBL_MEM_GetReadOutProtectionStatus() != RESET)
-  {
-    OPENBL_USB_UploadRdpNack(&hUsbDeviceFS);
-  }
+    if( OPENBL_MEM_GetReadOutProtectionStatus() != RESET )
+    {
+        OPENBL_USB_UploadRdpNack( &hUsbDeviceFS );
+    }
 
-  return OPENBL_USB_ReadMemory(pSrc, pDest, Len);
+    return OPENBL_USB_ReadMemory( pSrc, pDest, Len );
 }
 
 /**
@@ -155,24 +155,25 @@ uint8_t *USB_DFU_If_Read(uint8_t *pSrc, uint8_t *pDest, uint32_t Len)
   * @param  pBuffer: used for returning the time necessary for a program or an erase operation
   * @retval USBD_OK if operation is successful
   */
-uint16_t USB_DFU_If_GetStatus(uint32_t Add, uint8_t Cmd, uint8_t *pBuffer)
+uint16_t USB_DFU_If_GetStatus( uint32_t Add, uint8_t Cmd, uint8_t *pBuffer )
 {
-  switch (Cmd)
-  {
+    switch( Cmd )
+    {
     case DFU_MEDIA_PROGRAM:
-      pBuffer[1] = (uint8_t)MEDIA_PROGRAM_TIME;
-      pBuffer[2] = (uint8_t)(MEDIA_PROGRAM_TIME << 8);
-      pBuffer[3] = 0;
-      break;
+        pBuffer[1] = ( uint8_t )MEDIA_PROGRAM_TIME;
+        pBuffer[2] = ( uint8_t )( MEDIA_PROGRAM_TIME << 8 );
+        pBuffer[3] = 0;
+        break;
 
     case DFU_MEDIA_ERASE:
     default:
-      pBuffer[1] = (uint8_t)MEDIA_ERASE_TIME;
-      pBuffer[2] = (uint8_t)(MEDIA_ERASE_TIME << 8);
-      pBuffer[3] = 0;
-      break;
-  }
-  return (USBD_OK);
+        pBuffer[1] = ( uint8_t )MEDIA_ERASE_TIME;
+        pBuffer[2] = ( uint8_t )( MEDIA_ERASE_TIME << 8 );
+        pBuffer[3] = 0;
+        break;
+    }
+
+    return ( USBD_OK );
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

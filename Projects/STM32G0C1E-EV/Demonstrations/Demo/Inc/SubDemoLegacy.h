@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    SubDemoLegacy.h 
+  * @file    SubDemoLegacy.h
   * @author  MCD Application Team
   * @brief   Header for SubDemoLegacy.c file
   ******************************************************************************
@@ -20,9 +20,9 @@
 #define SUB_DEMO_LEGACY_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
-   
+
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 

@@ -7,11 +7,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -32,7 +32,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN Define */
- 
+
 /* USER CODE END Define */
 
 /* Private macro -------------------------------------------------------------*/
@@ -58,61 +58,62 @@
 /* USER CODE BEGIN 0 */
 
 /**
-  * @brief TIM MSP Initialization 
-  *        This function configures the hardware resources used in this example: 
+  * @brief TIM MSP Initialization
+  *        This function configures the hardware resources used in this example:
   *           - Peripheral's clock enable
-  *           - Peripheral's GPIO Configuration  
+  *           - Peripheral's GPIO Configuration
   * @param htim: TIM handle pointer
   * @retval None
   */
-void HAL_TIM_IC_MspInit(TIM_HandleTypeDef *htim)
+void HAL_TIM_IC_MspInit( TIM_HandleTypeDef *htim )
 {
 
-  RCC_OscInitTypeDef RCC_OscInitStruct;
-  
-  /*## Enable peripherals and GPIO Clocks ####################################*/
-  /* RCC LSI clock enable */
-  RCC_OscInitStruct.OscillatorType =  RCC_OSCILLATORTYPE_LSI;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
-  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
-  if(HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-  {
-    /* Initialization Error */
-    Error_Handler();
-  }
+    RCC_OscInitTypeDef RCC_OscInitStruct;
+
+    /*## Enable peripherals and GPIO Clocks ####################################*/
+    /* RCC LSI clock enable */
+    RCC_OscInitStruct.OscillatorType =  RCC_OSCILLATORTYPE_LSI;
+    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+    RCC_OscInitStruct.LSIState = RCC_LSI_ON;
+
+    if( HAL_RCC_OscConfig( &RCC_OscInitStruct ) != HAL_OK )
+    {
+        /* Initialization Error */
+        Error_Handler();
+    }
 
 
-  /* TIM16 Peripheral clock enable */
-  __HAL_RCC_TIM16_CLK_ENABLE();
-  
-  /*## Configure the NVIC for TIM16 ###########################################*/
-  HAL_NVIC_SetPriority(TIM16_IRQn,0,0);
-  
-  /* Enable the TIM16 global Interrupt */
-  HAL_NVIC_EnableIRQ(TIM16_IRQn);
+    /* TIM16 Peripheral clock enable */
+    __HAL_RCC_TIM16_CLK_ENABLE();
+
+    /*## Configure the NVIC for TIM16 ###########################################*/
+    HAL_NVIC_SetPriority( TIM16_IRQn, 0, 0 );
+
+    /* Enable the TIM16 global Interrupt */
+    HAL_NVIC_EnableIRQ( TIM16_IRQn );
 }
 /* USER CODE END 0 */
 /**
   * Initializes the Global MSP.
   */
-void HAL_MspInit(void)
+void HAL_MspInit( void )
 {
-  /* USER CODE BEGIN MspInit 0 */
+    /* USER CODE BEGIN MspInit 0 */
 
-  /* USER CODE END MspInit 0 */
+    /* USER CODE END MspInit 0 */
 
-  __HAL_RCC_SYSCFG_CLK_ENABLE();
-  __HAL_RCC_PWR_CLK_ENABLE();
+    __HAL_RCC_SYSCFG_CLK_ENABLE();
+    __HAL_RCC_PWR_CLK_ENABLE();
 
-  /* System interrupt init*/
+    /* System interrupt init*/
 
-  /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
-  */
-  HAL_SYSCFG_StrobeDBattpinsConfig(SYSCFG_CFGR1_UCPD1_STROBE | SYSCFG_CFGR1_UCPD2_STROBE);
+    /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
+    */
+    HAL_SYSCFG_StrobeDBattpinsConfig( SYSCFG_CFGR1_UCPD1_STROBE | SYSCFG_CFGR1_UCPD2_STROBE );
 
-  /* USER CODE BEGIN MspInit 1 */
+    /* USER CODE BEGIN MspInit 1 */
 
-  /* USER CODE END MspInit 1 */
+    /* USER CODE END MspInit 1 */
 }
 
 /* USER CODE BEGIN 1 */

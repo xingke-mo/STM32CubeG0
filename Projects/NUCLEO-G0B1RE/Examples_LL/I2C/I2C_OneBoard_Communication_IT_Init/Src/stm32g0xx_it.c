@@ -70,69 +70,69 @@
 /**
   * @brief This function handles Non maskable interrupt.
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
-  /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
+    /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
 
-  /* USER CODE END NonMaskableInt_IRQn 0 */
-  /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
+    /* USER CODE END NonMaskableInt_IRQn 0 */
+    /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
 
-  /* USER CODE END NonMaskableInt_IRQn 1 */
+    /* USER CODE END NonMaskableInt_IRQn 1 */
 }
 
 /**
   * @brief This function handles Hard fault interrupt.
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* USER CODE BEGIN HardFault_IRQn 0 */
+    /* USER CODE BEGIN HardFault_IRQn 0 */
 
-  /* USER CODE END HardFault_IRQn 0 */
-  while (1)
-  {
-    /* USER CODE BEGIN W1_HardFault_IRQn 0 */
-    /* USER CODE END W1_HardFault_IRQn 0 */
-  }
+    /* USER CODE END HardFault_IRQn 0 */
+    while( 1 )
+    {
+        /* USER CODE BEGIN W1_HardFault_IRQn 0 */
+        /* USER CODE END W1_HardFault_IRQn 0 */
+    }
 }
 
 /**
   * @brief This function handles System service call via SWI instruction.
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
-  /* USER CODE BEGIN SVC_IRQn 0 */
+    /* USER CODE BEGIN SVC_IRQn 0 */
 
-  /* USER CODE END SVC_IRQn 0 */
-  /* USER CODE BEGIN SVC_IRQn 1 */
+    /* USER CODE END SVC_IRQn 0 */
+    /* USER CODE BEGIN SVC_IRQn 1 */
 
-  /* USER CODE END SVC_IRQn 1 */
+    /* USER CODE END SVC_IRQn 1 */
 }
 
 /**
   * @brief This function handles Pendable request for system service.
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
-  /* USER CODE BEGIN PendSV_IRQn 0 */
+    /* USER CODE BEGIN PendSV_IRQn 0 */
 
-  /* USER CODE END PendSV_IRQn 0 */
-  /* USER CODE BEGIN PendSV_IRQn 1 */
+    /* USER CODE END PendSV_IRQn 0 */
+    /* USER CODE BEGIN PendSV_IRQn 1 */
 
-  /* USER CODE END PendSV_IRQn 1 */
+    /* USER CODE END PendSV_IRQn 1 */
 }
 
 /**
   * @brief This function handles System tick timer.
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
-  /* USER CODE BEGIN SysTick_IRQn 0 */
+    /* USER CODE BEGIN SysTick_IRQn 0 */
 
-  /* USER CODE END SysTick_IRQn 0 */
+    /* USER CODE END SysTick_IRQn 0 */
 
-  /* USER CODE BEGIN SysTick_IRQn 1 */
+    /* USER CODE BEGIN SysTick_IRQn 1 */
 
-  /* USER CODE END SysTick_IRQn 1 */
+    /* USER CODE END SysTick_IRQn 1 */
 }
 
 /******************************************************************************/
@@ -145,23 +145,24 @@ void SysTick_Handler(void)
 /**
   * @brief This function handles EXTI line 4 to 15 interrupts.
   */
-void EXTI4_15_IRQHandler(void)
+void EXTI4_15_IRQHandler( void )
 {
-  /* USER CODE BEGIN EXTI4_15_IRQn 0 */
+    /* USER CODE BEGIN EXTI4_15_IRQn 0 */
 
-  /* USER CODE END EXTI4_15_IRQn 0 */
-  if (LL_EXTI_IsActiveFallingFlag_0_31(LL_EXTI_LINE_13) != RESET)
-  {
-    LL_EXTI_ClearFallingFlag_0_31(LL_EXTI_LINE_13);
-    /* USER CODE BEGIN LL_EXTI_LINE_13_FALLING */
+    /* USER CODE END EXTI4_15_IRQn 0 */
+    if( LL_EXTI_IsActiveFallingFlag_0_31( LL_EXTI_LINE_13 ) != RESET )
+    {
+        LL_EXTI_ClearFallingFlag_0_31( LL_EXTI_LINE_13 );
+        /* USER CODE BEGIN LL_EXTI_LINE_13_FALLING */
 
-    UserButton_Callback();
+        UserButton_Callback();
 
-    /* USER CODE END LL_EXTI_LINE_13_FALLING */
-  }
-  /* USER CODE BEGIN EXTI4_15_IRQn 1 */
+        /* USER CODE END LL_EXTI_LINE_13_FALLING */
+    }
 
-  /* USER CODE END EXTI4_15_IRQn 1 */
+    /* USER CODE BEGIN EXTI4_15_IRQn 1 */
+
+    /* USER CODE END EXTI4_15_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
@@ -170,78 +171,78 @@ void EXTI4_15_IRQHandler(void)
   * Param   None
   * Retval  None
   */
-void I2C1_IRQHandler(void)
+void I2C1_IRQHandler( void )
 {
-  /* Check ADDR flag value in ISR register */
-if (LL_I2C_IsActiveFlag_ADDR(I2C1))
-{
-  /* Verify the Address Match with the OWN Slave address */
-  if (LL_I2C_GetAddressMatchCode(I2C1) == SLAVE_OWN_ADDRESS)
-  {
-    /* Verify the transfer direction, a read direction, Slave enters transmitter mode */
-    if (LL_I2C_GetTransferDirection(I2C1) == LL_I2C_DIRECTION_READ)
+    /* Check ADDR flag value in ISR register */
+    if( LL_I2C_IsActiveFlag_ADDR( I2C1 ) )
     {
-      /* Clear ADDR flag value in ISR register */
-      LL_I2C_ClearFlag_ADDR(I2C1);
+        /* Verify the Address Match with the OWN Slave address */
+        if( LL_I2C_GetAddressMatchCode( I2C1 ) == SLAVE_OWN_ADDRESS )
+        {
+            /* Verify the transfer direction, a read direction, Slave enters transmitter mode */
+            if( LL_I2C_GetTransferDirection( I2C1 ) == LL_I2C_DIRECTION_READ )
+            {
+                /* Clear ADDR flag value in ISR register */
+                LL_I2C_ClearFlag_ADDR( I2C1 );
 
-      /* Enable Transmit Interrupt */
-      LL_I2C_EnableIT_TX(I2C1);
+                /* Enable Transmit Interrupt */
+                LL_I2C_EnableIT_TX( I2C1 );
+            }
+            else
+            {
+                /* Clear ADDR flag value in ISR register */
+                LL_I2C_ClearFlag_ADDR( I2C1 );
+
+                /* Call Error function */
+                Error_Callback();
+            }
+        }
+        else
+        {
+            /* Clear ADDR flag value in ISR register */
+            LL_I2C_ClearFlag_ADDR( I2C1 );
+
+            /* Call Error function */
+            Error_Callback();
+        }
+    }
+    /* Check NACK flag value in ISR register */
+    else if( LL_I2C_IsActiveFlag_NACK( I2C1 ) )
+    {
+        /* End of Transfer */
+        LL_I2C_ClearFlag_NACK( I2C1 );
+    }
+    /* Check TXIS flag value in ISR register */
+    else if( LL_I2C_IsActiveFlag_TXIS( I2C1 ) )
+    {
+        /* Call function Slave Ready to Transmit Callback */
+        Slave_Ready_To_Transmit_Callback();
+    }
+    /* Check STOP flag value in ISR register */
+    else if( LL_I2C_IsActiveFlag_STOP( I2C1 ) )
+    {
+        /* Clear STOP flag value in ISR register */
+        LL_I2C_ClearFlag_STOP( I2C1 );
+
+        /* Check TXE flag value in ISR register */
+        if( !LL_I2C_IsActiveFlag_TXE( I2C1 ) )
+        {
+            /* Flush the TXDR register */
+            LL_I2C_ClearFlag_TXE( I2C1 );
+        }
+    }
+    /* Check TXE flag value in ISR register */
+    else if( !LL_I2C_IsActiveFlag_TXE( I2C1 ) )
+    {
+        /* Do nothing */
+        /* This Flag will be set by hardware when the TXDR register is empty */
+        /* If needed, use LL_I2C_ClearFlag_TXE() interface to flush the TXDR register  */
     }
     else
     {
-      /* Clear ADDR flag value in ISR register */
-      LL_I2C_ClearFlag_ADDR(I2C1);
-
-      /* Call Error function */
-      Error_Callback();
+        /* Call Error function */
+        Error_Callback();
     }
-  }
-  else
-  {
-    /* Clear ADDR flag value in ISR register */
-    LL_I2C_ClearFlag_ADDR(I2C1);
-
-    /* Call Error function */
-    Error_Callback();
-  }
-}
-/* Check NACK flag value in ISR register */
-else if (LL_I2C_IsActiveFlag_NACK(I2C1))
-{
-  /* End of Transfer */
-  LL_I2C_ClearFlag_NACK(I2C1);
-}
-/* Check TXIS flag value in ISR register */
-else if (LL_I2C_IsActiveFlag_TXIS(I2C1))
-{
-  /* Call function Slave Ready to Transmit Callback */
-  Slave_Ready_To_Transmit_Callback();
-}
-/* Check STOP flag value in ISR register */
-else if (LL_I2C_IsActiveFlag_STOP(I2C1))
-{
-  /* Clear STOP flag value in ISR register */
-  LL_I2C_ClearFlag_STOP(I2C1);
-
-  /* Check TXE flag value in ISR register */
-  if (!LL_I2C_IsActiveFlag_TXE(I2C1))
-  {
-    /* Flush the TXDR register */
-    LL_I2C_ClearFlag_TXE(I2C1);
-  }
-}
-/* Check TXE flag value in ISR register */
-else if (!LL_I2C_IsActiveFlag_TXE(I2C1))
-{
-  /* Do nothing */
-  /* This Flag will be set by hardware when the TXDR register is empty */
-  /* If needed, use LL_I2C_ClearFlag_TXE() interface to flush the TXDR register  */
-}
-else
-{
-  /* Call Error function */
-  Error_Callback();
-}
 }
 
 /**
@@ -249,28 +250,28 @@ else
   * Param   None
   * Retval  None
   */
-void I2C2_3_IRQHandler(void)
+void I2C2_3_IRQHandler( void )
 {
-  /* Check RXNE flag value in ISR register */
-if (LL_I2C_IsActiveFlag_RXNE(I2C3))
-{
-  /* Call function Master Reception Callback */
-  Master_Reception_Callback();
-}
-/* Check STOP flag value in ISR register */
-else if (LL_I2C_IsActiveFlag_STOP(I2C3))
-{
-  /* End of Transfer */
-  LL_I2C_ClearFlag_STOP(I2C3);
+    /* Check RXNE flag value in ISR register */
+    if( LL_I2C_IsActiveFlag_RXNE( I2C3 ) )
+    {
+        /* Call function Master Reception Callback */
+        Master_Reception_Callback();
+    }
+    /* Check STOP flag value in ISR register */
+    else if( LL_I2C_IsActiveFlag_STOP( I2C3 ) )
+    {
+        /* End of Transfer */
+        LL_I2C_ClearFlag_STOP( I2C3 );
 
-  /* Call function Master Complete Callback */
-  Master_Complete_Callback();
-}
-else
-{
-  /* Call Error function */
-  Error_Callback();
-}
+        /* Call function Master Complete Callback */
+        Master_Complete_Callback();
+    }
+    else
+    {
+        /* Call Error function */
+        Error_Callback();
+    }
 }
 
 

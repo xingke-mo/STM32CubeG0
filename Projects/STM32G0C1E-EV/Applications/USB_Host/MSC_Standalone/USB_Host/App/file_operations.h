@@ -27,7 +27,7 @@
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-uint8_t msc_file_operations(void);
+uint8_t msc_file_operations( void );
 
 #endif /* __FILE_OPERATIONS_H */
 

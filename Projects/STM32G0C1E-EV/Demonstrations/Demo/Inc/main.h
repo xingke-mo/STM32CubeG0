@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    main.h 
+  * @file    main.h
   * @author  MCD Application Team
   * @brief   Header for main.c file
   ******************************************************************************
@@ -19,29 +19,31 @@
 #define __MAIN_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
-   
+
 /* Includes ------------------------------------------------------------------*/
 #include <stdio.h>
 #include <string.h>
 
 #include "stm32g0xx.h"
-  
+
 /* Exported types ------------------------------------------------------------*/
-typedef struct {
-  uint32_t (*pfnSubDemoInit)(void);
-  uint32_t (*pfnSubDemoDeInit)(void);
-  void (*pfnSubDemoExec)(void);
-  void (*pfnSubDemoExtiRisingEdgeDetectionManagement)(uint16_t GPIO_Pin);
-  void (*pfnSubDemoExtiFallingEdgeDetectionManagement)(uint16_t GPIO_Pin);
+typedef struct
+{
+    uint32_t ( *pfnSubDemoInit )( void );
+    uint32_t ( *pfnSubDemoDeInit )( void );
+    void ( *pfnSubDemoExec )( void );
+    void ( *pfnSubDemoExtiRisingEdgeDetectionManagement )( uint16_t GPIO_Pin );
+    void ( *pfnSubDemoExtiFallingEdgeDetectionManagement )( uint16_t GPIO_Pin );
 } SubDemoApi_t;
 
-typedef enum {
-  SUB_DEMO_LEGACY = 0,
-  SUB_DEMO_UCPD
+typedef enum
+{
+    SUB_DEMO_LEGACY = 0,
+    SUB_DEMO_UCPD
 } SubDemoId_e;
-   
+
 /* Exported variables --------------------------------------------------------*/
 extern SubDemoId_e SubDemoId;
 extern uint16_t DaughterBoardDependentExtiLine;
@@ -52,9 +54,9 @@ extern DMA_HandleTypeDef hdma_adc1;
 
 /* Exported constants --------------------------------------------------------*/
 /* Exported macros -----------------------------------------------------------*/
-/* Exported functions ------------------------------------------------------- */ 
-void SystemClock_Config_64MHz(void);
-void Error_Handler(void);
+/* Exported functions ------------------------------------------------------- */
+void SystemClock_Config_64MHz( void );
+void Error_Handler( void );
 
 
 

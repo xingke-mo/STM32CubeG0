@@ -23,7 +23,7 @@
 #ifndef __usbpd_H
 #define __usbpd_H
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -41,7 +41,7 @@
 /* USER CODE END 1 */
 
 /* USBPD init function */
-void MX_USBPD_Init(void);
+void MX_USBPD_Init( void );
 
 /* USER CODE BEGIN 2 */
 /* USER CODE END 2 */

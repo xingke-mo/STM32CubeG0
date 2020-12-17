@@ -9,11 +9,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -36,7 +36,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
- 
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -74,41 +74,41 @@ extern DAC_HandleTypeDef hdac1;
 /**
   * @brief This function handles System service call via SWI instruction.
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
-  /* USER CODE BEGIN SVC_IRQn 0 */
+    /* USER CODE BEGIN SVC_IRQn 0 */
 
-  /* USER CODE END SVC_IRQn 0 */
-  /* USER CODE BEGIN SVC_IRQn 1 */
+    /* USER CODE END SVC_IRQn 0 */
+    /* USER CODE BEGIN SVC_IRQn 1 */
 
-  /* USER CODE END SVC_IRQn 1 */
+    /* USER CODE END SVC_IRQn 1 */
 }
 
 /**
   * @brief This function handles Pendable request for system service.
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
-  /* USER CODE BEGIN PendSV_IRQn 0 */
+    /* USER CODE BEGIN PendSV_IRQn 0 */
 
-  /* USER CODE END PendSV_IRQn 0 */
-  /* USER CODE BEGIN PendSV_IRQn 1 */
+    /* USER CODE END PendSV_IRQn 0 */
+    /* USER CODE BEGIN PendSV_IRQn 1 */
 
-  /* USER CODE END PendSV_IRQn 1 */
+    /* USER CODE END PendSV_IRQn 1 */
 }
 
 /**
   * @brief This function handles System tick timer.
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
-  /* USER CODE BEGIN SysTick_IRQn 0 */
+    /* USER CODE BEGIN SysTick_IRQn 0 */
 
-  /* USER CODE END SysTick_IRQn 0 */
-  HAL_IncTick();
-  /* USER CODE BEGIN SysTick_IRQn 1 */
+    /* USER CODE END SysTick_IRQn 0 */
+    HAL_IncTick();
+    /* USER CODE BEGIN SysTick_IRQn 1 */
 
-  /* USER CODE END SysTick_IRQn 1 */
+    /* USER CODE END SysTick_IRQn 1 */
 }
 
 /******************************************************************************/
@@ -121,43 +121,43 @@ void SysTick_Handler(void)
 /**
   * @brief This function handles DMA1 channel 1 interrupt.
   */
-void DMA1_Channel1_IRQHandler(void)
+void DMA1_Channel1_IRQHandler( void )
 {
-  /* USER CODE BEGIN DMA1_Channel1_IRQn 0 */
+    /* USER CODE BEGIN DMA1_Channel1_IRQn 0 */
 
-  /* USER CODE END DMA1_Channel1_IRQn 0 */
-  HAL_DMA_IRQHandler(&hdma_adc1);
-  /* USER CODE BEGIN DMA1_Channel1_IRQn 1 */
+    /* USER CODE END DMA1_Channel1_IRQn 0 */
+    HAL_DMA_IRQHandler( &hdma_adc1 );
+    /* USER CODE BEGIN DMA1_Channel1_IRQn 1 */
 
-  /* USER CODE END DMA1_Channel1_IRQn 1 */
+    /* USER CODE END DMA1_Channel1_IRQn 1 */
 }
 
 /**
   * @brief This function handles ADC1, COMP1,COMP2, COMP3 Interrupts (combined with EXTI 17 & 18).
   */
-void ADC1_COMP_IRQHandler(void)
+void ADC1_COMP_IRQHandler( void )
 {
-  /* USER CODE BEGIN ADC1_COMP_IRQn 0 */
+    /* USER CODE BEGIN ADC1_COMP_IRQn 0 */
 
-  /* USER CODE END ADC1_COMP_IRQn 0 */
-  HAL_ADC_IRQHandler(&hadc1);
-  /* USER CODE BEGIN ADC1_COMP_IRQn 1 */
+    /* USER CODE END ADC1_COMP_IRQn 0 */
+    HAL_ADC_IRQHandler( &hadc1 );
+    /* USER CODE BEGIN ADC1_COMP_IRQn 1 */
 
-  /* USER CODE END ADC1_COMP_IRQn 1 */
+    /* USER CODE END ADC1_COMP_IRQn 1 */
 }
 
 /**
   * @brief This function handles TIM6, DAC and LPTIM1 global Interrupts.
   */
-void TIM6_DAC_LPTIM1_IRQHandler(void)
+void TIM6_DAC_LPTIM1_IRQHandler( void )
 {
-  /* USER CODE BEGIN TIM6_DAC_LPTIM1_IRQn 0 */
+    /* USER CODE BEGIN TIM6_DAC_LPTIM1_IRQn 0 */
 
-  /* USER CODE END TIM6_DAC_LPTIM1_IRQn 0 */
-  HAL_DAC_IRQHandler(&hdac1);
-  /* USER CODE BEGIN TIM6_DAC_LPTIM1_IRQn 1 */
+    /* USER CODE END TIM6_DAC_LPTIM1_IRQn 0 */
+    HAL_DAC_IRQHandler( &hdac1 );
+    /* USER CODE BEGIN TIM6_DAC_LPTIM1_IRQn 1 */
 
-  /* USER CODE END TIM6_DAC_LPTIM1_IRQn 1 */
+    /* USER CODE END TIM6_DAC_LPTIM1_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
@@ -166,9 +166,9 @@ void TIM6_DAC_LPTIM1_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void EXTI4_15_IRQHandler(void)
+void EXTI4_15_IRQHandler( void )
 {
-  HAL_GPIO_EXTI_IRQHandler(TAMPER_BUTTON_PIN);
+    HAL_GPIO_EXTI_IRQHandler( TAMPER_BUTTON_PIN );
 }
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

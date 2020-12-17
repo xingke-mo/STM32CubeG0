@@ -49,10 +49,10 @@
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-int32_t MX_FATFS_Init(void);
-int32_t MX_FATFS_Process(void);
-int32_t MX_FATFS_DeInit(void);
-int32_t FS_File2Operations(void);
+int32_t MX_FATFS_Init( void );
+int32_t MX_FATFS_Process( void );
+int32_t MX_FATFS_DeInit( void );
+int32_t FS_File2Operations( void );
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */

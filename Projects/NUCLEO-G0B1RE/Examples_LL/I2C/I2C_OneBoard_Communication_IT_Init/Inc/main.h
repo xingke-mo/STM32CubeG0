@@ -80,15 +80,15 @@ extern "C" {
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void Error_Handler(void);
+void Error_Handler( void );
 
 /* USER CODE BEGIN EFP */
 /* IRQ Handler treatment functions */
-void UserButton_Callback(void);
-void Slave_Ready_To_Transmit_Callback(void);
-void Master_Reception_Callback(void);
-void Master_Complete_Callback(void);
-void Error_Callback(void);
+void UserButton_Callback( void );
+void Slave_Ready_To_Transmit_Callback( void );
+void Master_Reception_Callback( void );
+void Master_Complete_Callback( void );
+void Error_Callback( void );
 
 /* USER CODE END EFP */
 

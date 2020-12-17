@@ -19,11 +19,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -99,7 +99,7 @@ extern "C" {
 #define LL_SYSCFG_IR_MOD_USART1      (SYSCFG_CFGR1_IR_MOD_0)                            /*!< 01: USART1 is selected as IRDA Modulation enveloppe source */
 #if defined(USART4)
 #define LL_SYSCFG_IR_MOD_USART4      (SYSCFG_CFGR1_IR_MOD_1)                            /*!< 10: USART4 is selected as IRDA Modulation enveloppe source */
-#else  
+#else
 #define LL_SYSCFG_IR_MOD_USART2      (SYSCFG_CFGR1_IR_MOD_1)                            /*!< 10: USART2 is selected as IRDA Modulation enveloppe source */
 #endif /* USART4 */
 /**
@@ -185,14 +185,14 @@ extern "C" {
 #if defined(SYSCFG_CDEN_SUPPORT)
 /** @defgroup SYSTEM_LL_EC_CLAMPING_DIODE SYSCFG CLAMPING DIODE
   * @{
-  */  
+  */
 #define LL_SYSCFG_CFGR2_PA1_CDEN         SYSCFG_CFGR2_PA1_CDEN     /*!< Enables Clamping diode of PA1 */
 #define LL_SYSCFG_CFGR2_PA3_CDEN         SYSCFG_CFGR2_PA3_CDEN     /*!< Enables Clamping diode of PA3 */
 #define LL_SYSCFG_CFGR2_PA5_CDEN         SYSCFG_CFGR2_PA5_CDEN     /*!< Enables Clamping diode of PA5 */
 #define LL_SYSCFG_CFGR2_PA6_CDEN         SYSCFG_CFGR2_PA6_CDEN     /*!< Enables Clamping diode of PA6 */
 #define LL_SYSCFG_CFGR2_PA13_CDEN        SYSCFG_CFGR2_PA13_CDEN    /*!< Enables Clamping diode of PA13 */
 #define LL_SYSCFG_CFGR2_PB0_CDEN         SYSCFG_CFGR2_PB0_CDEN     /*!< Enables Clamping diode of PB0 */
-#define LL_SYSCFG_CFGR2_PB1_CDEN         SYSCFG_CFGR2_PB1_CDEN     /*!< Enables Clamping diode of PB1 */  
+#define LL_SYSCFG_CFGR2_PB1_CDEN         SYSCFG_CFGR2_PB1_CDEN     /*!< Enables Clamping diode of PB1 */
 #define LL_SYSCFG_CFGR2_PB2_CDEN         SYSCFG_CFGR2_PB2_CDEN     /*!< Enables Clamping diode of PB2 */
 /**
   * @}
@@ -295,9 +295,9 @@ extern "C" {
   *         @arg @ref LL_SYSCFG_REMAP_SRAM
   * @retval None
   */
-__STATIC_INLINE void LL_SYSCFG_SetRemapMemory(uint32_t Memory)
+__STATIC_INLINE void LL_SYSCFG_SetRemapMemory( uint32_t Memory )
 {
-  MODIFY_REG(SYSCFG->CFGR1, SYSCFG_CFGR1_MEM_MODE, Memory);
+    MODIFY_REG( SYSCFG->CFGR1, SYSCFG_CFGR1_MEM_MODE, Memory );
 }
 
 /**
@@ -308,9 +308,9 @@ __STATIC_INLINE void LL_SYSCFG_SetRemapMemory(uint32_t Memory)
   *         @arg @ref LL_SYSCFG_REMAP_SYSTEMFLASH
   *         @arg @ref LL_SYSCFG_REMAP_SRAM
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_GetRemapMemory(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_GetRemapMemory( void )
 {
-  return (uint32_t)(READ_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_MEM_MODE));
+    return ( uint32_t )( READ_BIT( SYSCFG->CFGR1, SYSCFG_CFGR1_MEM_MODE ) );
 }
 
 /**
@@ -322,9 +322,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_GetRemapMemory(void)
   *         @arg @ref LL_SYSCFG_PIN_RMP_PA12
   * @retval None
   */
-__STATIC_INLINE void LL_SYSCFG_EnablePinRemap(uint32_t PinRemap)
+__STATIC_INLINE void LL_SYSCFG_EnablePinRemap( uint32_t PinRemap )
 {
-  SET_BIT(SYSCFG->CFGR1, PinRemap);
+    SET_BIT( SYSCFG->CFGR1, PinRemap );
 }
 
 /**
@@ -336,9 +336,9 @@ __STATIC_INLINE void LL_SYSCFG_EnablePinRemap(uint32_t PinRemap)
   *         @arg @ref LL_SYSCFG_PIN_RMP_PA12
   * @retval None
   */
-__STATIC_INLINE void LL_SYSCFG_DisablePinRemap(uint32_t PinRemap)
+__STATIC_INLINE void LL_SYSCFG_DisablePinRemap( uint32_t PinRemap )
 {
-  CLEAR_BIT(SYSCFG->CFGR1, PinRemap);
+    CLEAR_BIT( SYSCFG->CFGR1, PinRemap );
 }
 
 #if defined(SYSCFG_CFGR1_IR_MOD)
@@ -351,9 +351,9 @@ __STATIC_INLINE void LL_SYSCFG_DisablePinRemap(uint32_t PinRemap)
   *         @arg @ref LL_SYSCFG_IR_MOD_USART4
   * @retval None
   */
-__STATIC_INLINE void LL_SYSCFG_SetIRModEnvelopeSignal(uint32_t Source)
+__STATIC_INLINE void LL_SYSCFG_SetIRModEnvelopeSignal( uint32_t Source )
 {
-  MODIFY_REG(SYSCFG->CFGR1, SYSCFG_CFGR1_IR_MOD, Source);
+    MODIFY_REG( SYSCFG->CFGR1, SYSCFG_CFGR1_IR_MOD, Source );
 }
 
 /**
@@ -364,9 +364,9 @@ __STATIC_INLINE void LL_SYSCFG_SetIRModEnvelopeSignal(uint32_t Source)
   *         @arg @ref LL_SYSCFG_IR_MOD_USART1
   *         @arg @ref LL_SYSCFG_IR_MOD_USART4
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_GetIRModEnvelopeSignal(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_GetIRModEnvelopeSignal( void )
 {
-  return (uint32_t)(READ_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_IR_MOD));
+    return ( uint32_t )( READ_BIT( SYSCFG->CFGR1, SYSCFG_CFGR1_IR_MOD ) );
 }
 
 /**
@@ -377,9 +377,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_GetIRModEnvelopeSignal(void)
   *         @arg @ref LL_SYSCFG_IR_POL_NOT_INVERTED
   * @retval None
   */
-__STATIC_INLINE void LL_SYSCFG_SetIRPolarity(uint32_t Polarity)
+__STATIC_INLINE void LL_SYSCFG_SetIRPolarity( uint32_t Polarity )
 {
-  MODIFY_REG(SYSCFG->CFGR1, SYSCFG_CFGR1_IR_POL, Polarity);
+    MODIFY_REG( SYSCFG->CFGR1, SYSCFG_CFGR1_IR_POL, Polarity );
 }
 
 /**
@@ -389,9 +389,9 @@ __STATIC_INLINE void LL_SYSCFG_SetIRPolarity(uint32_t Polarity)
   *         @arg @ref LL_SYSCFG_IR_POL_INVERTED
   *         @arg @ref LL_SYSCFG_IR_POL_NOT_INVERTED
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_GetIRPolarity(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_GetIRPolarity( void )
 {
-  return (uint32_t)(READ_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_IR_POL));
+    return ( uint32_t )( READ_BIT( SYSCFG->CFGR1, SYSCFG_CFGR1_IR_POL ) );
 }
 #endif /* SYSCFG_CFGR1_IR_MOD */
 
@@ -410,9 +410,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_GetIRPolarity(void)
   * @rmtoll SYSCFG_CFGR1 BOOSTEN       LL_SYSCFG_EnableAnalogBooster
   * @retval None
   */
-__STATIC_INLINE void LL_SYSCFG_EnableAnalogBooster(void)
+__STATIC_INLINE void LL_SYSCFG_EnableAnalogBooster( void )
 {
-  SET_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_BOOSTEN);
+    SET_BIT( SYSCFG->CFGR1, SYSCFG_CFGR1_BOOSTEN );
 }
 
 /**
@@ -429,9 +429,9 @@ __STATIC_INLINE void LL_SYSCFG_EnableAnalogBooster(void)
   * @rmtoll SYSCFG_CFGR1 BOOSTEN       LL_SYSCFG_DisableAnalogBooster
   * @retval None
   */
-__STATIC_INLINE void LL_SYSCFG_DisableAnalogBooster(void)
+__STATIC_INLINE void LL_SYSCFG_DisableAnalogBooster( void )
 {
-  CLEAR_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_BOOSTEN);
+    CLEAR_BIT( SYSCFG->CFGR1, SYSCFG_CFGR1_BOOSTEN );
 }
 #endif /* SYSCFG_CFGR1_BOOSTEN */
 
@@ -443,7 +443,7 @@ __STATIC_INLINE void LL_SYSCFG_DisableAnalogBooster(void)
   *         SYSCFG_CFGR1 I2C_FMP_PB9   LL_SYSCFG_EnableFastModePlus\n
   *         SYSCFG_CFGR1 I2C_FMP_I2C1  LL_SYSCFG_EnableFastModePlus\n
   *         SYSCFG_CFGR1 I2C_FMP_I2C2  LL_SYSCFG_EnableFastModePlus\n
-  *         SYSCFG_CFGR1 I2C_FMP_I2C3  LL_SYSCFG_EnableFastModePlus\n  
+  *         SYSCFG_CFGR1 I2C_FMP_I2C3  LL_SYSCFG_EnableFastModePlus\n
   *         SYSCFG_CFGR1 I2C_FMP_PA9   LL_SYSCFG_EnableFastModePlus\n
   *         SYSCFG_CFGR1 I2C_FMP_PA10  LL_SYSCFG_EnableFastModePlus
   * @param  ConfigFastModePlus This parameter can be a combination of the following values:
@@ -453,16 +453,16 @@ __STATIC_INLINE void LL_SYSCFG_DisableAnalogBooster(void)
   *         @arg @ref LL_SYSCFG_I2C_FASTMODEPLUS_PB9
   *         @arg @ref LL_SYSCFG_I2C_FASTMODEPLUS_I2C1 (*)
   *         @arg @ref LL_SYSCFG_I2C_FASTMODEPLUS_I2C2 (*)
-  *         @arg @ref LL_SYSCFG_I2C_FASTMODEPLUS_I2C3 (*)  
+  *         @arg @ref LL_SYSCFG_I2C_FASTMODEPLUS_I2C3 (*)
   *         @arg @ref LL_SYSCFG_I2C_FASTMODEPLUS_PA9 (*)
   *         @arg @ref LL_SYSCFG_I2C_FASTMODEPLUS_PA10 (*)
   *
   *         (*) value not defined in all devices
   * @retval None
   */
-__STATIC_INLINE void LL_SYSCFG_EnableFastModePlus(uint32_t ConfigFastModePlus)
+__STATIC_INLINE void LL_SYSCFG_EnableFastModePlus( uint32_t ConfigFastModePlus )
 {
-  SET_BIT(SYSCFG->CFGR1, ConfigFastModePlus);
+    SET_BIT( SYSCFG->CFGR1, ConfigFastModePlus );
 }
 
 /**
@@ -473,7 +473,7 @@ __STATIC_INLINE void LL_SYSCFG_EnableFastModePlus(uint32_t ConfigFastModePlus)
   *         SYSCFG_CFGR1 I2C_FMP_PB9   LL_SYSCFG_DisableFastModePlus\n
   *         SYSCFG_CFGR1 I2C_FMP_I2C1  LL_SYSCFG_DisableFastModePlus\n
   *         SYSCFG_CFGR1 I2C_FMP_I2C2  LL_SYSCFG_DisableFastModePlus\n
-  *         SYSCFG_CFGR1 I2C_FMP_I2C3  LL_SYSCFG_DisableFastModePlus\n  
+  *         SYSCFG_CFGR1 I2C_FMP_I2C3  LL_SYSCFG_DisableFastModePlus\n
   *         SYSCFG_CFGR1 I2C_FMP_PA9   LL_SYSCFG_DisableFastModePlus\n
   *         SYSCFG_CFGR1 I2C_FMP_PA10  LL_SYSCFG_DisableFastModePlus
   * @param  ConfigFastModePlus This parameter can be a combination of the following values:
@@ -490,9 +490,9 @@ __STATIC_INLINE void LL_SYSCFG_EnableFastModePlus(uint32_t ConfigFastModePlus)
   *         (*) value not defined in all devices
   * @retval None
   */
-__STATIC_INLINE void LL_SYSCFG_DisableFastModePlus(uint32_t ConfigFastModePlus)
+__STATIC_INLINE void LL_SYSCFG_DisableFastModePlus( uint32_t ConfigFastModePlus )
 {
-  CLEAR_BIT(SYSCFG->CFGR1, ConfigFastModePlus);
+    CLEAR_BIT( SYSCFG->CFGR1, ConfigFastModePlus );
 }
 
 #if defined(SYSCFG_CFGR1_UCPD1_STROBE) || defined(SYSCFG_CFGR1_UCPD2_STROBE)
@@ -506,9 +506,9 @@ __STATIC_INLINE void LL_SYSCFG_DisableFastModePlus(uint32_t ConfigFastModePlus)
   *         (*) value not defined in all devices
   * @retval None
   */
-__STATIC_INLINE void LL_SYSCFG_DisableDBATT(uint32_t ConfigDeadBattery)
+__STATIC_INLINE void LL_SYSCFG_DisableDBATT( uint32_t ConfigDeadBattery )
 {
-  SET_BIT(SYSCFG->CFGR1, ConfigDeadBattery);
+    SET_BIT( SYSCFG->CFGR1, ConfigDeadBattery );
 }
 #endif /* SYSCFG_CFGR1_UCPD1_STROBE || SYSCFG_CFGR1_UCPD2_STROBE */
 
@@ -518,9 +518,9 @@ __STATIC_INLINE void LL_SYSCFG_DisableDBATT(uint32_t ConfigDeadBattery)
   * @rmtoll SYSCFG_ITLINE0 SR_EWDG       LL_SYSCFG_IsActiveFlag_WWDG
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_WWDG(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_WWDG( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[0], SYSCFG_ITLINE0_SR_EWDG) == (SYSCFG_ITLINE0_SR_EWDG)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[0], SYSCFG_ITLINE0_SR_EWDG ) == ( SYSCFG_ITLINE0_SR_EWDG ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE0_SR_EWDG */
 
@@ -530,9 +530,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_WWDG(void)
   * @rmtoll SYSCFG_ITLINE1 SR_PVDOUT     LL_SYSCFG_IsActiveFlag_PVDOUT
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_PVDOUT(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_PVDOUT( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[1], SYSCFG_ITLINE1_SR_PVDOUT) == (SYSCFG_ITLINE1_SR_PVDOUT)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[1], SYSCFG_ITLINE1_SR_PVDOUT ) == ( SYSCFG_ITLINE1_SR_PVDOUT ) ) ? 1UL : 0UL );
 }
 #endif /* PWR_PVD_SUPPORT */
 
@@ -542,9 +542,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_PVDOUT(void)
   * @rmtoll SYSCFG_ITLINE1 SR_PVMOUT     LL_SYSCFG_IsActiveFlag_PVMOUT
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_PVMOUT(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_PVMOUT( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[1], SYSCFG_ITLINE1_SR_PVMOUT) == (SYSCFG_ITLINE1_SR_PVMOUT)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[1], SYSCFG_ITLINE1_SR_PVMOUT ) == ( SYSCFG_ITLINE1_SR_PVMOUT ) ) ? 1UL : 0UL );
 }
 #endif /* PWR_PVM_SUPPORT */
 
@@ -554,9 +554,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_PVMOUT(void)
   * @rmtoll SYSCFG_ITLINE2 SR_RTC_WAKEUP  LL_SYSCFG_IsActiveFlag_RTC_WAKEUP
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_RTC_WAKEUP(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_RTC_WAKEUP( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[2], SYSCFG_ITLINE2_SR_RTC) == (SYSCFG_ITLINE2_SR_RTC)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[2], SYSCFG_ITLINE2_SR_RTC ) == ( SYSCFG_ITLINE2_SR_RTC ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE2_SR_RTC */
 
@@ -566,9 +566,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_RTC_WAKEUP(void)
   * @rmtoll SYSCFG_ITLINE2 SR_TAMPER  LL_SYSCFG_IsActiveFlag_TAMPER
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TAMPER(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TAMPER( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[2], SYSCFG_ITLINE2_SR_TAMPER) == (SYSCFG_ITLINE2_SR_TAMPER)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[2], SYSCFG_ITLINE2_SR_TAMPER ) == ( SYSCFG_ITLINE2_SR_TAMPER ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE2_SR_TAMPER */
 
@@ -578,9 +578,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TAMPER(void)
   * @rmtoll SYSCFG_ITLINE3 SR_FLASH_ITF  LL_SYSCFG_IsActiveFlag_FLASH_ITF
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_FLASH_ITF(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_FLASH_ITF( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[3], SYSCFG_ITLINE3_SR_FLASH_ITF) == (SYSCFG_ITLINE3_SR_FLASH_ITF)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[3], SYSCFG_ITLINE3_SR_FLASH_ITF ) == ( SYSCFG_ITLINE3_SR_FLASH_ITF ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE3_SR_FLASH_ITF */
 
@@ -590,9 +590,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_FLASH_ITF(void)
   * @rmtoll SYSCFG_ITLINE3 SR_FLASH_ECC  LL_SYSCFG_IsActiveFlag_FLASH_ECC
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_FLASH_ECC(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_FLASH_ECC( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[3], SYSCFG_ITLINE3_SR_FLASH_ECC) == (SYSCFG_ITLINE3_SR_FLASH_ECC)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[3], SYSCFG_ITLINE3_SR_FLASH_ECC ) == ( SYSCFG_ITLINE3_SR_FLASH_ECC ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE3_SR_FLASH_ECC */
 
@@ -602,9 +602,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_FLASH_ECC(void)
   * @rmtoll SYSCFG_ITLINE4 SR_CLK_CTRL   LL_SYSCFG_IsActiveFlag_CLK_CTRL
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_CLK_CTRL(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_CLK_CTRL( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[4], SYSCFG_ITLINE4_SR_CLK_CTRL) == (SYSCFG_ITLINE4_SR_CLK_CTRL)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[4], SYSCFG_ITLINE4_SR_CLK_CTRL ) == ( SYSCFG_ITLINE4_SR_CLK_CTRL ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE4_SR_CLK_CTRL */
 
@@ -614,9 +614,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_CLK_CTRL(void)
   * @rmtoll SYSCFG_ITLINE4 SR_CRS   LL_SYSCFG_IsActiveFlag_CRS
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_CRS(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_CRS( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[4], SYSCFG_ITLINE4_SR_CRS) == (SYSCFG_ITLINE4_SR_CRS)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[4], SYSCFG_ITLINE4_SR_CRS ) == ( SYSCFG_ITLINE4_SR_CRS ) ) ? 1UL : 0UL );
 }
 #endif /* CRS */
 #if defined(SYSCFG_ITLINE5_SR_EXTI0)
@@ -625,9 +625,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_CRS(void)
   * @rmtoll SYSCFG_ITLINE5 SR_EXTI0      LL_SYSCFG_IsActiveFlag_EXTI0
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI0(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI0( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[5], SYSCFG_ITLINE5_SR_EXTI0) == (SYSCFG_ITLINE5_SR_EXTI0)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[5], SYSCFG_ITLINE5_SR_EXTI0 ) == ( SYSCFG_ITLINE5_SR_EXTI0 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE5_SR_EXTI0 */
 
@@ -637,9 +637,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI0(void)
   * @rmtoll SYSCFG_ITLINE5 SR_EXTI1      LL_SYSCFG_IsActiveFlag_EXTI1
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI1(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI1( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[5], SYSCFG_ITLINE5_SR_EXTI1) == (SYSCFG_ITLINE5_SR_EXTI1)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[5], SYSCFG_ITLINE5_SR_EXTI1 ) == ( SYSCFG_ITLINE5_SR_EXTI1 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE5_SR_EXTI1 */
 
@@ -649,9 +649,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI1(void)
   * @rmtoll SYSCFG_ITLINE6 SR_EXTI2      LL_SYSCFG_IsActiveFlag_EXTI2
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI2(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI2( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[6], SYSCFG_ITLINE6_SR_EXTI2) == (SYSCFG_ITLINE6_SR_EXTI2)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[6], SYSCFG_ITLINE6_SR_EXTI2 ) == ( SYSCFG_ITLINE6_SR_EXTI2 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE6_SR_EXTI2 */
 
@@ -661,9 +661,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI2(void)
   * @rmtoll SYSCFG_ITLINE6 SR_EXTI3      LL_SYSCFG_IsActiveFlag_EXTI3
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI3(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI3( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[6], SYSCFG_ITLINE6_SR_EXTI3) == (SYSCFG_ITLINE6_SR_EXTI3)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[6], SYSCFG_ITLINE6_SR_EXTI3 ) == ( SYSCFG_ITLINE6_SR_EXTI3 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE6_SR_EXTI3 */
 
@@ -673,9 +673,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI3(void)
   * @rmtoll SYSCFG_ITLINE7 SR_EXTI4      LL_SYSCFG_IsActiveFlag_EXTI4
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI4(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI4( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[7], SYSCFG_ITLINE7_SR_EXTI4) == (SYSCFG_ITLINE7_SR_EXTI4)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[7], SYSCFG_ITLINE7_SR_EXTI4 ) == ( SYSCFG_ITLINE7_SR_EXTI4 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE7_SR_EXTI4 */
 
@@ -685,9 +685,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI4(void)
   * @rmtoll SYSCFG_ITLINE7 SR_EXTI5      LL_SYSCFG_IsActiveFlag_EXTI5
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI5(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI5( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[7], SYSCFG_ITLINE7_SR_EXTI5) == (SYSCFG_ITLINE7_SR_EXTI5)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[7], SYSCFG_ITLINE7_SR_EXTI5 ) == ( SYSCFG_ITLINE7_SR_EXTI5 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE7_SR_EXTI5 */
 
@@ -697,9 +697,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI5(void)
   * @rmtoll SYSCFG_ITLINE7 SR_EXTI6      LL_SYSCFG_IsActiveFlag_EXTI6
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI6(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI6( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[7], SYSCFG_ITLINE7_SR_EXTI6) == (SYSCFG_ITLINE7_SR_EXTI6)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[7], SYSCFG_ITLINE7_SR_EXTI6 ) == ( SYSCFG_ITLINE7_SR_EXTI6 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE7_SR_EXTI6 */
 
@@ -709,9 +709,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI6(void)
   * @rmtoll SYSCFG_ITLINE7 SR_EXTI7      LL_SYSCFG_IsActiveFlag_EXTI7
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI7(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI7( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[7], SYSCFG_ITLINE7_SR_EXTI7) == (SYSCFG_ITLINE7_SR_EXTI7)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[7], SYSCFG_ITLINE7_SR_EXTI7 ) == ( SYSCFG_ITLINE7_SR_EXTI7 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE7_SR_EXTI7 */
 
@@ -721,9 +721,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI7(void)
   * @rmtoll SYSCFG_ITLINE7 SR_EXTI8      LL_SYSCFG_IsActiveFlag_EXTI8
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI8(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI8( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[7], SYSCFG_ITLINE7_SR_EXTI8) == (SYSCFG_ITLINE7_SR_EXTI8)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[7], SYSCFG_ITLINE7_SR_EXTI8 ) == ( SYSCFG_ITLINE7_SR_EXTI8 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE7_SR_EXTI8 */
 
@@ -733,9 +733,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI8(void)
   * @rmtoll SYSCFG_ITLINE7 SR_EXTI9      LL_SYSCFG_IsActiveFlag_EXTI9
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI9(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI9( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[7], SYSCFG_ITLINE7_SR_EXTI9) == (SYSCFG_ITLINE7_SR_EXTI9)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[7], SYSCFG_ITLINE7_SR_EXTI9 ) == ( SYSCFG_ITLINE7_SR_EXTI9 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE7_SR_EXTI9 */
 
@@ -745,9 +745,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI9(void)
   * @rmtoll SYSCFG_ITLINE7 SR_EXTI10     LL_SYSCFG_IsActiveFlag_EXTI10
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI10(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI10( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[7], SYSCFG_ITLINE7_SR_EXTI10) == (SYSCFG_ITLINE7_SR_EXTI10)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[7], SYSCFG_ITLINE7_SR_EXTI10 ) == ( SYSCFG_ITLINE7_SR_EXTI10 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE7_SR_EXTI10 */
 
@@ -757,9 +757,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI10(void)
   * @rmtoll SYSCFG_ITLINE7 SR_EXTI11     LL_SYSCFG_IsActiveFlag_EXTI11
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI11(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI11( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[7], SYSCFG_ITLINE7_SR_EXTI11) == (SYSCFG_ITLINE7_SR_EXTI11)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[7], SYSCFG_ITLINE7_SR_EXTI11 ) == ( SYSCFG_ITLINE7_SR_EXTI11 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE7_SR_EXTI11 */
 
@@ -769,9 +769,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI11(void)
   * @rmtoll SYSCFG_ITLINE7 SR_EXTI12     LL_SYSCFG_IsActiveFlag_EXTI12
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI12(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI12( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[7], SYSCFG_ITLINE7_SR_EXTI12) == (SYSCFG_ITLINE7_SR_EXTI12)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[7], SYSCFG_ITLINE7_SR_EXTI12 ) == ( SYSCFG_ITLINE7_SR_EXTI12 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE7_SR_EXTI12 */
 
@@ -781,9 +781,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI12(void)
   * @rmtoll SYSCFG_ITLINE7 SR_EXTI13     LL_SYSCFG_IsActiveFlag_EXTI13
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI13(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI13( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[7], SYSCFG_ITLINE7_SR_EXTI13) == (SYSCFG_ITLINE7_SR_EXTI13)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[7], SYSCFG_ITLINE7_SR_EXTI13 ) == ( SYSCFG_ITLINE7_SR_EXTI13 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE7_SR_EXTI13 */
 
@@ -793,9 +793,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI13(void)
   * @rmtoll SYSCFG_ITLINE7 SR_EXTI14     LL_SYSCFG_IsActiveFlag_EXTI14
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI14(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI14( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[7], SYSCFG_ITLINE7_SR_EXTI14) == (SYSCFG_ITLINE7_SR_EXTI14)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[7], SYSCFG_ITLINE7_SR_EXTI14 ) == ( SYSCFG_ITLINE7_SR_EXTI14 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE7_SR_EXTI14 */
 
@@ -805,9 +805,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI14(void)
   * @rmtoll SYSCFG_ITLINE7 SR_EXTI15     LL_SYSCFG_IsActiveFlag_EXTI15
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI15(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI15( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[7], SYSCFG_ITLINE7_SR_EXTI15) == (SYSCFG_ITLINE7_SR_EXTI15)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[7], SYSCFG_ITLINE7_SR_EXTI15 ) == ( SYSCFG_ITLINE7_SR_EXTI15 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE7_SR_EXTI15 */
 
@@ -817,9 +817,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_EXTI15(void)
   * @rmtoll SYSCFG_ITLINE8 SR_UCPD1    LL_SYSCFG_IsActiveFlag_UCPD1
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_UCPD1(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_UCPD1( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[8], SYSCFG_ITLINE8_SR_UCPD1) == (SYSCFG_ITLINE8_SR_UCPD1)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[8], SYSCFG_ITLINE8_SR_UCPD1 ) == ( SYSCFG_ITLINE8_SR_UCPD1 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE8_SR_UCPD1 */
 
@@ -829,9 +829,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_UCPD1(void)
   * @rmtoll SYSCFG_ITLINE8 SR_UCPD2    LL_SYSCFG_IsActiveFlag_UCPD2
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_UCPD2(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_UCPD2( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[8], SYSCFG_ITLINE8_SR_UCPD2) == (SYSCFG_ITLINE8_SR_UCPD2)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[8], SYSCFG_ITLINE8_SR_UCPD2 ) == ( SYSCFG_ITLINE8_SR_UCPD2 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE8_SR_UCPD2 */
 
@@ -841,9 +841,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_UCPD2(void)
   * @rmtoll SYSCFG_ITLINE8 SR_USB    LL_SYSCFG_IsActiveFlag_USB
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_USB(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_USB( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[8], SYSCFG_ITLINE8_SR_USB) == (SYSCFG_ITLINE8_SR_USB)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[8], SYSCFG_ITLINE8_SR_USB ) == ( SYSCFG_ITLINE8_SR_USB ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE8_SR_USB */
 
@@ -853,9 +853,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_USB(void)
   * @rmtoll SYSCFG_ITLINE9 SR_DMA1_CH1   LL_SYSCFG_IsActiveFlag_DMA1_CH1
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA1_CH1(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA1_CH1( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[9], SYSCFG_ITLINE9_SR_DMA1_CH1) == (SYSCFG_ITLINE9_SR_DMA1_CH1)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[9], SYSCFG_ITLINE9_SR_DMA1_CH1 ) == ( SYSCFG_ITLINE9_SR_DMA1_CH1 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE9_SR_DMA1_CH1 */
 
@@ -865,9 +865,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA1_CH1(void)
   * @rmtoll SYSCFG_ITLINE10 SR_DMA1_CH2   LL_SYSCFG_IsActiveFlag_DMA1_CH2
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA1_CH2(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA1_CH2( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[10], SYSCFG_ITLINE10_SR_DMA1_CH2) == (SYSCFG_ITLINE10_SR_DMA1_CH2)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[10], SYSCFG_ITLINE10_SR_DMA1_CH2 ) == ( SYSCFG_ITLINE10_SR_DMA1_CH2 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE10_SR_DMA1_CH2 */
 
@@ -877,9 +877,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA1_CH2(void)
   * @rmtoll SYSCFG_ITLINE10 SR_DMA1_CH3   LL_SYSCFG_IsActiveFlag_DMA1_CH3
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA1_CH3(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA1_CH3( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[10], SYSCFG_ITLINE10_SR_DMA1_CH3) == (SYSCFG_ITLINE10_SR_DMA1_CH3)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[10], SYSCFG_ITLINE10_SR_DMA1_CH3 ) == ( SYSCFG_ITLINE10_SR_DMA1_CH3 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE10_SR_DMA1_CH3 */
 
@@ -889,9 +889,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA1_CH3(void)
   * @rmtoll SYSCFG_ITLINE11 SR_DMA1_CH4   LL_SYSCFG_IsActiveFlag_DMA1_CH4
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA1_CH4(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA1_CH4( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[11], SYSCFG_ITLINE11_SR_DMA1_CH4) == (SYSCFG_ITLINE11_SR_DMA1_CH4)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[11], SYSCFG_ITLINE11_SR_DMA1_CH4 ) == ( SYSCFG_ITLINE11_SR_DMA1_CH4 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE11_SR_DMA1_CH4 */
 
@@ -901,9 +901,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA1_CH4(void)
   * @rmtoll SYSCFG_ITLINE11 SR_DMA1_CH5   LL_SYSCFG_IsActiveFlag_DMA1_CH5
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA1_CH5(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA1_CH5( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[11], SYSCFG_ITLINE11_SR_DMA1_CH5) == (SYSCFG_ITLINE11_SR_DMA1_CH5)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[11], SYSCFG_ITLINE11_SR_DMA1_CH5 ) == ( SYSCFG_ITLINE11_SR_DMA1_CH5 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE11_SR_DMA1_CH5 */
 
@@ -913,9 +913,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA1_CH5(void)
   * @rmtoll SYSCFG_ITLINE11 SR_DMA1_CH6   LL_SYSCFG_IsActiveFlag_DMA1_CH6
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA1_CH6(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA1_CH6( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[11], SYSCFG_ITLINE11_SR_DMA1_CH6) == (SYSCFG_ITLINE11_SR_DMA1_CH6)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[11], SYSCFG_ITLINE11_SR_DMA1_CH6 ) == ( SYSCFG_ITLINE11_SR_DMA1_CH6 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE11_SR_DMA1_CH6 */
 
@@ -925,9 +925,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA1_CH6(void)
   * @rmtoll SYSCFG_ITLINE11 SR_DMA1_CH7   LL_SYSCFG_IsActiveFlag_DMA1_CH7
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA1_CH7(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA1_CH7( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[11], SYSCFG_ITLINE11_SR_DMA1_CH7) == (SYSCFG_ITLINE11_SR_DMA1_CH7)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[11], SYSCFG_ITLINE11_SR_DMA1_CH7 ) == ( SYSCFG_ITLINE11_SR_DMA1_CH7 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE11_SR_DMA1_CH7 */
 
@@ -937,9 +937,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA1_CH7(void)
   * @rmtoll SYSCFG_ITLINE11 SR_DMAMUX1   LL_SYSCFG_IsActiveFlag_DMAMUX
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMAMUX(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMAMUX( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[11], SYSCFG_ITLINE11_SR_DMAMUX1) == (SYSCFG_ITLINE11_SR_DMAMUX1)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[11], SYSCFG_ITLINE11_SR_DMAMUX1 ) == ( SYSCFG_ITLINE11_SR_DMAMUX1 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE11_SR_DMAMUX */
 
@@ -949,9 +949,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMAMUX(void)
   * @rmtoll SYSCFG_ITLINE11 SR_DMA2_CH1   LL_SYSCFG_IsActiveFlag_DMA2_CH1
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA2_CH1(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA2_CH1( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[11], SYSCFG_ITLINE11_SR_DMA2_CH1) == (SYSCFG_ITLINE11_SR_DMA2_CH1)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[11], SYSCFG_ITLINE11_SR_DMA2_CH1 ) == ( SYSCFG_ITLINE11_SR_DMA2_CH1 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE11_SR_DMA2_CH1 */
 
@@ -961,9 +961,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA2_CH1(void)
   * @rmtoll SYSCFG_ITLINE11 SR_DMA2_CH2   LL_SYSCFG_IsActiveFlag_DMA2_CH2
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA2_CH2(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA2_CH2( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[11], SYSCFG_ITLINE11_SR_DMA2_CH2) == (SYSCFG_ITLINE11_SR_DMA2_CH2)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[11], SYSCFG_ITLINE11_SR_DMA2_CH2 ) == ( SYSCFG_ITLINE11_SR_DMA2_CH2 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE11_SR_DMA2_CH2 */
 
@@ -973,9 +973,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA2_CH2(void)
   * @rmtoll SYSCFG_ITLINE11 SR_DMA2_CH3   LL_SYSCFG_IsActiveFlag_DMA2_CH3
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA2_CH3(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA2_CH3( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[11], SYSCFG_ITLINE11_SR_DMA2_CH3) == (SYSCFG_ITLINE11_SR_DMA2_CH3)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[11], SYSCFG_ITLINE11_SR_DMA2_CH3 ) == ( SYSCFG_ITLINE11_SR_DMA2_CH3 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE11_SR_DMA2_CH3 */
 
@@ -985,9 +985,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA2_CH3(void)
   * @rmtoll SYSCFG_ITLINE11 SR_DMA2_CH4   LL_SYSCFG_IsActiveFlag_DMA2_CH4
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA2_CH4(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA2_CH4( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[11], SYSCFG_ITLINE11_SR_DMA2_CH4) == (SYSCFG_ITLINE11_SR_DMA2_CH4)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[11], SYSCFG_ITLINE11_SR_DMA2_CH4 ) == ( SYSCFG_ITLINE11_SR_DMA2_CH4 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE11_SR_DMA2_CH4 */
 
@@ -997,9 +997,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA2_CH4(void)
   * @rmtoll SYSCFG_ITLINE11 SR_DMA2_CH5   LL_SYSCFG_IsActiveFlag_DMA2_CH5
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA2_CH5(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA2_CH5( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[11], SYSCFG_ITLINE11_SR_DMA2_CH5) == (SYSCFG_ITLINE11_SR_DMA2_CH5)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[11], SYSCFG_ITLINE11_SR_DMA2_CH5 ) == ( SYSCFG_ITLINE11_SR_DMA2_CH5 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE11_SR_DMA2_CH5 */
 
@@ -1009,9 +1009,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA2_CH5(void)
   * @rmtoll SYSCFG_ITLINE12 SR_ADC        LL_SYSCFG_IsActiveFlag_ADC
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_ADC(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_ADC( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[12], SYSCFG_ITLINE12_SR_ADC) == (SYSCFG_ITLINE12_SR_ADC)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[12], SYSCFG_ITLINE12_SR_ADC ) == ( SYSCFG_ITLINE12_SR_ADC ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE12_SR_ADC */
 
@@ -1021,9 +1021,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_ADC(void)
   * @rmtoll SYSCFG_ITLINE12 SR_COMP1      LL_SYSCFG_IsActiveFlag_COMP1
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_COMP1(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_COMP1( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[12], SYSCFG_ITLINE12_SR_COMP1) == (SYSCFG_ITLINE12_SR_COMP1)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[12], SYSCFG_ITLINE12_SR_COMP1 ) == ( SYSCFG_ITLINE12_SR_COMP1 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE12_SR_COMP1 */
 
@@ -1033,9 +1033,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_COMP1(void)
   * @rmtoll SYSCFG_ITLINE12 SR_COMP2      LL_SYSCFG_IsActiveFlag_COMP2
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_COMP2(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_COMP2( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[12], SYSCFG_ITLINE12_SR_COMP2) == (SYSCFG_ITLINE12_SR_COMP2)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[12], SYSCFG_ITLINE12_SR_COMP2 ) == ( SYSCFG_ITLINE12_SR_COMP2 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE12_SR_COMP2 */
 
@@ -1045,9 +1045,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_COMP2(void)
   * @rmtoll SYSCFG_ITLINE12 SR_COMP3      LL_SYSCFG_IsActiveFlag_COMP3
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_COMP3(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_COMP3( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[12], SYSCFG_ITLINE12_SR_COMP3) == (SYSCFG_ITLINE12_SR_COMP3)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[12], SYSCFG_ITLINE12_SR_COMP3 ) == ( SYSCFG_ITLINE12_SR_COMP3 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE12_SR_COMP3 */
 
@@ -1057,9 +1057,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_COMP3(void)
   * @rmtoll SYSCFG_ITLINE13 SR_TIM1_BRK   LL_SYSCFG_IsActiveFlag_TIM1_BRK
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM1_BRK(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM1_BRK( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[13], SYSCFG_ITLINE13_SR_TIM1_BRK) == (SYSCFG_ITLINE13_SR_TIM1_BRK)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[13], SYSCFG_ITLINE13_SR_TIM1_BRK ) == ( SYSCFG_ITLINE13_SR_TIM1_BRK ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE13_SR_TIM1_BRK */
 
@@ -1069,9 +1069,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM1_BRK(void)
   * @rmtoll SYSCFG_ITLINE13 SR_TIM1_UPD   LL_SYSCFG_IsActiveFlag_TIM1_UPD
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM1_UPD(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM1_UPD( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[13], SYSCFG_ITLINE13_SR_TIM1_UPD) == (SYSCFG_ITLINE13_SR_TIM1_UPD)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[13], SYSCFG_ITLINE13_SR_TIM1_UPD ) == ( SYSCFG_ITLINE13_SR_TIM1_UPD ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE13_SR_TIM1_UPD */
 
@@ -1081,9 +1081,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM1_UPD(void)
   * @rmtoll SYSCFG_ITLINE13 SR_TIM1_TRG   LL_SYSCFG_IsActiveFlag_TIM1_TRG
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM1_TRG(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM1_TRG( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[13], SYSCFG_ITLINE13_SR_TIM1_TRG) == (SYSCFG_ITLINE13_SR_TIM1_TRG)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[13], SYSCFG_ITLINE13_SR_TIM1_TRG ) == ( SYSCFG_ITLINE13_SR_TIM1_TRG ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE13_SR_TIM1_TRG */
 
@@ -1093,9 +1093,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM1_TRG(void)
   * @rmtoll SYSCFG_ITLINE13 SR_TIM1_CCU   LL_SYSCFG_IsActiveFlag_TIM1_CCU
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM1_CCU(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM1_CCU( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[13], SYSCFG_ITLINE13_SR_TIM1_CCU) == (SYSCFG_ITLINE13_SR_TIM1_CCU)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[13], SYSCFG_ITLINE13_SR_TIM1_CCU ) == ( SYSCFG_ITLINE13_SR_TIM1_CCU ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE13_SR_TIM1_CCU */
 
@@ -1105,9 +1105,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM1_CCU(void)
   * @rmtoll SYSCFG_ITLINE14 SR_TIM1_CC    LL_SYSCFG_IsActiveFlag_TIM1_CC
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM1_CC(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM1_CC( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[14], SYSCFG_ITLINE14_SR_TIM1_CC) == (SYSCFG_ITLINE14_SR_TIM1_CC)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[14], SYSCFG_ITLINE14_SR_TIM1_CC ) == ( SYSCFG_ITLINE14_SR_TIM1_CC ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE14_SR_TIM1_CC */
 
@@ -1117,9 +1117,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM1_CC(void)
   * @rmtoll SYSCFG_ITLINE15 SR_TIM2_GLB   LL_SYSCFG_IsActiveFlag_TIM2
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM2(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM2( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[15], SYSCFG_ITLINE15_SR_TIM2_GLB) == (SYSCFG_ITLINE15_SR_TIM2_GLB)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[15], SYSCFG_ITLINE15_SR_TIM2_GLB ) == ( SYSCFG_ITLINE15_SR_TIM2_GLB ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE15_SR_TIM2_GLB */
 
@@ -1129,9 +1129,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM2(void)
   * @rmtoll SYSCFG_ITLINE16 SR_TIM3_GLB   LL_SYSCFG_IsActiveFlag_TIM3
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM3(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM3( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[16], SYSCFG_ITLINE16_SR_TIM3_GLB) == (SYSCFG_ITLINE16_SR_TIM3_GLB)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[16], SYSCFG_ITLINE16_SR_TIM3_GLB ) == ( SYSCFG_ITLINE16_SR_TIM3_GLB ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE16_SR_TIM3_GLB */
 
@@ -1141,9 +1141,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM3(void)
   * @rmtoll SYSCFG_ITLINE16 SR_TIM4_GLB   LL_SYSCFG_IsActiveFlag_TIM4
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM4(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM4( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[16], SYSCFG_ITLINE16_SR_TIM4_GLB) == (SYSCFG_ITLINE16_SR_TIM4_GLB)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[16], SYSCFG_ITLINE16_SR_TIM4_GLB ) == ( SYSCFG_ITLINE16_SR_TIM4_GLB ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE16_SR_TIM4_GLB */
 
@@ -1153,9 +1153,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM4(void)
   * @rmtoll SYSCFG_ITLINE17 SR_DAC        LL_SYSCFG_IsActiveFlag_DAC
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DAC(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DAC( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[17], SYSCFG_ITLINE17_SR_DAC) == (SYSCFG_ITLINE17_SR_DAC)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[17], SYSCFG_ITLINE17_SR_DAC ) == ( SYSCFG_ITLINE17_SR_DAC ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE17_SR_DAC */
 
@@ -1165,9 +1165,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DAC(void)
   * @rmtoll SYSCFG_ITLINE17 SR_TIM6_GLB   LL_SYSCFG_IsActiveFlag_TIM6
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM6(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM6( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[17], SYSCFG_ITLINE17_SR_TIM6_GLB) == (SYSCFG_ITLINE17_SR_TIM6_GLB)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[17], SYSCFG_ITLINE17_SR_TIM6_GLB ) == ( SYSCFG_ITLINE17_SR_TIM6_GLB ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE17_SR_TIM6_GLB */
 
@@ -1177,9 +1177,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM6(void)
   * @rmtoll SYSCFG_ITLINE17 SR_LPTIM1_GLB   LL_SYSCFG_IsActiveFlag_LPTIM1
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_LPTIM1(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_LPTIM1( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[17], SYSCFG_ITLINE17_SR_LPTIM1_GLB) == (SYSCFG_ITLINE17_SR_LPTIM1_GLB)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[17], SYSCFG_ITLINE17_SR_LPTIM1_GLB ) == ( SYSCFG_ITLINE17_SR_LPTIM1_GLB ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE17_SR_LPTIM1_GLB */
 
@@ -1189,9 +1189,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_LPTIM1(void)
   * @rmtoll SYSCFG_ITLINE18 SR_TIM7_GLB   LL_SYSCFG_IsActiveFlag_TIM7
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM7(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM7( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[18], SYSCFG_ITLINE18_SR_TIM7_GLB) == (SYSCFG_ITLINE18_SR_TIM7_GLB)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[18], SYSCFG_ITLINE18_SR_TIM7_GLB ) == ( SYSCFG_ITLINE18_SR_TIM7_GLB ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE18_SR_TIM7_GLB */
 
@@ -1201,9 +1201,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM7(void)
   * @rmtoll SYSCFG_ITLINE18 SR_LPTIM2_GLB   LL_SYSCFG_IsActiveFlag_LPTIM2
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_LPTIM2(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_LPTIM2( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[18], SYSCFG_ITLINE18_SR_LPTIM2_GLB) == (SYSCFG_ITLINE18_SR_LPTIM2_GLB)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[18], SYSCFG_ITLINE18_SR_LPTIM2_GLB ) == ( SYSCFG_ITLINE18_SR_LPTIM2_GLB ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE18_SR_LPTIM2_GLB */
 
@@ -1213,9 +1213,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_LPTIM2(void)
   * @rmtoll SYSCFG_ITLINE19 SR_TIM14_GLB  LL_SYSCFG_IsActiveFlag_TIM14
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM14(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM14( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[19], SYSCFG_ITLINE19_SR_TIM14_GLB) == (SYSCFG_ITLINE19_SR_TIM14_GLB)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[19], SYSCFG_ITLINE19_SR_TIM14_GLB ) == ( SYSCFG_ITLINE19_SR_TIM14_GLB ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE19_SR_TIM14_GLB */
 
@@ -1225,9 +1225,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM14(void)
   * @rmtoll SYSCFG_ITLINE20 SR_TIM15_GLB  LL_SYSCFG_IsActiveFlag_TIM15
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM15(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM15( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[20], SYSCFG_ITLINE20_SR_TIM15_GLB) == (SYSCFG_ITLINE20_SR_TIM15_GLB)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[20], SYSCFG_ITLINE20_SR_TIM15_GLB ) == ( SYSCFG_ITLINE20_SR_TIM15_GLB ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE20_SR_TIM15_GLB */
 
@@ -1237,9 +1237,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM15(void)
   * @rmtoll SYSCFG_ITLINE21 SR_TIM16_GLB  LL_SYSCFG_IsActiveFlag_TIM16
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM16(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM16( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[21], SYSCFG_ITLINE21_SR_TIM16_GLB) == (SYSCFG_ITLINE21_SR_TIM16_GLB)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[21], SYSCFG_ITLINE21_SR_TIM16_GLB ) == ( SYSCFG_ITLINE21_SR_TIM16_GLB ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE21_SR_TIM16_GLB */
 
@@ -1249,9 +1249,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM16(void)
   * @rmtoll SYSCFG_ITLINE21 SR_FDCAN1_IT0  LL_SYSCFG_IsActiveFlag_FDCAN1_IT0
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_FDCAN1_IT0(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_FDCAN1_IT0( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[21], SYSCFG_ITLINE21_SR_FDCAN1_IT0) == (SYSCFG_ITLINE21_SR_FDCAN1_IT0)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[21], SYSCFG_ITLINE21_SR_FDCAN1_IT0 ) == ( SYSCFG_ITLINE21_SR_FDCAN1_IT0 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE21_SR_FDCAN1_IT0 */
 #if defined(SYSCFG_ITLINE21_SR_FDCAN2_IT0)
@@ -1260,9 +1260,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_FDCAN1_IT0(void)
   * @rmtoll SYSCFG_ITLINE21 SR_FDCAN2_IT0  LL_SYSCFG_IsActiveFlag_FDCAN2_IT0
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_FDCAN2_IT0(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_FDCAN2_IT0( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[21], SYSCFG_ITLINE21_SR_FDCAN2_IT0) == (SYSCFG_ITLINE21_SR_FDCAN2_IT0)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[21], SYSCFG_ITLINE21_SR_FDCAN2_IT0 ) == ( SYSCFG_ITLINE21_SR_FDCAN2_IT0 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE21_SR_FDCAN2_IT0 */
 
@@ -1272,9 +1272,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_FDCAN2_IT0(void)
   * @rmtoll SYSCFG_ITLINE22 SR_TIM17_GLB  LL_SYSCFG_IsActiveFlag_TIM17
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM17(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM17( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[22], SYSCFG_ITLINE22_SR_TIM17_GLB) == (SYSCFG_ITLINE22_SR_TIM17_GLB)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[22], SYSCFG_ITLINE22_SR_TIM17_GLB ) == ( SYSCFG_ITLINE22_SR_TIM17_GLB ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE22_SR_TIM17_GLB */
 
@@ -1284,9 +1284,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM17(void)
   * @rmtoll SYSCFG_ITLINE22 SR_FDCAN1_IT1  LL_SYSCFG_IsActiveFlag_FDCAN1_IT1
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_FDCAN1_IT1(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_FDCAN1_IT1( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[22], SYSCFG_ITLINE22_SR_FDCAN1_IT1) == (SYSCFG_ITLINE22_SR_FDCAN1_IT1)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[22], SYSCFG_ITLINE22_SR_FDCAN1_IT1 ) == ( SYSCFG_ITLINE22_SR_FDCAN1_IT1 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE22_SR_FDCAN1_IT1 */
 #if defined(SYSCFG_ITLINE22_SR_FDCAN2_IT1)
@@ -1295,9 +1295,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_FDCAN1_IT1(void)
   * @rmtoll SYSCFG_ITLINE22 SR_FDCAN2_IT1  LL_SYSCFG_IsActiveFlag_FDCAN2_IT1
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_FDCAN2_IT1(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_FDCAN2_IT1( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[22], SYSCFG_ITLINE22_SR_FDCAN2_IT1) == (SYSCFG_ITLINE22_SR_FDCAN2_IT1)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[22], SYSCFG_ITLINE22_SR_FDCAN2_IT1 ) == ( SYSCFG_ITLINE22_SR_FDCAN2_IT1 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE22_SR_FDCAN2_IT1 */
 
@@ -1307,9 +1307,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_FDCAN2_IT1(void)
   * @rmtoll SYSCFG_ITLINE23 SR_I2C1_GLB   LL_SYSCFG_IsActiveFlag_I2C1
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_I2C1(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_I2C1( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[23], SYSCFG_ITLINE23_SR_I2C1_GLB) == (SYSCFG_ITLINE23_SR_I2C1_GLB)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[23], SYSCFG_ITLINE23_SR_I2C1_GLB ) == ( SYSCFG_ITLINE23_SR_I2C1_GLB ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE23_SR_I2C1_GLB */
 
@@ -1319,9 +1319,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_I2C1(void)
   * @rmtoll SYSCFG_ITLINE24 SR_I2C2_GLB   LL_SYSCFG_IsActiveFlag_I2C2
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_I2C2(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_I2C2( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[24], SYSCFG_ITLINE24_SR_I2C2_GLB) == (SYSCFG_ITLINE24_SR_I2C2_GLB)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[24], SYSCFG_ITLINE24_SR_I2C2_GLB ) == ( SYSCFG_ITLINE24_SR_I2C2_GLB ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE24_SR_I2C2_GLB */
 
@@ -1331,9 +1331,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_I2C2(void)
   * @rmtoll SYSCFG_ITLINE24 SR_I2C3_GLB   LL_SYSCFG_IsActiveFlag_I2C3
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_I2C3(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_I2C3( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[24], SYSCFG_ITLINE24_SR_I2C3_GLB) == (SYSCFG_ITLINE24_SR_I2C3_GLB)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[24], SYSCFG_ITLINE24_SR_I2C3_GLB ) == ( SYSCFG_ITLINE24_SR_I2C3_GLB ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE24_SR_I2C3_GLB */
 
@@ -1343,9 +1343,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_I2C3(void)
   * @rmtoll SYSCFG_ITLINE25 SR_SPI1       LL_SYSCFG_IsActiveFlag_SPI1
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_SPI1(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_SPI1( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[25], SYSCFG_ITLINE25_SR_SPI1) == (SYSCFG_ITLINE25_SR_SPI1)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[25], SYSCFG_ITLINE25_SR_SPI1 ) == ( SYSCFG_ITLINE25_SR_SPI1 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE25_SR_SPI1 */
 
@@ -1355,9 +1355,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_SPI1(void)
   * @rmtoll SYSCFG_ITLINE26 SR_SPI2       LL_SYSCFG_IsActiveFlag_SPI2
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_SPI2(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_SPI2( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[26], SYSCFG_ITLINE26_SR_SPI2) == (SYSCFG_ITLINE26_SR_SPI2)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[26], SYSCFG_ITLINE26_SR_SPI2 ) == ( SYSCFG_ITLINE26_SR_SPI2 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE26_SR_SPI2 */
 
@@ -1367,9 +1367,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_SPI2(void)
   * @rmtoll SYSCFG_ITLINE26 SR_SPI3       LL_SYSCFG_IsActiveFlag_SPI3
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_SPI3(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_SPI3( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[26], SYSCFG_ITLINE26_SR_SPI3) == (SYSCFG_ITLINE26_SR_SPI3)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[26], SYSCFG_ITLINE26_SR_SPI3 ) == ( SYSCFG_ITLINE26_SR_SPI3 ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE26_SR_SPI3 */
 
@@ -1379,9 +1379,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_SPI3(void)
   * @rmtoll SYSCFG_ITLINE27 SR_USART1_GLB  LL_SYSCFG_IsActiveFlag_USART1
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_USART1(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_USART1( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[27], SYSCFG_ITLINE27_SR_USART1_GLB) == (SYSCFG_ITLINE27_SR_USART1_GLB)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[27], SYSCFG_ITLINE27_SR_USART1_GLB ) == ( SYSCFG_ITLINE27_SR_USART1_GLB ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE27_SR_USART1_GLB */
 
@@ -1391,9 +1391,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_USART1(void)
   * @rmtoll SYSCFG_ITLINE28 SR_USART2_GLB  LL_SYSCFG_IsActiveFlag_USART2
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_USART2(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_USART2( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[28], SYSCFG_ITLINE28_SR_USART2_GLB) == (SYSCFG_ITLINE28_SR_USART2_GLB)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[28], SYSCFG_ITLINE28_SR_USART2_GLB ) == ( SYSCFG_ITLINE28_SR_USART2_GLB ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE28_SR_USART2_GLB */
 
@@ -1403,9 +1403,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_USART2(void)
   * @rmtoll SYSCFG_ITLINE28 SR_LPUART2_GLB  LL_SYSCFG_IsActiveFlag_LPUART2
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_LPUART2(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_LPUART2( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[28], SYSCFG_ITLINE28_SR_LPUART2_GLB) == (SYSCFG_ITLINE28_SR_LPUART2_GLB)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[28], SYSCFG_ITLINE28_SR_LPUART2_GLB ) == ( SYSCFG_ITLINE28_SR_LPUART2_GLB ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE28_SR_LPUART2_GLB */
 
@@ -1415,9 +1415,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_LPUART2(void)
   * @rmtoll SYSCFG_ITLINE29 SR_USART3_GLB  LL_SYSCFG_IsActiveFlag_USART3
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_USART3(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_USART3( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[29], SYSCFG_ITLINE29_SR_USART3_GLB) == (SYSCFG_ITLINE29_SR_USART3_GLB)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[29], SYSCFG_ITLINE29_SR_USART3_GLB ) == ( SYSCFG_ITLINE29_SR_USART3_GLB ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE29_SR_USART3_GLB */
 
@@ -1427,9 +1427,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_USART3(void)
   * @rmtoll SYSCFG_ITLINE29 SR_USART4_GLB  LL_SYSCFG_IsActiveFlag_USART4
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_USART4(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_USART4( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[29], SYSCFG_ITLINE29_SR_USART4_GLB) == (SYSCFG_ITLINE29_SR_USART4_GLB)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[29], SYSCFG_ITLINE29_SR_USART4_GLB ) == ( SYSCFG_ITLINE29_SR_USART4_GLB ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE29_SR_USART4_GLB */
 
@@ -1439,9 +1439,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_USART4(void)
   * @rmtoll SYSCFG_ITLINE29 SR_LPUART1_GLB  LL_SYSCFG_IsActiveFlag_LPUART1
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_LPUART1(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_LPUART1( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[29], SYSCFG_ITLINE29_SR_LPUART1_GLB) == (SYSCFG_ITLINE29_SR_LPUART1_GLB)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[29], SYSCFG_ITLINE29_SR_LPUART1_GLB ) == ( SYSCFG_ITLINE29_SR_LPUART1_GLB ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE29_SR_LPUART1_GLB */
 
@@ -1451,9 +1451,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_LPUART1(void)
   * @rmtoll SYSCFG_ITLINE29 SR_USART5_GLB  LL_SYSCFG_IsActiveFlag_USART5
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_USART5(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_USART5( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[29], SYSCFG_ITLINE29_SR_USART5_GLB) == (SYSCFG_ITLINE29_SR_USART5_GLB)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[29], SYSCFG_ITLINE29_SR_USART5_GLB ) == ( SYSCFG_ITLINE29_SR_USART5_GLB ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE29_SR_USART5_GLB */
 
@@ -1463,9 +1463,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_USART5(void)
   * @rmtoll SYSCFG_ITLINE29 SR_USART6_GLB  LL_SYSCFG_IsActiveFlag_USART6
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_USART6(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_USART6( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[29], SYSCFG_ITLINE29_SR_USART6_GLB) == (SYSCFG_ITLINE29_SR_USART6_GLB)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[29], SYSCFG_ITLINE29_SR_USART6_GLB ) == ( SYSCFG_ITLINE29_SR_USART6_GLB ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE29_SR_USART6_GLB */
 
@@ -1475,9 +1475,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_USART6(void)
   * @rmtoll SYSCFG_ITLINE30 SR_CEC        LL_SYSCFG_IsActiveFlag_CEC
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_CEC(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_CEC( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[30], SYSCFG_ITLINE30_SR_CEC) == (SYSCFG_ITLINE30_SR_CEC)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[30], SYSCFG_ITLINE30_SR_CEC ) == ( SYSCFG_ITLINE30_SR_CEC ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE30_SR_CEC */
 
@@ -1487,9 +1487,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_CEC(void)
   * @rmtoll SYSCFG_ITLINE31 SR_AES        LL_SYSCFG_IsActiveFlag_AES
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_AES(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_AES( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[31], SYSCFG_ITLINE31_SR_AES) == (SYSCFG_ITLINE31_SR_AES)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[31], SYSCFG_ITLINE31_SR_AES ) == ( SYSCFG_ITLINE31_SR_AES ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE31_SR_AES */
 
@@ -1499,9 +1499,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_AES(void)
   * @rmtoll SYSCFG_ITLINE31 SR_RNG        LL_SYSCFG_IsActiveFlag_RNG
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_RNG(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_RNG( void )
 {
-  return ((READ_BIT(SYSCFG->IT_LINE_SR[31], SYSCFG_ITLINE31_SR_RNG) == (SYSCFG_ITLINE31_SR_RNG)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->IT_LINE_SR[31], SYSCFG_ITLINE31_SR_RNG ) == ( SYSCFG_ITLINE31_SR_RNG ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_ITLINE31_SR_RNG */
 
@@ -1522,12 +1522,12 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_RNG(void)
   *         (*) value not defined in all devices
   * @retval None
   */
-__STATIC_INLINE void LL_SYSCFG_SetTIMBreakInputs(uint32_t Break)
+__STATIC_INLINE void LL_SYSCFG_SetTIMBreakInputs( uint32_t Break )
 {
 #if defined(SYSCFG_CFGR2_PVDL)
-  MODIFY_REG(SYSCFG->CFGR2, SYSCFG_CFGR2_CLL | SYSCFG_CFGR2_SPL | SYSCFG_CFGR2_PVDL | SYSCFG_CFGR2_ECCL, Break);
+    MODIFY_REG( SYSCFG->CFGR2, SYSCFG_CFGR2_CLL | SYSCFG_CFGR2_SPL | SYSCFG_CFGR2_PVDL | SYSCFG_CFGR2_ECCL, Break );
 #else
-  MODIFY_REG(SYSCFG->CFGR2, SYSCFG_CFGR2_CLL | SYSCFG_CFGR2_SPL | SYSCFG_CFGR2_ECCL, Break);
+    MODIFY_REG( SYSCFG->CFGR2, SYSCFG_CFGR2_CLL | SYSCFG_CFGR2_SPL | SYSCFG_CFGR2_ECCL, Break );
 #endif /*SYSCFG_CFGR2_PVDL*/
 }
 
@@ -1547,12 +1547,12 @@ __STATIC_INLINE void LL_SYSCFG_SetTIMBreakInputs(uint32_t Break)
   *
   *         (*) value not defined in all devices
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_GetTIMBreakInputs(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_GetTIMBreakInputs( void )
 {
 #if defined(SYSCFG_CFGR2_PVDL)
-  return (uint32_t)(READ_BIT(SYSCFG->CFGR2, SYSCFG_CFGR2_CLL | SYSCFG_CFGR2_SPL | SYSCFG_CFGR2_PVDL | SYSCFG_CFGR2_ECCL));
+    return ( uint32_t )( READ_BIT( SYSCFG->CFGR2, SYSCFG_CFGR2_CLL | SYSCFG_CFGR2_SPL | SYSCFG_CFGR2_PVDL | SYSCFG_CFGR2_ECCL ) );
 #else
-  return (uint32_t)(READ_BIT(SYSCFG->CFGR2, SYSCFG_CFGR2_CLL | SYSCFG_CFGR2_SPL | SYSCFG_CFGR2_ECCL));
+    return ( uint32_t )( READ_BIT( SYSCFG->CFGR2, SYSCFG_CFGR2_CLL | SYSCFG_CFGR2_SPL | SYSCFG_CFGR2_ECCL ) );
 #endif /*SYSCFG_CFGR2_PVDL*/
 }
 
@@ -1561,9 +1561,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_GetTIMBreakInputs(void)
   * @rmtoll SYSCFG_CFGR2 SPF      LL_SYSCFG_IsActiveFlag_SP
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_SP(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_SP( void )
 {
-  return ((READ_BIT(SYSCFG->CFGR2, SYSCFG_CFGR2_SPF) == (SYSCFG_CFGR2_SPF)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->CFGR2, SYSCFG_CFGR2_SPF ) == ( SYSCFG_CFGR2_SPF ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1571,9 +1571,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_SP(void)
   * @rmtoll SYSCFG_CFGR2 SPF      LL_SYSCFG_ClearFlag_SP
   * @retval None
   */
-__STATIC_INLINE void LL_SYSCFG_ClearFlag_SP(void)
+__STATIC_INLINE void LL_SYSCFG_ClearFlag_SP( void )
 {
-  SET_BIT(SYSCFG->CFGR2, SYSCFG_CFGR2_SPF);
+    SET_BIT( SYSCFG->CFGR2, SYSCFG_CFGR2_SPF );
 }
 
 #if defined(SYSCFG_CDEN_SUPPORT)
@@ -1598,9 +1598,9 @@ __STATIC_INLINE void LL_SYSCFG_ClearFlag_SP(void)
   *         @arg @ref LL_SYSCFG_CFGR2_PB2_CDEN
   * @retval None
   */
-__STATIC_INLINE void LL_SYSCFG_EnableClampingDiode(uint32_t ConfigClampingDiode)
+__STATIC_INLINE void LL_SYSCFG_EnableClampingDiode( uint32_t ConfigClampingDiode )
 {
-  SET_BIT(SYSCFG->CFGR2, ConfigClampingDiode);
+    SET_BIT( SYSCFG->CFGR2, ConfigClampingDiode );
 }
 
 /**
@@ -1624,9 +1624,9 @@ __STATIC_INLINE void LL_SYSCFG_EnableClampingDiode(uint32_t ConfigClampingDiode)
   *         @arg @ref LL_SYSCFG_CFGR2_PB2_CDEN
   * @retval None
   */
-__STATIC_INLINE void LL_SYSCFG_DisableClampingDiode(uint32_t ConfigClampingDiode)
+__STATIC_INLINE void LL_SYSCFG_DisableClampingDiode( uint32_t ConfigClampingDiode )
 {
-  CLEAR_BIT(SYSCFG->CFGR2, ConfigClampingDiode);
+    CLEAR_BIT( SYSCFG->CFGR2, ConfigClampingDiode );
 }
 /**
   * @brief  Indicates whether clamping diode(s) is(are) enabled.
@@ -1649,9 +1649,9 @@ __STATIC_INLINE void LL_SYSCFG_DisableClampingDiode(uint32_t ConfigClampingDiode
   *         @arg @ref LL_SYSCFG_CFGR2_PB2_CDEN
   * @retval None
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsEnabledClampingDiode(uint32_t ConfigClampingDiode)
+__STATIC_INLINE uint32_t LL_SYSCFG_IsEnabledClampingDiode( uint32_t ConfigClampingDiode )
 {
-  return ((READ_BIT(SYSCFG->CFGR2, ConfigClampingDiode) == (ConfigClampingDiode)) ? 1UL : 0UL);
+    return ( ( READ_BIT( SYSCFG->CFGR2, ConfigClampingDiode ) == ( ConfigClampingDiode ) ) ? 1UL : 0UL );
 }
 #endif /* SYSCFG_CDEN_SUPPORT */
 
@@ -1669,9 +1669,9 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsEnabledClampingDiode(uint32_t ConfigClampin
   * @rmtoll DBG_IDCODE DEV_ID        LL_DBGMCU_GetDeviceID
   * @retval Values between Min_Data=0x00 and Max_Data=0xFFF
   */
-__STATIC_INLINE uint32_t LL_DBGMCU_GetDeviceID(void)
+__STATIC_INLINE uint32_t LL_DBGMCU_GetDeviceID( void )
 {
-  return (uint32_t)(READ_BIT(DBG->IDCODE, DBG_IDCODE_DEV_ID));
+    return ( uint32_t )( READ_BIT( DBG->IDCODE, DBG_IDCODE_DEV_ID ) );
 }
 
 /**
@@ -1680,9 +1680,9 @@ __STATIC_INLINE uint32_t LL_DBGMCU_GetDeviceID(void)
   * @rmtoll DBG_IDCODE REV_ID        LL_DBGMCU_GetRevisionID
   * @retval Values between Min_Data=0x00 and Max_Data=0xFFFF
   */
-__STATIC_INLINE uint32_t LL_DBGMCU_GetRevisionID(void)
+__STATIC_INLINE uint32_t LL_DBGMCU_GetRevisionID( void )
 {
-  return (uint32_t)(READ_BIT(DBG->IDCODE, DBG_IDCODE_REV_ID) >> DBG_IDCODE_REV_ID_Pos);
+    return ( uint32_t )( READ_BIT( DBG->IDCODE, DBG_IDCODE_REV_ID ) >> DBG_IDCODE_REV_ID_Pos );
 }
 
 /**
@@ -1690,9 +1690,9 @@ __STATIC_INLINE uint32_t LL_DBGMCU_GetRevisionID(void)
   * @rmtoll DBG_CR    DBG_STOP      LL_DBGMCU_EnableDBGStopMode
   * @retval None
   */
-__STATIC_INLINE void LL_DBGMCU_EnableDBGStopMode(void)
+__STATIC_INLINE void LL_DBGMCU_EnableDBGStopMode( void )
 {
-  SET_BIT(DBG->CR, DBG_CR_DBG_STOP);
+    SET_BIT( DBG->CR, DBG_CR_DBG_STOP );
 }
 
 /**
@@ -1700,9 +1700,9 @@ __STATIC_INLINE void LL_DBGMCU_EnableDBGStopMode(void)
   * @rmtoll DBG_CR    DBG_STOP      LL_DBGMCU_DisableDBGStopMode
   * @retval None
   */
-__STATIC_INLINE void LL_DBGMCU_DisableDBGStopMode(void)
+__STATIC_INLINE void LL_DBGMCU_DisableDBGStopMode( void )
 {
-  CLEAR_BIT(DBG->CR, DBG_CR_DBG_STOP);
+    CLEAR_BIT( DBG->CR, DBG_CR_DBG_STOP );
 }
 
 /**
@@ -1710,9 +1710,9 @@ __STATIC_INLINE void LL_DBGMCU_DisableDBGStopMode(void)
   * @rmtoll DBG_CR    DBG_STANDBY   LL_DBGMCU_EnableDBGStandbyMode
   * @retval None
   */
-__STATIC_INLINE void LL_DBGMCU_EnableDBGStandbyMode(void)
+__STATIC_INLINE void LL_DBGMCU_EnableDBGStandbyMode( void )
 {
-  SET_BIT(DBG->CR, DBG_CR_DBG_STANDBY);
+    SET_BIT( DBG->CR, DBG_CR_DBG_STANDBY );
 }
 
 /**
@@ -1720,9 +1720,9 @@ __STATIC_INLINE void LL_DBGMCU_EnableDBGStandbyMode(void)
   * @rmtoll DBG_CR    DBG_STANDBY   LL_DBGMCU_DisableDBGStandbyMode
   * @retval None
   */
-__STATIC_INLINE void LL_DBGMCU_DisableDBGStandbyMode(void)
+__STATIC_INLINE void LL_DBGMCU_DisableDBGStandbyMode( void )
 {
-  CLEAR_BIT(DBG->CR, DBG_CR_DBG_STANDBY);
+    CLEAR_BIT( DBG->CR, DBG_CR_DBG_STANDBY );
 }
 
 /**
@@ -1756,9 +1756,9 @@ __STATIC_INLINE void LL_DBGMCU_DisableDBGStandbyMode(void)
   *         (*) value not defined in all devices
   * @retval None
   */
-__STATIC_INLINE void LL_DBGMCU_APB1_GRP1_FreezePeriph(uint32_t Periphs)
+__STATIC_INLINE void LL_DBGMCU_APB1_GRP1_FreezePeriph( uint32_t Periphs )
 {
-  SET_BIT(DBG->APBFZ1, Periphs);
+    SET_BIT( DBG->APBFZ1, Periphs );
 }
 
 /**
@@ -1792,9 +1792,9 @@ __STATIC_INLINE void LL_DBGMCU_APB1_GRP1_FreezePeriph(uint32_t Periphs)
   *         (*) value not defined in all devices
   * @retval None
   */
-__STATIC_INLINE void LL_DBGMCU_APB1_GRP1_UnFreezePeriph(uint32_t Periphs)
+__STATIC_INLINE void LL_DBGMCU_APB1_GRP1_UnFreezePeriph( uint32_t Periphs )
 {
-  CLEAR_BIT(DBG->APBFZ1, Periphs);
+    CLEAR_BIT( DBG->APBFZ1, Periphs );
 }
 
 /**
@@ -1814,9 +1814,9 @@ __STATIC_INLINE void LL_DBGMCU_APB1_GRP1_UnFreezePeriph(uint32_t Periphs)
   *         (*) value not defined in all devices
   * @retval None
   */
-__STATIC_INLINE void LL_DBGMCU_APB2_GRP1_FreezePeriph(uint32_t Periphs)
+__STATIC_INLINE void LL_DBGMCU_APB2_GRP1_FreezePeriph( uint32_t Periphs )
 {
-  SET_BIT(DBG->APBFZ2, Periphs);
+    SET_BIT( DBG->APBFZ2, Periphs );
 }
 
 /**
@@ -1836,9 +1836,9 @@ __STATIC_INLINE void LL_DBGMCU_APB2_GRP1_FreezePeriph(uint32_t Periphs)
   *         (*) value not defined in all devices
   * @retval None
   */
-__STATIC_INLINE void LL_DBGMCU_APB2_GRP1_UnFreezePeriph(uint32_t Periphs)
+__STATIC_INLINE void LL_DBGMCU_APB2_GRP1_UnFreezePeriph( uint32_t Periphs )
 {
-  CLEAR_BIT(DBG->APBFZ2, Periphs);
+    CLEAR_BIT( DBG->APBFZ2, Periphs );
 }
 /**
   * @}
@@ -1854,9 +1854,9 @@ __STATIC_INLINE void LL_DBGMCU_APB2_GRP1_UnFreezePeriph(uint32_t Periphs)
   * @rmtoll VREFBUF_CSR  VREFBUF_CSR_ENVR          LL_VREFBUF_Enable
   * @retval None
   */
-__STATIC_INLINE void LL_VREFBUF_Enable(void)
+__STATIC_INLINE void LL_VREFBUF_Enable( void )
 {
-  SET_BIT(VREFBUF->CSR, VREFBUF_CSR_ENVR);
+    SET_BIT( VREFBUF->CSR, VREFBUF_CSR_ENVR );
 }
 
 /**
@@ -1864,9 +1864,9 @@ __STATIC_INLINE void LL_VREFBUF_Enable(void)
   * @rmtoll VREFBUF_CSR  VREFBUF_CSR_ENVR          LL_VREFBUF_Disable
   * @retval None
   */
-__STATIC_INLINE void LL_VREFBUF_Disable(void)
+__STATIC_INLINE void LL_VREFBUF_Disable( void )
 {
-  CLEAR_BIT(VREFBUF->CSR, VREFBUF_CSR_ENVR);
+    CLEAR_BIT( VREFBUF->CSR, VREFBUF_CSR_ENVR );
 }
 
 /**
@@ -1874,9 +1874,9 @@ __STATIC_INLINE void LL_VREFBUF_Disable(void)
   * @rmtoll VREFBUF_CSR  VREFBUF_CSR_HIZ           LL_VREFBUF_EnableHIZ
   * @retval None
   */
-__STATIC_INLINE void LL_VREFBUF_EnableHIZ(void)
+__STATIC_INLINE void LL_VREFBUF_EnableHIZ( void )
 {
-  SET_BIT(VREFBUF->CSR, VREFBUF_CSR_HIZ);
+    SET_BIT( VREFBUF->CSR, VREFBUF_CSR_HIZ );
 }
 
 /**
@@ -1884,9 +1884,9 @@ __STATIC_INLINE void LL_VREFBUF_EnableHIZ(void)
   * @rmtoll VREFBUF_CSR  VREFBUF_CSR_HIZ           LL_VREFBUF_DisableHIZ
   * @retval None
   */
-__STATIC_INLINE void LL_VREFBUF_DisableHIZ(void)
+__STATIC_INLINE void LL_VREFBUF_DisableHIZ( void )
 {
-  CLEAR_BIT(VREFBUF->CSR, VREFBUF_CSR_HIZ);
+    CLEAR_BIT( VREFBUF->CSR, VREFBUF_CSR_HIZ );
 }
 
 /**
@@ -1897,9 +1897,9 @@ __STATIC_INLINE void LL_VREFBUF_DisableHIZ(void)
   *         @arg @ref LL_VREFBUF_VOLTAGE_SCALE1
   * @retval None
   */
-__STATIC_INLINE void LL_VREFBUF_SetVoltageScaling(uint32_t Scale)
+__STATIC_INLINE void LL_VREFBUF_SetVoltageScaling( uint32_t Scale )
 {
-  MODIFY_REG(VREFBUF->CSR, VREFBUF_CSR_VRS, Scale);
+    MODIFY_REG( VREFBUF->CSR, VREFBUF_CSR_VRS, Scale );
 }
 
 /**
@@ -1909,9 +1909,9 @@ __STATIC_INLINE void LL_VREFBUF_SetVoltageScaling(uint32_t Scale)
   *         @arg @ref LL_VREFBUF_VOLTAGE_SCALE0
   *         @arg @ref LL_VREFBUF_VOLTAGE_SCALE1
   */
-__STATIC_INLINE uint32_t LL_VREFBUF_GetVoltageScaling(void)
+__STATIC_INLINE uint32_t LL_VREFBUF_GetVoltageScaling( void )
 {
-  return (uint32_t)(READ_BIT(VREFBUF->CSR, VREFBUF_CSR_VRS));
+    return ( uint32_t )( READ_BIT( VREFBUF->CSR, VREFBUF_CSR_VRS ) );
 }
 
 /**
@@ -1919,9 +1919,9 @@ __STATIC_INLINE uint32_t LL_VREFBUF_GetVoltageScaling(void)
   * @rmtoll VREFBUF_CSR  VREFBUF_CSR_VRS           LL_VREFBUF_IsVREFReady
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_VREFBUF_IsVREFReady(void)
+__STATIC_INLINE uint32_t LL_VREFBUF_IsVREFReady( void )
 {
-  return ((READ_BIT(VREFBUF->CSR, VREFBUF_CSR_VRR) == (VREFBUF_CSR_VRR)) ? 1UL : 0UL);
+    return ( ( READ_BIT( VREFBUF->CSR, VREFBUF_CSR_VRR ) == ( VREFBUF_CSR_VRR ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1929,9 +1929,9 @@ __STATIC_INLINE uint32_t LL_VREFBUF_IsVREFReady(void)
   * @rmtoll VREFBUF_CCR  VREFBUF_CCR_TRIM          LL_VREFBUF_GetTrimming
   * @retval Between 0 and 0x3F
   */
-__STATIC_INLINE uint32_t LL_VREFBUF_GetTrimming(void)
+__STATIC_INLINE uint32_t LL_VREFBUF_GetTrimming( void )
 {
-  return (uint32_t)(READ_BIT(VREFBUF->CCR, VREFBUF_CCR_TRIM));
+    return ( uint32_t )( READ_BIT( VREFBUF->CCR, VREFBUF_CCR_TRIM ) );
 }
 
 /**
@@ -1945,9 +1945,9 @@ __STATIC_INLINE uint32_t LL_VREFBUF_GetTrimming(void)
   * @param  Value Between 0 and 0x3F
   * @retval None
   */
-__STATIC_INLINE void LL_VREFBUF_SetTrimming(uint32_t Value)
+__STATIC_INLINE void LL_VREFBUF_SetTrimming( uint32_t Value )
 {
-  WRITE_REG(VREFBUF->CCR, Value);
+    WRITE_REG( VREFBUF->CCR, Value );
 }
 
 /**
@@ -1968,9 +1968,9 @@ __STATIC_INLINE void LL_VREFBUF_SetTrimming(uint32_t Value)
   *         @arg @ref LL_FLASH_LATENCY_2
   * @retval None
   */
-__STATIC_INLINE void LL_FLASH_SetLatency(uint32_t Latency)
+__STATIC_INLINE void LL_FLASH_SetLatency( uint32_t Latency )
 {
-  MODIFY_REG(FLASH->ACR, FLASH_ACR_LATENCY, Latency);
+    MODIFY_REG( FLASH->ACR, FLASH_ACR_LATENCY, Latency );
 }
 
 /**
@@ -1981,9 +1981,9 @@ __STATIC_INLINE void LL_FLASH_SetLatency(uint32_t Latency)
   *         @arg @ref LL_FLASH_LATENCY_1
   *         @arg @ref LL_FLASH_LATENCY_2
   */
-__STATIC_INLINE uint32_t LL_FLASH_GetLatency(void)
+__STATIC_INLINE uint32_t LL_FLASH_GetLatency( void )
 {
-  return (uint32_t)(READ_BIT(FLASH->ACR, FLASH_ACR_LATENCY));
+    return ( uint32_t )( READ_BIT( FLASH->ACR, FLASH_ACR_LATENCY ) );
 }
 
 /**
@@ -1991,9 +1991,9 @@ __STATIC_INLINE uint32_t LL_FLASH_GetLatency(void)
   * @rmtoll FLASH_ACR    FLASH_ACR_PRFTEN        LL_FLASH_EnablePrefetch
   * @retval None
   */
-__STATIC_INLINE void LL_FLASH_EnablePrefetch(void)
+__STATIC_INLINE void LL_FLASH_EnablePrefetch( void )
 {
-  SET_BIT(FLASH->ACR, FLASH_ACR_PRFTEN);
+    SET_BIT( FLASH->ACR, FLASH_ACR_PRFTEN );
 }
 
 /**
@@ -2001,9 +2001,9 @@ __STATIC_INLINE void LL_FLASH_EnablePrefetch(void)
   * @rmtoll FLASH_ACR    FLASH_ACR_PRFTEN        LL_FLASH_DisablePrefetch
   * @retval None
   */
-__STATIC_INLINE void LL_FLASH_DisablePrefetch(void)
+__STATIC_INLINE void LL_FLASH_DisablePrefetch( void )
 {
-  CLEAR_BIT(FLASH->ACR, FLASH_ACR_PRFTEN);
+    CLEAR_BIT( FLASH->ACR, FLASH_ACR_PRFTEN );
 }
 
 /**
@@ -2011,9 +2011,9 @@ __STATIC_INLINE void LL_FLASH_DisablePrefetch(void)
   * @rmtoll FLASH_ACR    FLASH_ACR_PRFTEN        LL_FLASH_IsPrefetchEnabled
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_FLASH_IsPrefetchEnabled(void)
+__STATIC_INLINE uint32_t LL_FLASH_IsPrefetchEnabled( void )
 {
-  return ((READ_BIT(FLASH->ACR, FLASH_ACR_PRFTEN) == (FLASH_ACR_PRFTEN)) ? 1UL : 0UL);
+    return ( ( READ_BIT( FLASH->ACR, FLASH_ACR_PRFTEN ) == ( FLASH_ACR_PRFTEN ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -2021,9 +2021,9 @@ __STATIC_INLINE uint32_t LL_FLASH_IsPrefetchEnabled(void)
   * @rmtoll FLASH_ACR    FLASH_ACR_ICEN          LL_FLASH_EnableInstCache
   * @retval None
   */
-__STATIC_INLINE void LL_FLASH_EnableInstCache(void)
+__STATIC_INLINE void LL_FLASH_EnableInstCache( void )
 {
-  SET_BIT(FLASH->ACR, FLASH_ACR_ICEN);
+    SET_BIT( FLASH->ACR, FLASH_ACR_ICEN );
 }
 
 /**
@@ -2031,9 +2031,9 @@ __STATIC_INLINE void LL_FLASH_EnableInstCache(void)
   * @rmtoll FLASH_ACR    FLASH_ACR_ICEN          LL_FLASH_DisableInstCache
   * @retval None
   */
-__STATIC_INLINE void LL_FLASH_DisableInstCache(void)
+__STATIC_INLINE void LL_FLASH_DisableInstCache( void )
 {
-  CLEAR_BIT(FLASH->ACR, FLASH_ACR_ICEN);
+    CLEAR_BIT( FLASH->ACR, FLASH_ACR_ICEN );
 }
 
 /**
@@ -2042,9 +2042,9 @@ __STATIC_INLINE void LL_FLASH_DisableInstCache(void)
   * @rmtoll FLASH_ACR    FLASH_ACR_ICRST         LL_FLASH_EnableInstCacheReset
   * @retval None
   */
-__STATIC_INLINE void LL_FLASH_EnableInstCacheReset(void)
+__STATIC_INLINE void LL_FLASH_EnableInstCacheReset( void )
 {
-  SET_BIT(FLASH->ACR, FLASH_ACR_ICRST);
+    SET_BIT( FLASH->ACR, FLASH_ACR_ICRST );
 }
 
 /**
@@ -2052,9 +2052,9 @@ __STATIC_INLINE void LL_FLASH_EnableInstCacheReset(void)
   * @rmtoll FLASH_ACR    FLASH_ACR_ICRST         LL_FLASH_DisableInstCacheReset
   * @retval None
   */
-__STATIC_INLINE void LL_FLASH_DisableInstCacheReset(void)
+__STATIC_INLINE void LL_FLASH_DisableInstCacheReset( void )
 {
-  CLEAR_BIT(FLASH->ACR, FLASH_ACR_ICRST);
+    CLEAR_BIT( FLASH->ACR, FLASH_ACR_ICRST );
 }
 
 /**

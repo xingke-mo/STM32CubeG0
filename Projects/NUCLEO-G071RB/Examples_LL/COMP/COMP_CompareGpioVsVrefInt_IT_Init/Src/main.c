@@ -12,11 +12,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -53,12 +53,12 @@
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
-void SystemClock_Config(void);
-static void MX_GPIO_Init(void);
-static void MX_COMP1_Init(void);
+void SystemClock_Config( void );
+static void MX_GPIO_Init( void );
+static void MX_COMP1_Init( void );
 /* USER CODE BEGIN PFP */
-void     LED_On(void);
-void     LED_Off(void);
+void     LED_On( void );
+void     LED_Off( void );
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -70,85 +70,88 @@ void     LED_Off(void);
   * @brief  The application entry point.
   * @retval int
   */
-int main(void)
+int main( void )
 {
-  /* USER CODE BEGIN 1 */
+    /* USER CODE BEGIN 1 */
 
-  /* USER CODE END 1 */
+    /* USER CODE END 1 */
 
-  /* MCU Configuration--------------------------------------------------------*/
+    /* MCU Configuration--------------------------------------------------------*/
 
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
 
-  LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SYSCFG);
-  LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_PWR);
+    LL_APB2_GRP1_EnableClock( LL_APB2_GRP1_PERIPH_SYSCFG );
+    LL_APB1_GRP1_EnableClock( LL_APB1_GRP1_PERIPH_PWR );
 
-  /* System interrupt init*/
+    /* System interrupt init*/
 
-  /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
-  */
-  LL_SYSCFG_DisableDBATT(LL_SYSCFG_UCPD1_STROBE | LL_SYSCFG_UCPD2_STROBE);
+    /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
+    */
+    LL_SYSCFG_DisableDBATT( LL_SYSCFG_UCPD1_STROBE | LL_SYSCFG_UCPD2_STROBE );
 
-  /* USER CODE BEGIN Init */
+    /* USER CODE BEGIN Init */
 
-  /* USER CODE END Init */
+    /* USER CODE END Init */
 
-  /* Configure the system clock */
-  SystemClock_Config();
+    /* Configure the system clock */
+    SystemClock_Config();
 
-  /* USER CODE BEGIN SysInit */
-  
-  /* USER CODE END SysInit */
+    /* USER CODE BEGIN SysInit */
 
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  MX_COMP1_Init();
-  /* USER CODE BEGIN 2 */
+    /* USER CODE END SysInit */
 
-  /* Lock comparator instance */
-  //LL_COMP_Lock(COMP1);
-  
-  /* USER CODE END 2 */
+    /* Initialize all configured peripherals */
+    MX_GPIO_Init();
+    MX_COMP1_Init();
+    /* USER CODE BEGIN 2 */
 
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-    /* Note: LED state depending on COMP status is set into COMP IRQ handler, */
-    /*        refer to function "ComparatorTrigger_Callback()".               */
-    /* USER CODE END WHILE */
+    /* Lock comparator instance */
+    //LL_COMP_Lock(COMP1);
 
-    /* USER CODE BEGIN 3 */
-  }
-  /* USER CODE END 3 */
+    /* USER CODE END 2 */
+
+    /* Infinite loop */
+    /* USER CODE BEGIN WHILE */
+    while( 1 )
+    {
+        /* Note: LED state depending on COMP status is set into COMP IRQ handler, */
+        /*        refer to function "ComparatorTrigger_Callback()".               */
+        /* USER CODE END WHILE */
+
+        /* USER CODE BEGIN 3 */
+    }
+
+    /* USER CODE END 3 */
 }
 
 /**
   * @brief System Clock Configuration
   * @retval None
   */
-void SystemClock_Config(void)
+void SystemClock_Config( void )
 {
-  /* HSI configuration and activation */
-  LL_RCC_HSI_Enable();
-  while(LL_RCC_HSI_IsReady() != 1)
-  {
-  }
+    /* HSI configuration and activation */
+    LL_RCC_HSI_Enable();
 
-  /* Set AHB prescaler*/
-  LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
+    while( LL_RCC_HSI_IsReady() != 1 )
+    {
+    }
 
-  /* Sysclk activation on the HSI */
-  LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_HSI);
-  while(LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_HSI)
-  {
-  }
+    /* Set AHB prescaler*/
+    LL_RCC_SetAHBPrescaler( LL_RCC_SYSCLK_DIV_1 );
 
-  /* Set APB1 prescaler*/
-  LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
-  LL_Init1msTick(16000000);
-  /* Update CMSIS variable (which can be updated also through SystemCoreClockUpdate function) */
-  LL_SetSystemCoreClock(16000000);
+    /* Sysclk activation on the HSI */
+    LL_RCC_SetSysClkSource( LL_RCC_SYS_CLKSOURCE_HSI );
+
+    while( LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_HSI )
+    {
+    }
+
+    /* Set APB1 prescaler*/
+    LL_RCC_SetAPB1Prescaler( LL_RCC_APB1_DIV_1 );
+    LL_Init1msTick( 16000000 );
+    /* Update CMSIS variable (which can be updated also through SystemCoreClockUpdate function) */
+    LL_SetSystemCoreClock( 16000000 );
 }
 
 /**
@@ -156,74 +159,78 @@ void SystemClock_Config(void)
   * @param None
   * @retval None
   */
-static void MX_COMP1_Init(void)
+static void MX_COMP1_Init( void )
 {
 
-  /* USER CODE BEGIN COMP1_Init 0 */
+    /* USER CODE BEGIN COMP1_Init 0 */
 
-  /* USER CODE END COMP1_Init 0 */
+    /* USER CODE END COMP1_Init 0 */
 
-  LL_COMP_InitTypeDef COMP_InitStruct = {0};
+    LL_COMP_InitTypeDef COMP_InitStruct = {0};
 
-  LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
+    LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
 
-  LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOC);
-  /**COMP1 GPIO Configuration
-  PC5   ------> COMP1_INP
-  */
-  GPIO_InitStruct.Pin = LL_GPIO_PIN_5;
-  GPIO_InitStruct.Mode = LL_GPIO_MODE_ANALOG;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  LL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+    LL_IOP_GRP1_EnableClock( LL_IOP_GRP1_PERIPH_GPIOC );
+    /**COMP1 GPIO Configuration
+    PC5   ------> COMP1_INP
+    */
+    GPIO_InitStruct.Pin = LL_GPIO_PIN_5;
+    GPIO_InitStruct.Mode = LL_GPIO_MODE_ANALOG;
+    GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+    LL_GPIO_Init( GPIOC, &GPIO_InitStruct );
 
-  /* COMP1 interrupt Init */
-  NVIC_SetPriority(ADC1_COMP_IRQn, 0);
-  NVIC_EnableIRQ(ADC1_COMP_IRQn);
+    /* COMP1 interrupt Init */
+    NVIC_SetPriority( ADC1_COMP_IRQn, 0 );
+    NVIC_EnableIRQ( ADC1_COMP_IRQn );
 
-  /* USER CODE BEGIN COMP1_Init 1 */
+    /* USER CODE BEGIN COMP1_Init 1 */
 
-  /* USER CODE END COMP1_Init 1 */
-  COMP_InitStruct.InputPlus = LL_COMP_INPUT_PLUS_IO1;
-  COMP_InitStruct.InputMinus = LL_COMP_INPUT_MINUS_VREFINT;
-  COMP_InitStruct.InputHysteresis = LL_COMP_HYSTERESIS_NONE;
-  COMP_InitStruct.OutputPolarity = LL_COMP_OUTPUTPOL_NONINVERTED;
-  COMP_InitStruct.OutputBlankingSource = LL_COMP_BLANKINGSRC_NONE;
-  LL_COMP_Init(COMP1, &COMP_InitStruct);
-  LL_COMP_SetPowerMode(COMP1, LL_COMP_POWERMODE_MEDIUMSPEED);
-  LL_COMP_SetCommonWindowMode(__LL_COMP_COMMON_INSTANCE(COMP1), LL_COMP_WINDOWMODE_DISABLE);
-  LL_COMP_SetCommonWindowOutput(__LL_COMP_COMMON_INSTANCE(COMP1), LL_COMP_WINDOWOUTPUT_EACH_COMP);
+    /* USER CODE END COMP1_Init 1 */
+    COMP_InitStruct.InputPlus = LL_COMP_INPUT_PLUS_IO1;
+    COMP_InitStruct.InputMinus = LL_COMP_INPUT_MINUS_VREFINT;
+    COMP_InitStruct.InputHysteresis = LL_COMP_HYSTERESIS_NONE;
+    COMP_InitStruct.OutputPolarity = LL_COMP_OUTPUTPOL_NONINVERTED;
+    COMP_InitStruct.OutputBlankingSource = LL_COMP_BLANKINGSRC_NONE;
+    LL_COMP_Init( COMP1, &COMP_InitStruct );
+    LL_COMP_SetPowerMode( COMP1, LL_COMP_POWERMODE_MEDIUMSPEED );
+    LL_COMP_SetCommonWindowMode( __LL_COMP_COMMON_INSTANCE( COMP1 ), LL_COMP_WINDOWMODE_DISABLE );
+    LL_COMP_SetCommonWindowOutput( __LL_COMP_COMMON_INSTANCE( COMP1 ), LL_COMP_WINDOWOUTPUT_EACH_COMP );
 
-  /* Wait loop initialization and execution */
-  /* Note: Variable divided by 2 to compensate partially CPU processing cycles */
-  __IO uint32_t wait_loop_index = 0;
-  wait_loop_index = (LL_COMP_DELAY_VOLTAGE_SCALER_STAB_US * (SystemCoreClock / (1000000 * 2)));
-  while(wait_loop_index != 0)
-  {
-    wait_loop_index--;
-  }
-  LL_EXTI_ClearFallingFlag_0_31(LL_EXTI_LINE_17);
-  LL_EXTI_ClearRisingFlag_0_31(LL_EXTI_LINE_17);
-  LL_EXTI_EnableFallingTrig_0_31(LL_EXTI_LINE_17);
-  LL_EXTI_EnableRisingTrig_0_31(LL_EXTI_LINE_17);
-  LL_EXTI_DisableEvent_0_31(LL_EXTI_LINE_17);
-  LL_EXTI_EnableIT_0_31(LL_EXTI_LINE_17);
-  /* USER CODE BEGIN COMP1_Init 2 */
+    /* Wait loop initialization and execution */
+    /* Note: Variable divided by 2 to compensate partially CPU processing cycles */
+    __IO uint32_t wait_loop_index = 0;
+    wait_loop_index = ( LL_COMP_DELAY_VOLTAGE_SCALER_STAB_US * ( SystemCoreClock / ( 1000000 * 2 ) ) );
 
-  /* Enable comparator */
-  LL_COMP_Enable(COMP1);
-  
-  /* Delay for comparator startup time.                                       */
-  /* Compute number of CPU cycles to wait for, from delay in us.              */
-  /* Note: Variable divided by 2 to compensate partially                      */
-  /*       CPU processing cycles (depends on compilation optimization).       */
-  /* Note: If system core clock frequency is below 200kHz, wait time          */
-  /*       is only a few CPU processing cycles.                               */
-  wait_loop_index = ((LL_COMP_DELAY_STARTUP_US * (SystemCoreClock / (100000 * 2))) / 10);
-  while(wait_loop_index != 0)
-  {
-    wait_loop_index--;
-  }
-  /* USER CODE END COMP1_Init 2 */
+    while( wait_loop_index != 0 )
+    {
+        wait_loop_index--;
+    }
+
+    LL_EXTI_ClearFallingFlag_0_31( LL_EXTI_LINE_17 );
+    LL_EXTI_ClearRisingFlag_0_31( LL_EXTI_LINE_17 );
+    LL_EXTI_EnableFallingTrig_0_31( LL_EXTI_LINE_17 );
+    LL_EXTI_EnableRisingTrig_0_31( LL_EXTI_LINE_17 );
+    LL_EXTI_DisableEvent_0_31( LL_EXTI_LINE_17 );
+    LL_EXTI_EnableIT_0_31( LL_EXTI_LINE_17 );
+    /* USER CODE BEGIN COMP1_Init 2 */
+
+    /* Enable comparator */
+    LL_COMP_Enable( COMP1 );
+
+    /* Delay for comparator startup time.                                       */
+    /* Compute number of CPU cycles to wait for, from delay in us.              */
+    /* Note: Variable divided by 2 to compensate partially                      */
+    /*       CPU processing cycles (depends on compilation optimization).       */
+    /* Note: If system core clock frequency is below 200kHz, wait time          */
+    /*       is only a few CPU processing cycles.                               */
+    wait_loop_index = ( ( LL_COMP_DELAY_STARTUP_US * ( SystemCoreClock / ( 100000 * 2 ) ) ) / 10 );
+
+    while( wait_loop_index != 0 )
+    {
+        wait_loop_index--;
+    }
+
+    /* USER CODE END COMP1_Init 2 */
 
 }
 
@@ -232,29 +239,29 @@ static void MX_COMP1_Init(void)
   * @param None
   * @retval None
   */
-static void MX_GPIO_Init(void)
+static void MX_GPIO_Init( void )
 {
-  LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
+    LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
 
-  /* GPIO Ports Clock Enable */
-  LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOA);
-  LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOC);
+    /* GPIO Ports Clock Enable */
+    LL_IOP_GRP1_EnableClock( LL_IOP_GRP1_PERIPH_GPIOA );
+    LL_IOP_GRP1_EnableClock( LL_IOP_GRP1_PERIPH_GPIOC );
 
-  /**/
-  LL_GPIO_ResetOutputPin(LED4_GPIO_Port, LED4_Pin);
+    /**/
+    LL_GPIO_ResetOutputPin( LED4_GPIO_Port, LED4_Pin );
 
-  /**/
-  GPIO_InitStruct.Pin = LED4_Pin;
-  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  LL_GPIO_Init(LED4_GPIO_Port, &GPIO_InitStruct);
+    /**/
+    GPIO_InitStruct.Pin = LED4_Pin;
+    GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+    GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+    GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+    GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+    LL_GPIO_Init( LED4_GPIO_Port, &GPIO_InitStruct );
 
 }
 
 /* USER CODE BEGIN 4 */
-  
+
 /******************************************************************************/
 /*   USER IRQ HANDLER TREATMENT                                               */
 /******************************************************************************/
@@ -267,15 +274,15 @@ static void MX_GPIO_Init(void)
   */
 void ComparatorTrigger_Callback()
 {
-  /* Set LED state in function of comparator output level */
-  if (LL_COMP_ReadOutputLevel(COMP1) == LL_COMP_OUTPUT_LEVEL_HIGH)
-  {
-    LED_On();
-  }
-  else
-  {
-    LED_Off();
-  }
+    /* Set LED state in function of comparator output level */
+    if( LL_COMP_ReadOutputLevel( COMP1 ) == LL_COMP_OUTPUT_LEVEL_HIGH )
+    {
+        LED_On();
+    }
+    else
+    {
+        LED_Off();
+    }
 }
 
 /**
@@ -283,10 +290,10 @@ void ComparatorTrigger_Callback()
   * @param  None
   * @retval None
   */
-void LED_On(void)
+void LED_On( void )
 {
-  /* Turn LED4 on */
-  LL_GPIO_SetOutputPin(LED4_GPIO_Port, LED4_Pin);
+    /* Turn LED4 on */
+    LL_GPIO_SetOutputPin( LED4_GPIO_Port, LED4_Pin );
 }
 
 /**
@@ -294,10 +301,10 @@ void LED_On(void)
   * @param  None
   * @retval None
   */
-void LED_Off(void)
+void LED_Off( void )
 {
-  /* Turn LED4 off */
-  LL_GPIO_ResetOutputPin(LED4_GPIO_Port, LED4_Pin);
+    /* Turn LED4 off */
+    LL_GPIO_ResetOutputPin( LED4_GPIO_Port, LED4_Pin );
 }
 /* USER CODE END 4 */
 
@@ -305,12 +312,12 @@ void LED_Off(void)
   * @brief  This function is executed in case of error occurrence.
   * @retval None
   */
-void Error_Handler(void)
+void Error_Handler( void )
 {
-  /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
+    /* USER CODE BEGIN Error_Handler_Debug */
+    /* User can add his own implementation to report the HAL error return state */
 
-  /* USER CODE END Error_Handler_Debug */
+    /* USER CODE END Error_Handler_Debug */
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -321,17 +328,18 @@ void Error_Handler(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t *file, uint32_t line)
+void assert_failed( uint8_t *file, uint32_t line )
 {
-  /* USER CODE BEGIN 6 */
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d", file, line) */
+    /* USER CODE BEGIN 6 */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {
-  }
-  /* USER CODE END 6 */
+    /* Infinite loop */
+    while( 1 )
+    {
+    }
+
+    /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
 

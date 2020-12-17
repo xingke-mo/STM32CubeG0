@@ -33,14 +33,14 @@
   *
   ******************************************************************************
   */
-  
+
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __CBTL08GP053_H
 #define __CBTL08GP053_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -58,20 +58,20 @@
 /** @addtogroup CBTL08GP053
   * @{
   */
-  
+
 #ifdef DBG_BSP_MUX
 typedef struct
 {
-  uint8_t RESERVED1;      /*!< Address offset: 0x00 */
-  uint8_t SYS_CTRL;       /*!< Address offset: 0x01 */
-  uint8_t OP1_CTRL;       /*!< Address offset: 0x02 */
-  uint8_t OP2_CTRL;       /*!< Address offset: 0x03 */
-  uint8_t OP3_CTRL;       /*!< Address offset: 0x04 */
-  uint8_t OP4_CTRL;       /*!< Address offset: 0x05 */
-  uint8_t OP5_CTRL;       /*!< Address offset: 0x06 */
-  uint8_t CROSS5_CTRL;    /*!< Address offset: 0x07 */
-  uint8_t SW_CTRL;        /*!< Address offset: 0x08 */
-  uint8_t REVISION;       /*!< Address offset: 0x09 */
+    uint8_t RESERVED1;      /*!< Address offset: 0x00 */
+    uint8_t SYS_CTRL;       /*!< Address offset: 0x01 */
+    uint8_t OP1_CTRL;       /*!< Address offset: 0x02 */
+    uint8_t OP2_CTRL;       /*!< Address offset: 0x03 */
+    uint8_t OP3_CTRL;       /*!< Address offset: 0x04 */
+    uint8_t OP4_CTRL;       /*!< Address offset: 0x05 */
+    uint8_t OP5_CTRL;       /*!< Address offset: 0x06 */
+    uint8_t CROSS5_CTRL;    /*!< Address offset: 0x07 */
+    uint8_t SW_CTRL;        /*!< Address offset: 0x08 */
+    uint8_t REVISION;       /*!< Address offset: 0x09 */
 } CBTL08GP053_TypeDef;
 
 extern CBTL08GP053_TypeDef CBTL08GP053;
@@ -95,7 +95,7 @@ extern CBTL08GP053_TypeDef CBTL08GP053;
 #define CBTL08GP053_REG_SYS_CTRL_SWITCH_EN_Pos         (7U)
 #define CBTL08GP053_REG_SYS_CTRL_SWITCH_EN_Msk         (0x1U << CBTL08GP053_REG_SYS_CTRL_SWITCH_EN_Pos)  /*!< 0x80*/
 #define CBTL08GP053_REG_SYS_CTRL_SWITCH_EN             CBTL08GP053_REG_SYS_CTRL_SWITCH_EN_Msk            /*!< */
-   
+
 /*********************  Bit definition for OP1_CTRL register  *****************/
 #define CBTL08GP053_REG_OP1_CTRL_EN_IP1_Pos         (0U)
 #define CBTL08GP053_REG_OP1_CTRL_EN_IP1_Msk         (0x1U << CBTL08GP053_REG_OP1_CTRL_EN_IP1_Pos)        /*!< 0x01 */
@@ -106,7 +106,7 @@ extern CBTL08GP053_TypeDef CBTL08GP053;
 #define CBTL08GP053_REG_OP1_CTRL_EN_IP3_Pos         (2U)
 #define CBTL08GP053_REG_OP1_CTRL_EN_IP3_Msk         (0x1U << CBTL08GP053_REG_OP1_CTRL_EN_IP3_Pos)        /*!< 0x04 */
 #define CBTL08GP053_REG_OP1_CTRL_EN_IP3             CBTL08GP053_REG_OP1_CTRL_EN_IP3_Msk                  /*!< */
-   
+
 /*********************  Bit definition for OP2_CTRL register  *****************/
 #define CBTL08GP053_REG_OP2_CTRL_EN_IP1_Pos         (0U)
 #define CBTL08GP053_REG_OP2_CTRL_EN_IP1_Msk         (0x1U << CBTL08GP053_REG_OP2_CTRL_EN_IP1_Pos)        /*!< 0x01 */
@@ -117,7 +117,7 @@ extern CBTL08GP053_TypeDef CBTL08GP053;
 #define CBTL08GP053_REG_OP2_CTRL_EN_IP3_Pos         (2U)
 #define CBTL08GP053_REG_OP2_CTRL_EN_IP3_Msk         (0x1U << CBTL08GP053_REG_OP2_CTRL_EN_IP3_Pos)        /*!< 0x04 */
 #define CBTL08GP053_REG_OP2_CTRL_EN_IP3             CBTL08GP053_REG_OP2_CTRL_EN_IP3_Msk                  /*!< */
-   
+
 /*********************  Bit definition for OP3_CTRL register  *****************/
 #define CBTL08GP053_REG_OP3_CTRL_EN_IP4_Pos         (3U)
 #define CBTL08GP053_REG_OP3_CTRL_EN_IP4_Msk         (0x1U << CBTL08GP053_REG_OP3_CTRL_EN_IP4_Pos)        /*!< 0x08 */
@@ -128,7 +128,7 @@ extern CBTL08GP053_TypeDef CBTL08GP053;
 #define CBTL08GP053_REG_OP3_CTRL_EN_IP6_Pos         (5U)
 #define CBTL08GP053_REG_OP3_CTRL_EN_IP6_Msk         (0x1U << CBTL08GP053_REG_OP3_CTRL_EN_IP6_Pos)        /*!< 0x20 */
 #define CBTL08GP053_REG_OP3_CTRL_EN_IP6             CBTL08GP053_REG_OP3_CTRL_EN_IP6_Msk                  /*!< */
-   
+
 /*********************  Bit definition for OP4_CTRL register  *****************/
 #define CBTL08GP053_REG_OP4_CTRL_EN_IP4_Pos         (3U)
 #define CBTL08GP053_REG_OP4_CTRL_EN_IP4_Msk         (0x1U << CBTL08GP053_REG_OP4_CTRL_EN_IP4_Pos)        /*!< 0x08 */
@@ -139,7 +139,7 @@ extern CBTL08GP053_TypeDef CBTL08GP053;
 #define CBTL08GP053_REG_OP4_CTRL_EN_IP6_Pos         (5U)
 #define CBTL08GP053_REG_OP4_CTRL_EN_IP6_Msk         (0x1U << CBTL08GP053_REG_OP4_CTRL_EN_IP6_Pos)        /*!< 0x20 */
 #define CBTL08GP053_REG_OP4_CTRL_EN_IP6             CBTL08GP053_REG_OP4_CTRL_EN_IP6_Msk                  /*!< */
-   
+
 /*********************  Bit definition for OP5_CTRL register  *****************/
 #define CBTL08GP053_REG_OP5_CTRL_EN_IP7_Pos         (6U)
 #define CBTL08GP053_REG_OP5_CTRL_EN_IP7_Msk         (0x1U << CBTL08GP053_REG_OP5_CTRL_EN_IP7_Pos)        /*!< 0x40 */
@@ -147,7 +147,7 @@ extern CBTL08GP053_TypeDef CBTL08GP053;
 #define CBTL08GP053_REG_OP5_CTRL_EN_IP8_Pos         (7U)
 #define CBTL08GP053_REG_OP5_CTRL_EN_IP8_Msk         (0x1U << CBTL08GP053_REG_OP5_CTRL_EN_IP8_Pos)        /*!< 0x80 */
 #define CBTL08GP053_REG_OP5_CTRL_EN_IP8             CBTL08GP053_REG_OP5_CTRL_EN_IP8_Msk                  /*!< */
-   
+
 /******************  Bit definition for CROSS5_CTRL register  *****************/
 #define CBTL08GP053_REG_CROSS5_PASS_Pos             (0U)
 #define CBTL08GP053_REG_CROSS5_PASS_Msk             (0x1U << CBTL08GP053_REG_CROSS5_PASS_Pos)            /*!< 0x01 */
@@ -175,13 +175,13 @@ extern CBTL08GP053_TypeDef CBTL08GP053;
 #define CBTL08GP053_REG_SW_X5_SET_Pos               (5U)
 #define CBTL08GP053_REG_SW_X5_SET_Msk               (0x1U << CBTL08GP053_REG_SW_X5_SET_Pos)              /*!< 0x20 */
 #define CBTL08GP053_REG_SW_X5_SET                    CBTL08GP053_REG_SW_X5_SET_Msk                        /*!< */
-   
+
 /********************  Bit definition for REVISION register  ******************/
 #define CBTL08GP053_REVISION_REV_ID_Pos             (0U)
 #define CBTL08GP053_REVISION_REV_ID_Msk             (0xFFU << CBTL08GP053_REVISION_REV_ID_Pos)           /*!< 0xFF */
 #define CBTL08GP053_REVISION_REV_ID                  CBTL08GP053_REVISION_REV_ID_Msk                      /*!< */
 
-/** @defgroup CBTL08GP053_DisplayPort_Alternate_Mode 
+/** @defgroup CBTL08GP053_DisplayPort_Alternate_Mode
   * @{
   */
 #define CBTL08GP053_DP_ALTMODE_DFP_D_C_E_NORMAL           0x00U
@@ -198,7 +198,7 @@ extern CBTL08GP053_TypeDef CBTL08GP053;
   * @}
   */
 
-/** @defgroup CBTL08GP053_DisplayPort_Standby_Mode 
+/** @defgroup CBTL08GP053_DisplayPort_Standby_Mode
   * @{
   */
 #define CBTL08GP053_DP_STANDBYMODE_SAFE               0x00U
@@ -208,108 +208,124 @@ extern CBTL08GP053_TypeDef CBTL08GP053;
 /**
   * @}
   */
-   
+
 /**
   * @}
   */
- 
+
 #if defined(CBTL08GP053_DEBUG)
 /** @defgroup CBTL08GP053_Exported_Structure CBTL08GP053 Exported Structure
   * @{
   */
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t RESERVED  :7;
-    uint8_t SWITCH_EN :1;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t RESERVED  : 7;
+        uint8_t SWITCH_EN : 1;
+    };
 } CBTL08GP053_SysCtrlTypeDef;
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t IP1       :1;
-    uint8_t IP2       :1;
-    uint8_t IP3       :1;
-    uint8_t RESERVED  :5;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t IP1       : 1;
+        uint8_t IP2       : 1;
+        uint8_t IP3       : 1;
+        uint8_t RESERVED  : 5;
+    };
 } CBTL08GP053_Op1CtrlTypeDef;
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t IP1       :1;
-    uint8_t IP2       :1;
-    uint8_t IP3       :1;
-    uint8_t RESERVED  :5;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t IP1       : 1;
+        uint8_t IP2       : 1;
+        uint8_t IP3       : 1;
+        uint8_t RESERVED  : 5;
+    };
 } CBTL08GP053_Op2CtrlTypeDef;
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t RESERVED1 :3;
-    uint8_t IP4       :1;
-    uint8_t IP5       :1;
-    uint8_t IP6       :1;
-    uint8_t RESERVED2 :2;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t RESERVED1 : 3;
+        uint8_t IP4       : 1;
+        uint8_t IP5       : 1;
+        uint8_t IP6       : 1;
+        uint8_t RESERVED2 : 2;
+    };
 } CBTL08GP053_Op3CtrlTypeDef;
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t RESERVED1 :3;
-    uint8_t IP4       :1;
-    uint8_t IP5       :1;
-    uint8_t IP6       :1;
-    uint8_t RESERVED2 :2;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t RESERVED1 : 3;
+        uint8_t IP4       : 1;
+        uint8_t IP5       : 1;
+        uint8_t IP6       : 1;
+        uint8_t RESERVED2 : 2;
+    };
 } CBTL08GP053_Op4CtrlTypeDef;
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t RESERVED  :6;
-    uint8_t IP7       :1;
-    uint8_t IP8       :1;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t RESERVED  : 6;
+        uint8_t IP7       : 1;
+        uint8_t IP8       : 1;
+    };
 } CBTL08GP053_Op5CtrlTypeDef;
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t PASS      :1;
-    uint8_t CROSS     :1;
-    uint8_t RESERVED  :6;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t PASS      : 1;
+        uint8_t CROSS     : 1;
+        uint8_t RESERVED  : 6;
+    };
 } CBTL08GP053_Cross5CtrlTypeDef;
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t OP1_SET   :1;
-    uint8_t OP2_SET   :1;
-    uint8_t OP3_SET   :1;
-    uint8_t OP4_SET   :1;
-    uint8_t OP5_SET   :1;
-    uint8_t X5_SET    :1;
-    uint8_t RESERVED  :2;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t OP1_SET   : 1;
+        uint8_t OP2_SET   : 1;
+        uint8_t OP3_SET   : 1;
+        uint8_t OP4_SET   : 1;
+        uint8_t OP5_SET   : 1;
+        uint8_t X5_SET    : 1;
+        uint8_t RESERVED  : 2;
+    };
 } CBTL08GP053_SwCtrlTypeDef;
 
 typedef struct
 {
-  CBTL08GP053_SysCtrlTypeDef    SysCtrl;    /*!< SYS_CTRL register (0x01)     */
-  CBTL08GP053_Op1CtrlTypeDef    Op1Ctrl;    /*!< OP1_CTRL Registers (0x02)    */
-  CBTL08GP053_Op2CtrlTypeDef    Op2Ctrl;    /*!< OP2_CTRL Registers (0x03)    */
-  CBTL08GP053_Op3CtrlTypeDef    Op3Ctrl;    /*!< OP3_CTRL Registers (0x04)    */
-  CBTL08GP053_Op4CtrlTypeDef    Op4Ctrl;    /*!< OP4_CTRL Registers (0x05)    */
-  CBTL08GP053_Op5CtrlTypeDef    Op5Ctrl;    /*!< OP5_CTRL Registers (0x06)    */
-  CBTL08GP053_Cross5CtrlTypeDef Cross5Ctrl; /*!< CROSS5_CTRL Registers (0x07) */
-  CBTL08GP053_SwCtrlTypeDef     SwCtrl;     /*!< SW_CTRL Registers (0x08)     */
-  uint8_t                       Revision;   /*!< REVISION Registers (0x09)    */
+    CBTL08GP053_SysCtrlTypeDef    SysCtrl;    /*!< SYS_CTRL register (0x01)     */
+    CBTL08GP053_Op1CtrlTypeDef    Op1Ctrl;    /*!< OP1_CTRL Registers (0x02)    */
+    CBTL08GP053_Op2CtrlTypeDef    Op2Ctrl;    /*!< OP2_CTRL Registers (0x03)    */
+    CBTL08GP053_Op3CtrlTypeDef    Op3Ctrl;    /*!< OP3_CTRL Registers (0x04)    */
+    CBTL08GP053_Op4CtrlTypeDef    Op4Ctrl;    /*!< OP4_CTRL Registers (0x05)    */
+    CBTL08GP053_Op5CtrlTypeDef    Op5Ctrl;    /*!< OP5_CTRL Registers (0x06)    */
+    CBTL08GP053_Cross5CtrlTypeDef Cross5Ctrl; /*!< CROSS5_CTRL Registers (0x07) */
+    CBTL08GP053_SwCtrlTypeDef     SwCtrl;     /*!< SW_CTRL Registers (0x08)     */
+    uint8_t                       Revision;   /*!< REVISION Registers (0x09)    */
 } CBTL08GP053_RegistersTypeDef;
 /**
   * @}
@@ -320,19 +336,19 @@ typedef struct
   * @{
   */
 /* USB Type-C Crosspoint Switch management functions */
-uint32_t  cbtl08gp053_Init(uint16_t Address);
-void      cbtl08gp053_DeInit(uint16_t Address); 
-uint32_t  cbtl08gp053_PowerOn(uint16_t Address);
-uint32_t  cbtl08gp053_PowerOff(uint16_t Address);
-uint32_t  cbtl08gp053_SetMode(uint16_t Address, TYPECSWITCH_Mode_t Mode);
-uint32_t  cbtl08gp053_IsSupportedMode(TYPECSWITCH_Mode_t Mode);
+uint32_t  cbtl08gp053_Init( uint16_t Address );
+void      cbtl08gp053_DeInit( uint16_t Address );
+uint32_t  cbtl08gp053_PowerOn( uint16_t Address );
+uint32_t  cbtl08gp053_PowerOff( uint16_t Address );
+uint32_t  cbtl08gp053_SetMode( uint16_t Address, TYPECSWITCH_Mode_t Mode );
+uint32_t  cbtl08gp053_IsSupportedMode( TYPECSWITCH_Mode_t Mode );
 
 /* MUX IO functions */
-uint8_t   MUX_IO_Init(void);
-void      MUX_IO_DeInit(void);
-uint8_t   MUX_IO_Write(uint16_t Addr, uint16_t Reg, uint8_t Data);
-uint8_t   MUX_IO_Read(uint16_t Addr, uint16_t Reg, uint8_t *pData);
-uint32_t  MUX_IO_IsDeviceReady(uint16_t DevAddress, uint32_t Trials);
+uint8_t   MUX_IO_Init( void );
+void      MUX_IO_DeInit( void );
+uint8_t   MUX_IO_Write( uint16_t Addr, uint16_t Reg, uint8_t Data );
+uint8_t   MUX_IO_Read( uint16_t Addr, uint16_t Reg, uint8_t *pData );
+uint32_t  MUX_IO_IsDeviceReady( uint16_t DevAddress, uint32_t Trials );
 
 /**
   * @}
@@ -360,10 +376,10 @@ extern TYPECSWITCH_Drv_t cbtl08gp053_drv;
   */
 
 #ifdef __cplusplus
- }
+}
 #endif
-  
+
 #endif /* __CBTL08GP053_H */
 
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/ 
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -55,9 +55,9 @@
 /* Private function prototypes -----------------------------------------------*/
 
 /* USER CODE BEGIN PFP */
-static uint32_t SubDemoUcpdInit(void);
-static uint32_t SubDemoUcpdDeInit(void);
-static void SubDemoUcpdExec(void);
+static uint32_t SubDemoUcpdInit( void );
+static uint32_t SubDemoUcpdDeInit( void );
+static void SubDemoUcpdExec( void );
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -65,87 +65,89 @@ static void SubDemoUcpdExec(void);
 
 /* USER CODE END 0 */
 
-SubDemoApi_t SubDemoApiUcpd = 
+SubDemoApi_t SubDemoApiUcpd =
 {
-  .pfnSubDemoInit         = SubDemoUcpdInit,
-  .pfnSubDemoDeInit       = SubDemoUcpdDeInit,
-  .pfnSubDemoExec         = SubDemoUcpdExec,
-  .pfnSubDemoExtiRisingEdgeDetectionManagement  = DEMO_ExtiRisingEdgeDetection,
-  .pfnSubDemoExtiFallingEdgeDetectionManagement = DEMO_ExtiFallingEdgeDetection
+    .pfnSubDemoInit         = SubDemoUcpdInit,
+    .pfnSubDemoDeInit       = SubDemoUcpdDeInit,
+    .pfnSubDemoExec         = SubDemoUcpdExec,
+    .pfnSubDemoExtiRisingEdgeDetectionManagement  = DEMO_ExtiRisingEdgeDetection,
+    .pfnSubDemoExtiFallingEdgeDetectionManagement = DEMO_ExtiFallingEdgeDetection
 };
 
-uint32_t SubDemoUcpdInit(void)
+uint32_t SubDemoUcpdInit( void )
 {
-  return 0;
+    return 0;
 }
 
-uint32_t SubDemoUcpdDeInit(void)
+uint32_t SubDemoUcpdDeInit( void )
 {
-  return 0;
+    return 0;
 }
 
 /**
   * @brief  The application entry point.
   * @retval uint32_t
   */
-void SubDemoUcpdExec(void)
+void SubDemoUcpdExec( void )
 {
-  /* USER CODE BEGIN 1 */
-  /* USER CODE END 1 */
+    /* USER CODE BEGIN 1 */
+    /* USER CODE END 1 */
 
-  /* USER CODE BEGIN Init */
-  /* USER CODE END Init */
+    /* USER CODE BEGIN Init */
+    /* USER CODE END Init */
 
-  /* USER CODE BEGIN SysInit */
+    /* USER CODE BEGIN SysInit */
 
-  /* USER CODE END SysInit */
+    /* USER CODE END SysInit */
 
-  /* USER CODE BEGIN 2 */
-  /* USER CODE END 2 */
+    /* USER CODE BEGIN 2 */
+    /* USER CODE END 2 */
 
-  /* USBPD initialisation ---------------------------------*/
-  /* Global Init of USBPD HW */
-  USBPD_HW_IF_GlobalHwInit();
+    /* USBPD initialisation ---------------------------------*/
+    /* Global Init of USBPD HW */
+    USBPD_HW_IF_GlobalHwInit();
 
-  /* Initialize the Device Policy Manager */
-  if (USBPD_OK != USBPD_DPM_InitCore())
-  {
-    /* error on core init  */
-    while(1);
-  }
+    /* Initialize the Device Policy Manager */
+    if( USBPD_OK != USBPD_DPM_InitCore() )
+    {
+        /* error on core init  */
+        while( 1 );
+    }
 
 #if defined(_GUI_INTERFACE)
-  /* Initialize GUI before retrieving PDO from RAM */
-  GUI_Init(BSP_GetHWBoardVersionName, BSP_GetPDTypeName, HW_IF_PWR_GetVoltage, HW_IF_PWR_GetCurrent);
+    /* Initialize GUI before retrieving PDO from RAM */
+    GUI_Init( BSP_GetHWBoardVersionName, BSP_GetPDTypeName, HW_IF_PWR_GetVoltage, HW_IF_PWR_GetCurrent );
 #endif /* _GUI_INTERFACE */
 
-  /* Initialise the DPM application */
-  if (USBPD_OK != USBPD_DPM_UserInit())
-  {
-    while(1);
-  }
+    /* Initialise the DPM application */
+    if( USBPD_OK != USBPD_DPM_UserInit() )
+    {
+        while( 1 );
+    }
 
-  /* USER CODE BEGIN RTOS_THREADS */
-  /* add threads, ... */
-  if (USBPD_OK != USBPD_DPM_InitOS())
-  {
-    /* error the RTOS can't be started  */
-    while(1);
-  }
-  /* USER CODE END RTOS_THREADS */
+    /* USER CODE BEGIN RTOS_THREADS */
+    /* add threads, ... */
+    if( USBPD_OK != USBPD_DPM_InitOS() )
+    {
+        /* error the RTOS can't be started  */
+        while( 1 );
+    }
 
-  USBPD_DPM_Run();
-  /* We should never get here as control is now taken by the scheduler */
+    /* USER CODE END RTOS_THREADS */
 
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-    /* USER CODE END WHILE */
+    USBPD_DPM_Run();
+    /* We should never get here as control is now taken by the scheduler */
 
-    /* USER CODE BEGIN 3 */
-  }
-  /* USER CODE END 3 */
+    /* Infinite loop */
+    /* USER CODE BEGIN WHILE */
+    while( 1 )
+    {
+        /* USER CODE END WHILE */
+
+        /* USER CODE BEGIN 3 */
+    }
+
+    /* USER CODE END 3 */
 }
 
 

@@ -127,12 +127,12 @@ typedef enum
 /**
   * @brief HPD Callback Function Pointer
   */
-typedef void MUX_HPDCallbackFuncTypeDef(MUX_TypeCMuxIdTypeDef TypeCMuxId, MUX_HPDStateTypeDef HPDState);
+typedef void MUX_HPDCallbackFuncTypeDef( MUX_TypeCMuxIdTypeDef TypeCMuxId, MUX_HPDStateTypeDef HPDState );
 
 /**
   * @brief USB3 Detection Callback Function Pointer
   */
-typedef void MUX_USB3DetectCallbackFuncTypeDef(MUX_TypeCMuxIdTypeDef TypeCMuxId, MUX_USB3DetectStateTypeDef USB3DetState);
+typedef void MUX_USB3DetectCallbackFuncTypeDef( MUX_TypeCMuxIdTypeDef TypeCMuxId, MUX_USB3DetectStateTypeDef USB3DetState );
 
 /**
   * @}
@@ -201,47 +201,47 @@ extern TIM_HandleTypeDef htim;
 /** @defgroup STM32G081B_EVAL_MUX_Exported_Functions Exported Functions
   * @{
   */
-MUX_StatusTypeDef BSP_MUX_Init(MUX_TypeCMuxIdTypeDef TypeCMuxId);
+MUX_StatusTypeDef BSP_MUX_Init( MUX_TypeCMuxIdTypeDef TypeCMuxId );
 
-MUX_StatusTypeDef BSP_MUX_DeInit(MUX_TypeCMuxIdTypeDef TypeCMuxId);
+MUX_StatusTypeDef BSP_MUX_DeInit( MUX_TypeCMuxIdTypeDef TypeCMuxId );
 
-MUX_StatusTypeDef BSP_MUX_Enable(MUX_TypeCMuxIdTypeDef TypeCMuxId);
+MUX_StatusTypeDef BSP_MUX_Enable( MUX_TypeCMuxIdTypeDef TypeCMuxId );
 
-MUX_StatusTypeDef BSP_MUX_Disable(MUX_TypeCMuxIdTypeDef TypeCMuxId);
+MUX_StatusTypeDef BSP_MUX_Disable( MUX_TypeCMuxIdTypeDef TypeCMuxId );
 
-MUX_StatusTypeDef BSP_MUX_SetDPPinAssignment(MUX_TypeCMuxIdTypeDef                  TypeCMuxId,
-                                             MUX_TypeCPlugOrientationTypeDef        TypeCPlugOrientation,
-                                             MUX_TypeCConnectorPinAssignmentTypeDef TypeCConnectorPinAssignment);
+MUX_StatusTypeDef BSP_MUX_SetDPPinAssignment( MUX_TypeCMuxIdTypeDef                  TypeCMuxId,
+        MUX_TypeCPlugOrientationTypeDef        TypeCPlugOrientation,
+        MUX_TypeCConnectorPinAssignmentTypeDef TypeCConnectorPinAssignment );
 
-MUX_StatusTypeDef BSP_MUX_SetEQGain(MUX_TypeCMuxIdTypeDef                  TypeCMuxId,
-                                             uint8_t                     EQGain);
+MUX_StatusTypeDef BSP_MUX_SetEQGain( MUX_TypeCMuxIdTypeDef                  TypeCMuxId,
+                                     uint8_t                     EQGain );
 
-MUX_StatusTypeDef BSP_MUX_SetHPDState(MUX_TypeCMuxIdTypeDef  TypeCMuxId,
-                                      MUX_HPDStateTypeDef    HPDState);
+MUX_StatusTypeDef BSP_MUX_SetHPDState( MUX_TypeCMuxIdTypeDef  TypeCMuxId,
+                                       MUX_HPDStateTypeDef    HPDState );
 
-MUX_StatusTypeDef BSP_MUX_GetHPDState(MUX_TypeCMuxIdTypeDef  TypeCMuxId,
-                                      MUX_HPDStateTypeDef *  pHPDState);
+MUX_StatusTypeDef BSP_MUX_GetHPDState( MUX_TypeCMuxIdTypeDef  TypeCMuxId,
+                                       MUX_HPDStateTypeDef   *pHPDState );
 
-MUX_StatusTypeDef BSP_MUX_GetUSB3DetectState(MUX_TypeCMuxIdTypeDef         TypeCMuxId,
-                                             MUX_USB3DetectStateTypeDef *  pUSB3DetectState);
+MUX_StatusTypeDef BSP_MUX_GetUSB3DetectState( MUX_TypeCMuxIdTypeDef         TypeCMuxId,
+        MUX_USB3DetectStateTypeDef   *pUSB3DetectState );
 
-MUX_StatusTypeDef BSP_MUX_HPDIRQ(MUX_TypeCMuxIdTypeDef  TypeCMuxId);
+MUX_StatusTypeDef BSP_MUX_HPDIRQ( MUX_TypeCMuxIdTypeDef  TypeCMuxId );
 
-void              BSP_MUX_Detect_HPD(void);
+void              BSP_MUX_Detect_HPD( void );
 
-void              BSP_MUX_Detect_USB3(void);
+void              BSP_MUX_Detect_USB3( void );
 
-MUX_StatusTypeDef BSP_MUX_RegisterHPDCallbackFunc(MUX_TypeCMuxIdTypeDef        TypeCMuxId,
-                                                  MUX_HPDCallbackFuncTypeDef * pHPDCallbackFunc);
+MUX_StatusTypeDef BSP_MUX_RegisterHPDCallbackFunc( MUX_TypeCMuxIdTypeDef        TypeCMuxId,
+        MUX_HPDCallbackFuncTypeDef *pHPDCallbackFunc );
 
-MUX_StatusTypeDef BSP_MUX_RegisterUSB3DetectCallbackFunc(MUX_TypeCMuxIdTypeDef               TypeCMuxId,
-                                                         MUX_USB3DetectCallbackFuncTypeDef * pUSB3DetectCallbackFunc);
+MUX_StatusTypeDef BSP_MUX_RegisterUSB3DetectCallbackFunc( MUX_TypeCMuxIdTypeDef               TypeCMuxId,
+        MUX_USB3DetectCallbackFuncTypeDef *pUSB3DetectCallbackFunc );
 
 #if defined(TUSB546_DEBUG) || defined(CBTL08GP053_DEBUG) || defined(SN65DP141_DEBUG)
 #define DEVICE_CBTL08GP053 0x00000001U
 #define DEVICE_SN65DP141   0x00000002U
 #define DEVICE_TUSB546     0x00000004U
-void BSP_MUX_DumpDeviceRegisters(uint32_t Device);
+void BSP_MUX_DumpDeviceRegisters( uint32_t Device );
 #endif /* TUSB546_DEBUG || CBTL08GP053_DEBUG || SN65DP141_DEBUG */
 
 /**

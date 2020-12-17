@@ -28,12 +28,12 @@
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void OPENBL_USART_Configuration(void);
-uint8_t OPENBL_USART_ProtocolDetection(void);
+void OPENBL_USART_Configuration( void );
+uint8_t OPENBL_USART_ProtocolDetection( void );
 
-uint8_t OPENBL_USART_GetCommandOpcode(void);
-uint8_t OPENBL_USART_ReadByte(void);
-void OPENBL_USART_SendByte(uint8_t Byte);
+uint8_t OPENBL_USART_GetCommandOpcode( void );
+uint8_t OPENBL_USART_ReadByte( void );
+void OPENBL_USART_SendByte( uint8_t Byte );
 
 #endif /* USART_INTERFACE_H */
 

@@ -22,7 +22,7 @@
 #define TUSB546_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -322,87 +322,103 @@
   * @{
   */
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t CTLSEL:2;
-    uint8_t FLIPSEL:1;
-    uint8_t HPDIN_OVRRIDE:1;
-    uint8_t EQ_OVERRIDE:1;
-    uint8_t SWAP_HPDIN :1;
-    uint8_t Reserved:2;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t CTLSEL: 2;
+        uint8_t FLIPSEL: 1;
+        uint8_t HPDIN_OVRRIDE: 1;
+        uint8_t EQ_OVERRIDE: 1;
+        uint8_t SWAP_HPDIN : 1;
+        uint8_t Reserved: 2;
+    };
 } TUSB546_GeneralRegTypeDef;
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t DP0EQ_SEL:4;
-    uint8_t DP1EQ_SEL:4;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t DP0EQ_SEL: 4;
+        uint8_t DP1EQ_SEL: 4;
+    };
 } TUSB546_DPCtrlStatusReg10TypeDef;
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t DP2EQ_SEL:4;
-    uint8_t DP3EQ_SEL:4;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t DP2EQ_SEL: 4;
+        uint8_t DP3EQ_SEL: 4;
+    };
 } TUSB546_DPCtrlStatusReg11TypeDef;
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t LANE_COUNT_SET    :5;
-    uint8_t SET_POWER_STATE   :2;
-    uint8_t Reserved          :1;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t LANE_COUNT_SET    : 5;
+        uint8_t SET_POWER_STATE   : 2;
+        uint8_t Reserved          : 1;
+    };
 } TUSB546_DPCtrlStatusReg12TypeDef;
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t DP0_DISABLE       :1;
-    uint8_t DP1_DISABLE       :1;
-    uint8_t DP2_DISABLE       :1;
-    uint8_t DP3_DISABLE       :1;
-    uint8_t AUX_SBU_OVR       :2;
-    uint8_t Reserved          :1;
-    uint8_t AUX_SNOOP_DISABLE :1;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t DP0_DISABLE       : 1;
+        uint8_t DP1_DISABLE       : 1;
+        uint8_t DP2_DISABLE       : 1;
+        uint8_t DP3_DISABLE       : 1;
+        uint8_t AUX_SBU_OVR       : 2;
+        uint8_t Reserved          : 1;
+        uint8_t AUX_SNOOP_DISABLE : 1;
+    };
 } TUSB546_DPCtrlStatusReg13TypeDef;
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t Reserved          :8;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t Reserved          : 8;
+    };
 } TUSB546_USBCtrlStatusReg20TypeDef;
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t Reserved          :8;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t Reserved          : 8;
+    };
 } TUSB546_USBCtrlStatusReg21TypeDef;
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t Reserved          :8;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t Reserved          : 8;
+    };
 } TUSB546_USBCtrlStatusReg22TypeDef;
 
 typedef struct
 {
-  TUSB546_GeneralRegTypeDef         General;        /*!< General Registers (0x0A) */
-  TUSB546_DPCtrlStatusReg10TypeDef  DPCtrlStatus10; /*!< DisplayPort Control/Status Registers (0x10)*/
-  TUSB546_DPCtrlStatusReg11TypeDef  DPCtrlStatus11; /*!< DisplayPort Control/Status Registers (0x11)*/
-  TUSB546_DPCtrlStatusReg12TypeDef  DPCtrlStatus12; /*!< DisplayPort Control/Status Registers (0x12) */
-  TUSB546_DPCtrlStatusReg13TypeDef  DPCtrlStatus13; /*!< DisplayPort Control/Status Registers (0x13) */
-  TUSB546_USBCtrlStatusReg20TypeDef USBCtrlStatus20;/*!< USB3.1 Control/Status Registers (0x20) */
-  TUSB546_USBCtrlStatusReg21TypeDef USBCtrlStatus21;/*!< USB3.1 Control/Status Registers (0x21) */
-  TUSB546_USBCtrlStatusReg22TypeDef USBCtrlStatus22;/*!< USB3.1 Control/Status Registers (0x22) */
+    TUSB546_GeneralRegTypeDef         General;        /*!< General Registers (0x0A) */
+    TUSB546_DPCtrlStatusReg10TypeDef  DPCtrlStatus10; /*!< DisplayPort Control/Status Registers (0x10)*/
+    TUSB546_DPCtrlStatusReg11TypeDef  DPCtrlStatus11; /*!< DisplayPort Control/Status Registers (0x11)*/
+    TUSB546_DPCtrlStatusReg12TypeDef  DPCtrlStatus12; /*!< DisplayPort Control/Status Registers (0x12) */
+    TUSB546_DPCtrlStatusReg13TypeDef  DPCtrlStatus13; /*!< DisplayPort Control/Status Registers (0x13) */
+    TUSB546_USBCtrlStatusReg20TypeDef USBCtrlStatus20;/*!< USB3.1 Control/Status Registers (0x20) */
+    TUSB546_USBCtrlStatusReg21TypeDef USBCtrlStatus21;/*!< USB3.1 Control/Status Registers (0x21) */
+    TUSB546_USBCtrlStatusReg22TypeDef USBCtrlStatus22;/*!< USB3.1 Control/Status Registers (0x22) */
 } TUSB546_RegistersTypeDef;
 /**
   * @}
@@ -413,28 +429,28 @@ typedef struct
   * @{
   */
 /* USB Type-C cross switch management functions */
-uint32_t  tusb546_CrossSwitch_Init(uint16_t Address);
-void      tusb546_CrossSwitch_DeInit(uint16_t Address);
-uint32_t  tusb546_CrossSwitch_PowerOn(uint16_t Address);
-uint32_t  tusb546_CrossSwitch_PowerOff(uint16_t Address);
-uint32_t  tusb546_CrossSwitch_SetMode(uint16_t Address, TYPECSWITCH_Mode_t Mode);
-uint32_t  tusb546_CrossSwitch_IsSupportedMode(TYPECSWITCH_Mode_t Mode);
+uint32_t  tusb546_CrossSwitch_Init( uint16_t Address );
+void      tusb546_CrossSwitch_DeInit( uint16_t Address );
+uint32_t  tusb546_CrossSwitch_PowerOn( uint16_t Address );
+uint32_t  tusb546_CrossSwitch_PowerOff( uint16_t Address );
+uint32_t  tusb546_CrossSwitch_SetMode( uint16_t Address, TYPECSWITCH_Mode_t Mode );
+uint32_t  tusb546_CrossSwitch_IsSupportedMode( TYPECSWITCH_Mode_t Mode );
 
 /* DisplayPort Linear Redriver management functions */
-uint32_t  tusb546_DPRedriver_Init(uint16_t Address);
-void      tusb546_DPRedriver_DeInit(uint16_t Address);
-uint32_t  tusb546_DPRedriver_PowerOn(uint16_t Address);
-uint32_t  tusb546_DPRedriver_PowerOff(uint16_t Address);
-uint32_t  tusb546_DPRedriver_SetEQGain(uint16_t Address, DPREDRIVER_ChannelId_t ChannelId, uint8_t EQGain);
-uint32_t  tusb546_DPRedriver_EnableChannel(uint16_t Address, DPREDRIVER_ChannelId_t ChannelId);
-uint32_t  tusb546_DPRedriver_DisableChannel(uint16_t Address, DPREDRIVER_ChannelId_t ChannelId);
+uint32_t  tusb546_DPRedriver_Init( uint16_t Address );
+void      tusb546_DPRedriver_DeInit( uint16_t Address );
+uint32_t  tusb546_DPRedriver_PowerOn( uint16_t Address );
+uint32_t  tusb546_DPRedriver_PowerOff( uint16_t Address );
+uint32_t  tusb546_DPRedriver_SetEQGain( uint16_t Address, DPREDRIVER_ChannelId_t ChannelId, uint8_t EQGain );
+uint32_t  tusb546_DPRedriver_EnableChannel( uint16_t Address, DPREDRIVER_ChannelId_t ChannelId );
+uint32_t  tusb546_DPRedriver_DisableChannel( uint16_t Address, DPREDRIVER_ChannelId_t ChannelId );
 
 /* MUX IO functions */
-uint8_t   MUX_IO_Init(void);
-void      MUX_IO_DeInit(void);
-uint8_t   MUX_IO_Write(uint16_t Addr, uint16_t Reg, uint8_t Data);
-uint8_t   MUX_IO_Read(uint16_t Addr, uint16_t Reg, uint8_t *pData);
-uint32_t  MUX_IO_IsDeviceReady(uint16_t DevAddress, uint32_t Trials);
+uint8_t   MUX_IO_Init( void );
+void      MUX_IO_DeInit( void );
+uint8_t   MUX_IO_Write( uint16_t Addr, uint16_t Reg, uint8_t Data );
+uint8_t   MUX_IO_Read( uint16_t Addr, uint16_t Reg, uint8_t *pData );
+uint32_t  MUX_IO_IsDeviceReady( uint16_t DevAddress, uint32_t Trials );
 
 /**
   * @}
@@ -465,7 +481,7 @@ extern DPREDRIVER_Drv_t tusb546_drv_LinearRedriver;
   */
 
 #ifdef __cplusplus
- }
+}
 #endif
 
 #endif /* TUSB546_H */

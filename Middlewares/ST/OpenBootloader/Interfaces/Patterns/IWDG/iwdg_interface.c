@@ -32,27 +32,27 @@ static IWDG_HandleTypeDef IWDGHandle;
 /* Private functions ---------------------------------------------------------*/
 /* Exported functions --------------------------------------------------------*/
 
-void OPENBL_IWDG_Configuration(void)
+void OPENBL_IWDG_Configuration( void )
 {
-  IWDGHandle.Instance       = IWDG;
-  IWDGHandle.Init.Prescaler = IWDG_PRESCALER_256;
-  IWDGHandle.Init.Window    = IWDG_WINDOW_DISABLE;
-  IWDGHandle.Init.Reload    = IWDG_KEY_RELOAD;
+    IWDGHandle.Instance       = IWDG;
+    IWDGHandle.Init.Prescaler = IWDG_PRESCALER_256;
+    IWDGHandle.Init.Window    = IWDG_WINDOW_DISABLE;
+    IWDGHandle.Init.Reload    = IWDG_KEY_RELOAD;
 
-  /* In case the user has enabled the IWDG through HW before entering the Open Bootloader */
-  IWDG->KR = IWDG_KEY_WRITE_ACCESS_ENABLE;
-  IWDG->PR = IWDG_PRESCALER_256;
-  IWDG->KR = IWDG_KEY_RELOAD;
+    /* In case the user has enabled the IWDG through HW before entering the Open Bootloader */
+    IWDG->KR = IWDG_KEY_WRITE_ACCESS_ENABLE;
+    IWDG->PR = IWDG_PRESCALER_256;
+    IWDG->KR = IWDG_KEY_RELOAD;
 }
 
-void OPENBL_IWDG_Refresh(void)
+void OPENBL_IWDG_Refresh( void )
 {
-  /* Refresh IWDG: reload counter */
-  if (HAL_IWDG_Refresh(&IWDGHandle) != HAL_OK)
-  {
-    /* Refresh Error */
-    Error_Handler();
-  }
+    /* Refresh IWDG: reload counter */
+    if( HAL_IWDG_Refresh( &IWDGHandle ) != HAL_OK )
+    {
+        /* Refresh Error */
+        Error_Handler();
+    }
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

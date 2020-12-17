@@ -52,23 +52,23 @@
 /* USER CODE END Private_macro */
 
 /* Private function prototypes -----------------------------------------------*/
-static USBPD_StatusTypeDef USBPD_VDM_DiscoverIdentity(uint8_t PortNum, USBPD_DiscoveryIdentity_TypeDef *pIdentity);
-static USBPD_StatusTypeDef USBPD_VDM_DiscoverSVIDs(uint8_t PortNum, uint16_t **p_SVID_Info, uint8_t *nb);
-static USBPD_StatusTypeDef USBPD_VDM_DiscoverModes(uint8_t PortNum, uint16_t SVID, uint32_t **p_ModeInfo, uint8_t *nbMode);
-static USBPD_StatusTypeDef USBPD_VDM_ModeEnter(uint8_t PortNum, uint16_t SVID, uint32_t ModeIndex);
-static USBPD_StatusTypeDef USBPD_VDM_ModeExit(uint8_t PortNum, uint16_t SVID, uint32_t ModeIndex);
-static void USBPD_VDM_SendAttention(uint8_t PortNum, uint8_t *NbData, uint32_t *VDO);
-static void USBPD_VDM_ReceiveAttention(uint8_t PortNum, uint8_t NbData, uint32_t VDO);
-static USBPD_StatusTypeDef USBPD_VDM_ReceiveSpecific(uint8_t PortNum, USBPD_VDM_Command_Typedef VDMCommand, uint8_t *NbData, uint32_t *VDO);
-static void USBPD_VDM_InformIdentity(uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_CommandType_Typedef CommandStatus, USBPD_DiscoveryIdentity_TypeDef *pIdentity);
-static void USBPD_VDM_InformSVID(uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_CommandType_Typedef CommandStatus, USBPD_SVIDInfo_TypeDef *pListSVID);
-static void USBPD_VDM_InformMode(uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_CommandType_Typedef CommandStatus, USBPD_ModeInfo_TypeDef *pModesInfo);
-static void USBPD_VDM_InformModeEnter(uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_CommandType_Typedef CommandStatus, uint16_t SVID, uint32_t ModeIndex);
-static void USBPD_VDM_InformModeExit(uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_CommandType_Typedef CommandStatus, uint16_t SVID, uint32_t ModeIndex);
-static void USBPD_VDM_InformSpecific(uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_Command_Typedef VDMCommand, uint8_t *NbData, uint32_t *VDO);
-static void USBPD_VDM_SendSpecific(uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_Command_Typedef VDMCommand, uint8_t *NbData, uint32_t *VDO);
-static void USBPD_VDM_SendUVDM(uint8_t PortNum, USBPD_UVDMHeader_TypeDef *pUVDM_Header, uint8_t *pNbData, uint32_t *pVDO);
-static USBPD_StatusTypeDef USBPD_VDM_ReceiveUVDM(uint8_t PortNum, USBPD_UVDMHeader_TypeDef UVDM_Header, uint8_t *pNbData, uint32_t *pVDO);
+static USBPD_StatusTypeDef USBPD_VDM_DiscoverIdentity( uint8_t PortNum, USBPD_DiscoveryIdentity_TypeDef *pIdentity );
+static USBPD_StatusTypeDef USBPD_VDM_DiscoverSVIDs( uint8_t PortNum, uint16_t **p_SVID_Info, uint8_t *nb );
+static USBPD_StatusTypeDef USBPD_VDM_DiscoverModes( uint8_t PortNum, uint16_t SVID, uint32_t **p_ModeInfo, uint8_t *nbMode );
+static USBPD_StatusTypeDef USBPD_VDM_ModeEnter( uint8_t PortNum, uint16_t SVID, uint32_t ModeIndex );
+static USBPD_StatusTypeDef USBPD_VDM_ModeExit( uint8_t PortNum, uint16_t SVID, uint32_t ModeIndex );
+static void USBPD_VDM_SendAttention( uint8_t PortNum, uint8_t *NbData, uint32_t *VDO );
+static void USBPD_VDM_ReceiveAttention( uint8_t PortNum, uint8_t NbData, uint32_t VDO );
+static USBPD_StatusTypeDef USBPD_VDM_ReceiveSpecific( uint8_t PortNum, USBPD_VDM_Command_Typedef VDMCommand, uint8_t *NbData, uint32_t *VDO );
+static void USBPD_VDM_InformIdentity( uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_CommandType_Typedef CommandStatus, USBPD_DiscoveryIdentity_TypeDef *pIdentity );
+static void USBPD_VDM_InformSVID( uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_CommandType_Typedef CommandStatus, USBPD_SVIDInfo_TypeDef *pListSVID );
+static void USBPD_VDM_InformMode( uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_CommandType_Typedef CommandStatus, USBPD_ModeInfo_TypeDef *pModesInfo );
+static void USBPD_VDM_InformModeEnter( uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_CommandType_Typedef CommandStatus, uint16_t SVID, uint32_t ModeIndex );
+static void USBPD_VDM_InformModeExit( uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_CommandType_Typedef CommandStatus, uint16_t SVID, uint32_t ModeIndex );
+static void USBPD_VDM_InformSpecific( uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_Command_Typedef VDMCommand, uint8_t *NbData, uint32_t *VDO );
+static void USBPD_VDM_SendSpecific( uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_Command_Typedef VDMCommand, uint8_t *NbData, uint32_t *VDO );
+static void USBPD_VDM_SendUVDM( uint8_t PortNum, USBPD_UVDMHeader_TypeDef *pUVDM_Header, uint8_t *pNbData, uint32_t *pVDO );
+static USBPD_StatusTypeDef USBPD_VDM_ReceiveUVDM( uint8_t PortNum, USBPD_UVDMHeader_TypeDef UVDM_Header, uint8_t *pNbData, uint32_t *pVDO );
 
 /* USER CODE BEGIN Private_prototypes */
 
@@ -79,23 +79,23 @@ static USBPD_StatusTypeDef USBPD_VDM_ReceiveUVDM(uint8_t PortNum, USBPD_UVDMHead
 /* USER CODE BEGIN Private_variables */
 const USBPD_VDM_Callbacks vdmCallbacks =
 {
-  USBPD_VDM_DiscoverIdentity,
-  USBPD_VDM_DiscoverSVIDs,
-  USBPD_VDM_DiscoverModes,
-  USBPD_VDM_ModeEnter,
-  USBPD_VDM_ModeExit,
-  USBPD_VDM_InformIdentity,
-  USBPD_VDM_InformSVID,
-  USBPD_VDM_InformMode,
-  USBPD_VDM_InformModeEnter,
-  USBPD_VDM_InformModeExit,
-  USBPD_VDM_SendAttention,
-  USBPD_VDM_ReceiveAttention,
-  USBPD_VDM_SendSpecific,
-  USBPD_VDM_ReceiveSpecific,
-  USBPD_VDM_InformSpecific,
-  USBPD_VDM_SendUVDM,
-  USBPD_VDM_ReceiveUVDM,
+    USBPD_VDM_DiscoverIdentity,
+    USBPD_VDM_DiscoverSVIDs,
+    USBPD_VDM_DiscoverModes,
+    USBPD_VDM_ModeEnter,
+    USBPD_VDM_ModeExit,
+    USBPD_VDM_InformIdentity,
+    USBPD_VDM_InformSVID,
+    USBPD_VDM_InformMode,
+    USBPD_VDM_InformModeEnter,
+    USBPD_VDM_InformModeExit,
+    USBPD_VDM_SendAttention,
+    USBPD_VDM_ReceiveAttention,
+    USBPD_VDM_SendSpecific,
+    USBPD_VDM_ReceiveSpecific,
+    USBPD_VDM_InformSpecific,
+    USBPD_VDM_SendUVDM,
+    USBPD_VDM_ReceiveUVDM,
 };
 /* USER CODE END Private_variables */
 
@@ -108,11 +108,11 @@ const USBPD_VDM_Callbacks vdmCallbacks =
   * @param  pIdentity Pointer on @ref USBPD_DiscoveryIdentity_TypeDef structure
   * @retval USBPD status: @ref USBPD_ACK or @ref USBPD_BUSY
   */
-static USBPD_StatusTypeDef USBPD_VDM_DiscoverIdentity(uint8_t PortNum, USBPD_DiscoveryIdentity_TypeDef *pIdentity)
+static USBPD_StatusTypeDef USBPD_VDM_DiscoverIdentity( uint8_t PortNum, USBPD_DiscoveryIdentity_TypeDef *pIdentity )
 {
-/* USER CODE BEGIN USBPD_VDM_DiscoverIdentity */
-  return USBPD_NAK;
-/* USER CODE END USBPD_VDM_DiscoverIdentity */
+    /* USER CODE BEGIN USBPD_VDM_DiscoverIdentity */
+    return USBPD_NAK;
+    /* USER CODE END USBPD_VDM_DiscoverIdentity */
 }
 
 /**
@@ -124,11 +124,11 @@ static USBPD_StatusTypeDef USBPD_VDM_DiscoverIdentity(uint8_t PortNum, USBPD_Dis
   * @param  pNbSVID     Pointer on number of SVID
   * @retval USBPD status  @ref USBPD_BUSY or @ref USBPD_ACK or @ref USBPD_NAK
   */
-static USBPD_StatusTypeDef USBPD_VDM_DiscoverSVIDs(uint8_t PortNum, uint16_t **p_SVID_Info, uint8_t *pNbSVID)
+static USBPD_StatusTypeDef USBPD_VDM_DiscoverSVIDs( uint8_t PortNum, uint16_t **p_SVID_Info, uint8_t *pNbSVID )
 {
-/* USER CODE BEGIN USBPD_VDM_DiscoverSVIDs */
-  return USBPD_NAK;
-/* USER CODE END USBPD_VDM_DiscoverSVIDs */
+    /* USER CODE BEGIN USBPD_VDM_DiscoverSVIDs */
+    return USBPD_NAK;
+    /* USER CODE END USBPD_VDM_DiscoverSVIDs */
 }
 
 /**
@@ -141,11 +141,11 @@ static USBPD_StatusTypeDef USBPD_VDM_DiscoverSVIDs(uint8_t PortNum, uint16_t **p
   * @param  NumberOfMode Number of mode available
   * @retval USBPD status
   */
-static USBPD_StatusTypeDef USBPD_VDM_DiscoverModes(uint8_t PortNum, uint16_t SVID, uint32_t **p_ModeTab, uint8_t *NumberOfMode)
+static USBPD_StatusTypeDef USBPD_VDM_DiscoverModes( uint8_t PortNum, uint16_t SVID, uint32_t **p_ModeTab, uint8_t *NumberOfMode )
 {
-/* USER CODE BEGIN USBPD_VDM_DiscoverModes */
-  return USBPD_NAK;
-/* USER CODE END USBPD_VDM_DiscoverModes */
+    /* USER CODE BEGIN USBPD_VDM_DiscoverModes */
+    return USBPD_NAK;
+    /* USER CODE END USBPD_VDM_DiscoverModes */
 }
 
 /**
@@ -157,11 +157,11 @@ static USBPD_StatusTypeDef USBPD_VDM_DiscoverModes(uint8_t PortNum, uint16_t SVI
   * @param  ModeIndex Index of the mode to be entered
   * @retval USBPD status @ref USBPD_ACK/@ref USBPD_NAK
   */
-static USBPD_StatusTypeDef USBPD_VDM_ModeEnter(uint8_t PortNum, uint16_t SVID, uint32_t ModeIndex)
+static USBPD_StatusTypeDef USBPD_VDM_ModeEnter( uint8_t PortNum, uint16_t SVID, uint32_t ModeIndex )
 {
-/* USER CODE BEGIN USBPD_VDM_ModeEnter */
-  return USBPD_NAK;
-/* USER CODE END USBPD_VDM_ModeEnter */
+    /* USER CODE BEGIN USBPD_VDM_ModeEnter */
+    return USBPD_NAK;
+    /* USER CODE END USBPD_VDM_ModeEnter */
 }
 
 /**
@@ -173,11 +173,11 @@ static USBPD_StatusTypeDef USBPD_VDM_ModeEnter(uint8_t PortNum, uint16_t SVID, u
   * @param  ModeIndex Index of the mode to be exited
   * @retval USBPD status @ref USBPD_ACK/@ref USBPD_NAK
   */
-static USBPD_StatusTypeDef USBPD_VDM_ModeExit(uint8_t PortNum, uint16_t SVID, uint32_t ModeIndex)
+static USBPD_StatusTypeDef USBPD_VDM_ModeExit( uint8_t PortNum, uint16_t SVID, uint32_t ModeIndex )
 {
-/* USER CODE BEGIN USBPD_VDM_ModeExit */
-  return USBPD_NAK;
-/* USER CODE END USBPD_VDM_ModeExit */
+    /* USER CODE BEGIN USBPD_VDM_ModeExit */
+    return USBPD_NAK;
+    /* USER CODE END USBPD_VDM_ModeExit */
 }
 
 /**
@@ -189,11 +189,11 @@ static USBPD_StatusTypeDef USBPD_VDM_ModeExit(uint8_t PortNum, uint16_t SVID, ui
   * @param  pVDO       Pointer of VDO to send
   * @retval None
   */
-static void USBPD_VDM_SendAttention(uint8_t PortNum, uint8_t *pNbData, uint32_t *pVDO)
+static void USBPD_VDM_SendAttention( uint8_t PortNum, uint8_t *pNbData, uint32_t *pVDO )
 {
-/* USER CODE BEGIN USBPD_VDM_SendAttention */
+    /* USER CODE BEGIN USBPD_VDM_SendAttention */
 
-/* USER CODE END USBPD_VDM_SendAttention */
+    /* USER CODE END USBPD_VDM_SendAttention */
 }
 
 /**
@@ -205,11 +205,11 @@ static void USBPD_VDM_SendAttention(uint8_t PortNum, uint8_t *pNbData, uint32_t 
   * @param  VDO       Received VDO
   * @retval None
   */
-static void USBPD_VDM_ReceiveAttention(uint8_t PortNum, uint8_t NbData, uint32_t VDO)
+static void USBPD_VDM_ReceiveAttention( uint8_t PortNum, uint8_t NbData, uint32_t VDO )
 {
-/* USER CODE BEGIN USBPD_VDM_ReceiveAttention */
+    /* USER CODE BEGIN USBPD_VDM_ReceiveAttention */
 
-/* USER CODE END USBPD_VDM_ReceiveAttention */
+    /* USER CODE END USBPD_VDM_ReceiveAttention */
 }
 
 /**
@@ -222,11 +222,11 @@ static void USBPD_VDM_ReceiveAttention(uint8_t PortNum, uint8_t NbData, uint32_t
   * @param  pVDO        Pointer of received VDO and use for the answer
   * @retval USBPD Status
   */
-static USBPD_StatusTypeDef USBPD_VDM_ReceiveSpecific(uint8_t PortNum, USBPD_VDM_Command_Typedef VDMCommand, uint8_t *pNbData, uint32_t *pVDO)
+static USBPD_StatusTypeDef USBPD_VDM_ReceiveSpecific( uint8_t PortNum, USBPD_VDM_Command_Typedef VDMCommand, uint8_t *pNbData, uint32_t *pVDO )
 {
-/* USER CODE BEGIN USBPD_VDM_ReceiveSpecific */
-  return USBPD_NAK;
-/* USER CODE END USBPD_VDM_ReceiveSpecific */
+    /* USER CODE BEGIN USBPD_VDM_ReceiveSpecific */
+    return USBPD_NAK;
+    /* USER CODE END USBPD_VDM_ReceiveSpecific */
 }
 
 /**
@@ -239,21 +239,25 @@ static USBPD_StatusTypeDef USBPD_VDM_ReceiveSpecific(uint8_t PortNum, USBPD_VDM_
   * @param  pIdentity     Pointer on the discovery identity information based on @ref USBPD_DiscoveryIdentity_TypeDef
   * @retval None
 */
-static void USBPD_VDM_InformIdentity(uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_CommandType_Typedef CommandStatus, USBPD_DiscoveryIdentity_TypeDef *pIdentity)
+static void USBPD_VDM_InformIdentity( uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_CommandType_Typedef CommandStatus, USBPD_DiscoveryIdentity_TypeDef *pIdentity )
 {
-/* USER CODE BEGIN USBPD_VDM_InformIdentity */
-  switch(CommandStatus)
-  {
-  case SVDM_RESPONDER_ACK :
-    break;
-  case SVDM_RESPONDER_NAK :
-    break;
-  case SVDM_RESPONDER_BUSY :
-    break;
-  default :
-    break;
-  }
-/* USER CODE END USBPD_VDM_InformIdentity */
+    /* USER CODE BEGIN USBPD_VDM_InformIdentity */
+    switch( CommandStatus )
+    {
+    case SVDM_RESPONDER_ACK :
+        break;
+
+    case SVDM_RESPONDER_NAK :
+        break;
+
+    case SVDM_RESPONDER_BUSY :
+        break;
+
+    default :
+        break;
+    }
+
+    /* USER CODE END USBPD_VDM_InformIdentity */
 }
 
 /**
@@ -266,21 +270,25 @@ static void USBPD_VDM_InformIdentity(uint8_t PortNum, USBPD_SOPType_TypeDef SOPT
   * @param  pListSVID     Pointer of list of SVID based on @ref USBPD_SVIDInfo_TypeDef
   * @retval None
   */
-static void USBPD_VDM_InformSVID(uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_CommandType_Typedef CommandStatus, USBPD_SVIDInfo_TypeDef *pListSVID)
+static void USBPD_VDM_InformSVID( uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_CommandType_Typedef CommandStatus, USBPD_SVIDInfo_TypeDef *pListSVID )
 {
-/* USER CODE BEGIN USBPD_VDM_InformSVID */
-  switch(CommandStatus)
-  {
-  case SVDM_RESPONDER_ACK :
-    break;
-  case SVDM_RESPONDER_NAK :
-    break;
-  case SVDM_RESPONDER_BUSY :
-    break;
-  default :
-      break;
-  }
-/* USER CODE END USBPD_VDM_InformSVID */
+    /* USER CODE BEGIN USBPD_VDM_InformSVID */
+    switch( CommandStatus )
+    {
+    case SVDM_RESPONDER_ACK :
+        break;
+
+    case SVDM_RESPONDER_NAK :
+        break;
+
+    case SVDM_RESPONDER_BUSY :
+        break;
+
+    default :
+        break;
+    }
+
+    /* USER CODE END USBPD_VDM_InformSVID */
 }
 
 /**
@@ -293,21 +301,25 @@ static void USBPD_VDM_InformSVID(uint8_t PortNum, USBPD_SOPType_TypeDef SOPType,
   * @param  pModesInfo      Pointer of Modes info based on @ref USBPD_ModeInfo_TypeDef
   * @retval None
   */
-static void USBPD_VDM_InformMode(uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_CommandType_Typedef CommandStatus, USBPD_ModeInfo_TypeDef *pModesInfo)
+static void USBPD_VDM_InformMode( uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_CommandType_Typedef CommandStatus, USBPD_ModeInfo_TypeDef *pModesInfo )
 {
-/* USER CODE BEGIN USBPD_VDM_InformMode */
-  switch(CommandStatus)
-  {
-  case SVDM_RESPONDER_ACK :
-    break;
-  case SVDM_RESPONDER_NAK :
-    break;
-  case SVDM_RESPONDER_BUSY :
-    break;
-  default :
-    break;
-  }
-/* USER CODE END USBPD_VDM_InformMode */
+    /* USER CODE BEGIN USBPD_VDM_InformMode */
+    switch( CommandStatus )
+    {
+    case SVDM_RESPONDER_ACK :
+        break;
+
+    case SVDM_RESPONDER_NAK :
+        break;
+
+    case SVDM_RESPONDER_BUSY :
+        break;
+
+    default :
+        break;
+    }
+
+    /* USER CODE END USBPD_VDM_InformMode */
 }
 
 /**
@@ -321,22 +333,26 @@ static void USBPD_VDM_InformMode(uint8_t PortNum, USBPD_SOPType_TypeDef SOPType,
   * @param  ModeIndex Index of the mode to be entered
   * @retval None
   */
-static void USBPD_VDM_InformModeEnter(uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_CommandType_Typedef CommandStatus, uint16_t SVID, uint32_t ModeIndex)
+static void USBPD_VDM_InformModeEnter( uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_CommandType_Typedef CommandStatus, uint16_t SVID, uint32_t ModeIndex )
 {
-/* USER CODE BEGIN USBPD_VDM_InformModeEnter */
-  switch(CommandStatus)
-  {
-  case SVDM_RESPONDER_ACK :
-    break;
-  case SVDM_RESPONDER_NAK :
-    break;
-  case SVDM_RESPONDER_BUSY :
-    /* retry in 50ms */
-    break;
-  default :
-    break;
-  }
-/* USER CODE END USBPD_VDM_InformModeEnter */
+    /* USER CODE BEGIN USBPD_VDM_InformModeEnter */
+    switch( CommandStatus )
+    {
+    case SVDM_RESPONDER_ACK :
+        break;
+
+    case SVDM_RESPONDER_NAK :
+        break;
+
+    case SVDM_RESPONDER_BUSY :
+        /* retry in 50ms */
+        break;
+
+    default :
+        break;
+    }
+
+    /* USER CODE END USBPD_VDM_InformModeEnter */
 }
 
 /**
@@ -346,22 +362,26 @@ static void USBPD_VDM_InformModeEnter(uint8_t PortNum, USBPD_SOPType_TypeDef SOP
   * @param  ModeIndex Index of the mode to be entered
   * @retval None
   */
-static void USBPD_VDM_InformModeExit(uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_CommandType_Typedef CommandStatus, uint16_t SVID, uint32_t ModeIndex)
+static void USBPD_VDM_InformModeExit( uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_CommandType_Typedef CommandStatus, uint16_t SVID, uint32_t ModeIndex )
 {
-/* USER CODE BEGIN USBPD_VDM_InformModeExit */
-  switch(CommandStatus)
-  {
-  case SVDM_RESPONDER_ACK :
-    break;
-  case SVDM_RESPONDER_NAK :
-    break;
-  case SVDM_RESPONDER_BUSY :
-    /* retry in 50ms */
-    break;
-  default :
-    break;
-  }
-/* USER CODE END USBPD_VDM_InformModeExit */
+    /* USER CODE BEGIN USBPD_VDM_InformModeExit */
+    switch( CommandStatus )
+    {
+    case SVDM_RESPONDER_ACK :
+        break;
+
+    case SVDM_RESPONDER_NAK :
+        break;
+
+    case SVDM_RESPONDER_BUSY :
+        /* retry in 50ms */
+        break;
+
+    default :
+        break;
+    }
+
+    /* USER CODE END USBPD_VDM_InformModeExit */
 }
 
 /**
@@ -375,11 +395,11 @@ static void USBPD_VDM_InformModeExit(uint8_t PortNum, USBPD_SOPType_TypeDef SOPT
   * @param  pVDO       Pointer of VDO to send
   * @retval None
   */
-static void USBPD_VDM_SendSpecific(uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_Command_Typedef VDMCommand, uint8_t *pNbData, uint32_t *pVDO)
+static void USBPD_VDM_SendSpecific( uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_Command_Typedef VDMCommand, uint8_t *pNbData, uint32_t *pVDO )
 {
-/* USER CODE BEGIN USBPD_VDM_SendSpecific */
+    /* USER CODE BEGIN USBPD_VDM_SendSpecific */
 
-/* USER CODE END USBPD_VDM_SendSpecific */
+    /* USER CODE END USBPD_VDM_SendSpecific */
 }
 
 /**
@@ -393,11 +413,11 @@ static void USBPD_VDM_SendSpecific(uint8_t PortNum, USBPD_SOPType_TypeDef SOPTyp
   * @param  pVDO       Pointer of received VDO
   * @retval None
   */
-static void USBPD_VDM_InformSpecific(uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_Command_Typedef VDMCommand, uint8_t *pNbData, uint32_t *pVDO)
+static void USBPD_VDM_InformSpecific( uint8_t PortNum, USBPD_SOPType_TypeDef SOPType, USBPD_VDM_Command_Typedef VDMCommand, uint8_t *pNbData, uint32_t *pVDO )
 {
-/* USER CODE BEGIN USBPD_VDM_InformSpecific */
+    /* USER CODE BEGIN USBPD_VDM_InformSpecific */
 
-/* USER CODE END USBPD_VDM_InformSpecific */
+    /* USER CODE END USBPD_VDM_InformSpecific */
 }
 
 /**
@@ -408,11 +428,11 @@ static void USBPD_VDM_InformSpecific(uint8_t PortNum, USBPD_SOPType_TypeDef SOPT
   * @param  pVDO          Pointer of VDO to send
   * @retval None
   */
-static void USBPD_VDM_SendUVDM(uint8_t PortNum, USBPD_UVDMHeader_TypeDef *pUVDM_Header, uint8_t *pNbData, uint32_t *pVDO)
+static void USBPD_VDM_SendUVDM( uint8_t PortNum, USBPD_UVDMHeader_TypeDef *pUVDM_Header, uint8_t *pNbData, uint32_t *pVDO )
 {
-/* USER CODE BEGIN USBPD_VDM_SendUVDM */
+    /* USER CODE BEGIN USBPD_VDM_SendUVDM */
 
-/* USER CODE END USBPD_VDM_SendUVDM */
+    /* USER CODE END USBPD_VDM_SendUVDM */
 }
 
 /**
@@ -423,11 +443,11 @@ static void USBPD_VDM_SendUVDM(uint8_t PortNum, USBPD_UVDMHeader_TypeDef *pUVDM_
   * @param  pVDO       Pointer of received VDO
   * @retval USBPD Status
   */
-static USBPD_StatusTypeDef USBPD_VDM_ReceiveUVDM(uint8_t PortNum, USBPD_UVDMHeader_TypeDef UVDM_Header, uint8_t *pNbData, uint32_t *pVDO)
+static USBPD_StatusTypeDef USBPD_VDM_ReceiveUVDM( uint8_t PortNum, USBPD_UVDMHeader_TypeDef UVDM_Header, uint8_t *pNbData, uint32_t *pVDO )
 {
-/* USER CODE BEGIN USBPD_VDM_ReceiveUVDM */
-  return USBPD_ERROR;
-/* USER CODE END USBPD_VDM_ReceiveUVDM */
+    /* USER CODE BEGIN USBPD_VDM_ReceiveUVDM */
+    return USBPD_ERROR;
+    /* USER CODE END USBPD_VDM_ReceiveUVDM */
 }
 
 /* USER CODE BEGIN Private_functions */
@@ -440,11 +460,11 @@ static USBPD_StatusTypeDef USBPD_VDM_ReceiveUVDM(uint8_t PortNum, USBPD_UVDMHead
   * @param  PortNum     Index of current used port
   * @retval status
   */
-USBPD_StatusTypeDef USBPD_VDM_UserInit(uint8_t PortNum)
+USBPD_StatusTypeDef USBPD_VDM_UserInit( uint8_t PortNum )
 {
-/* USER CODE BEGIN USBPD_VDM_UserInit */
+    /* USER CODE BEGIN USBPD_VDM_UserInit */
     return USBPD_OK;
-/* USER CODE END USBPD_VDM_UserInit */
+    /* USER CODE END USBPD_VDM_UserInit */
 }
 
 /**
@@ -452,11 +472,11 @@ USBPD_StatusTypeDef USBPD_VDM_UserInit(uint8_t PortNum)
   * @param  PortNum     Index of current used port
   * @retval status
   */
-void USBPD_VDM_UserReset(uint8_t PortNum)
+void USBPD_VDM_UserReset( uint8_t PortNum )
 {
-/* USER CODE BEGIN USBPD_VDM_UserReset */
+    /* USER CODE BEGIN USBPD_VDM_UserReset */
 
-/* USER CODE END USBPD_VDM_UserReset */
+    /* USER CODE END USBPD_VDM_UserReset */
 }
 
 /* USER CODE BEGIN Exported_functions */

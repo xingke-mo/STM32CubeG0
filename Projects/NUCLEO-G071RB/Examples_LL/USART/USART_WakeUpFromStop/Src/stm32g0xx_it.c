@@ -8,11 +8,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -47,7 +47,7 @@
   * @param  None
   * @retval None
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
 }
 
@@ -56,12 +56,12 @@ void NMI_Handler(void)
   * @param  None
   * @retval None
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Hard Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 
@@ -70,7 +70,7 @@ void HardFault_Handler(void)
   * @param  None
   * @retval None
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
 }
 
@@ -80,7 +80,7 @@ void SVC_Handler(void)
   * @param  None
   * @retval None
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
 }
 
@@ -89,7 +89,7 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
 }
 
@@ -105,26 +105,26 @@ void SysTick_Handler(void)
   * Param   None
   * Retval  None
   */
-void USART1_IRQHandler(void)
+void USART1_IRQHandler( void )
 {
-  /* Check WUF flag value in ISR register */
-  if(LL_USART_IsActiveFlag_WKUP(USART1) && LL_USART_IsEnabledIT_WKUP(USART1))
-  {
-    /* Configure USART1 transfer interrupts : */
-    /* Disable the UART Wake UP from stop mode Interrupt */
-    LL_USART_DisableIT_WKUP(USART1);
+    /* Check WUF flag value in ISR register */
+    if( LL_USART_IsActiveFlag_WKUP( USART1 ) && LL_USART_IsEnabledIT_WKUP( USART1 ) )
+    {
+        /* Configure USART1 transfer interrupts : */
+        /* Disable the UART Wake UP from stop mode Interrupt */
+        LL_USART_DisableIT_WKUP( USART1 );
 
-    /* WUF flag clearing */
-    LL_USART_ClearFlag_WKUP(USART1);
-    
-    /* Call function in charge of handling Character reception */
-    USART_CharReception_Callback();
-  }
-  else
-  {
-    /* Call Error function */
-    Error_Callback();
-  }
+        /* WUF flag clearing */
+        LL_USART_ClearFlag_WKUP( USART1 );
+
+        /* Call function in charge of handling Character reception */
+        USART_CharReception_Callback();
+    }
+    else
+    {
+        /* Call Error function */
+        Error_Callback();
+    }
 }
 
 /**

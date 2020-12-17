@@ -95,21 +95,22 @@
 
 /* USER CODE BEGIN INQUIRY_DATA_FS */
 /** USB Mass storage Standard Inquiry Data. */
-const int8_t STORAGE_Inquirydata_FS[] = {/* 36 */
+const int8_t STORAGE_Inquirydata_FS[] =  /* 36 */
+{
 
-  /* LUN 0 */
-  0x00,
-  0x80,
-  0x02,
-  0x02,
-  (STANDARD_INQUIRY_DATA_LEN - 5),
-  0x00,
-  0x00,
-  0x00,
-  'S', 'T', 'M', ' ', ' ', ' ', ' ', ' ', /* Manufacturer : 8 bytes */
-  'P', 'r', 'o', 'd', 'u', 'c', 't', ' ', /* Product      : 16 Bytes */
-  ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
-  '0', '.', '0' ,'1'                      /* Version      : 4 Bytes */
+    /* LUN 0 */
+    0x00,
+    0x80,
+    0x02,
+    0x02,
+    ( STANDARD_INQUIRY_DATA_LEN - 5 ),
+    0x00,
+    0x00,
+    0x00,
+    'S', 'T', 'M', ' ', ' ', ' ', ' ', ' ', /* Manufacturer : 8 bytes */
+    'P', 'r', 'o', 'd', 'u', 'c', 't', ' ', /* Product      : 16 Bytes */
+    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+    '0', '.', '0', '1'                      /* Version      : 4 Bytes */
 };
 /* USER CODE END INQUIRY_DATA_FS */
 
@@ -141,13 +142,13 @@ extern USBD_HandleTypeDef hUsbDeviceFS;
   * @{
   */
 
-static int8_t STORAGE_Init_FS(uint8_t lun);
-static int8_t STORAGE_GetCapacity_FS(uint8_t lun, uint32_t *block_num, uint16_t *block_size);
-static int8_t STORAGE_IsReady_FS(uint8_t lun);
-static int8_t STORAGE_IsWriteProtected_FS(uint8_t lun);
-static int8_t STORAGE_Read_FS(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_len);
-static int8_t STORAGE_Write_FS(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_len);
-static int8_t STORAGE_GetMaxLun_FS(void);
+static int8_t STORAGE_Init_FS( uint8_t lun );
+static int8_t STORAGE_GetCapacity_FS( uint8_t lun, uint32_t *block_num, uint16_t *block_size );
+static int8_t STORAGE_IsReady_FS( uint8_t lun );
+static int8_t STORAGE_IsWriteProtected_FS( uint8_t lun );
+static int8_t STORAGE_Read_FS( uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_len );
+static int8_t STORAGE_Write_FS( uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_len );
+static int8_t STORAGE_GetMaxLun_FS( void );
 
 /* USER CODE BEGIN PRIVATE_FUNCTIONS_DECLARATION */
 
@@ -159,14 +160,14 @@ static int8_t STORAGE_GetMaxLun_FS(void);
 
 USBD_StorageTypeDef USBD_Storage_Interface_fops_FS =
 {
-  STORAGE_Init_FS,
-  STORAGE_GetCapacity_FS,
-  STORAGE_IsReady_FS,
-  STORAGE_IsWriteProtected_FS,
-  STORAGE_Read_FS,
-  STORAGE_Write_FS,
-  STORAGE_GetMaxLun_FS,
-  (int8_t *)STORAGE_Inquirydata_FS
+    STORAGE_Init_FS,
+    STORAGE_GetCapacity_FS,
+    STORAGE_IsReady_FS,
+    STORAGE_IsWriteProtected_FS,
+    STORAGE_Read_FS,
+    STORAGE_Write_FS,
+    STORAGE_GetMaxLun_FS,
+    ( int8_t * )STORAGE_Inquirydata_FS
 };
 
 /* Private functions ---------------------------------------------------------*/
@@ -175,12 +176,12 @@ USBD_StorageTypeDef USBD_Storage_Interface_fops_FS =
   * @param  lun:
   * @retval USBD_OK if all operations are OK else USBD_FAIL
   */
-int8_t STORAGE_Init_FS(uint8_t lun)
+int8_t STORAGE_Init_FS( uint8_t lun )
 {
-  /* USER CODE BEGIN 2 */
-  BSP_SD_Init();
-  return (USBD_OK);
-  /* USER CODE END 2 */
+    /* USER CODE BEGIN 2 */
+    BSP_SD_Init();
+    return ( USBD_OK );
+    /* USER CODE END 2 */
 }
 
 /**
@@ -190,21 +191,22 @@ int8_t STORAGE_Init_FS(uint8_t lun)
   * @param  block_size: .
   * @retval USBD_OK if all operations are OK else USBD_FAIL
   */
-int8_t STORAGE_GetCapacity_FS(uint8_t lun, uint32_t *block_num, uint16_t *block_size)
+int8_t STORAGE_GetCapacity_FS( uint8_t lun, uint32_t *block_num, uint16_t *block_size )
 {
-  /* USER CODE BEGIN 3 */
-  SD_CardInfo info;
-  int8_t ret = 0;
+    /* USER CODE BEGIN 3 */
+    SD_CardInfo info;
+    int8_t ret = 0;
 
-  if (BSP_SD_GetCardInfo(&info) != BSP_SD_OK)
-  {
-    ret = -1;
-  }
-  *block_num  = info.LogBlockNbr;
-  *block_size = info.LogBlockSize;
-  
-  return ret;
-  /* USER CODE END 3 */
+    if( BSP_SD_GetCardInfo( &info ) != BSP_SD_OK )
+    {
+        ret = -1;
+    }
+
+    *block_num  = info.LogBlockNbr;
+    *block_size = info.LogBlockSize;
+
+    return ret;
+    /* USER CODE END 3 */
 }
 
 /**
@@ -212,24 +214,63 @@ int8_t STORAGE_GetCapacity_FS(uint8_t lun, uint32_t *block_num, uint16_t *block_
   * @param  lun: .
   * @retval USBD_OK if all operations are OK else USBD_FAIL
   */
-int8_t STORAGE_IsReady_FS(uint8_t lun)
+int8_t STORAGE_IsReady_FS( uint8_t lun )
 {
-  /* USER CODE BEGIN 4 */
-  static int8_t prev_status = 0;
-  int8_t ret = -1;
+    /* USER CODE BEGIN 4 */
+    static int8_t prev_status = 0;
+    int8_t ret = -1;
 
-  if(prev_status < 0)
-  {
-    BSP_SD_Init();
-    prev_status = 0;
-  }
-  if(BSP_SD_GetCardState() == BSP_SD_OK)
-  {
+    if( prev_status < 0 )
+    {
+        BSP_SD_Init();
+        prev_status = 0;
+    }
+
+    if( BSP_SD_GetCardState() == BSP_SD_OK )
+    {
+        ret = 0;
+    }
+
+    return ret;
+    /* USER CODE END 4 */
+}
+
+/**
+  * @brief  .
+  * @param  lun: .
+  * @retval USBD_OK if all operations are OK else USBD_FAIL
+  */
+int8_t STORAGE_IsWriteProtected_FS( uint8_t lun )
+{
+    /* USER CODE BEGIN 5 */
+    return ( USBD_OK );
+    /* USER CODE END 5 */
+}
+
+/**
+  * @brief  .
+  * @param  lun: .
+  * @retval USBD_OK if all operations are OK else USBD_FAIL
+  */
+int8_t STORAGE_Read_FS( uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_len )
+{
+    /* USER CODE BEGIN 6 */
+    int8_t ret = -1;
+    uint32_t timeout = 100000;
+    BSP_SD_ReadBlocks( ( uint32_t * )buf, blk_addr, blk_len, timeout );
+
+    while( BSP_SD_GetCardState() != BSP_SD_OK )
+    {
+        if( timeout-- == 0 )
+        {
+            return ret;
+        }
+    }
+
     ret = 0;
-  }
 
-  return ret;
-  /* USER CODE END 4 */
+    return ret;
+    /* USER CODE END 6 */
 }
 
 /**
@@ -237,59 +278,25 @@ int8_t STORAGE_IsReady_FS(uint8_t lun)
   * @param  lun: .
   * @retval USBD_OK if all operations are OK else USBD_FAIL
   */
-int8_t STORAGE_IsWriteProtected_FS(uint8_t lun)
+int8_t STORAGE_Write_FS( uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_len )
 {
-  /* USER CODE BEGIN 5 */
-  return (USBD_OK);
-  /* USER CODE END 5 */
-}
+    /* USER CODE BEGIN 7 */
+    int8_t ret = -1;
+    uint32_t timeout = 100000;
+    BSP_SD_WriteBlocks( ( uint32_t * )buf, blk_addr, blk_len, timeout );
 
-/**
-  * @brief  .
-  * @param  lun: .
-  * @retval USBD_OK if all operations are OK else USBD_FAIL
-  */
-int8_t STORAGE_Read_FS(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_len)
-{
-  /* USER CODE BEGIN 6 */
-  int8_t ret = -1;
-  uint32_t timeout = 100000;
-  BSP_SD_ReadBlocks((uint32_t *)buf, blk_addr, blk_len, timeout);
-  while(BSP_SD_GetCardState() != BSP_SD_OK)
-  {
-    if (timeout-- == 0)
+    while( BSP_SD_GetCardState() != BSP_SD_OK )
     {
-      return ret;
+        if( timeout-- == 0 )
+        {
+            return ret;
+        }
     }
-  }
-  ret = 0;
 
-  return ret;
-  /* USER CODE END 6 */
-}
+    ret = 0;
 
-/**
-  * @brief  .
-  * @param  lun: .
-  * @retval USBD_OK if all operations are OK else USBD_FAIL
-  */
-int8_t STORAGE_Write_FS(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_len)
-{
-  /* USER CODE BEGIN 7 */
-  int8_t ret = -1;
-  uint32_t timeout = 100000;
-  BSP_SD_WriteBlocks((uint32_t *)buf, blk_addr, blk_len, timeout);
-  while(BSP_SD_GetCardState() != BSP_SD_OK)
-  {
-    if (timeout-- == 0)
-    {
-      return ret;
-    }
-  }
-  ret = 0;
-
-  return ret;
-  /* USER CODE END 7 */
+    return ret;
+    /* USER CODE END 7 */
 }
 
 /**
@@ -297,11 +304,11 @@ int8_t STORAGE_Write_FS(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t b
   * @param  None
   * @retval .
   */
-int8_t STORAGE_GetMaxLun_FS(void)
+int8_t STORAGE_GetMaxLun_FS( void )
 {
-  /* USER CODE BEGIN 8 */
-  return (STORAGE_LUN_NBR - 1);
-  /* USER CODE END 8 */
+    /* USER CODE BEGIN 8 */
+    return ( STORAGE_LUN_NBR - 1 );
+    /* USER CODE END 8 */
 }
 
 /* USER CODE BEGIN PRIVATE_FUNCTIONS_IMPLEMENTATION */

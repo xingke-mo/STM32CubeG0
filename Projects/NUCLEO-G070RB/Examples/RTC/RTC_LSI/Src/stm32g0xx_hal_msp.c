@@ -7,11 +7,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -61,24 +61,24 @@
 /**
   * Initializes the Global MSP.
   */
-void HAL_MspInit(void)
+void HAL_MspInit( void )
 {
-  /* USER CODE BEGIN MspInit 0 */
+    /* USER CODE BEGIN MspInit 0 */
 
-  /* USER CODE END MspInit 0 */
+    /* USER CODE END MspInit 0 */
 
-  __HAL_RCC_SYSCFG_CLK_ENABLE();
-  __HAL_RCC_PWR_CLK_ENABLE();
+    __HAL_RCC_SYSCFG_CLK_ENABLE();
+    __HAL_RCC_PWR_CLK_ENABLE();
 
-  /* System interrupt init*/
+    /* System interrupt init*/
 
-  /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
-  */
-  HAL_SYSCFG_StrobeDBattpinsConfig(SYSCFG_CFGR1_UCPD1_STROBE | SYSCFG_CFGR1_UCPD2_STROBE);
+    /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
+    */
+    HAL_SYSCFG_StrobeDBattpinsConfig( SYSCFG_CFGR1_UCPD1_STROBE | SYSCFG_CFGR1_UCPD2_STROBE );
 
-  /* USER CODE BEGIN MspInit 1 */
+    /* USER CODE BEGIN MspInit 1 */
 
-  /* USER CODE END MspInit 1 */
+    /* USER CODE END MspInit 1 */
 }
 
 /**
@@ -87,69 +87,72 @@ void HAL_MspInit(void)
 * @param hrtc: RTC handle pointer
 * @retval None
 */
-void HAL_RTC_MspInit(RTC_HandleTypeDef* hrtc)
+void HAL_RTC_MspInit( RTC_HandleTypeDef *hrtc )
 {
-  if(hrtc->Instance==RTC)
-  {
-  /* USER CODE BEGIN RTC_MspInit 0 */
-    RCC_OscInitTypeDef        RCC_OscInitStruct = {0};
-    RCC_PeriphCLKInitTypeDef  PeriphClkInitStruct = {0};
-    /* Enable access to the backup domain */
-    HAL_PWR_EnableBkUpAccess();
-
-    /* Get RTC clock configuration */
-    HAL_RCCEx_GetPeriphCLKConfig(&PeriphClkInitStruct);
-
-    /* Check whether RTC clock is already configured from previous program run */
-    if (PeriphClkInitStruct.RTCClockSelection == RCC_RTCCLKSOURCE_LSI)
+    if( hrtc->Instance == RTC )
     {
-      /* Do nothing */
-    }
-    else
-    {
-      /* If selected RTC clock source is different from current RTC clock source,
-      first disable RTC clock source */
-      if (PeriphClkInitStruct.RTCClockSelection != RCC_RTCCLKSOURCE_NONE)
-      {
-        PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_RTC;
-        PeriphClkInitStruct.RTCClockSelection = RCC_RTCCLKSOURCE_NONE;
-        if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
+        /* USER CODE BEGIN RTC_MspInit 0 */
+        RCC_OscInitTypeDef        RCC_OscInitStruct = {0};
+        RCC_PeriphCLKInitTypeDef  PeriphClkInitStruct = {0};
+        /* Enable access to the backup domain */
+        HAL_PWR_EnableBkUpAccess();
+
+        /* Get RTC clock configuration */
+        HAL_RCCEx_GetPeriphCLKConfig( &PeriphClkInitStruct );
+
+        /* Check whether RTC clock is already configured from previous program run */
+        if( PeriphClkInitStruct.RTCClockSelection == RCC_RTCCLKSOURCE_LSI )
         {
-          Error_Handler();
+            /* Do nothing */
         }
-      }
+        else
+        {
+            /* If selected RTC clock source is different from current RTC clock source,
+            first disable RTC clock source */
+            if( PeriphClkInitStruct.RTCClockSelection != RCC_RTCCLKSOURCE_NONE )
+            {
+                PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_RTC;
+                PeriphClkInitStruct.RTCClockSelection = RCC_RTCCLKSOURCE_NONE;
 
-      /* Configure LSI as RTC clock source */
-      HAL_RCC_GetOscConfig(&RCC_OscInitStruct);
+                if( HAL_RCCEx_PeriphCLKConfig( &PeriphClkInitStruct ) != HAL_OK )
+                {
+                    Error_Handler();
+                }
+            }
 
-      RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI | RCC_OSCILLATORTYPE_LSE;
-      RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
-      RCC_OscInitStruct.LSIState = RCC_LSI_ON;
-      RCC_OscInitStruct.LSEState = RCC_LSE_OFF;
-      if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-      {
-        Error_Handler();
-      }
+            /* Configure LSI as RTC clock source */
+            HAL_RCC_GetOscConfig( &RCC_OscInitStruct );
 
-      PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_RTC;
-      PeriphClkInitStruct.RTCClockSelection = RCC_RTCCLKSOURCE_LSI;
-      if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
-      {
-        Error_Handler();
-      }
+            RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI | RCC_OSCILLATORTYPE_LSE;
+            RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+            RCC_OscInitStruct.LSIState = RCC_LSI_ON;
+            RCC_OscInitStruct.LSEState = RCC_LSE_OFF;
+
+            if( HAL_RCC_OscConfig( &RCC_OscInitStruct ) != HAL_OK )
+            {
+                Error_Handler();
+            }
+
+            PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_RTC;
+            PeriphClkInitStruct.RTCClockSelection = RCC_RTCCLKSOURCE_LSI;
+
+            if( HAL_RCCEx_PeriphCLKConfig( &PeriphClkInitStruct ) != HAL_OK )
+            {
+                Error_Handler();
+            }
+        }
+
+        /* USER CODE END RTC_MspInit 0 */
+        /* Peripheral clock enable */
+        __HAL_RCC_RTC_ENABLE();
+        __HAL_RCC_RTCAPB_CLK_ENABLE();
+        /* RTC interrupt Init */
+        HAL_NVIC_SetPriority( RTC_TAMP_IRQn, 0, 0 );
+        HAL_NVIC_EnableIRQ( RTC_TAMP_IRQn );
+        /* USER CODE BEGIN RTC_MspInit 1 */
+
+        /* USER CODE END RTC_MspInit 1 */
     }
-
-  /* USER CODE END RTC_MspInit 0 */
-    /* Peripheral clock enable */
-    __HAL_RCC_RTC_ENABLE();
-    __HAL_RCC_RTCAPB_CLK_ENABLE();
-    /* RTC interrupt Init */
-    HAL_NVIC_SetPriority(RTC_TAMP_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(RTC_TAMP_IRQn);
-  /* USER CODE BEGIN RTC_MspInit 1 */
-
-  /* USER CODE END RTC_MspInit 1 */
-  }
 
 }
 
@@ -159,23 +162,23 @@ void HAL_RTC_MspInit(RTC_HandleTypeDef* hrtc)
 * @param hrtc: RTC handle pointer
 * @retval None
 */
-void HAL_RTC_MspDeInit(RTC_HandleTypeDef* hrtc)
+void HAL_RTC_MspDeInit( RTC_HandleTypeDef *hrtc )
 {
-  if(hrtc->Instance==RTC)
-  {
-  /* USER CODE BEGIN RTC_MspDeInit 0 */
+    if( hrtc->Instance == RTC )
+    {
+        /* USER CODE BEGIN RTC_MspDeInit 0 */
 
-  /* USER CODE END RTC_MspDeInit 0 */
-    /* Peripheral clock disable */
-    __HAL_RCC_RTC_DISABLE();
-    __HAL_RCC_RTCAPB_CLK_DISABLE();
+        /* USER CODE END RTC_MspDeInit 0 */
+        /* Peripheral clock disable */
+        __HAL_RCC_RTC_DISABLE();
+        __HAL_RCC_RTCAPB_CLK_DISABLE();
 
-    /* RTC interrupt DeInit */
-    HAL_NVIC_DisableIRQ(RTC_TAMP_IRQn);
-  /* USER CODE BEGIN RTC_MspDeInit 1 */
+        /* RTC interrupt DeInit */
+        HAL_NVIC_DisableIRQ( RTC_TAMP_IRQn );
+        /* USER CODE BEGIN RTC_MspDeInit 1 */
 
-  /* USER CODE END RTC_MspDeInit 1 */
-  }
+        /* USER CODE END RTC_MspDeInit 1 */
+    }
 
 }
 
@@ -185,35 +188,36 @@ void HAL_RTC_MspDeInit(RTC_HandleTypeDef* hrtc)
 * @param htim_base: TIM_Base handle pointer
 * @retval None
 */
-void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
+void HAL_TIM_Base_MspInit( TIM_HandleTypeDef *htim_base )
 {
-  GPIO_InitTypeDef GPIO_InitStruct = {0};
-  if(htim_base->Instance==TIM16)
-  {
-  /* USER CODE BEGIN TIM16_MspInit 0 */
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
 
-  /* USER CODE END TIM16_MspInit 0 */
-    /* Peripheral clock enable */
-    __HAL_RCC_TIM16_CLK_ENABLE();
+    if( htim_base->Instance == TIM16 )
+    {
+        /* USER CODE BEGIN TIM16_MspInit 0 */
 
-    __HAL_RCC_GPIOA_CLK_ENABLE();
-    /**TIM16 GPIO Configuration
-    PA6     ------> TIM16_CH1
-    */
-    GPIO_InitStruct.Pin = GPIO_PIN_6;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-    GPIO_InitStruct.Alternate = GPIO_AF5_TIM16;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+        /* USER CODE END TIM16_MspInit 0 */
+        /* Peripheral clock enable */
+        __HAL_RCC_TIM16_CLK_ENABLE();
 
-    /* TIM16 interrupt Init */
-    HAL_NVIC_SetPriority(TIM16_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(TIM16_IRQn);
-  /* USER CODE BEGIN TIM16_MspInit 1 */
+        __HAL_RCC_GPIOA_CLK_ENABLE();
+        /**TIM16 GPIO Configuration
+        PA6     ------> TIM16_CH1
+        */
+        GPIO_InitStruct.Pin = GPIO_PIN_6;
+        GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+        GPIO_InitStruct.Pull = GPIO_NOPULL;
+        GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+        GPIO_InitStruct.Alternate = GPIO_AF5_TIM16;
+        HAL_GPIO_Init( GPIOA, &GPIO_InitStruct );
 
-  /* USER CODE END TIM16_MspInit 1 */
-  }
+        /* TIM16 interrupt Init */
+        HAL_NVIC_SetPriority( TIM16_IRQn, 0, 0 );
+        HAL_NVIC_EnableIRQ( TIM16_IRQn );
+        /* USER CODE BEGIN TIM16_MspInit 1 */
+
+        /* USER CODE END TIM16_MspInit 1 */
+    }
 
 }
 
@@ -223,27 +227,27 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
 * @param htim_base: TIM_Base handle pointer
 * @retval None
 */
-void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
+void HAL_TIM_Base_MspDeInit( TIM_HandleTypeDef *htim_base )
 {
-  if(htim_base->Instance==TIM16)
-  {
-  /* USER CODE BEGIN TIM16_MspDeInit 0 */
+    if( htim_base->Instance == TIM16 )
+    {
+        /* USER CODE BEGIN TIM16_MspDeInit 0 */
 
-  /* USER CODE END TIM16_MspDeInit 0 */
-    /* Peripheral clock disable */
-    __HAL_RCC_TIM16_CLK_DISABLE();
+        /* USER CODE END TIM16_MspDeInit 0 */
+        /* Peripheral clock disable */
+        __HAL_RCC_TIM16_CLK_DISABLE();
 
-    /**TIM16 GPIO Configuration
-    PA6     ------> TIM16_CH1
-    */
-    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_6);
+        /**TIM16 GPIO Configuration
+        PA6     ------> TIM16_CH1
+        */
+        HAL_GPIO_DeInit( GPIOA, GPIO_PIN_6 );
 
-    /* TIM16 interrupt DeInit */
-    HAL_NVIC_DisableIRQ(TIM16_IRQn);
-  /* USER CODE BEGIN TIM16_MspDeInit 1 */
+        /* TIM16 interrupt DeInit */
+        HAL_NVIC_DisableIRQ( TIM16_IRQn );
+        /* USER CODE BEGIN TIM16_MspDeInit 1 */
 
-  /* USER CODE END TIM16_MspDeInit 1 */
-  }
+        /* USER CODE END TIM16_MspDeInit 1 */
+    }
 
 }
 
@@ -256,16 +260,16 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
   * @param htim: TIM handle pointer
   * @retval None
   */
-void HAL_TIM_IC_MspInit(TIM_HandleTypeDef *htim)
+void HAL_TIM_IC_MspInit( TIM_HandleTypeDef *htim )
 {
-  /* TIM16 Peripheral clock enable */
-  __HAL_RCC_TIM16_CLK_ENABLE();
+    /* TIM16 Peripheral clock enable */
+    __HAL_RCC_TIM16_CLK_ENABLE();
 
-  /* Configure the NVIC for TIM16 */
-  HAL_NVIC_SetPriority(TIM16_IRQn, 0, 0);
+    /* Configure the NVIC for TIM16 */
+    HAL_NVIC_SetPriority( TIM16_IRQn, 0, 0 );
 
-  /* Enable the TIM16 global Interrupt */
-  HAL_NVIC_EnableIRQ(TIM16_IRQn);
+    /* Enable the TIM16 global Interrupt */
+    HAL_NVIC_EnableIRQ( TIM16_IRQn );
 }
 
 /**
@@ -275,13 +279,13 @@ void HAL_TIM_IC_MspInit(TIM_HandleTypeDef *htim)
   * @param htim: TIM handle pointer
   * @retval None
   */
-void HAL_TIM_IC_MspDeInit(TIM_HandleTypeDef *htim)
+void HAL_TIM_IC_MspDeInit( TIM_HandleTypeDef *htim )
 {
-  /* Enable the TIM16 global Interrupt */
-  HAL_NVIC_DisableIRQ(TIM16_IRQn);
+    /* Enable the TIM16 global Interrupt */
+    HAL_NVIC_DisableIRQ( TIM16_IRQn );
 
-  /* TIM16 Peripheral clock disable */
-  __HAL_RCC_TIM16_CLK_DISABLE();
+    /* TIM16 Peripheral clock disable */
+    __HAL_RCC_TIM16_CLK_DISABLE();
 }
 
 /* USER CODE END 1 */

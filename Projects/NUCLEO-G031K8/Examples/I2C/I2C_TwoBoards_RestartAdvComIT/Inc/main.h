@@ -7,11 +7,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -33,8 +33,8 @@ extern "C" {
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #if defined(__GNUC__)
-#include <stdio.h>	/*rtt*/
-#include <stdlib.h>	/*rtt*/
+#include <stdio.h>  /*rtt*/
+#include <stdlib.h> /*rtt*/
 #endif
 #include "stdio.h"
 #include "string.h"
@@ -57,7 +57,7 @@ extern "C" {
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void Error_Handler(void);
+void Error_Handler( void );
 
 /* USER CODE BEGIN EFP */
 
@@ -66,21 +66,21 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define I2C_ADDRESS 0x3E
 /* USER CODE BEGIN Private defines */
-/* Define used to enable Virtual Com Port use : 
+/* Define used to enable Virtual Com Port use :
      USE_VCP_CONNECTION == 0
        IDE output print is used to print Command Code of this example. See readme.txt for more details.
      USE_VCP_CONNECTION == 1
        USART2 instance is used to print Command Code of this example. (TX on PA.2, RX on PA.3)
-       (please ensure that USART communication between the target MCU and ST-LINK MCU is properly enabled 
+       (please ensure that USART communication between the target MCU and ST-LINK MCU is properly enabled
        on HW board in order to support Virtual Com Port)
 */
 #define USE_VCP_CONNECTION       0
 
-/* Private definitions covering GPIO clock and USART pins 
+/* Private definitions covering GPIO clock and USART pins
    depending on selected USART instance. */
-#if (USE_VCP_CONNECTION == 1) 
+#if (USE_VCP_CONNECTION == 1)
 /* USART2 instance is used. (TX on PA.2, RX on PA.3)
-   (please ensure that USART communication between the target MCU and ST-LINK MCU is properly enabled 
+   (please ensure that USART communication between the target MCU and ST-LINK MCU is properly enabled
     on HW board in order to support Virtual Com Port) */
 /* Definition for USARTx clock resources */
 #define USARTx                           USART2

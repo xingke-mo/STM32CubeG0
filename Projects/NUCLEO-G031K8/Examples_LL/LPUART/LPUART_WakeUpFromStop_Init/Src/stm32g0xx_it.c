@@ -71,69 +71,69 @@
 /**
   * @brief This function handles Non maskable interrupt.
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
-  /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
+    /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
 
-  /* USER CODE END NonMaskableInt_IRQn 0 */
-  /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
+    /* USER CODE END NonMaskableInt_IRQn 0 */
+    /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
 
-  /* USER CODE END NonMaskableInt_IRQn 1 */
+    /* USER CODE END NonMaskableInt_IRQn 1 */
 }
 
 /**
   * @brief This function handles Hard fault interrupt.
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* USER CODE BEGIN HardFault_IRQn 0 */
+    /* USER CODE BEGIN HardFault_IRQn 0 */
 
-  /* USER CODE END HardFault_IRQn 0 */
-  while (1)
-  {
-    /* USER CODE BEGIN W1_HardFault_IRQn 0 */
-    /* USER CODE END W1_HardFault_IRQn 0 */
-  }
+    /* USER CODE END HardFault_IRQn 0 */
+    while( 1 )
+    {
+        /* USER CODE BEGIN W1_HardFault_IRQn 0 */
+        /* USER CODE END W1_HardFault_IRQn 0 */
+    }
 }
 
 /**
   * @brief This function handles System service call via SWI instruction.
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
-  /* USER CODE BEGIN SVC_IRQn 0 */
+    /* USER CODE BEGIN SVC_IRQn 0 */
 
-  /* USER CODE END SVC_IRQn 0 */
-  /* USER CODE BEGIN SVC_IRQn 1 */
+    /* USER CODE END SVC_IRQn 0 */
+    /* USER CODE BEGIN SVC_IRQn 1 */
 
-  /* USER CODE END SVC_IRQn 1 */
+    /* USER CODE END SVC_IRQn 1 */
 }
 
 /**
   * @brief This function handles Pendable request for system service.
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
-  /* USER CODE BEGIN PendSV_IRQn 0 */
+    /* USER CODE BEGIN PendSV_IRQn 0 */
 
-  /* USER CODE END PendSV_IRQn 0 */
-  /* USER CODE BEGIN PendSV_IRQn 1 */
+    /* USER CODE END PendSV_IRQn 0 */
+    /* USER CODE BEGIN PendSV_IRQn 1 */
 
-  /* USER CODE END PendSV_IRQn 1 */
+    /* USER CODE END PendSV_IRQn 1 */
 }
 
 /**
   * @brief This function handles System tick timer.
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
-  /* USER CODE BEGIN SysTick_IRQn 0 */
+    /* USER CODE BEGIN SysTick_IRQn 0 */
 
-  /* USER CODE END SysTick_IRQn 0 */
+    /* USER CODE END SysTick_IRQn 0 */
 
-  /* USER CODE BEGIN SysTick_IRQn 1 */
+    /* USER CODE BEGIN SysTick_IRQn 1 */
 
-  /* USER CODE END SysTick_IRQn 1 */
+    /* USER CODE END SysTick_IRQn 1 */
 }
 
 /******************************************************************************/
@@ -146,31 +146,32 @@ void SysTick_Handler(void)
 /**
   * @brief This function handles LPUART1 interrupt / LPUART1 wake-up interrupt through EXTI line 28.
   */
-void LPUART1_IRQHandler(void)
+void LPUART1_IRQHandler( void )
 {
-  /* USER CODE BEGIN LPUART1_IRQn 0 */
-  /* Check WUF flag value in ISR register */
-  if (LL_LPUART_IsActiveFlag_WKUP(LPUART1) && LL_LPUART_IsEnabledIT_WKUP(LPUART1))
-  {
-    /* Configure LPUART1 transfer interrupts : */
-    /* Disable the UART Wake UP from stop mode Interrupt */
-    LL_LPUART_DisableIT_WKUP(LPUART1);
+    /* USER CODE BEGIN LPUART1_IRQn 0 */
+    /* Check WUF flag value in ISR register */
+    if( LL_LPUART_IsActiveFlag_WKUP( LPUART1 ) && LL_LPUART_IsEnabledIT_WKUP( LPUART1 ) )
+    {
+        /* Configure LPUART1 transfer interrupts : */
+        /* Disable the UART Wake UP from stop mode Interrupt */
+        LL_LPUART_DisableIT_WKUP( LPUART1 );
 
-    /* WUF flag clearing */
-    LL_LPUART_ClearFlag_WKUP(LPUART1);
+        /* WUF flag clearing */
+        LL_LPUART_ClearFlag_WKUP( LPUART1 );
 
-    /* Call function in charge of handling Character reception */
-    LPUART_CharReception_Callback();
-  }
-  else
-  {
-    /* Call Error function */
-    Error_Callback();
-  }
-  /* USER CODE END LPUART1_IRQn 0 */
-  /* USER CODE BEGIN LPUART1_IRQn 1 */
+        /* Call function in charge of handling Character reception */
+        LPUART_CharReception_Callback();
+    }
+    else
+    {
+        /* Call Error function */
+        Error_Callback();
+    }
 
-  /* USER CODE END LPUART1_IRQn 1 */
+    /* USER CODE END LPUART1_IRQn 0 */
+    /* USER CODE BEGIN LPUART1_IRQn 1 */
+
+    /* USER CODE END LPUART1_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */

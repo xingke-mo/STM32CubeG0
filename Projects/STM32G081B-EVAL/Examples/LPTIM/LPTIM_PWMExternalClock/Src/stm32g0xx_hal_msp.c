@@ -3,16 +3,16 @@
   ******************************************************************************
   * File Name          : LPTIM/LPTIM_PWMExternalClock/Src/stm32g0xx_hal_msp.c
   * @author            : MCD Application Team
-  * Description        : This file provides code for the MSP Initialization 
+  * Description        : This file provides code for the MSP Initialization
   *                      and de-Initialization codes.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -33,7 +33,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN Define */
- 
+
 /* USER CODE END Define */
 
 /* Private macro -------------------------------------------------------------*/
@@ -62,24 +62,24 @@
 /**
   * Initializes the Global MSP.
   */
-void HAL_MspInit(void)
+void HAL_MspInit( void )
 {
-  /* USER CODE BEGIN MspInit 0 */
+    /* USER CODE BEGIN MspInit 0 */
 
-  /* USER CODE END MspInit 0 */
+    /* USER CODE END MspInit 0 */
 
-  __HAL_RCC_SYSCFG_CLK_ENABLE();
-  __HAL_RCC_PWR_CLK_ENABLE();
+    __HAL_RCC_SYSCFG_CLK_ENABLE();
+    __HAL_RCC_PWR_CLK_ENABLE();
 
-  /* System interrupt init*/
+    /* System interrupt init*/
 
-  /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
-  */
-  HAL_SYSCFG_StrobeDBattpinsConfig(SYSCFG_CFGR1_UCPD1_STROBE | SYSCFG_CFGR1_UCPD2_STROBE);
+    /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
+    */
+    HAL_SYSCFG_StrobeDBattpinsConfig( SYSCFG_CFGR1_UCPD1_STROBE | SYSCFG_CFGR1_UCPD2_STROBE );
 
-  /* USER CODE BEGIN MspInit 1 */
+    /* USER CODE BEGIN MspInit 1 */
 
-  /* USER CODE END MspInit 1 */
+    /* USER CODE END MspInit 1 */
 }
 
 /**
@@ -88,40 +88,41 @@ void HAL_MspInit(void)
 * @param hlptim: LPTIM handle pointer
 * @retval None
 */
-void HAL_LPTIM_MspInit(LPTIM_HandleTypeDef* hlptim)
+void HAL_LPTIM_MspInit( LPTIM_HandleTypeDef *hlptim )
 {
-  GPIO_InitTypeDef GPIO_InitStruct = {0};
-  if(hlptim->Instance==LPTIM1)
-  {
-  /* USER CODE BEGIN LPTIM1_MspInit 0 */
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
 
-  /* USER CODE END LPTIM1_MspInit 0 */
-    /* Peripheral clock enable */
-    __HAL_RCC_LPTIM1_CLK_ENABLE();
+    if( hlptim->Instance == LPTIM1 )
+    {
+        /* USER CODE BEGIN LPTIM1_MspInit 0 */
 
-    __HAL_RCC_GPIOB_CLK_ENABLE();
-    /**LPTIM1 GPIO Configuration
-    PB0     ------> LPTIM1_OUT
-    PB5     ------> LPTIM1_IN1
-    */
-    GPIO_InitStruct.Pin = GPIO_PIN_0;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_PULLUP;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-    GPIO_InitStruct.Alternate = GPIO_AF5_LPTIM1;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+        /* USER CODE END LPTIM1_MspInit 0 */
+        /* Peripheral clock enable */
+        __HAL_RCC_LPTIM1_CLK_ENABLE();
 
-    GPIO_InitStruct.Pin = GPIO_PIN_5;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-    GPIO_InitStruct.Alternate = GPIO_AF5_LPTIM1;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+        __HAL_RCC_GPIOB_CLK_ENABLE();
+        /**LPTIM1 GPIO Configuration
+        PB0     ------> LPTIM1_OUT
+        PB5     ------> LPTIM1_IN1
+        */
+        GPIO_InitStruct.Pin = GPIO_PIN_0;
+        GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+        GPIO_InitStruct.Pull = GPIO_PULLUP;
+        GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+        GPIO_InitStruct.Alternate = GPIO_AF5_LPTIM1;
+        HAL_GPIO_Init( GPIOB, &GPIO_InitStruct );
 
-  /* USER CODE BEGIN LPTIM1_MspInit 1 */
+        GPIO_InitStruct.Pin = GPIO_PIN_5;
+        GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+        GPIO_InitStruct.Pull = GPIO_NOPULL;
+        GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+        GPIO_InitStruct.Alternate = GPIO_AF5_LPTIM1;
+        HAL_GPIO_Init( GPIOB, &GPIO_InitStruct );
 
-  /* USER CODE END LPTIM1_MspInit 1 */
-  }
+        /* USER CODE BEGIN LPTIM1_MspInit 1 */
+
+        /* USER CODE END LPTIM1_MspInit 1 */
+    }
 
 }
 
@@ -131,26 +132,26 @@ void HAL_LPTIM_MspInit(LPTIM_HandleTypeDef* hlptim)
 * @param hlptim: LPTIM handle pointer
 * @retval None
 */
-void HAL_LPTIM_MspDeInit(LPTIM_HandleTypeDef* hlptim)
+void HAL_LPTIM_MspDeInit( LPTIM_HandleTypeDef *hlptim )
 {
-  if(hlptim->Instance==LPTIM1)
-  {
-  /* USER CODE BEGIN LPTIM1_MspDeInit 0 */
+    if( hlptim->Instance == LPTIM1 )
+    {
+        /* USER CODE BEGIN LPTIM1_MspDeInit 0 */
 
-  /* USER CODE END LPTIM1_MspDeInit 0 */
-    /* Peripheral clock disable */
-    __HAL_RCC_LPTIM1_CLK_DISABLE();
+        /* USER CODE END LPTIM1_MspDeInit 0 */
+        /* Peripheral clock disable */
+        __HAL_RCC_LPTIM1_CLK_DISABLE();
 
-    /**LPTIM1 GPIO Configuration
-    PB0     ------> LPTIM1_OUT
-    PB5     ------> LPTIM1_IN1
-    */
-    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_0|GPIO_PIN_5);
+        /**LPTIM1 GPIO Configuration
+        PB0     ------> LPTIM1_OUT
+        PB5     ------> LPTIM1_IN1
+        */
+        HAL_GPIO_DeInit( GPIOB, GPIO_PIN_0 | GPIO_PIN_5 );
 
-  /* USER CODE BEGIN LPTIM1_MspDeInit 1 */
+        /* USER CODE BEGIN LPTIM1_MspDeInit 1 */
 
-  /* USER CODE END LPTIM1_MspDeInit 1 */
-  }
+        /* USER CODE END LPTIM1_MspDeInit 1 */
+    }
 
 }
 

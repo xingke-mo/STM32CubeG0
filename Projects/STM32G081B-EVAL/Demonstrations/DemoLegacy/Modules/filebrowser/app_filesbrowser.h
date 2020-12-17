@@ -19,9 +19,9 @@
 
 #undef GLOBAL
 #ifdef __APP_FILESBROWSER_C
-#define GLOBAL
+    #define GLOBAL
 #else
-#define GLOBAL extern
+    #define GLOBAL extern
 #endif
 
 /* Includes ------------------------------------------------------------------*/

@@ -26,7 +26,7 @@
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-uint8_t OPENBL_EB_Read(uint32_t Address);
+uint8_t OPENBL_EB_Read( uint32_t Address );
 
 #endif /* ENGIBYTES_INTERFACE_H */
 

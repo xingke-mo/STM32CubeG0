@@ -21,7 +21,7 @@
 #define __DEMO_APPLICATION_H_
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -65,21 +65,22 @@
 #define DEMO_ERROR_TYPE_MAXNBITEMS            (DEMO_ERROR_TYPE_POWER_OVER_CURRENT + 1U)
 
 /* Exported constants --------------------------------------------------------*/
-typedef enum{
-     DEMO_OK,
-     DEMO_ERROR
+typedef enum
+{
+    DEMO_OK,
+    DEMO_ERROR
 } DEMO_ErrorCode;
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions --------------------------------------------------------*/
-DEMO_ErrorCode DEMO_InitBSP(void);
-DEMO_ErrorCode DEMO_InitTask(void);
-void DEMO_PostCADMessage(uint8_t PortNum, USBPD_CAD_EVENT State, CCxPin_TypeDef Cc);
-void DEMO_PostNotificationMessage(uint8_t PortNum, USBPD_NotifyEventValue_TypeDef EventVal);
-void DEMO_PostMMIMessage(uint32_t EventVal);
-void DEMO_SetCableInfo(uint8_t PortNum, USBPD_DiscoveryIdentity_TypeDef *pIdentity);
-void DEMO_Display_Error(uint8_t PortNum, uint8_t ErrorType);
+DEMO_ErrorCode DEMO_InitBSP( void );
+DEMO_ErrorCode DEMO_InitTask( void );
+void DEMO_PostCADMessage( uint8_t PortNum, USBPD_CAD_EVENT State, CCxPin_TypeDef Cc );
+void DEMO_PostNotificationMessage( uint8_t PortNum, USBPD_NotifyEventValue_TypeDef EventVal );
+void DEMO_PostMMIMessage( uint32_t EventVal );
+void DEMO_SetCableInfo( uint8_t PortNum, USBPD_DiscoveryIdentity_TypeDef *pIdentity );
+void DEMO_Display_Error( uint8_t PortNum, uint8_t ErrorType );
 
 /**
   * @}

@@ -46,14 +46,14 @@ extern "C" {
   */
 typedef struct
 {
-  uint32_t TypeErase;   /*!< Mass erase or page erase.
+    uint32_t TypeErase;   /*!< Mass erase or page erase.
                              This parameter can be a value of @ref FLASH_Type_Erase */
-  uint32_t Banks;       /*!< Select bank to erase.
+    uint32_t Banks;       /*!< Select bank to erase.
                              This parameter must be a value of @ref FLASH_Banks
                              (FLASH_BANK_BOTH should be used only for mass erase) */
-  uint32_t Page;        /*!< Initial Flash page to erase when page erase is enabled
+    uint32_t Page;        /*!< Initial Flash page to erase when page erase is enabled
                              This parameter must be a value between 0 and (FLASH_PAGE_NB - 1) */
-  uint32_t NbPages;     /*!< Number of pages to be erased.
+    uint32_t NbPages;     /*!< Number of pages to be erased.
                              This parameter must be a value between 1 and (FLASH_PAGE_NB - value of initial page)*/
 } FLASH_EraseInitTypeDef;
 
@@ -62,20 +62,20 @@ typedef struct
   */
 typedef struct
 {
-  uint32_t OptionType;        /*!< Option byte to be configured.
+    uint32_t OptionType;        /*!< Option byte to be configured.
                                    This parameter can be a combination of the values of @ref FLASH_OB_Type */
-  uint32_t WRPArea;           /*!< Write protection area to be programmed (used for OPTIONBYTE_WRP).
+    uint32_t WRPArea;           /*!< Write protection area to be programmed (used for OPTIONBYTE_WRP).
                                    Only one WRP area could be programmed at the same time.
                                    This parameter can be value of @ref FLASH_OB_WRP_Area */
-  uint32_t WRPStartOffset;    /*!< Write protection start offset (used for OPTIONBYTE_WRP).
+    uint32_t WRPStartOffset;    /*!< Write protection start offset (used for OPTIONBYTE_WRP).
                                    This parameter must be a value between 0 and [FLASH_PAGE_NB - 1]*/
-  uint32_t WRPEndOffset;      /*!< Write protection end offset (used for OPTIONBYTE_WRP).
+    uint32_t WRPEndOffset;      /*!< Write protection end offset (used for OPTIONBYTE_WRP).
                                    This parameter must be a value between WRPStartOffset and [FLASH_PAGE_NB - 1] */
-  uint32_t RDPLevel;          /*!< Set the read protection level (used for OPTIONBYTE_RDP).
+    uint32_t RDPLevel;          /*!< Set the read protection level (used for OPTIONBYTE_RDP).
                                    This parameter can be a value of @ref FLASH_OB_Read_Protection */
-  uint32_t USERType;          /*!< User option byte(s) to be configured (used for OPTIONBYTE_USER).
+    uint32_t USERType;          /*!< User option byte(s) to be configured (used for OPTIONBYTE_USER).
                                    This parameter can be a combination of @ref FLASH_OB_USER_Type */
-  uint32_t USERConfig;        /*!< Value of the user option byte (used for OPTIONBYTE_USER).
+    uint32_t USERConfig;        /*!< Value of the user option byte (used for OPTIONBYTE_USER).
                                    This parameter can be a combination of
                                    @ref FLASH_OB_USER_BOR_ENABLE(*),
                                    @ref FLASH_OB_USER_BOR_LEVEL(*),
@@ -96,36 +96,36 @@ typedef struct
                                    @ref FLASH_OB_USER_INPUT_RESET_HOLDER(*)
                                    @note (*) availability depends on devices */
 #if defined(FLASH_PCROP_SUPPORT)
-  uint32_t PCROPConfig;       /*!< Configuration of the PCROP (used for OPTIONBYTE_PCROP).
+    uint32_t PCROPConfig;       /*!< Configuration of the PCROP (used for OPTIONBYTE_PCROP).
                                    This parameter must be a combination of @ref FLASH_OB_PCROP_ZONE
                                    and @ref FLASH_OB_PCROP_RDP. Note that once set, Pcrop erase on RDP level 1 regression
                                    (PCROP_RDP bit) can not be reset. It will be reset by mass erase */
-  uint32_t PCROP1AStartAddr;  /*!< PCROP Start address (used for OPTIONBYTE_PCROP). It represents first address of start block
+    uint32_t PCROP1AStartAddr;  /*!< PCROP Start address (used for OPTIONBYTE_PCROP). It represents first address of start block
                                    to protect. Make sure this parameter is multiple of PCROP granularity: 512 Bytes.*/
-  uint32_t PCROP1AEndAddr;    /*!< PCROP End address (used for OPTIONBYTE_PCROP). It represents first address of end block
+    uint32_t PCROP1AEndAddr;    /*!< PCROP End address (used for OPTIONBYTE_PCROP). It represents first address of end block
                                    to protect. Make sure this parameter is multiple of PCROP granularity: 512 Bytes.*/
-  uint32_t PCROP1BStartAddr;  /*!< PCROP Start address (used for OPTIONBYTE_PCROP). It represents first address of start block
+    uint32_t PCROP1BStartAddr;  /*!< PCROP Start address (used for OPTIONBYTE_PCROP). It represents first address of start block
                                    to protect. Make sure this parameter is multiple of PCROP granularity: 512 Bytes.*/
-  uint32_t PCROP1BEndAddr;    /*!< PCROP End address (used for OPTIONBYTE_PCROP). It represents first address of end block
+    uint32_t PCROP1BEndAddr;    /*!< PCROP End address (used for OPTIONBYTE_PCROP). It represents first address of end block
                                    to protect. Make sure this parameter is multiple of PCROP granularity: 512 Bytes.*/
 #if defined(FLASH_DBANK_SUPPORT)
-  uint32_t PCROP2AStartAddr;  /*!< PCROP Start address (used for OPTIONBYTE_PCROP). It represents first address of start block
+    uint32_t PCROP2AStartAddr;  /*!< PCROP Start address (used for OPTIONBYTE_PCROP). It represents first address of start block
                                    to protect. Make sure this parameter is multiple of PCROP granularity: 512 Bytes.*/
-  uint32_t PCROP2AEndAddr;    /*!< PCROP End address (used for OPTIONBYTE_PCROP). It represents first address of end block
+    uint32_t PCROP2AEndAddr;    /*!< PCROP End address (used for OPTIONBYTE_PCROP). It represents first address of end block
                                    to protect. Make sure this parameter is multiple of PCROP granularity: 512 Bytes.*/
-  uint32_t PCROP2BStartAddr;  /*!< PCROP Start address (used for OPTIONBYTE_PCROP). It represents first address of start block
+    uint32_t PCROP2BStartAddr;  /*!< PCROP Start address (used for OPTIONBYTE_PCROP). It represents first address of start block
                                    to protect. Make sure this parameter is multiple of PCROP granularity: 512 Bytes.*/
-  uint32_t PCROP2BEndAddr;    /*!< PCROP End address (used for OPTIONBYTE_PCROP). It represents first address of end block
+    uint32_t PCROP2BEndAddr;    /*!< PCROP End address (used for OPTIONBYTE_PCROP). It represents first address of end block
                                    to protect. Make sure this parameter is multiple of PCROP granularity: 512 Bytes.*/
 #endif
 #endif
 #if defined(FLASH_SECURABLE_MEMORY_SUPPORT)
-  uint32_t BootEntryPoint;    /*!< Allow to force a unique boot entry point to Flash or system Flash */
-  uint32_t SecSize;           /*!< This parameter defines securable memory area width in number of pages starting from Flash base address.
+    uint32_t BootEntryPoint;    /*!< Allow to force a unique boot entry point to Flash or system Flash */
+    uint32_t SecSize;           /*!< This parameter defines securable memory area width in number of pages starting from Flash base address.
                                    This parameter must be a value between [0] and [FLASH_PAGE_NB],
                                    [0] meaning no secure area defined, [1] meaning first page only protected, etc... */
 #if defined(FLASH_DBANK_SUPPORT)
-  uint32_t SecSize2;           /*!< This parameter defines securable memory area width in number of pages starting from 2nd Bank start address.
+    uint32_t SecSize2;           /*!< This parameter defines securable memory area width in number of pages starting from 2nd Bank start address.
                                    This parameter must be a value between [0] and [FLASH_PAGE_NB],
                                    [0] meaning no secure area defined, [1] meaning first page only protected, etc... */
 #endif
@@ -137,13 +137,13 @@ typedef struct
 */
 typedef struct
 {
-  HAL_LockTypeDef   Lock;              /* FLASH locking object */
-  uint32_t          ErrorCode;         /* FLASH error code */
-  uint32_t          ProcedureOnGoing;  /* Internal variable to indicate which procedure is ongoing or not in IT context */
-  uint32_t          Address;           /* Internal variable to save address selected for program in IT context */
-  uint32_t          Banks;             /* Internal variable to save current bank selected during erase in IT context */
-  uint32_t          Page;              /* Internal variable to define the current page which is erasing in IT context */
-  uint32_t          NbPagesToErase;    /* Internal variable to save the remaining pages to erase in IT context */
+    HAL_LockTypeDef   Lock;              /* FLASH locking object */
+    uint32_t          ErrorCode;         /* FLASH error code */
+    uint32_t          ProcedureOnGoing;  /* Internal variable to indicate which procedure is ongoing or not in IT context */
+    uint32_t          Address;           /* Internal variable to save address selected for program in IT context */
+    uint32_t          Banks;             /* Internal variable to save current bank selected during erase in IT context */
+    uint32_t          Page;              /* Internal variable to define the current page which is erasing in IT context */
+    uint32_t          NbPagesToErase;    /* Internal variable to save the remaining pages to erase in IT context */
 } FLASH_ProcessTypeDef;
 
 /**
@@ -369,7 +369,7 @@ typedef struct
                                          OB_USER_BANK_SWAP        | OB_USER_DUAL_BANK                      | \
                                          OB_USER_RAM_PARITY_CHECK | OB_USER_nBOOT_SEL  | OB_USER_nBOOT1    | \
                                          OB_USER_nBOOT0           | OB_USER_NRST_MODE  | OB_USER_INPUT_RESET_HOLDER)   /*!< all option bits */
-#else 
+#else
 #define OB_USER_ALL                     (                                                OB_USER_nRST_STOP | \
                                          OB_USER_nRST_STDBY                            | OB_USER_IWDG_SW   | \
                                          OB_USER_IWDG_STOP        | OB_USER_IWDG_STDBY | OB_USER_WWDG_SW   | \
@@ -743,7 +743,7 @@ typedef struct
   *     @arg @ref FLASH_FLAG_BSY2 FLASH bank 2 write/erase operations in progress flag(*)
   *     @arg @ref FLASH_FLAG_BSY FLASH write/erase operations in progress flag  - legacy name for single bank
   *     @arg @ref FLASH_FLAG_CFGBSY FLASH configuration is busy : program or erase setting are used.
-  *     @arg @ref FLASH_FLAG_ECCC1 FLASH one ECC error has been detected and corrected 
+  *     @arg @ref FLASH_FLAG_ECCC1 FLASH one ECC error has been detected and corrected
   *     @arg @ref FLASH_FLAG_ECCD1 FLASH two ECC errors have been detected on bank 1
   *     @arg @ref FLASH_FLAG_ECCC2 FLASH one ECC error has been detected and corrected on bank 2(*)
   *     @arg @ref FLASH_FLAG_ECCD2 FLASH two ECC errors have been detected on bank 2(*)
@@ -779,7 +779,7 @@ typedef struct
   *     @arg @ref FLASH_FLAG_FASTERR FLASH Fast programming error flag
   *     @arg @ref FLASH_FLAG_RDERR FLASH PCROP read  error flag
   *     @arg @ref FLASH_FLAG_OPTVERR FLASH Option validity error flag
-  *     @arg @ref FLASH_FLAG_ECCC1 FLASH one ECC error has been detected and corrected 
+  *     @arg @ref FLASH_FLAG_ECCC1 FLASH one ECC error has been detected and corrected
   *     @arg @ref FLASH_FLAG_ECCD1 FLASH two ECC errors have been detected on bank 1
   *     @arg @ref FLASH_FLAG_ECCC2 FLASH one ECC error has been detected and corrected on bank 2(*)
   *     @arg @ref FLASH_FLAG_ECCD2 FLASH two ECC errors have been detected on bank 2(*)
@@ -822,13 +822,13 @@ extern FLASH_ProcessTypeDef pFlash;
 /** @addtogroup FLASH_Exported_Functions_Group1
   * @{
   */
-HAL_StatusTypeDef  HAL_FLASH_Program(uint32_t TypeProgram, uint32_t Address, uint64_t Data);
-HAL_StatusTypeDef  HAL_FLASH_Program_IT(uint32_t TypeProgram, uint32_t Address, uint64_t Data);
+HAL_StatusTypeDef  HAL_FLASH_Program( uint32_t TypeProgram, uint32_t Address, uint64_t Data );
+HAL_StatusTypeDef  HAL_FLASH_Program_IT( uint32_t TypeProgram, uint32_t Address, uint64_t Data );
 /* FLASH IRQ handler method */
-void               HAL_FLASH_IRQHandler(void);
+void               HAL_FLASH_IRQHandler( void );
 /* Callbacks in non blocking modes */
-void               HAL_FLASH_EndOfOperationCallback(uint32_t ReturnValue);
-void               HAL_FLASH_OperationErrorCallback(uint32_t ReturnValue);
+void               HAL_FLASH_EndOfOperationCallback( uint32_t ReturnValue );
+void               HAL_FLASH_OperationErrorCallback( uint32_t ReturnValue );
 /**
   * @}
   */
@@ -837,12 +837,12 @@ void               HAL_FLASH_OperationErrorCallback(uint32_t ReturnValue);
 /** @addtogroup FLASH_Exported_Functions_Group2
   * @{
   */
-HAL_StatusTypeDef  HAL_FLASH_Unlock(void);
-HAL_StatusTypeDef  HAL_FLASH_Lock(void);
+HAL_StatusTypeDef  HAL_FLASH_Unlock( void );
+HAL_StatusTypeDef  HAL_FLASH_Lock( void );
 /* Option bytes control */
-HAL_StatusTypeDef  HAL_FLASH_OB_Unlock(void);
-HAL_StatusTypeDef  HAL_FLASH_OB_Lock(void);
-HAL_StatusTypeDef  HAL_FLASH_OB_Launch(void);
+HAL_StatusTypeDef  HAL_FLASH_OB_Unlock( void );
+HAL_StatusTypeDef  HAL_FLASH_OB_Lock( void );
+HAL_StatusTypeDef  HAL_FLASH_OB_Launch( void );
 /**
   * @}
   */
@@ -851,7 +851,7 @@ HAL_StatusTypeDef  HAL_FLASH_OB_Launch(void);
 /** @addtogroup FLASH_Exported_Functions_Group3
   * @{
   */
-uint32_t HAL_FLASH_GetError(void);
+uint32_t HAL_FLASH_GetError( void );
 /**
   * @}
   */
@@ -864,7 +864,7 @@ uint32_t HAL_FLASH_GetError(void);
 /** @defgroup FLASH_Private_types FLASH Private Types
   * @{
   */
-HAL_StatusTypeDef  FLASH_WaitForLastOperation(uint32_t Timeout);
+HAL_StatusTypeDef  FLASH_WaitForLastOperation( uint32_t Timeout );
 /**
   * @}
   */

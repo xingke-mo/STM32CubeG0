@@ -164,16 +164,16 @@ extern "C" {
   */
 /* IO operation functions *****************************************************/
 
-HAL_StatusTypeDef HAL_DACEx_TriangleWaveGenerate(DAC_HandleTypeDef *hdac, uint32_t Channel, uint32_t Amplitude);
-HAL_StatusTypeDef HAL_DACEx_NoiseWaveGenerate(DAC_HandleTypeDef *hdac, uint32_t Channel, uint32_t Amplitude);
+HAL_StatusTypeDef HAL_DACEx_TriangleWaveGenerate( DAC_HandleTypeDef *hdac, uint32_t Channel, uint32_t Amplitude );
+HAL_StatusTypeDef HAL_DACEx_NoiseWaveGenerate( DAC_HandleTypeDef *hdac, uint32_t Channel, uint32_t Amplitude );
 
-HAL_StatusTypeDef HAL_DACEx_DualSetValue(DAC_HandleTypeDef *hdac, uint32_t Alignment, uint32_t Data1, uint32_t Data2);
-uint32_t HAL_DACEx_DualGetValue(DAC_HandleTypeDef *hdac);
+HAL_StatusTypeDef HAL_DACEx_DualSetValue( DAC_HandleTypeDef *hdac, uint32_t Alignment, uint32_t Data1, uint32_t Data2 );
+uint32_t HAL_DACEx_DualGetValue( DAC_HandleTypeDef *hdac );
 
-void HAL_DACEx_ConvCpltCallbackCh2(DAC_HandleTypeDef *hdac);
-void HAL_DACEx_ConvHalfCpltCallbackCh2(DAC_HandleTypeDef *hdac);
-void HAL_DACEx_ErrorCallbackCh2(DAC_HandleTypeDef *hdac);
-void HAL_DACEx_DMAUnderrunCallbackCh2(DAC_HandleTypeDef *hdac);
+void HAL_DACEx_ConvCpltCallbackCh2( DAC_HandleTypeDef *hdac );
+void HAL_DACEx_ConvHalfCpltCallbackCh2( DAC_HandleTypeDef *hdac );
+void HAL_DACEx_ErrorCallbackCh2( DAC_HandleTypeDef *hdac );
+void HAL_DACEx_DMAUnderrunCallbackCh2( DAC_HandleTypeDef *hdac );
 
 
 /**
@@ -185,10 +185,10 @@ void HAL_DACEx_DMAUnderrunCallbackCh2(DAC_HandleTypeDef *hdac);
   */
 /* Peripheral Control functions ***********************************************/
 
-HAL_StatusTypeDef HAL_DACEx_SelfCalibrate(DAC_HandleTypeDef *hdac, DAC_ChannelConfTypeDef *sConfig, uint32_t Channel);
-HAL_StatusTypeDef HAL_DACEx_SetUserTrimming(DAC_HandleTypeDef *hdac, DAC_ChannelConfTypeDef *sConfig, uint32_t Channel,
-                                            uint32_t NewTrimmingValue);
-uint32_t HAL_DACEx_GetTrimOffset(DAC_HandleTypeDef *hdac, uint32_t Channel);
+HAL_StatusTypeDef HAL_DACEx_SelfCalibrate( DAC_HandleTypeDef *hdac, DAC_ChannelConfTypeDef *sConfig, uint32_t Channel );
+HAL_StatusTypeDef HAL_DACEx_SetUserTrimming( DAC_HandleTypeDef *hdac, DAC_ChannelConfTypeDef *sConfig, uint32_t Channel,
+        uint32_t NewTrimmingValue );
+uint32_t HAL_DACEx_GetTrimOffset( DAC_HandleTypeDef *hdac, uint32_t Channel );
 
 /**
   * @}
@@ -204,9 +204,9 @@ uint32_t HAL_DACEx_GetTrimOffset(DAC_HandleTypeDef *hdac, uint32_t Channel);
 
 /* DAC_DMAConvCpltCh2 / DAC_DMAErrorCh2 / DAC_DMAHalfConvCpltCh2 */
 /* are called by HAL_DAC_Start_DMA */
-void DAC_DMAConvCpltCh2(DMA_HandleTypeDef *hdma);
-void DAC_DMAErrorCh2(DMA_HandleTypeDef *hdma);
-void DAC_DMAHalfConvCpltCh2(DMA_HandleTypeDef *hdma);
+void DAC_DMAConvCpltCh2( DMA_HandleTypeDef *hdma );
+void DAC_DMAErrorCh2( DMA_HandleTypeDef *hdma );
+void DAC_DMAHalfConvCpltCh2( DMA_HandleTypeDef *hdma );
 
 /**
   * @}

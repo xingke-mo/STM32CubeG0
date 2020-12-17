@@ -51,7 +51,7 @@ extern "C" {
   * @brief  Initialize the TRACE module
   * @retval None
   */
-void            TRACER_EMB_Init(void);
+void            TRACER_EMB_Init( void );
 
 /**
   * @brief  Add information in debug trace buffer
@@ -62,38 +62,38 @@ void            TRACER_EMB_Init(void);
   * @param  Size    Size of the data to send
   * @retval None.
   */
-void            TRACER_EMB_Add(uint8_t *Ptr, uint32_t Size);
+void            TRACER_EMB_Add( uint8_t *Ptr, uint32_t Size );
 
 /**
   * @brief  Add one data into the trace buffer
   * @param  pos position
   * @param  data data value
   */
-void TRACER_EMB_WriteData(uint16_t pos, uint8_t data);
+void TRACER_EMB_WriteData( uint16_t pos, uint8_t data );
 
 /**
   * @brief  Lock the trace buffer.
   * @param  None.
   * @retval None.
   */
-void TRACER_EMB_Lock(void);
+void TRACER_EMB_Lock( void );
 
 /**
   * @brief  UnLock the trace buffer.
   * @param  None.
   * @retval None.
   */
-void TRACER_EMB_UnLock(void);
+void TRACER_EMB_UnLock( void );
 
 
-void TRACER_EMB_SendData(void);
+void TRACER_EMB_SendData( void );
 
 /**
   * @brief  allocate space inside the buffer to push data
   * @param  data size
   * @retval write position inside the buffer is -1 no space available.
   */
-int32_t TRACER_EMB_AllocateBufer(uint32_t Size);
+int32_t TRACER_EMB_AllocateBufer( uint32_t Size );
 
 /**
   * @brief  enable the overflow detection
@@ -101,38 +101,38 @@ int32_t TRACER_EMB_AllocateBufer(uint32_t Size);
   * @param  Size of the overflow string
   * @retval 0 if success other value indicate an error.
   */
-int32_t TRACER_EMB_EnableOverFlow(const uint8_t *Data, uint8_t Size);
+int32_t TRACER_EMB_EnableOverFlow( const uint8_t *Data, uint8_t Size );
 
 
-void TRACER_EMB_CALLBACK_TX(void);
+void TRACER_EMB_CALLBACK_TX( void );
 
 #if TRACER_EMB_DMA_MODE == 1UL
-void TRACER_EMB_IRQHandlerDMA(void);
+void TRACER_EMB_IRQHandlerDMA( void );
 #endif
 
-void TRACER_EMB_IRQHandlerUSART(void);
+void TRACER_EMB_IRQHandlerUSART( void );
 
 
-void TRACER_EMB_StartRX(void (*callbackRX)(uint8_t, uint8_t));
+void TRACER_EMB_StartRX( void ( *callbackRX )( uint8_t, uint8_t ) );
 
 
 /**
   * @brief  function to initialize LPM for emb tracer.
   * @retval Timing
   */
-void TRACER_EMB_LowPowerInit(void);
+void TRACER_EMB_LowPowerInit( void );
 
 /**
   * @brief  function to manage LPM when sending data.
   * @retval Timing
   */
-void TRACER_EMB_LowPowerSendData(void);
+void TRACER_EMB_LowPowerSendData( void );
 
 /**
   * @brief  function to manage LPM when data send complete.
   * @retval Timing
   */
-void TRACER_EMB_LowPowerSendDataComplete(void);
+void TRACER_EMB_LowPowerSendDataComplete( void );
 
 /**
   * @}

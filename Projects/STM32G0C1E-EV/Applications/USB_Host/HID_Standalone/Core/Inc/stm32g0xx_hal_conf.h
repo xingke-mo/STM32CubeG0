@@ -38,24 +38,24 @@ extern "C" {
 /* #define HAL_COMP_MODULE_ENABLED   */
 /* #define HAL_CRC_MODULE_ENABLED   */
 /* #define HAL_CRYP_MODULE_ENABLED   */
- #define HAL_DAC_MODULE_ENABLED   
+#define HAL_DAC_MODULE_ENABLED
 /* #define HAL_EXTI_MODULE_ENABLED   */
 /* #define HAL_FDCAN_MODULE_ENABLED   */
- #define HAL_HCD_MODULE_ENABLED
- #define HAL_I2C_MODULE_ENABLED   
+#define HAL_HCD_MODULE_ENABLED
+#define HAL_I2C_MODULE_ENABLED
 /* #define HAL_I2S_MODULE_ENABLED   */
 /* #define HAL_IWDG_MODULE_ENABLED   */
 /* #define HAL_IRDA_MODULE_ENABLED   */
 #define HAL_LPTIM_MODULE_ENABLED
- #define HAL_PCD_MODULE_ENABLED   
+#define HAL_PCD_MODULE_ENABLED
 /* #define HAL_RNG_MODULE_ENABLED   */
 /* #define HAL_RTC_MODULE_ENABLED   */
 /* #define HAL_SMARTCARD_MODULE_ENABLED   */
 /* #define HAL_SMBUS_MODULE_ENABLED   */
- #define HAL_SPI_MODULE_ENABLED   
-#define HAL_TIM_MODULE_ENABLED 
- #define HAL_UART_MODULE_ENABLED   
- #define HAL_USART_MODULE_ENABLED   
+#define HAL_SPI_MODULE_ENABLED
+#define HAL_TIM_MODULE_ENABLED
+#define HAL_UART_MODULE_ENABLED
+#define HAL_USART_MODULE_ENABLED
 /* #define HAL_WWDG_MODULE_ENABLED   */
 #define HAL_GPIO_MODULE_ENABLED
 #define HAL_EXTI_MODULE_ENABLED
@@ -122,7 +122,7 @@ extern "C" {
   *        which is subject to manufacturing process variations.
   */
 #if !defined  (HSI48_VALUE)
-  #define HSI48_VALUE   48000000U             /*!< Value of the Internal High Speed oscillator for USB FS/SDMMC/RNG in Hz.
+#define HSI48_VALUE   48000000U             /*!< Value of the Internal High Speed oscillator for USB FS/SDMMC/RNG in Hz.
                                                The real value my vary depending on manufacturing process variations.*/
 #endif /* HSI48_VALUE */
 #endif
@@ -163,7 +163,7 @@ in voltage and temperature.*/
   *        frequency.
   */
 #if !defined  (EXTERNAL_I2S2_CLOCK_VALUE)
-  #define EXTERNAL_I2S2_CLOCK_VALUE    48000U /*!< Value of the I2S2 External clock source in Hz*/
+#define EXTERNAL_I2S2_CLOCK_VALUE    48000U /*!< Value of the I2S2 External clock source in Hz*/
 #endif /* EXTERNAL_I2S2_CLOCK_VALUE */
 #endif
 
@@ -338,7 +338,7 @@ in voltage and temperature.*/
   */
 #define assert_param(expr) ((expr) ? (void)0U : assert_failed((uint8_t *)__FILE__, __LINE__))
 /* Exported functions ------------------------------------------------------- */
-void assert_failed(uint8_t *file, uint32_t line);
+void assert_failed( uint8_t *file, uint32_t line );
 #else
 #define assert_param(expr) ((void)0U)
 #endif /* USE_FULL_ASSERT */

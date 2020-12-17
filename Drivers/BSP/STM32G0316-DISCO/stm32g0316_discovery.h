@@ -45,9 +45,9 @@ extern "C" {
  */
 typedef enum
 {
-  LED2 = 0,
-  LED_GREEN   = LED2,
-}Led_TypeDef;
+    LED2 = 0,
+    LED_GREEN   = LED2,
+} Led_TypeDef;
 
 /**
   * @}
@@ -82,16 +82,16 @@ typedef enum
 /** @defgroup STM32G0316_DISCOVERY_Exported_Functions Exported Functions
   * @{
   */
-uint32_t                BSP_GetVersion(void);
+uint32_t                BSP_GetVersion( void );
 
 /** @defgroup STM32G0316_DISCOVERY_Exported_Functions_LED LED Functions
   * @{
   */
-void                    BSP_LED_Init(Led_TypeDef Led);
-void                    BSP_LED_DeInit(Led_TypeDef Led);
-void                    BSP_LED_On(Led_TypeDef Led);
-void                    BSP_LED_Off(Led_TypeDef Led);
-void                    BSP_LED_Toggle(Led_TypeDef Led);
+void                    BSP_LED_Init( Led_TypeDef Led );
+void                    BSP_LED_DeInit( Led_TypeDef Led );
+void                    BSP_LED_On( Led_TypeDef Led );
+void                    BSP_LED_Off( Led_TypeDef Led );
+void                    BSP_LED_Toggle( Led_TypeDef Led );
 /**
   * @}
   */

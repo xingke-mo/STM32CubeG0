@@ -51,17 +51,17 @@ extern "C" {
   */
 typedef enum
 {
-  USBPD_PHY_RX_STATUS_NONE,
-  USBPD_PHY_RX_STATUS_OK,
-  USBPD_PHY_RX_STATUS_SOP_DETECTING,
-  USBPD_PHY_RX_STATUS_DATA,
-  USBPD_PHY_RX_STATUS_MESSAGE_READY,
-  USBPD_PHY_RX_STATUS_ERROR,
-  USBPD_PHY_RX_STATUS_ERROR_UNSUPPORTED_SOP,
-  USBPD_PHY_RX_STATUS_ERROR_INVALID_SOP,
-  USBPD_PHY_RX_STATUS_ERROR_INVALID_SYMBOL,
-  USBPD_PHY_RX_STATUS_ERROR_EOP_NOT_FOUND,
-  USBPD_PHY_RX_STATUS_ERROR_CRC_FAILED,
+    USBPD_PHY_RX_STATUS_NONE,
+    USBPD_PHY_RX_STATUS_OK,
+    USBPD_PHY_RX_STATUS_SOP_DETECTING,
+    USBPD_PHY_RX_STATUS_DATA,
+    USBPD_PHY_RX_STATUS_MESSAGE_READY,
+    USBPD_PHY_RX_STATUS_ERROR,
+    USBPD_PHY_RX_STATUS_ERROR_UNSUPPORTED_SOP,
+    USBPD_PHY_RX_STATUS_ERROR_INVALID_SOP,
+    USBPD_PHY_RX_STATUS_ERROR_INVALID_SYMBOL,
+    USBPD_PHY_RX_STATUS_ERROR_EOP_NOT_FOUND,
+    USBPD_PHY_RX_STATUS_ERROR_CRC_FAILED,
 }
 USBPD_PHY_RX_Status_TypeDef;
 
@@ -70,51 +70,51 @@ USBPD_PHY_RX_Status_TypeDef;
   */
 typedef struct
 {
-  /**
-  * @brief  The message transfer has been completed
-  * @param  PortNum Port number
-  * @param  Status (0 means OK)
-  * @retval None
-  */
-  void (*USBPD_HW_IF_TxCompleted)(uint8_t PortNum, uint32_t Status);
+    /**
+    * @brief  The message transfer has been completed
+    * @param  PortNum Port number
+    * @param  Status (0 means OK)
+    * @retval None
+    */
+    void ( *USBPD_HW_IF_TxCompleted )( uint8_t PortNum, uint32_t Status );
 
-  /**
-  * @brief  Bist data sent callback from PHY_HW_IF
-  * @param  PortNum Port number
-  * @param  bistmode: Bist mode
-  * @retval None
-  */
-  void (*USBPD_HW_IF_BistCompleted)(uint8_t PortNum, USBPD_BISTMsg_TypeDef bistmode);
+    /**
+    * @brief  Bist data sent callback from PHY_HW_IF
+    * @param  PortNum Port number
+    * @param  bistmode: Bist mode
+    * @retval None
+    */
+    void ( *USBPD_HW_IF_BistCompleted )( uint8_t PortNum, USBPD_BISTMsg_TypeDef bistmode );
 
-  /**
-  * @brief  The reception phase of an hard reset is completed notify it.
-  * @param  PortNum Port number
-  * @param  SOPType SOP Message Type based on @ref USBPD_SOPType_TypeDef
-  * @retval None
-  */
-  void (*USBPD_HW_IF_RX_ResetIndication)(uint8_t PortNum, USBPD_SOPType_TypeDef Type);
+    /**
+    * @brief  The reception phase of an hard reset is completed notify it.
+    * @param  PortNum Port number
+    * @param  SOPType SOP Message Type based on @ref USBPD_SOPType_TypeDef
+    * @retval None
+    */
+    void ( *USBPD_HW_IF_RX_ResetIndication )( uint8_t PortNum, USBPD_SOPType_TypeDef Type );
 
-  /**
-  * @brief  The reception phase of the current message is completed and notify it.
-  * @param  PortNum Port number
-  * @param  MsgType Message Type
-  * @retval None
-  */
-  void (*USBPD_HW_IF_RX_Completed)(uint8_t PortNum, uint32_t MsgType);
+    /**
+    * @brief  The reception phase of the current message is completed and notify it.
+    * @param  PortNum Port number
+    * @param  MsgType Message Type
+    * @retval None
+    */
+    void ( *USBPD_HW_IF_RX_Completed )( uint8_t PortNum, uint32_t MsgType );
 
-  /**
-  * @brief  The emission of HRST has been completed.
-  * @param  PortNum Port number
-  * @retval None
-  */
-  void (*USBPD_HW_IF_TX_HardResetCompleted)(uint8_t PortNum, USBPD_SOPType_TypeDef Type);
+    /**
+    * @brief  The emission of HRST has been completed.
+    * @param  PortNum Port number
+    * @retval None
+    */
+    void ( *USBPD_HW_IF_TX_HardResetCompleted )( uint8_t PortNum, USBPD_SOPType_TypeDef Type );
 
-  /**
-  * @brief  FRS reception.
-  * @param  PortNum Port number
-  * @retval None
-  */
-  void (*USBPD_HW_IF_TX_FRSReception)(uint8_t PortNum);
+    /**
+    * @brief  FRS reception.
+    * @param  PortNum Port number
+    * @retval None
+    */
+    void ( *USBPD_HW_IF_TX_FRSReception )( uint8_t PortNum );
 
 } USBPD_HW_IF_Callbacks;
 
@@ -124,19 +124,19 @@ typedef struct
   */
 typedef struct
 {
-  UCPD_TypeDef                *husbpd;          /*!< UCPD Handle parameters             */
-  DMA_Channel_TypeDef         *hdmatx;          /*!< Tx DMA Handle parameters           */
-  DMA_Channel_TypeDef         *hdmarx;          /*!< Rx DMA Handle parameters           */
+    UCPD_TypeDef                *husbpd;          /*!< UCPD Handle parameters             */
+    DMA_Channel_TypeDef         *hdmatx;          /*!< Tx DMA Handle parameters           */
+    DMA_Channel_TypeDef         *hdmarx;          /*!< Rx DMA Handle parameters           */
 
-  USBPD_SettingsTypeDef       *settings;
-  USBPD_ParamsTypeDef         *params;
-  USBPD_HW_IF_Callbacks        cbs;             /*!< USBPD_PHY_HW_IF callbacks         */
+    USBPD_SettingsTypeDef       *settings;
+    USBPD_ParamsTypeDef         *params;
+    USBPD_HW_IF_Callbacks        cbs;             /*!< USBPD_PHY_HW_IF callbacks         */
 
-  void (*USBPD_CAD_WakeUp)(void);               /*!< function used to wakeup cad task   */
+    void ( *USBPD_CAD_WakeUp )( void );           /*!< function used to wakeup cad task   */
 
-  uint8_t                     *ptr_RxBuff;     /*!< Pointer to Raw Rx transfer Buffer  */
+    uint8_t                     *ptr_RxBuff;     /*!< Pointer to Raw Rx transfer Buffer  */
 
-  CCxPin_TypeDef               CCx;             /*!< CC pin used for communication      */
+    CCxPin_TypeDef               CCx;             /*!< CC pin used for communication      */
 } USBPD_PORT_HandleTypeDef;
 
 extern USBPD_PORT_HandleTypeDef Ports[USBPD_PORT_COUNT];
@@ -174,20 +174,20 @@ extern USBPD_PORT_HandleTypeDef Ports[USBPD_PORT_COUNT];
   * @param  PortNum The handle of the port.
   * @retval None
   */
-void USBPDM1_RX_EnableInterrupt(uint8_t PortNum);
+void USBPDM1_RX_EnableInterrupt( uint8_t PortNum );
 
 /**
   * @brief  stop bist carrier mode 2.
   * @param  PortNum The port handle.
   * @retval None
   */
-void USBPD_HW_IF_StopBISTMode2(uint8_t PortNum);
+void USBPD_HW_IF_StopBISTMode2( uint8_t PortNum );
 
 /**
   * @brief  Initialize specific peripheral for the APP.
   * @retval None
   */
-void USBPD_HW_IF_GlobalHwInit(void);
+void USBPD_HW_IF_GlobalHwInit( void );
 
 /**
   * @brief  Send a Buffer .
@@ -198,7 +198,7 @@ void USBPD_HW_IF_GlobalHwInit(void);
   * @param  Bitsize     The number of bits to be transmitted
   * @retval USBPD status
   */
-USBPD_StatusTypeDef USBPD_HW_IF_SendBuffer(uint8_t PortNum, USBPD_SOPType_TypeDef Type, uint8_t *pBuffer, uint32_t Bitsize);
+USBPD_StatusTypeDef USBPD_HW_IF_SendBuffer( uint8_t PortNum, USBPD_SOPType_TypeDef Type, uint8_t *pBuffer, uint32_t Bitsize );
 
 #if defined(_SRC) || defined(_DRP)
 /**
@@ -210,7 +210,7 @@ USBPD_StatusTypeDef USBPD_HW_IF_SendBuffer(uint8_t PortNum, USBPD_SOPType_TypeDe
   * @param  role        The role of the port.
   * @retval USBPD status
   */
-USBPD_StatusTypeDef HW_IF_PWR_Enable(uint8_t PortNum, USBPD_FunctionalState State, CCxPin_TypeDef Cc, uint32_t VconnState, USBPD_PortPowerRole_TypeDef role);
+USBPD_StatusTypeDef HW_IF_PWR_Enable( uint8_t PortNum, USBPD_FunctionalState State, CCxPin_TypeDef Cc, uint32_t VconnState, USBPD_PortPowerRole_TypeDef role );
 #endif /* _SRC || _DRP */
 
 /**
@@ -218,7 +218,7 @@ USBPD_StatusTypeDef HW_IF_PWR_Enable(uint8_t PortNum, USBPD_FunctionalState Stat
   * @param  PortNum The port handle.
   * @retval FunctionalState
   */
-USBPD_FunctionalState HW_IF_PWR_VBUSIsEnabled(uint8_t PortNum);
+USBPD_FunctionalState HW_IF_PWR_VBUSIsEnabled( uint8_t PortNum );
 
 /**
   * @brief  Set the VBUS voltage level on a specified port.
@@ -226,49 +226,49 @@ USBPD_FunctionalState HW_IF_PWR_VBUSIsEnabled(uint8_t PortNum);
   * @param  Voltage voltage value to be set.
   * @retval USBPD status
   */
-USBPD_StatusTypeDef HW_IF_PWR_SetVoltage(uint8_t PortNum, uint16_t Voltage);
+USBPD_StatusTypeDef HW_IF_PWR_SetVoltage( uint8_t PortNum, uint16_t Voltage );
 
 /**
   * @brief  Get the voltage level on a specified port.
   * @param  PortNum The port handle.
   * @retval The voltage value
   */
-uint16_t HW_IF_PWR_GetVoltage(uint8_t PortNum);
+uint16_t HW_IF_PWR_GetVoltage( uint8_t PortNum );
 
 /**
   * @brief  Get the current level on a specified port.
   * @param  PortNum The port handle.
   * @retval The current value
   */
-int16_t HW_IF_PWR_GetCurrent(uint8_t PortNum);
+int16_t HW_IF_PWR_GetCurrent( uint8_t PortNum );
 
 /**
   * @brief  Connect the Rp resitors on the CC lines
   * @param  PortNum The port handle.
   * @retval none
   */
-void USBPDM1_AssertRp(uint8_t PortNum);
+void USBPDM1_AssertRp( uint8_t PortNum );
 
 /**
   * @brief  Disconnect the Rp resitors on the CC lines
   * @param  PortNum The port handle.
   * @retval none
   */
-void USBPDM1_DeAssertRp(uint8_t PortNum);
+void USBPDM1_DeAssertRp( uint8_t PortNum );
 
 /**
   * @brief  Connect the Rd resitors on the CC lines
   * @param  PortNum The port handle.
   * @retval none
   */
-void USBPDM1_AssertRd(uint8_t PortNum);
+void USBPDM1_AssertRd( uint8_t PortNum );
 
 /**
   * @brief  Disconnect the Rd resitors on the CC lines
   * @param  PortNum The port handle.
   * @retval none
   */
-void USBPDM1_DeAssertRd(uint8_t PortNum);
+void USBPDM1_DeAssertRd( uint8_t PortNum );
 
 /**
   * @brief  Set the CCx pin.
@@ -276,21 +276,21 @@ void USBPDM1_DeAssertRd(uint8_t PortNum);
   * @param  cc      Specify the ccx to be selected.
   * @retval None
   */
-void USBPDM1_Set_CC(uint8_t PortNum, CCxPin_TypeDef cc);
+void USBPDM1_Set_CC( uint8_t PortNum, CCxPin_TypeDef cc );
 
 /**
   * @brief  Sends the BIST pattern
   * @param  PortNum The port handle.
   * @retval none
   */
-void USBPD_HW_IF_Send_BIST_Pattern(uint8_t PortNum);
+void USBPD_HW_IF_Send_BIST_Pattern( uint8_t PortNum );
 
 /**
   * @brief  Sends a detachemnt signal.
   * @param  PortNum The port handle.
   * @retval none
   */
-void HW_SignalDetachment(uint8_t PortNum);
+void HW_SignalDetachment( uint8_t PortNum );
 
 /**
   * @brief  Sends an Attachment signal.
@@ -298,60 +298,60 @@ void HW_SignalDetachment(uint8_t PortNum);
   * @param  cc the PD pin.
   * @retval none
   */
-void HW_SignalAttachement(uint8_t PortNum, CCxPin_TypeDef cc);
+void HW_SignalAttachement( uint8_t PortNum, CCxPin_TypeDef cc );
 
 /**
   * @brief  Set SinkTxNG resistor.
   * @param  PortNum The port handle.
   * @retval none
   */
-void USBPD_HW_IF_SetResistor_SinkTxNG(uint8_t PortNum);
+void USBPD_HW_IF_SetResistor_SinkTxNG( uint8_t PortNum );
 
 /**
   * @brief  Set SinkTxOk resistor.
   * @param  PortNum The port handle.
   * @retval none
   */
-void USBPD_HW_IF_SetResistor_SinkTxOK(uint8_t PortNum);
+void USBPD_HW_IF_SetResistor_SinkTxOK( uint8_t PortNum );
 
 /**
   * @brief  Is SinkTxOk resistor.
   * @param  PortNum The port handle.
   * @retval TRUE FALSE
   */
-uint8_t USBPD_HW_IF_IsResistor_SinkTxOk(uint8_t PortNum);
+uint8_t USBPD_HW_IF_IsResistor_SinkTxOk( uint8_t PortNum );
 
 /**
   * @brief  send a Fast Role swap signalling.
   * @param  PortNum The port handle.
   * @retval None
   */
-void USBPD_HW_IF_FastRoleSwapSignalling(uint8_t PortNum);
+void USBPD_HW_IF_FastRoleSwapSignalling( uint8_t PortNum );
 
 /**
   * @brief  enter in error recovery state.
   * @param  PortNum The port handle.
   * @retval None
   */
-void USBPDM1_EnterErrorRecovery(uint8_t PortNum);
+void USBPDM1_EnterErrorRecovery( uint8_t PortNum );
 
 
-void USBPD_PORT0_IRQHandler(void);
-void USBPD_PORT1_IRQHandler(void);
+void USBPD_PORT0_IRQHandler( void );
+void USBPD_PORT1_IRQHandler( void );
 
 /**
   * @brief  Enable RX
   * @param  PortNum The port handle.
   * @retval None
   */
-void    USBPD_HW_IF_EnableRX(uint8_t PortNum);
+void    USBPD_HW_IF_EnableRX( uint8_t PortNum );
 
 /**
   * @brief  Disable RX
   * @param  PortNum The port handle.
   * @retval None
   */
-void    USBPD_HW_IF_DisableRX(uint8_t PortNum);
+void    USBPD_HW_IF_DisableRX( uint8_t PortNum );
 
 /**
   * @}

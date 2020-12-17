@@ -8,11 +8,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -35,8 +35,8 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
-void     SystemClock_Config(void);
-void     Configure_GPIO(void);
+void     SystemClock_Config( void );
+void     Configure_GPIO( void );
 
 
 /* Private functions ---------------------------------------------------------*/
@@ -46,22 +46,22 @@ void     Configure_GPIO(void);
   * @param  None
   * @retval None
   */
-int main(void)
+int main( void )
 {
-  /* Configure the system clock to 16 MHz */
-  SystemClock_Config();
-  
-  /* -2- Configure IO in output push-pull mode to drive external LED */
-  Configure_GPIO();
+    /* Configure the system clock to 16 MHz */
+    SystemClock_Config();
 
-  /* Toggle IO in an infinite loop */
-  while (1)
-  {
-    LL_GPIO_TogglePin(LED4_GPIO_PORT, LED4_PIN);
-    
-    /* Insert delay 250 ms */
-    LL_mDelay(250);
-  }
+    /* -2- Configure IO in output push-pull mode to drive external LED */
+    Configure_GPIO();
+
+    /* Toggle IO in an infinite loop */
+    while( 1 )
+    {
+        LL_GPIO_TogglePin( LED4_GPIO_PORT, LED4_PIN );
+
+        /* Insert delay 250 ms */
+        LL_mDelay( 250 );
+    }
 }
 
 /**
@@ -72,19 +72,19 @@ int main(void)
   * @param  None
   * @retval None
   */
-void Configure_GPIO(void)
+void Configure_GPIO( void )
 {
-  /* Enable the LED4 Clock */
-  LED4_GPIO_CLK_ENABLE();
+    /* Enable the LED4 Clock */
+    LED4_GPIO_CLK_ENABLE();
 
-  /* Configure IO in output push-pull mode to drive external LED4 */
-  LL_GPIO_SetPinMode(LED4_GPIO_PORT, LED4_PIN, LL_GPIO_MODE_OUTPUT);
-  /* Reset value is LL_GPIO_OUTPUT_PUSHPULL */
-  //LL_GPIO_SetPinOutputType(LED4_GPIO_PORT, LED4_PIN, LL_GPIO_OUTPUT_PUSHPULL);
-  /* Reset value is LL_GPIO_SPEED_FREQ_LOW */
-  //LL_GPIO_SetPinSpeed(LED4_GPIO_PORT, LED4_PIN, LL_GPIO_SPEED_FREQ_LOW);
-  /* Reset value is LL_GPIO_PULL_NO */
-  //LL_GPIO_SetPinPull(LED4_GPIO_PORT, LED4_PIN, LL_GPIO_PULL_NO);
+    /* Configure IO in output push-pull mode to drive external LED4 */
+    LL_GPIO_SetPinMode( LED4_GPIO_PORT, LED4_PIN, LL_GPIO_MODE_OUTPUT );
+    /* Reset value is LL_GPIO_OUTPUT_PUSHPULL */
+    //LL_GPIO_SetPinOutputType(LED4_GPIO_PORT, LED4_PIN, LL_GPIO_OUTPUT_PUSHPULL);
+    /* Reset value is LL_GPIO_SPEED_FREQ_LOW */
+    //LL_GPIO_SetPinSpeed(LED4_GPIO_PORT, LED4_PIN, LL_GPIO_SPEED_FREQ_LOW);
+    /* Reset value is LL_GPIO_PULL_NO */
+    //LL_GPIO_SetPinPull(LED4_GPIO_PORT, LED4_PIN, LL_GPIO_PULL_NO);
 }
 
 /**
@@ -95,38 +95,40 @@ void Configure_GPIO(void)
   *            HCLK(Hz)                       = 16000000
   *            AHB Prescaler                  = 1
   *            APB1 Prescaler                 = 1
-  *            HSI clock division factor      = 1  
+  *            HSI clock division factor      = 1
   *            HSI Frequency(Hz)              = 16000000
   *            Flash Latency(WS)              = 0
   * @param  None
   * @retval None
   */
-void SystemClock_Config(void)
+void SystemClock_Config( void )
 {
-  LL_FLASH_SetLatency(LL_FLASH_LATENCY_0);
-  /* Set AHB prescaler*/
-  LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
+    LL_FLASH_SetLatency( LL_FLASH_LATENCY_0 );
+    /* Set AHB prescaler*/
+    LL_RCC_SetAHBPrescaler( LL_RCC_SYSCLK_DIV_1 );
 
-  /* Set APB1 prescaler*/
-  LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
+    /* Set APB1 prescaler*/
+    LL_RCC_SetAPB1Prescaler( LL_RCC_APB1_DIV_1 );
 
-  /* HSI configuration and activation */
-  LL_RCC_SetHSIDiv(LL_RCC_HSI_DIV_1);
-  LL_RCC_HSI_Enable();
-  while(LL_RCC_HSI_IsReady() != 1)
-  {
-  }
+    /* HSI configuration and activation */
+    LL_RCC_SetHSIDiv( LL_RCC_HSI_DIV_1 );
+    LL_RCC_HSI_Enable();
 
-  LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_HSI);
-  while(LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_HSI)
-  {
-  }
+    while( LL_RCC_HSI_IsReady() != 1 )
+    {
+    }
 
-  /* Set systick to 1ms in using frequency set to 16MHz */
-  LL_Init1msTick(16000000);
+    LL_RCC_SetSysClkSource( LL_RCC_SYS_CLKSOURCE_HSI );
 
-  /* Update CMSIS variable (which can be updated also through SystemCoreClockUpdate function) */
-  LL_SetSystemCoreClock(16000000);
+    while( LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_HSI )
+    {
+    }
+
+    /* Set systick to 1ms in using frequency set to 16MHz */
+    LL_Init1msTick( 16000000 );
+
+    /* Update CMSIS variable (which can be updated also through SystemCoreClockUpdate function) */
+    LL_SetSystemCoreClock( 16000000 );
 }
 
 
@@ -139,15 +141,15 @@ void SystemClock_Config(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t *file, uint32_t line)
+void assert_failed( uint8_t *file, uint32_t line )
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {
-  }
+    /* Infinite loop */
+    while( 1 )
+    {
+    }
 }
 #endif
 

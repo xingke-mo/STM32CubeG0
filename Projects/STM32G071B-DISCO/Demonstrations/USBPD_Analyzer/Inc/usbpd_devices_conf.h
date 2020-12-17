@@ -36,7 +36,7 @@ extern "C" {
 #include "stm32g0xx_ll_rcc.h"
 #include "stm32g0xx_ll_tim.h"
 
-#include "usbpd_pwr_if.h"   
+#include "usbpd_pwr_if.h"
 #include "stm32g071b_discovery_usbpd_pwr.h"
 
 /* USER CODE END Includes */

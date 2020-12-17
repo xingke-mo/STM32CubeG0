@@ -82,7 +82,7 @@ extern "C" {
 #define TRACER_EMB_TX_DMA_REQUEST                    LL_DMAMUX_REQ_USART3_TX         /* This define is needed only in case of DMAMUX management */
 #endif  /* DMAMUX_CxCR_DMAREQ_ID */
 #if defined(DMA_SxCR_CHSEL)
-#define TRACER_EMB_TX_DMA_STREAM		     LL_DMA_STREAM_7                 /* This define is needed only in case of use of a DMA IP supporting Streams */
+#define TRACER_EMB_TX_DMA_STREAM             LL_DMA_STREAM_7                 /* This define is needed only in case of use of a DMA IP supporting Streams */
 #endif  /* DMA_SxCR_CHSEL */
 #define TRACER_EMB_TX_DMA_CHANNEL                    LL_DMA_CHANNEL_7
 #if defined(DMA_SxCR_CHSEL)

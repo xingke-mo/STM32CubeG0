@@ -32,13 +32,13 @@
 /* Private variables ---------------------------------------------------------*/
 extern char USBDISKPath[4];          /* USB Host logical drive path */
 extern FATFS USBDISKFatFs;           /* File system object for USB disk logical drive */
-extern void Error_Handler(void);
+extern void Error_Handler( void );
 __IO MSC_APP_State msc_app_state;
 /* USER CODE END PV */
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
-extern FRESULT msc_explore_disk(char *path, uint8_t recu_level);
+extern FRESULT msc_explore_disk( char *path, uint8_t recu_level );
 /* USER CODE END PFP */
 
 /* USB Host core handle declaration */
@@ -55,7 +55,7 @@ ApplicationTypeDef Appli_state = APPLICATION_IDLE;
 /*
  * user callback declaration
  */
-static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8_t id);
+static void USBH_UserProcess( USBH_HandleTypeDef *phost, uint8_t id );
 
 /*
  * -- Insert your external function declaration here --
@@ -67,47 +67,53 @@ static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8_t id);
 * @param  None
 * @retval None
 */
-void USBH_MSC_AppProcess(void)
+void USBH_MSC_AppProcess( void )
 {
-  switch(msc_app_state)
-  {
-  case MSC_APP_WAIT:
-    msc_app_state = MSC_APP_FILE_OPERATIONS;
-    break;
-
-  case MSC_APP_FILE_OPERATIONS:
-    /* Read and Write File Here */
-    if(Appli_state == APPLICATION_READY)
+    switch( msc_app_state )
     {
-      USBH_UsrLog("\n\n*** Files operations ***\n");
-      msc_app_state = MSC_APP_EXPLORER;
-      if(msc_file_operations() != 0)
-      {
-        msc_app_state = MSC_APP_IDLE;
-        return;
-      }
-    }
-    break;
+    case MSC_APP_WAIT:
+        msc_app_state = MSC_APP_FILE_OPERATIONS;
+        break;
 
-  case MSC_APP_EXPLORER:
-    /* Display disk content */
-    if(Appli_state == APPLICATION_READY)
+    case MSC_APP_FILE_OPERATIONS:
+
+        /* Read and Write File Here */
+        if( Appli_state == APPLICATION_READY )
+        {
+            USBH_UsrLog( "\n\n*** Files operations ***\n" );
+            msc_app_state = MSC_APP_EXPLORER;
+
+            if( msc_file_operations() != 0 )
+            {
+                msc_app_state = MSC_APP_IDLE;
+                return;
+            }
+        }
+
+        break;
+
+    case MSC_APP_EXPLORER:
+
+        /* Display disk content */
+        if( Appli_state == APPLICATION_READY )
+        {
+            USBH_UsrLog( "\n\n*** Explore Disk ***\n\n" );
+            msc_explore_disk( "0:/", 1 );
+            msc_app_state = MSC_APP_IDLE;
+        }
+
+        break;
+
+    default:
+        break;
+    }
+
+    if( Appli_state == APPLICATION_DISCONNECT )
     {
-      USBH_UsrLog("\n\n*** Explore Disk ***\n\n");
-      msc_explore_disk("0:/", 1);
-      msc_app_state = MSC_APP_IDLE;
+        Appli_state = APPLICATION_IDLE;
+        USBH_UsrLog( "USB device disconnected !!! \n" );
+        msc_app_state = MSC_APP_WAIT;
     }
-    break;
-
-  default:
-    break;
-  }
-  if(Appli_state == APPLICATION_DISCONNECT)
-  {
-    Appli_state = APPLICATION_IDLE;
-    USBH_UsrLog("USB device disconnected !!! \n");
-    msc_app_state = MSC_APP_WAIT;
-  }
 }
 /* USER CODE END 1 */
 
@@ -115,87 +121,96 @@ void USBH_MSC_AppProcess(void)
   * Init USB host library, add supported class and start the library
   * @retval None
   */
-void MX_USB_HOST_Init(void)
+void MX_USB_HOST_Init( void )
 {
-  /* USER CODE BEGIN USB_HOST_Init_PreTreatment */
-  
-  /* USER CODE END USB_HOST_Init_PreTreatment */
+    /* USER CODE BEGIN USB_HOST_Init_PreTreatment */
 
-  /* Init host Library, add supported class and start the library. */
-  if (USBH_Init(&hUsbHostFS, USBH_UserProcess, 0) != USBH_OK)
-  {
-    Error_Handler();
-  }
-  if (USBH_RegisterClass(&hUsbHostFS, USBH_MSC_CLASS) != USBH_OK)
-  {
-    Error_Handler();
-  }
-  if (USBH_Start(&hUsbHostFS) != USBH_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USB_HOST_Init_PostTreatment */
-  USBH_UsrLog(" **** USB DRD FS MSC Host **** \n");
-  USBH_UsrLog("USB Host library started.\n");
+    /* USER CODE END USB_HOST_Init_PreTreatment */
 
-  /* Initialize Application and MSC process */
+    /* Init host Library, add supported class and start the library. */
+    if( USBH_Init( &hUsbHostFS, USBH_UserProcess, 0 ) != USBH_OK )
+    {
+        Error_Handler();
+    }
 
-  USBH_UsrLog("Starting MSC Application");
-  USBH_UsrLog("Connect your MSC Device\n");
-  msc_app_state = MSC_APP_WAIT;
+    if( USBH_RegisterClass( &hUsbHostFS, USBH_MSC_CLASS ) != USBH_OK )
+    {
+        Error_Handler();
+    }
 
-  /* USER CODE END USB_HOST_Init_PostTreatment */
+    if( USBH_Start( &hUsbHostFS ) != USBH_OK )
+    {
+        Error_Handler();
+    }
+
+    /* USER CODE BEGIN USB_HOST_Init_PostTreatment */
+    USBH_UsrLog( " **** USB DRD FS MSC Host **** \n" );
+    USBH_UsrLog( "USB Host library started.\n" );
+
+    /* Initialize Application and MSC process */
+
+    USBH_UsrLog( "Starting MSC Application" );
+    USBH_UsrLog( "Connect your MSC Device\n" );
+    msc_app_state = MSC_APP_WAIT;
+
+    /* USER CODE END USB_HOST_Init_PostTreatment */
 }
 
 /*
  * Background task
  */
-void MX_USB_HOST_Process(void)
+void MX_USB_HOST_Process( void )
 {
-  /* USB Host Background task */
-  USBH_Process(&hUsbHostFS);
-    
-  /* MSC Application Process */
-  USBH_MSC_AppProcess();
+    /* USB Host Background task */
+    USBH_Process( &hUsbHostFS );
+
+    /* MSC Application Process */
+    USBH_MSC_AppProcess();
 }
 /*
  * user callback definition
  */
-static void USBH_UserProcess  (USBH_HandleTypeDef *phost, uint8_t id)
+static void USBH_UserProcess( USBH_HandleTypeDef *phost, uint8_t id )
 {
-  /* USER CODE BEGIN CALL_BACK_1 */
-  switch(id)
-  {
-  case HOST_USER_CONNECTION:
-  break;
-
-  case HOST_USER_DISCONNECTION:
-    Appli_state = APPLICATION_DISCONNECT;
-    if (f_mount(NULL, "", 0) != FR_OK)
+    /* USER CODE BEGIN CALL_BACK_1 */
+    switch( id )
     {
-      USBH_UsrLog("ERROR : Cannot DeInitialize FatFs! \n");
-    }
-    if (FATFS_UnLinkDriver(USBDISKPath) != 0)
-    {
-      USBH_UsrLog("UnLink FatFS Driver! \n");
-    }
-    break;
+    case HOST_USER_CONNECTION:
+        break;
 
-  case HOST_USER_CLASS_ACTIVE:
-    Appli_state = APPLICATION_READY;
-    if(FATFS_LinkDriver(&USBH_Driver, USBDISKPath)==0)
-    {
-      if (f_mount(&USBDISKFatFs, "", 0)!= FR_OK)
-      {
-        USBH_UsrLog("ERROR : Cannot Initialize FatFs! \n");
-      }
-    }
-    break;
+    case HOST_USER_DISCONNECTION:
+        Appli_state = APPLICATION_DISCONNECT;
 
-  default:
-  break;
-  }
-  /* USER CODE END CALL_BACK_1 */
+        if( f_mount( NULL, "", 0 ) != FR_OK )
+        {
+            USBH_UsrLog( "ERROR : Cannot DeInitialize FatFs! \n" );
+        }
+
+        if( FATFS_UnLinkDriver( USBDISKPath ) != 0 )
+        {
+            USBH_UsrLog( "UnLink FatFS Driver! \n" );
+        }
+
+        break;
+
+    case HOST_USER_CLASS_ACTIVE:
+        Appli_state = APPLICATION_READY;
+
+        if( FATFS_LinkDriver( &USBH_Driver, USBDISKPath ) == 0 )
+        {
+            if( f_mount( &USBDISKFatFs, "", 0 ) != FR_OK )
+            {
+                USBH_UsrLog( "ERROR : Cannot Initialize FatFs! \n" );
+            }
+        }
+
+        break;
+
+    default:
+        break;
+    }
+
+    /* USER CODE END CALL_BACK_1 */
 }
 
 /**

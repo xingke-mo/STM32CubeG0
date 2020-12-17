@@ -44,21 +44,21 @@
 
 /* Ensure stdint is only used by the compiler, and not the assembler. */
 #if defined(__ICCARM__) || defined(__CC_ARM) || defined(__GNUC__)
- #include <stdint.h>
- extern uint32_t SystemCoreClock;
+    #include <stdint.h>
+    extern uint32_t SystemCoreClock;
 #endif
 
- /* No secure feature is used the configENABLE_TRUSTZONE should be set to 0
-  *
-  */
+/* No secure feature is used the configENABLE_TRUSTZONE should be set to 0
+ *
+ */
 #define configENABLE_TRUSTZONE                  0
 #define configENABLE_FPU                        1
 #define configENABLE_MPU                        0
 
 #ifdef __NVIC_PRIO_BITS
- #define configPRIO_BITS                        __NVIC_PRIO_BITS
+    #define configPRIO_BITS                        __NVIC_PRIO_BITS
 #else
- #define configPRIO_BITS                        4
+    #define configPRIO_BITS                        4
 #endif
 
 /* The lowest interrupt priority that can be used in a call to a "set priority"

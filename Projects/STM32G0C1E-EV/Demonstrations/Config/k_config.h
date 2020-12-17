@@ -19,7 +19,7 @@
 #define K_CONFIG_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -37,19 +37,20 @@
 
 #define CHOOSEFILE_MAXLEN   255
 
-typedef enum{
- MODULE_MAIN_APP,
- MODULE_LOWPOWER,
- MODULE_TSENSOR,
- MODULE_VIEWBMP,
- MODULE_FILESBRO,
- MODULE_SYSTEM_INFO,
- MODULE_APPLICATIONS,
- MODULE_AUDIO,
- MODULE_CALENDAR,
- MODULE_HELP,
- MODULE_MAX,
- MODULE_NONE = 0xFF
+typedef enum
+{
+    MODULE_MAIN_APP,
+    MODULE_LOWPOWER,
+    MODULE_TSENSOR,
+    MODULE_VIEWBMP,
+    MODULE_FILESBRO,
+    MODULE_SYSTEM_INFO,
+    MODULE_APPLICATIONS,
+    MODULE_AUDIO,
+    MODULE_CALENDAR,
+    MODULE_HELP,
+    MODULE_MAX,
+    MODULE_NONE = 0xFF
 } MODULES_INFO;
 
 #define countof(a) (sizeof(a) / sizeof(*(a)))

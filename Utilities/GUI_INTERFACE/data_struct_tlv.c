@@ -33,32 +33,39 @@
   * @param    Ptr          A pointer to the value. This function does not allocate memory, it is the user's responsibility to allocate this.
   * @return   0 if everything went fine, 0xFF otherwise.
   */
-uint8_t TLV_init_encode(TLV_ToSend_Data *ToSendTLV, uint8_t Tag, uint16_t SizeMax, uint8_t *Ptr)
+uint8_t TLV_init_encode( TLV_ToSend_Data *ToSendTLV, uint8_t Tag, uint16_t SizeMax, uint8_t *Ptr )
 {
-  if(Ptr == NULL) return 0xFF;                  /* Buffer is NULL*/
-  if(SizeMax < 11) return 0xFF;                 /* Because of his small max size, the buffer can't even receive one empty TLV*/
-  
-  ToSendTLV->data = Ptr;
-  ToSendTLV->maxSize = SizeMax;
-   
-  ToSendTLV->data[0]
-    = ToSendTLV->data[1]
-      = ToSendTLV->data[2]
-        = ToSendTLV->data[3] = TLV_SOF;          /* SOF*/
-  
-  ToSendTLV->data[4] = Tag;                      /* Tag*/
-  
-  ToSendTLV->data[5]
-    = ToSendTLV->data[6] = 0;                    /* Size*/
-  
-  ToSendTLV->data[7]
-    = ToSendTLV->data[8]
-      = ToSendTLV->data[9]
-        = ToSendTLV->data[10] = TLV_EOF;         /* EOF*/
-  
-  ToSendTLV->EOFposition = 7;
-  
-  return 0;
+    if( Ptr == NULL )
+    {
+        return 0xFF;    /* Buffer is NULL*/
+    }
+
+    if( SizeMax < 11 )
+    {
+        return 0xFF;    /* Because of his small max size, the buffer can't even receive one empty TLV*/
+    }
+
+    ToSendTLV->data = Ptr;
+    ToSendTLV->maxSize = SizeMax;
+
+    ToSendTLV->data[0]
+        = ToSendTLV->data[1]
+          = ToSendTLV->data[2]
+            = ToSendTLV->data[3] = TLV_SOF;          /* SOF*/
+
+    ToSendTLV->data[4] = Tag;                      /* Tag*/
+
+    ToSendTLV->data[5]
+        = ToSendTLV->data[6] = 0;                    /* Size*/
+
+    ToSendTLV->data[7]
+        = ToSendTLV->data[8]
+          = ToSendTLV->data[9]
+            = ToSendTLV->data[10] = TLV_EOF;         /* EOF*/
+
+    ToSendTLV->EOFposition = 7;
+
+    return 0;
 }
 
 /**
@@ -74,37 +81,52 @@ uint8_t TLV_init_encode(TLV_ToSend_Data *ToSendTLV, uint8_t Tag, uint16_t SizeMa
   * @return   The number of bytes written if everything went fine, 0xFFFF otherwise.
   *
   */
-uint16_t TLV_add(TLV_ToSend_Data *ToSendTLV, uint8_t Tag, uint16_t Size, const uint8_t *Value)
+uint16_t TLV_add( TLV_ToSend_Data *ToSendTLV, uint8_t Tag, uint16_t Size, const uint8_t *Value )
 {
-  if(ToSendTLV->data[ToSendTLV->EOFposition] != TLV_EOF)                return 0xFFFF;       /* EOF has been lost. Has any TLV operation failed, or went interrupted ?*/
-  if((ToSendTLV->EOFposition + 4 + 3 + Size) > ToSendTLV->maxSize)      return 0xFFFF;       /* Can't add this TLV, because it will overflow the provided buffer.*/
-  if(ToSendTLV->data == NULL)                                          return 0xFFFF;        /* Data points to NULL. Has the encoding been initialized with TLV_init_encode ?*/
-  if(ToSendTLV->EOFposition == 0xFFFF)                                 return 0xFFFF;        /* EOF at -1.  Has the decoding been initialized with TLV_init_decode ?*/
-  
-  ToSendTLV->data[ToSendTLV->EOFposition] = Tag;                           /* Tag*/
-  ToSendTLV->EOFposition++;
-  ToSendTLV->SizePosition = ToSendTLV->EOFposition;
-  
-  ToSendTLV->data[ToSendTLV->EOFposition]   = (Size >> 8) & 0x00FF;        /* Size*/
-  ToSendTLV->data[ToSendTLV->EOFposition+1] = (Size     ) & 0x00FF;
-  ToSendTLV->EOFposition += 2;
-  
-  for(uint32_t index = 0; index < Size; index++)                                          /* Value*/
-  {
-    ToSendTLV->data[ToSendTLV->EOFposition] = Value[index];
+    if( ToSendTLV->data[ToSendTLV->EOFposition] != TLV_EOF )
+    {
+        return 0xFFFF;    /* EOF has been lost. Has any TLV operation failed, or went interrupted ?*/
+    }
+
+    if( ( ToSendTLV->EOFposition + 4 + 3 + Size ) > ToSendTLV->maxSize )
+    {
+        return 0xFFFF;    /* Can't add this TLV, because it will overflow the provided buffer.*/
+    }
+
+    if( ToSendTLV->data == NULL )
+    {
+        return 0xFFFF;    /* Data points to NULL. Has the encoding been initialized with TLV_init_encode ?*/
+    }
+
+    if( ToSendTLV->EOFposition == 0xFFFF )
+    {
+        return 0xFFFF;    /* EOF at -1.  Has the decoding been initialized with TLV_init_decode ?*/
+    }
+
+    ToSendTLV->data[ToSendTLV->EOFposition] = Tag;                           /* Tag*/
     ToSendTLV->EOFposition++;
-  }
-  
-  ToSendTLV->data[ToSendTLV->EOFposition]
-    = ToSendTLV->data[ToSendTLV->EOFposition+1]
-      = ToSendTLV->data[ToSendTLV->EOFposition+2]
-        = ToSendTLV->data[ToSendTLV->EOFposition+3] = TLV_EOF;             /* EOF*/
-  
-  uint16_t total_lgth = (ToSendTLV->data[5] << 8) + ToSendTLV->data[6] + 3 + Size; /* Update of the top level Size marker*/
-  ToSendTLV->data[5] = total_lgth >> 8;
-  ToSendTLV->data[6] = total_lgth;
-  
-  return 3 + Size;
+    ToSendTLV->SizePosition = ToSendTLV->EOFposition;
+
+    ToSendTLV->data[ToSendTLV->EOFposition]   = ( Size >> 8 ) & 0x00FF;      /* Size*/
+    ToSendTLV->data[ToSendTLV->EOFposition + 1] = ( Size ) & 0x00FF;
+    ToSendTLV->EOFposition += 2;
+
+    for( uint32_t index = 0; index < Size; index++ )                                        /* Value*/
+    {
+        ToSendTLV->data[ToSendTLV->EOFposition] = Value[index];
+        ToSendTLV->EOFposition++;
+    }
+
+    ToSendTLV->data[ToSendTLV->EOFposition]
+        = ToSendTLV->data[ToSendTLV->EOFposition + 1]
+          = ToSendTLV->data[ToSendTLV->EOFposition + 2]
+            = ToSendTLV->data[ToSendTLV->EOFposition + 3] = TLV_EOF;           /* EOF*/
+
+    uint16_t total_lgth = ( ToSendTLV->data[5] << 8 ) + ToSendTLV->data[6] + 3 + Size; /* Update of the top level Size marker*/
+    ToSendTLV->data[5] = total_lgth >> 8;
+    ToSendTLV->data[6] = total_lgth;
+
+    return 3 + Size;
 }
 
 /**
@@ -115,29 +137,44 @@ uint16_t TLV_add(TLV_ToSend_Data *ToSendTLV, uint8_t Tag, uint16_t Size, const u
   * @return   The number of bytes written if everything went fine, 0xFFFF otherwise.
   *
   */
-uint16_t TLV_addValue(TLV_ToSend_Data *ToSendTLV, const uint8_t *Value, uint16_t Size)
+uint16_t TLV_addValue( TLV_ToSend_Data *ToSendTLV, const uint8_t *Value, uint16_t Size )
 {
-  if(ToSendTLV->data[ToSendTLV->EOFposition] != TLV_EOF)                return 0xFFFF;       /* EOF has been lost. Has any TLV operation failed, or went interrupted ?*/
-  if((ToSendTLV->EOFposition + 4 + 3 + Size) > ToSendTLV->maxSize)      return 0xFFFF;       /* Can't add this TLV, because it will overflow the provided buffer.*/
-  if(ToSendTLV->data == NULL)                                          return 0xFFFF;        /* Data points to NULL. Has the encoding been initialized with TLV_init_encode ?*/
-  if(ToSendTLV->EOFposition == 0xFFFF)                                 return 0xFFFF;        /* EOF at -1.  Has the decoding been initialized with TLV_init_decode ?*/
-  
-  for(uint32_t index = 0; index < Size; index++)                                          /* Value*/
-  {
-    ToSendTLV->data[ToSendTLV->EOFposition] = Value[index];
-    ToSendTLV->EOFposition++;
-  }
-  
-  ToSendTLV->data[ToSendTLV->EOFposition]
-    = ToSendTLV->data[ToSendTLV->EOFposition+1]
-      = ToSendTLV->data[ToSendTLV->EOFposition+2]
-        = ToSendTLV->data[ToSendTLV->EOFposition+3] = TLV_EOF;             /* EOF*/
-  
-  uint16_t total_lgth = (ToSendTLV->data[5] << 8) + ToSendTLV->data[6] + Size; /* Update of the top level Size marker*/
-  ToSendTLV->data[5] = total_lgth >> 8;
-  ToSendTLV->data[6] = total_lgth;
-  
-  return 3 + Size;
+    if( ToSendTLV->data[ToSendTLV->EOFposition] != TLV_EOF )
+    {
+        return 0xFFFF;    /* EOF has been lost. Has any TLV operation failed, or went interrupted ?*/
+    }
+
+    if( ( ToSendTLV->EOFposition + 4 + 3 + Size ) > ToSendTLV->maxSize )
+    {
+        return 0xFFFF;    /* Can't add this TLV, because it will overflow the provided buffer.*/
+    }
+
+    if( ToSendTLV->data == NULL )
+    {
+        return 0xFFFF;    /* Data points to NULL. Has the encoding been initialized with TLV_init_encode ?*/
+    }
+
+    if( ToSendTLV->EOFposition == 0xFFFF )
+    {
+        return 0xFFFF;    /* EOF at -1.  Has the decoding been initialized with TLV_init_decode ?*/
+    }
+
+    for( uint32_t index = 0; index < Size; index++ )                                        /* Value*/
+    {
+        ToSendTLV->data[ToSendTLV->EOFposition] = Value[index];
+        ToSendTLV->EOFposition++;
+    }
+
+    ToSendTLV->data[ToSendTLV->EOFposition]
+        = ToSendTLV->data[ToSendTLV->EOFposition + 1]
+          = ToSendTLV->data[ToSendTLV->EOFposition + 2]
+            = ToSendTLV->data[ToSendTLV->EOFposition + 3] = TLV_EOF;           /* EOF*/
+
+    uint16_t total_lgth = ( ToSendTLV->data[5] << 8 ) + ToSendTLV->data[6] + Size; /* Update of the top level Size marker*/
+    ToSendTLV->data[5] = total_lgth >> 8;
+    ToSendTLV->data[6] = total_lgth;
+
+    return 3 + Size;
 }
 
 /**
@@ -147,10 +184,10 @@ uint16_t TLV_addValue(TLV_ToSend_Data *ToSendTLV, const uint8_t *Value, uint16_t
   * @return   None
   *
   */
-void TLV_UpdateSizeTag(TLV_ToSend_Data *ToSendTLV, uint16_t Size)
+void TLV_UpdateSizeTag( TLV_ToSend_Data *ToSendTLV, uint16_t Size )
 {
-  ToSendTLV->data[ToSendTLV->SizePosition]     = (Size >> 8) & 0x00FF;        /* Size*/
-  ToSendTLV->data[ToSendTLV->SizePosition + 1] = (Size     ) & 0x00FF;
+    ToSendTLV->data[ToSendTLV->SizePosition]     = ( Size >> 8 ) & 0x00FF;      /* Size*/
+    ToSendTLV->data[ToSendTLV->SizePosition + 1] = ( Size ) & 0x00FF;
 }
 /**
   * @brief    TLV_deinit_encode deinitialize a TLV_ToSend_Data structure.
@@ -160,11 +197,11 @@ void TLV_UpdateSizeTag(TLV_ToSend_Data *ToSendTLV, uint16_t Size)
   * @param    ToSendTLV    The TLV_ToSend_Data structure to deinitialize.
   * @return   None
   */
-void TLV_deinit_encode(TLV_ToSend_Data *ToSendTLV)
+void TLV_deinit_encode( TLV_ToSend_Data *ToSendTLV )
 {
-  ToSendTLV->data        = NULL;
-  ToSendTLV->EOFposition = 0xFFFF;
-  ToSendTLV->maxSize     = 0;
+    ToSendTLV->data        = NULL;
+    ToSendTLV->EOFposition = 0xFFFF;
+    ToSendTLV->maxSize     = 0;
 }
 
 /**
@@ -175,25 +212,32 @@ void TLV_deinit_encode(TLV_ToSend_Data *ToSendTLV)
   * @param    pReceivedString          The string which will be decoded.
   * @return   The position of the cursor if everything went fine, 0xFF otherwise.
   */
-uint8_t TLV_init_decode(TLV_Received_Data *ToProcessTLV, uint8_t *pReceivedString)
+uint8_t TLV_init_decode( TLV_Received_Data *ToProcessTLV, uint8_t *pReceivedString )
 {
-  if(pReceivedString == NULL) return 0xFF;               /* Received string is NULL*/
-  if(  (pReceivedString[0] != TLV_SOF)
-     ||(pReceivedString[1] != TLV_SOF)
-     ||(pReceivedString[2] != TLV_SOF)
-     ||(pReceivedString[3] != TLV_SOF)) return 0xFF;       /* Incorrect SOF*/
-  
-  ToProcessTLV->data = pReceivedString;
-  ToProcessTLV->cursor = 7; /* Cursor at start of value*/
-  
-  return ToProcessTLV->cursor;
+    if( pReceivedString == NULL )
+    {
+        return 0xFF;    /* Received string is NULL*/
+    }
+
+    if( ( pReceivedString[0] != TLV_SOF )
+            || ( pReceivedString[1] != TLV_SOF )
+            || ( pReceivedString[2] != TLV_SOF )
+            || ( pReceivedString[3] != TLV_SOF ) )
+    {
+        return 0xFF;    /* Incorrect SOF*/
+    }
+
+    ToProcessTLV->data = pReceivedString;
+    ToProcessTLV->cursor = 7; /* Cursor at start of value*/
+
+    return ToProcessTLV->cursor;
 }
 
 /**
   * @brief    TLV_get gets data in TLV format from inside the value of a host TLV instruction.
   * @note     Refer to the USB-PD GUI INTERFACE SPECIFICATION DOCUMENT for more info about this practice (part 5.3.1)
   *           TLV_init_decode must be called with the same TLV_Received_Data structure before calling this function.
-  *           Once this function has read its parameter, it places the cursor at the beginning of the next one. 
+  *           Once this function has read its parameter, it places the cursor at the beginning of the next one.
   *           Refer to the returned value to see if there is one or not.
   * @param    ToProcessTLV    The TLV_Received_Data structure which is associated to the string we want to get a parameter from.
   * @param    Tag            A pointer to where the decoded Tag should be stocked.
@@ -201,20 +245,31 @@ uint8_t TLV_init_decode(TLV_Received_Data *ToProcessTLV, uint8_t *pReceivedStrin
   * @param    Value            A double pointer, which will contain a pointer directly to the data in the reception buffer.
   * @return   0 if the reading was fine and there is another parameter after, 1 if the reading was fine and it was the last parameter, 0xFF otherwise.
   */
-uint8_t TLV_get(TLV_Received_Data *ToProcessTLV, uint8_t *Tag, uint16_t *Length, uint8_t **Value)
+uint8_t TLV_get( TLV_Received_Data *ToProcessTLV, uint8_t *Tag, uint16_t *Length, uint8_t **Value )
 {
-  if(ToProcessTLV->data == NULL) return 0xFF;                           /* Data points to NULL. Has the decoding been initialized with TLV_init_decode ?*/
-  if(ToProcessTLV->cursor == 0)  return 0xFF;                           /* The cursor is not positioned. Has the decoding been initialized with TLV_init_decode ?*/
-  if(ToProcessTLV->data[ToProcessTLV->cursor] == TLV_EOF) return 0xFF;  /* EOF reached. There is not any parameter left to read.*/
+    if( ToProcessTLV->data == NULL )
+    {
+        return 0xFF;    /* Data points to NULL. Has the decoding been initialized with TLV_init_decode ?*/
+    }
 
-  *Tag = ToProcessTLV->data[ToProcessTLV->cursor];                                                         /* Tag*/
-  ToProcessTLV->cursor++;
-  *Length = (ToProcessTLV->data[ToProcessTLV->cursor] << 8) + ToProcessTLV->data[ToProcessTLV->cursor+1];  /* Length*/
-  ToProcessTLV->cursor += 2;
-  *Value = &ToProcessTLV->data[ToProcessTLV->cursor];                                                      /* Value*/
-  ToProcessTLV->cursor += *Length;
+    if( ToProcessTLV->cursor == 0 )
+    {
+        return 0xFF;    /* The cursor is not positioned. Has the decoding been initialized with TLV_init_decode ?*/
+    }
 
-  return 0;
+    if( ToProcessTLV->data[ToProcessTLV->cursor] == TLV_EOF )
+    {
+        return 0xFF;    /* EOF reached. There is not any parameter left to read.*/
+    }
+
+    *Tag = ToProcessTLV->data[ToProcessTLV->cursor];                                                         /* Tag*/
+    ToProcessTLV->cursor++;
+    *Length = ( ToProcessTLV->data[ToProcessTLV->cursor] << 8 ) + ToProcessTLV->data[ToProcessTLV->cursor + 1]; /* Length*/
+    ToProcessTLV->cursor += 2;
+    *Value = &ToProcessTLV->data[ToProcessTLV->cursor];                                                      /* Value*/
+    ToProcessTLV->cursor += *Length;
+
+    return 0;
 }
 
 /**
@@ -225,10 +280,10 @@ uint8_t TLV_get(TLV_Received_Data *ToProcessTLV, uint8_t *Tag, uint16_t *Length,
   * @param    ToProcessTLV    The TLV_Received_Data structure to deinitialize.
   * @return   None
   */
-void TLV_deinit_decode(TLV_Received_Data *ToProcessTLV)
+void TLV_deinit_decode( TLV_Received_Data *ToProcessTLV )
 {
-  ToProcessTLV->data = NULL;
-  ToProcessTLV->cursor = 0;
+    ToProcessTLV->data = NULL;
+    ToProcessTLV->cursor = 0;
 }
 
 /**
@@ -237,20 +292,20 @@ void TLV_deinit_decode(TLV_Received_Data *ToProcessTLV)
   * @param    pString      A uint8_t pString, under TLV format, with or without SOF or EOF.
   * @return   The size of the pString in bytes; including tag, length, and value; excluding SOF and EOF, if applicable.
   */
-uint16_t TLV_get_string_length(const uint8_t* pString)
+uint16_t TLV_get_string_length( const uint8_t *pString )
 {
-  uint16_t  length;      /* Variable to be return.*/
-  uint8_t   start = 0;    /* To indicate the start of the real pString, in case there is a EOF. */
+    uint16_t  length;      /* Variable to be return.*/
+    uint8_t   start = 0;    /* To indicate the start of the real pString, in case there is a EOF. */
 
-  while(pString[start] == TLV_SOF)
-  {
-    start++;
-  } /* start variable is now after the SOF if there is one.*/
+    while( pString[start] == TLV_SOF )
+    {
+        start++;
+    } /* start variable is now after the SOF if there is one.*/
 
-  length =   (uint16_t)pString[start+1] << 8
-    |(uint16_t)pString[start+2];
-  length += 3;
-  
-  return length;
+    length = ( uint16_t )pString[start + 1] << 8
+             | ( uint16_t )pString[start + 2];
+    length += 3;
+
+    return length;
 }
 #endif /* _GUI_INTERFACE */

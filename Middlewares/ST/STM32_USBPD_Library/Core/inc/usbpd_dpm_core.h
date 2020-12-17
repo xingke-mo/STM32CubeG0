@@ -62,11 +62,11 @@ extern USBPD_ParamsTypeDef DPM_Params[USBPD_PORT_COUNT];
 /* USER CODE END variables */
 
 /* Exported functions --------------------------------------------------------*/
-USBPD_StatusTypeDef USBPD_DPM_InitCore(void);
-USBPD_StatusTypeDef USBPD_DPM_InitOS(void);
-void                USBPD_DPM_Run(void);
+USBPD_StatusTypeDef USBPD_DPM_InitCore( void );
+USBPD_StatusTypeDef USBPD_DPM_InitOS( void );
+void                USBPD_DPM_Run( void );
 #if !defined(USBPDCORE_LIB_NO_PD)
-void                USBPD_DPM_TimerCounter(void);
+void                USBPD_DPM_TimerCounter( void );
 #endif /* USBPDCORE_LIB_NO_PD */
 /* USER CODE BEGIN functions */
 

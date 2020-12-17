@@ -41,20 +41,23 @@
 /** @defgroup STM32G081B_EVAL_MUX_Private_Typedef Private Typedef
   * @{
   */
-typedef enum {
+typedef enum
+{
     MUX_NOT_INITIALIZED = 0,
     MUX_INITIALIZED
 } MUX_StateTypedef;
 
-typedef struct {
+typedef struct
+{
     MUX_StateTypedef    State;
-    TYPECSWITCH_Drv_t * TypeCSwitch_Drv;
+    TYPECSWITCH_Drv_t *TypeCSwitch_Drv;
     uint16_t            I2C_Address_TypeCSwitch;
-    DPREDRIVER_Drv_t  * DPRedriver_Drv;
+    DPREDRIVER_Drv_t   *DPRedriver_Drv;
     uint16_t            I2C_Address_DPRedriver;
 } MuxInfoTypeDef;
 
-typedef struct {
+typedef struct
+{
 #if defined(TUSB546_DEBUG)
     TUSB546_RegistersTypeDef            TUSB546_Registers;
 #endif /* TUSB546_DEBUG */
@@ -64,10 +67,10 @@ typedef struct {
 #if defined(SN65DP141_DEBUG)
     SN65DP141_RegistersTypeDef          SN65DP141_Registers;
 #endif /* CBTL08GP053_DEBUG */
-    MUX_HPDCallbackFuncTypeDef *        pfnHPDCallbackFunc;
+    MUX_HPDCallbackFuncTypeDef         *pfnHPDCallbackFunc;
     MUX_HPDStateTypeDef                 HPDState;
     MUX_USB3DetectStateTypeDef          USB3DetectState;
-    MUX_USB3DetectCallbackFuncTypeDef * pfnUSB3DetectCallback;
+    MUX_USB3DetectCallbackFuncTypeDef *pfnUSB3DetectCallback;
     MuxInfoTypeDef                      MuxInfo[TYPE_C_MUX_NB];
 } ContextTypeDef;
 
@@ -82,7 +85,8 @@ typedef enum
     SEL_HPDIN      = 0
 } SelectId_TypeDef;
 
-typedef enum {
+typedef enum
+{
     DET_STATE_LOW = 0,
     DET_STATE_HIGH
 } MUX_DETState_TypeDef;
@@ -146,18 +150,21 @@ static const TYPECSWITCH_Mode_t ModeSelect[2][13] =
 /**
 * @brief DET variables
 */
-static GPIO_TypeDef* DET_PORT[DETn] = {
+static GPIO_TypeDef *DET_PORT[DETn] =
+{
     DET_HPD_SOURCE_GPIO_PORT,
     DET_USB3_DET_GPIO_PORT
 };
 
-static uint16_t DET_PIN[DETn] = {
+static uint16_t DET_PIN[DETn] =
+{
     DET_HPD_SOURCE_PIN,
     DET_USB3_DET_PIN
 };
 
-static IRQn_Type DET_IRQn[DETn] = {
-#if defined(USE_STM32G081B_EVAL_REVA)  
+static IRQn_Type DET_IRQn[DETn] =
+{
+#if defined(USE_STM32G081B_EVAL_REVA)
     DET_HPD_SOURCE_EXTI_IRQn,
     DET_USB3_DET_EXTI_IRQn
 #else
@@ -169,11 +176,13 @@ static IRQn_Type DET_IRQn[DETn] = {
 /**
 * @brief SEL variables
 */
-static GPIO_TypeDef* SEL_PORT[SELn] = {
+static GPIO_TypeDef *SEL_PORT[SELn] =
+{
     SEL_HPDIN_GPIO_PORT,
 };
 
-static uint16_t SEL_PIN[SELn] = {
+static uint16_t SEL_PIN[SELn] =
+{
     SEL_HPDIN_PIN,
 };
 
@@ -182,8 +191,8 @@ static ContextTypeDef Context =
 {
     .HPDState              = HPD_STATE_LOW,
     .USB3DetectState       = USB3_NOT_CONNECTED,
-    .pfnHPDCallbackFunc    = (MUX_HPDCallbackFuncTypeDef *)NULL,
-    .pfnUSB3DetectCallback = (MUX_USB3DetectCallbackFuncTypeDef *)NULL,
+    .pfnHPDCallbackFunc    = ( MUX_HPDCallbackFuncTypeDef * )NULL,
+    .pfnUSB3DetectCallback = ( MUX_USB3DetectCallbackFuncTypeDef * )NULL,
     .MuxInfo =
     {
         /* TYPE_C_MUX_1 */
@@ -212,15 +221,15 @@ static ContextTypeDef Context =
 /** @defgroup STM32G081B_EVAL_MUX_Private_Functions Private Functions
   * @{
   */
-static void MUX_DET_Init(DetectId_TypeDef Det);
-static void MUX_DET_DeInit(DetectId_TypeDef Det);
-static MUX_DETState_TypeDef MUX_DET_GetState(DetectId_TypeDef Det);
-static void MUX_SEL_Init(SelectId_TypeDef Sel);
-static void MUX_SEL_DeInit(SelectId_TypeDef Sel);
-static void MUX_SEL_On(SelectId_TypeDef Sel);
-static void MUX_SEL_Off(SelectId_TypeDef Sel);
-static void MUX_DebounceTimerSetConfig(uint32_t DebounceTime);
-static void MUX_DebounceTimerResetConfig(void);
+static void MUX_DET_Init( DetectId_TypeDef Det );
+static void MUX_DET_DeInit( DetectId_TypeDef Det );
+static MUX_DETState_TypeDef MUX_DET_GetState( DetectId_TypeDef Det );
+static void MUX_SEL_Init( SelectId_TypeDef Sel );
+static void MUX_SEL_DeInit( SelectId_TypeDef Sel );
+static void MUX_SEL_On( SelectId_TypeDef Sel );
+static void MUX_SEL_Off( SelectId_TypeDef Sel );
+static void MUX_DebounceTimerSetConfig( uint32_t DebounceTime );
+static void MUX_DebounceTimerResetConfig( void );
 /**
   * @}
   */
@@ -246,37 +255,37 @@ TIM_HandleTypeDef htim = {.Instance = DEBOUNCE_TIM_INSTANCE};
  *         @arg TYPE_C_MUX_2
  * @retval mux status
  */
-MUX_StatusTypeDef BSP_MUX_Init(MUX_TypeCMuxIdTypeDef TypeCMuxId)
+MUX_StatusTypeDef BSP_MUX_Init( MUX_TypeCMuxIdTypeDef TypeCMuxId )
 {
     uint32_t ret = 0;
 
-    if (Context.MuxInfo[TypeCMuxId].State == MUX_NOT_INITIALIZED)
+    if( Context.MuxInfo[TypeCMuxId].State == MUX_NOT_INITIALIZED )
     {
-        switch (TypeCMuxId)
+        switch( TypeCMuxId )
         {
         case TYPE_C_MUX_1:
         case TYPE_C_MUX_2:
             /* USB Type-C Crossbar Switch initialization */
-            ret += Context.MuxInfo[TypeCMuxId].TypeCSwitch_Drv->Init(Context.MuxInfo[TypeCMuxId].I2C_Address_TypeCSwitch);
+            ret += Context.MuxInfo[TypeCMuxId].TypeCSwitch_Drv->Init( Context.MuxInfo[TypeCMuxId].I2C_Address_TypeCSwitch );
 
             /* DisplayPort Linear Redriver initialization */
-            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->Init(Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver);
+            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->Init( Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver );
 
-            if (TypeCMuxId == TYPE_C_MUX_1)
+            if( TypeCMuxId == TYPE_C_MUX_1 )
             {
-                MUX_DET_Init(DET_USB3_DET);
-                MUX_SEL_Init(SEL_HPDIN);
+                MUX_DET_Init( DET_USB3_DET );
+                MUX_SEL_Init( SEL_HPDIN );
             }
             else
             {
-                MUX_DET_Init(DET_HPD_SOURCE);
+                MUX_DET_Init( DET_HPD_SOURCE );
             }
 
             /* Initialize the debounce timer (if not done already) */
-            if ((Context.MuxInfo[TYPE_C_MUX_1].State == MUX_NOT_INITIALIZED) &&
-                    (Context.MuxInfo[TYPE_C_MUX_2].State == MUX_NOT_INITIALIZED))
+            if( ( Context.MuxInfo[TYPE_C_MUX_1].State == MUX_NOT_INITIALIZED ) &&
+                    ( Context.MuxInfo[TYPE_C_MUX_2].State == MUX_NOT_INITIALIZED ) )
             {
-                MUX_DebounceTimerSetConfig(DEBOUNCE_TIME);
+                MUX_DebounceTimerSetConfig( DEBOUNCE_TIME );
             }
 
             /* Update Context */
@@ -290,7 +299,7 @@ MUX_StatusTypeDef BSP_MUX_Init(MUX_TypeCMuxIdTypeDef TypeCMuxId)
         }
     }
 
-    return (ret == 0) ? MUX_OK : MUX_ERROR;
+    return ( ret == 0 ) ? MUX_OK : MUX_ERROR;
 }
 
 /**
@@ -302,39 +311,39 @@ MUX_StatusTypeDef BSP_MUX_Init(MUX_TypeCMuxIdTypeDef TypeCMuxId)
  *         @arg TYPE_C_MUX_2
  * @retval mux status
  */
-MUX_StatusTypeDef BSP_MUX_DeInit(MUX_TypeCMuxIdTypeDef TypeCMuxId)
+MUX_StatusTypeDef BSP_MUX_DeInit( MUX_TypeCMuxIdTypeDef TypeCMuxId )
 {
     uint32_t ret = 0;
 
-    if (Context.MuxInfo[TypeCMuxId].State == MUX_INITIALIZED)
+    if( Context.MuxInfo[TypeCMuxId].State == MUX_INITIALIZED )
     {
-        switch (TypeCMuxId)
+        switch( TypeCMuxId )
         {
         case TYPE_C_MUX_1:
         case TYPE_C_MUX_2:
             /* USB Type-C Crossbar Switch de-initialization */
-            Context.MuxInfo[TypeCMuxId].TypeCSwitch_Drv->DeInit(Context.MuxInfo[TypeCMuxId].I2C_Address_TypeCSwitch);
+            Context.MuxInfo[TypeCMuxId].TypeCSwitch_Drv->DeInit( Context.MuxInfo[TypeCMuxId].I2C_Address_TypeCSwitch );
 
             /* DisplayPort Linear Redriver de-initialization */
-            Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->DeInit(Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver);
+            Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->DeInit( Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver );
 
-            if (TypeCMuxId == TYPE_C_MUX_1)
+            if( TypeCMuxId == TYPE_C_MUX_1 )
             {
-                MUX_DET_DeInit(DET_USB3_DET);
+                MUX_DET_DeInit( DET_USB3_DET );
                 MUX_DebounceTimerResetConfig();
-                MUX_SEL_DeInit(SEL_HPDIN);
+                MUX_SEL_DeInit( SEL_HPDIN );
             }
             else
             {
-                MUX_DET_DeInit(DET_HPD_SOURCE);
+                MUX_DET_DeInit( DET_HPD_SOURCE );
             }
 
             /* Update Context */
             Context.MuxInfo[TypeCMuxId].State = MUX_NOT_INITIALIZED;
 
             /* De-initialize the debounce timer (if not required anymore)*/
-            if ((Context.MuxInfo[TYPE_C_MUX_1].State == MUX_NOT_INITIALIZED) &&
-                    (Context.MuxInfo[TYPE_C_MUX_2].State == MUX_NOT_INITIALIZED))
+            if( ( Context.MuxInfo[TYPE_C_MUX_1].State == MUX_NOT_INITIALIZED ) &&
+                    ( Context.MuxInfo[TYPE_C_MUX_2].State == MUX_NOT_INITIALIZED ) )
             {
                 MUX_DebounceTimerResetConfig();
             }
@@ -347,7 +356,7 @@ MUX_StatusTypeDef BSP_MUX_DeInit(MUX_TypeCMuxIdTypeDef TypeCMuxId)
         }
     }
 
-    return (ret == 0) ? MUX_OK : MUX_ERROR;
+    return ( ret == 0 ) ? MUX_OK : MUX_ERROR;
 }
 
 /**
@@ -358,19 +367,19 @@ MUX_StatusTypeDef BSP_MUX_DeInit(MUX_TypeCMuxIdTypeDef TypeCMuxId)
  *         @arg TYPE_C_MUX_2
  * @retval mux status
  */
-MUX_StatusTypeDef BSP_MUX_Enable(MUX_TypeCMuxIdTypeDef TypeCMuxId)
+MUX_StatusTypeDef BSP_MUX_Enable( MUX_TypeCMuxIdTypeDef TypeCMuxId )
 {
     uint32_t ret = 0;
 
-    switch (TypeCMuxId)
+    switch( TypeCMuxId )
     {
     case TYPE_C_MUX_1:
     case TYPE_C_MUX_2:
         /* Power on USB Type-C Crossbar Switch */
-        ret += Context.MuxInfo[TypeCMuxId].TypeCSwitch_Drv->PowerOn(Context.MuxInfo[TypeCMuxId].I2C_Address_TypeCSwitch);
+        ret += Context.MuxInfo[TypeCMuxId].TypeCSwitch_Drv->PowerOn( Context.MuxInfo[TypeCMuxId].I2C_Address_TypeCSwitch );
 
         /* Power on  DisplayPort Linear Redriver */
-        ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->PowerOn(Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver);
+        ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->PowerOn( Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver );
 
         break;
 
@@ -379,7 +388,7 @@ MUX_StatusTypeDef BSP_MUX_Enable(MUX_TypeCMuxIdTypeDef TypeCMuxId)
         break;
     }
 
-    return (ret == 0) ? MUX_OK : MUX_ERROR;
+    return ( ret == 0 ) ? MUX_OK : MUX_ERROR;
 }
 /**
  * @brief  Power down the Type-C MUX.
@@ -389,19 +398,19 @@ MUX_StatusTypeDef BSP_MUX_Enable(MUX_TypeCMuxIdTypeDef TypeCMuxId)
  *         @arg TYPE_C_MUX_2
  * @retval mux status
  */
-MUX_StatusTypeDef BSP_MUX_Disable(MUX_TypeCMuxIdTypeDef TypeCMuxId)
+MUX_StatusTypeDef BSP_MUX_Disable( MUX_TypeCMuxIdTypeDef TypeCMuxId )
 {
     uint32_t ret = 0;
 
-    switch (TypeCMuxId)
+    switch( TypeCMuxId )
     {
     case TYPE_C_MUX_1:
     case TYPE_C_MUX_2:
         /* Power off USB Type-C Crossbar Switch */
-        ret += Context.MuxInfo[TypeCMuxId].TypeCSwitch_Drv->PowerOff(Context.MuxInfo[TypeCMuxId].I2C_Address_TypeCSwitch);
+        ret += Context.MuxInfo[TypeCMuxId].TypeCSwitch_Drv->PowerOff( Context.MuxInfo[TypeCMuxId].I2C_Address_TypeCSwitch );
 
         /* Power down DisplayPort Linear Redriver */
-        ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->PowerOff(Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver);
+        ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->PowerOff( Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver );
 
         break;
 
@@ -410,7 +419,7 @@ MUX_StatusTypeDef BSP_MUX_Disable(MUX_TypeCMuxIdTypeDef TypeCMuxId)
         break;
     }
 
-    return (ret == 0) ? MUX_OK : MUX_ERROR;
+    return ( ret == 0 ) ? MUX_OK : MUX_ERROR;
 }
 
 /**
@@ -443,30 +452,31 @@ MUX_StatusTypeDef BSP_MUX_Disable(MUX_TypeCMuxIdTypeDef TypeCMuxId)
  *         @arg USB_ONLY_PIN_ASSIGNMMENT
  * @retval mux status
  */
-MUX_StatusTypeDef BSP_MUX_SetDPPinAssignment(MUX_TypeCMuxIdTypeDef                  TypeCMuxId,
+MUX_StatusTypeDef BSP_MUX_SetDPPinAssignment( MUX_TypeCMuxIdTypeDef                  TypeCMuxId,
         MUX_TypeCPlugOrientationTypeDef        TypeCPlugOrientation,
-        MUX_TypeCConnectorPinAssignmentTypeDef TypeCConnectorPinAssignment)
+        MUX_TypeCConnectorPinAssignmentTypeDef TypeCConnectorPinAssignment )
 {
     uint32_t ret = 0;
     TYPECSWITCH_Mode_t Mode;
 
     Mode = ModeSelect[TypeCPlugOrientation][TypeCConnectorPinAssignment];
 
-    if (Context.MuxInfo[TypeCMuxId].TypeCSwitch_Drv->IsSupportedMode(Mode))
+    if( Context.MuxInfo[TypeCMuxId].TypeCSwitch_Drv->IsSupportedMode( Mode ) )
     {
         /* Set Alt. mode */
-        ret += Context.MuxInfo[TypeCMuxId].TypeCSwitch_Drv->SetMode(Context.MuxInfo[TypeCMuxId].I2C_Address_TypeCSwitch, Mode);
+        ret += Context.MuxInfo[TypeCMuxId].TypeCSwitch_Drv->SetMode( Context.MuxInfo[TypeCMuxId].I2C_Address_TypeCSwitch, Mode );
 
         /* Enable Display Port channels (if required) */
-        switch(TypeCConnectorPinAssignment)
+        switch( TypeCConnectorPinAssignment )
         {
         case USB_ONLY_PIN_ASSIGNMMENT:
             /* no DP channel enabled */
-            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->DisableChannel(Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP0);
-            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->DisableChannel(Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP1);
-            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->DisableChannel(Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP2);
-            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->DisableChannel(Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP3);
+            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->DisableChannel( Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP0 );
+            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->DisableChannel( Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP1 );
+            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->DisableChannel( Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP2 );
+            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->DisableChannel( Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP3 );
             break;
+
         case DFP_PIN_ASSIGNMMENT_B:
         case DFP_PIN_ASSIGNMMENT_D:
         case DFP_PIN_ASSIGNMMENT_F:
@@ -474,11 +484,12 @@ MUX_StatusTypeDef BSP_MUX_SetDPPinAssignment(MUX_TypeCMuxIdTypeDef              
         case UFP_PIN_ASSIGNMMENT_D:
         case UFP_PIN_ASSIGNMMENT_F:
             /* Enable Display Port ML0 and ML1  */
-            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->EnableChannel(Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP0);
-            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->EnableChannel(Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP1);
-            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->DisableChannel(Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP2);
-            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->DisableChannel(Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP3);
+            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->EnableChannel( Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP0 );
+            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->EnableChannel( Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP1 );
+            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->DisableChannel( Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP2 );
+            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->DisableChannel( Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP3 );
             break;
+
         case DFP_PIN_ASSIGNMMENT_A:
         case DFP_PIN_ASSIGNMMENT_C:
         case DFP_PIN_ASSIGNMMENT_E:
@@ -486,15 +497,15 @@ MUX_StatusTypeDef BSP_MUX_SetDPPinAssignment(MUX_TypeCMuxIdTypeDef              
         case UFP_PIN_ASSIGNMMENT_C:
         case UFP_PIN_ASSIGNMMENT_E:
             /* Enable Display Port ML0, ML1, ML2 and ML3  */
-            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->EnableChannel(Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP0);
-            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->EnableChannel(Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP1);
-            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->EnableChannel(Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP2);
-            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->EnableChannel(Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP3);
+            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->EnableChannel( Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP0 );
+            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->EnableChannel( Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP1 );
+            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->EnableChannel( Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP2 );
+            ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->EnableChannel( Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP3 );
             break;
         }
     }
 
-    return (ret == 0) ? MUX_OK : MUX_ERROR;
+    return ( ret == 0 ) ? MUX_OK : MUX_ERROR;
 }
 
 /**
@@ -508,23 +519,23 @@ MUX_StatusTypeDef BSP_MUX_SetDPPinAssignment(MUX_TypeCMuxIdTypeDef              
  *          TYPE_C_MUX_2: This parameter must be a value between 0x00 and @ref MUX_2_EQGAIN_MAX.
  * @retval mux status
  */
-MUX_StatusTypeDef BSP_MUX_SetEQGain(MUX_TypeCMuxIdTypeDef                  TypeCMuxId,
-        uint8_t                     EQGain)
+MUX_StatusTypeDef BSP_MUX_SetEQGain( MUX_TypeCMuxIdTypeDef                  TypeCMuxId,
+                                     uint8_t                     EQGain )
 {
-  uint32_t ret = 1;
+    uint32_t ret = 1;
 
-  if (((TYPE_C_MUX_1 == TypeCMuxId) && (MUX_1_EQGAIN_MAX >= EQGain))
-   || ((TYPE_C_MUX_2 == TypeCMuxId) && (MUX_2_EQGAIN_MAX >= EQGain)))
-  {
-    ret = 0;
-    /* Set EQ gain for Port ML0, ML1, ML2 and ML3  */
-    ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->SetEQGain(Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP0, EQGain);
-    ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->SetEQGain(Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP1, EQGain);
-    ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->SetEQGain(Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP2, EQGain);
-    ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->SetEQGain(Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP3, EQGain);
-  }
+    if( ( ( TYPE_C_MUX_1 == TypeCMuxId ) && ( MUX_1_EQGAIN_MAX >= EQGain ) )
+            || ( ( TYPE_C_MUX_2 == TypeCMuxId ) && ( MUX_2_EQGAIN_MAX >= EQGain ) ) )
+    {
+        ret = 0;
+        /* Set EQ gain for Port ML0, ML1, ML2 and ML3  */
+        ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->SetEQGain( Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP0, EQGain );
+        ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->SetEQGain( Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP1, EQGain );
+        ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->SetEQGain( Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP2, EQGain );
+        ret += Context.MuxInfo[TypeCMuxId].DPRedriver_Drv->SetEQGain( Context.MuxInfo[TypeCMuxId].I2C_Address_DPRedriver, CHANNEL_DP3, EQGain );
+    }
 
-  return (ret == 0) ? MUX_OK : MUX_ERROR;
+    return ( ret == 0 ) ? MUX_OK : MUX_ERROR;
 }
 
 /**
@@ -541,22 +552,23 @@ MUX_StatusTypeDef BSP_MUX_SetEQGain(MUX_TypeCMuxIdTypeDef                  TypeC
  *         @arg HPD_STATE_HIGH
  * @retval mux status
  */
-MUX_StatusTypeDef BSP_MUX_SetHPDState(MUX_TypeCMuxIdTypeDef  TypeCMuxId,
-                                      MUX_HPDStateTypeDef    HPDState)
+MUX_StatusTypeDef BSP_MUX_SetHPDState( MUX_TypeCMuxIdTypeDef  TypeCMuxId,
+                                       MUX_HPDStateTypeDef    HPDState )
 {
     uint32_t ret = 0;
 
-    switch (TypeCMuxId)
+    switch( TypeCMuxId )
     {
     case TYPE_C_MUX_1:
-        if(HPD_STATE_LOW == HPDState)
+        if( HPD_STATE_LOW == HPDState )
         {
-            MUX_SEL_Off(SEL_HPDIN);
+            MUX_SEL_Off( SEL_HPDIN );
         }
         else
         {
-            MUX_SEL_On(SEL_HPDIN);
+            MUX_SEL_On( SEL_HPDIN );
         }
+
         break;
 
     default:
@@ -564,7 +576,7 @@ MUX_StatusTypeDef BSP_MUX_SetHPDState(MUX_TypeCMuxIdTypeDef  TypeCMuxId,
         break;
     }
 
-    return (ret == 0) ? MUX_OK : MUX_ERROR;
+    return ( ret == 0 ) ? MUX_OK : MUX_ERROR;
 }
 
 /**
@@ -579,8 +591,8 @@ MUX_StatusTypeDef BSP_MUX_SetHPDState(MUX_TypeCMuxIdTypeDef  TypeCMuxId,
  *         @arg HPD_STATE_HIGH
  * @retval mux status
  */
-MUX_StatusTypeDef BSP_MUX_GetHPDState(MUX_TypeCMuxIdTypeDef  TypeCMuxId,
-                                      MUX_HPDStateTypeDef *  pHPDState)
+MUX_StatusTypeDef BSP_MUX_GetHPDState( MUX_TypeCMuxIdTypeDef  TypeCMuxId,
+                                       MUX_HPDStateTypeDef   *pHPDState )
 {
     uint32_t ret = 0;
 
@@ -588,10 +600,10 @@ MUX_StatusTypeDef BSP_MUX_GetHPDState(MUX_TypeCMuxIdTypeDef  TypeCMuxId,
     *pHPDState = HPD_STATE_LOW;
 
     /* Read HPDState */
-    switch (TypeCMuxId)
+    switch( TypeCMuxId )
     {
     case TYPE_C_MUX_2:
-        *pHPDState = (MUX_HPDStateTypeDef)MUX_DET_GetState(DET_HPD_SOURCE);
+        *pHPDState = ( MUX_HPDStateTypeDef )MUX_DET_GetState( DET_HPD_SOURCE );
         break;
 
     default:
@@ -599,7 +611,7 @@ MUX_StatusTypeDef BSP_MUX_GetHPDState(MUX_TypeCMuxIdTypeDef  TypeCMuxId,
         break;
     }
 
-    return (ret == 0) ? MUX_OK : MUX_ERROR;
+    return ( ret == 0 ) ? MUX_OK : MUX_ERROR;
 }
 
 /**
@@ -614,8 +626,8 @@ MUX_StatusTypeDef BSP_MUX_GetHPDState(MUX_TypeCMuxIdTypeDef  TypeCMuxId,
  *         @arg USB3_CONNECTED
  * @retval mux status
  */
-MUX_StatusTypeDef BSP_MUX_GetUSB3DetectState(MUX_TypeCMuxIdTypeDef         TypeCMuxId,
-        MUX_USB3DetectStateTypeDef *  pUSB3DetectState)
+MUX_StatusTypeDef BSP_MUX_GetUSB3DetectState( MUX_TypeCMuxIdTypeDef         TypeCMuxId,
+        MUX_USB3DetectStateTypeDef   *pUSB3DetectState )
 {
     uint32_t ret = 0;
 
@@ -623,10 +635,10 @@ MUX_StatusTypeDef BSP_MUX_GetUSB3DetectState(MUX_TypeCMuxIdTypeDef         TypeC
     *pUSB3DetectState = USB3_NOT_CONNECTED;
 
     /* Read HPDState */
-    switch (TypeCMuxId)
+    switch( TypeCMuxId )
     {
     case TYPE_C_MUX_1:
-        *pUSB3DetectState = (MUX_USB3DetectStateTypeDef)MUX_DET_GetState(DET_USB3_DET);
+        *pUSB3DetectState = ( MUX_USB3DetectStateTypeDef )MUX_DET_GetState( DET_USB3_DET );
         break;
 
     default:
@@ -634,7 +646,7 @@ MUX_StatusTypeDef BSP_MUX_GetUSB3DetectState(MUX_TypeCMuxIdTypeDef         TypeC
         break;
     }
 
-    return (ret == 0) ? MUX_OK : MUX_ERROR;
+    return ( ret == 0 ) ? MUX_OK : MUX_ERROR;
 }
 
 /**
@@ -647,7 +659,7 @@ MUX_StatusTypeDef BSP_MUX_GetUSB3DetectState(MUX_TypeCMuxIdTypeDef         TypeC
  *         @arg TYPE_C_MUX_2
  * @retval mux status
  */
-MUX_StatusTypeDef BSP_MUX_HPDIRQ(MUX_TypeCMuxIdTypeDef  TypeCMuxId)
+MUX_StatusTypeDef BSP_MUX_HPDIRQ( MUX_TypeCMuxIdTypeDef  TypeCMuxId )
 {
     MUX_StatusTypeDef ret = MUX_ERROR;
 
@@ -661,12 +673,12 @@ MUX_StatusTypeDef BSP_MUX_HPDIRQ(MUX_TypeCMuxIdTypeDef  TypeCMuxId)
  *       daughter board.
  * @retval none
  */
-void BSP_MUX_Detect_HPD(void)
+void BSP_MUX_Detect_HPD( void )
 {
-  if (Context.pfnHPDCallbackFunc != (MUX_HPDCallbackFuncTypeDef *)NULL)
-  {
-    HAL_TIM_Base_Start_IT(&htim);
-  }
+    if( Context.pfnHPDCallbackFunc != ( MUX_HPDCallbackFuncTypeDef * )NULL )
+    {
+        HAL_TIM_Base_Start_IT( &htim );
+    }
 }
 
 /**
@@ -675,12 +687,12 @@ void BSP_MUX_Detect_HPD(void)
  *       is connected to the USB3 receptacle of the MB1352 daughter board.
  * @retval none
  */
-void BSP_MUX_Detect_USB3(void)
+void BSP_MUX_Detect_USB3( void )
 {
-  if (Context.pfnUSB3DetectCallback != (MUX_USB3DetectCallbackFuncTypeDef *)NULL)
-  {
-    HAL_TIM_Base_Start_IT(&htim);
-  }
+    if( Context.pfnUSB3DetectCallback != ( MUX_USB3DetectCallbackFuncTypeDef * )NULL )
+    {
+        HAL_TIM_Base_Start_IT( &htim );
+    }
 }
 
 /**
@@ -696,12 +708,12 @@ void BSP_MUX_Detect_USB3(void)
  * @param  pHPDCallbackFunc HPD callback function pointer
  * @retval mux status
  */
-MUX_StatusTypeDef BSP_MUX_RegisterHPDCallbackFunc(MUX_TypeCMuxIdTypeDef        TypeCMuxId,
-        MUX_HPDCallbackFuncTypeDef * pHPDCallbackFunc)
+MUX_StatusTypeDef BSP_MUX_RegisterHPDCallbackFunc( MUX_TypeCMuxIdTypeDef        TypeCMuxId,
+        MUX_HPDCallbackFuncTypeDef *pHPDCallbackFunc )
 {
     uint8_t ret = 0;
 
-    if (TypeCMuxId == TYPE_C_MUX_2)
+    if( TypeCMuxId == TYPE_C_MUX_2 )
     {
         Context.pfnHPDCallbackFunc = pHPDCallbackFunc;
     }
@@ -710,7 +722,7 @@ MUX_StatusTypeDef BSP_MUX_RegisterHPDCallbackFunc(MUX_TypeCMuxIdTypeDef        T
         ret++;
     }
 
-    return (ret == 0) ? MUX_OK : MUX_ERROR;
+    return ( ret == 0 ) ? MUX_OK : MUX_ERROR;
 }
 
 /**
@@ -724,12 +736,12 @@ MUX_StatusTypeDef BSP_MUX_RegisterHPDCallbackFunc(MUX_TypeCMuxIdTypeDef        T
  * @param  pUSB3DetectCallbackFunc USB3 detection callback function pointer
  * @retval mux status
  */
-MUX_StatusTypeDef BSP_MUX_RegisterUSB3DetectCallbackFunc(MUX_TypeCMuxIdTypeDef               TypeCMuxId,
-        MUX_USB3DetectCallbackFuncTypeDef * pUSB3DetectCallbackFunc)
+MUX_StatusTypeDef BSP_MUX_RegisterUSB3DetectCallbackFunc( MUX_TypeCMuxIdTypeDef               TypeCMuxId,
+        MUX_USB3DetectCallbackFuncTypeDef *pUSB3DetectCallbackFunc )
 {
     uint8_t ret = 0;
 
-    if (TypeCMuxId == TYPE_C_MUX_1)
+    if( TypeCMuxId == TYPE_C_MUX_1 )
     {
         Context.pfnUSB3DetectCallback = pUSB3DetectCallbackFunc;
     }
@@ -738,7 +750,7 @@ MUX_StatusTypeDef BSP_MUX_RegisterUSB3DetectCallbackFunc(MUX_TypeCMuxIdTypeDef  
         ret++;
     }
 
-    return (ret == 0) ? MUX_OK : MUX_ERROR;
+    return ( ret == 0 ) ? MUX_OK : MUX_ERROR;
 }
 
 /**
@@ -746,14 +758,14 @@ MUX_StatusTypeDef BSP_MUX_RegisterUSB3DetectCallbackFunc(MUX_TypeCMuxIdTypeDef  
   * @param  htim TIM handle
   * @retval None
   */
-void HAL_TIM_Base_MspInit(TIM_HandleTypeDef *htim)
+void HAL_TIM_Base_MspInit( TIM_HandleTypeDef *htim )
 {
     /* Enable Debounce Timer clock */
     DEBOUNCE_TIM_CLK_ENABLE();
 
     /* NVIC configuration for debounce timer interrupt */
-    HAL_NVIC_SetPriority(DEBOUNCE_TIM_IRQn, 1, 0);
-    HAL_NVIC_EnableIRQ(DEBOUNCE_TIM_IRQn);
+    HAL_NVIC_SetPriority( DEBOUNCE_TIM_IRQn, 1, 0 );
+    HAL_NVIC_EnableIRQ( DEBOUNCE_TIM_IRQn );
 }
 
 /**
@@ -761,13 +773,13 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef *htim)
   * @param  htim TIM handle
   * @retval None
   */
-void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef *htim)
+void HAL_TIM_Base_MspDeInit( TIM_HandleTypeDef *htim )
 {
     /* Enable Debounce Timer clock */
     DEBOUNCE_TIM_CLK_DISABLE();
 
     /* Disable Debounce timer interrupt */
-    HAL_NVIC_DisableIRQ(DEBOUNCE_TIM_IRQn);
+    HAL_NVIC_DisableIRQ( DEBOUNCE_TIM_IRQn );
 }
 
 #if defined(TUSB546_DEBUG) || defined(CBTL08GP053_DEBUG) || defined(SN65DP141_DEBUG)
@@ -780,72 +792,78 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef *htim)
  *            DEVICE_TUSB546
  * @retval none
  */
-void BSP_MUX_DumpDeviceRegisters(uint32_t Device)
+void BSP_MUX_DumpDeviceRegisters( uint32_t Device )
 {
 #if defined(CBTL08GP053_DEBUG)
-    if ((Device & DEVICE_CBTL08GP053) == DEVICE_CBTL08GP053)
+
+    if( ( Device & DEVICE_CBTL08GP053 ) == DEVICE_CBTL08GP053 )
     {
-        printf("\n\tCBTL08GP053 registers dump:\n");
-        MUX_IO_Read(MUX_2_TYPEC_SWITCH_I2C_ADDRESS, CBTL08GP053_REG_SYS_CTRL, &Context.CBTL08GP053_Registers.SysCtrl.Register);
-        printf("\t\tSYS_CTRL   : 0x%0.2x\n", Context.CBTL08GP053_Registers.SysCtrl.Register);
-        MUX_IO_Read(MUX_2_TYPEC_SWITCH_I2C_ADDRESS, CBTL08GP053_REG_OP1_CTRL, &Context.CBTL08GP053_Registers.Op1Ctrl.Register);
-        printf("\t\tOP1_CTRL   : 0x%0.2x\n", Context.CBTL08GP053_Registers.Op1Ctrl.Register);
-        MUX_IO_Read(MUX_2_TYPEC_SWITCH_I2C_ADDRESS, CBTL08GP053_REG_OP2_CTRL, &Context.CBTL08GP053_Registers.Op2Ctrl.Register);
-        printf("\t\tOP2_CTRL   : 0x%0.2x\n", Context.CBTL08GP053_Registers.Op2Ctrl.Register);
-        MUX_IO_Read(MUX_2_TYPEC_SWITCH_I2C_ADDRESS, CBTL08GP053_REG_OP3_CTRL, &Context.CBTL08GP053_Registers.Op3Ctrl.Register);
-        printf("\t\tOP3_CTRL   : 0x%0.2x\n", Context.CBTL08GP053_Registers.Op3Ctrl.Register);
-        MUX_IO_Read(MUX_2_TYPEC_SWITCH_I2C_ADDRESS, CBTL08GP053_REG_OP4_CTRL, &Context.CBTL08GP053_Registers.Op4Ctrl.Register);
-        printf("\t\tOP4_CTRL   : 0x%0.2x\n", Context.CBTL08GP053_Registers.Op4Ctrl.Register);
-        MUX_IO_Read(MUX_2_TYPEC_SWITCH_I2C_ADDRESS, CBTL08GP053_REG_OP5_CTRL, &Context.CBTL08GP053_Registers.Op5Ctrl.Register);
-        printf("\t\tOP5_CTRL   : 0x%0.2x\n", Context.CBTL08GP053_Registers.Op5Ctrl.Register);
-        MUX_IO_Read(MUX_2_TYPEC_SWITCH_I2C_ADDRESS, CBTL08GP053_REG_CROSS5_CTRL, &Context.CBTL08GP053_Registers.Cross5Ctrl.Register);
-        printf("\t\tCROSS5_CTRL: 0x%0.2x\n", Context.CBTL08GP053_Registers.Cross5Ctrl.Register);
-        MUX_IO_Read(MUX_2_TYPEC_SWITCH_I2C_ADDRESS, CBTL08GP053_REG_SW_CTRL, &Context.CBTL08GP053_Registers.SwCtrl.Register);
-        printf("\t\tSW_CTRL    : 0x%0.2x\n", Context.CBTL08GP053_Registers.SwCtrl.Register);
-        MUX_IO_Read(MUX_2_TYPEC_SWITCH_I2C_ADDRESS, CBTL08GP053_REG_REVISION, &Context.CBTL08GP053_Registers.Revision);
-        printf("\t\tREVISION   : 0x%0.2x\n", Context.CBTL08GP053_Registers.Revision);
+        printf( "\n\tCBTL08GP053 registers dump:\n" );
+        MUX_IO_Read( MUX_2_TYPEC_SWITCH_I2C_ADDRESS, CBTL08GP053_REG_SYS_CTRL, &Context.CBTL08GP053_Registers.SysCtrl.Register );
+        printf( "\t\tSYS_CTRL   : 0x%0.2x\n", Context.CBTL08GP053_Registers.SysCtrl.Register );
+        MUX_IO_Read( MUX_2_TYPEC_SWITCH_I2C_ADDRESS, CBTL08GP053_REG_OP1_CTRL, &Context.CBTL08GP053_Registers.Op1Ctrl.Register );
+        printf( "\t\tOP1_CTRL   : 0x%0.2x\n", Context.CBTL08GP053_Registers.Op1Ctrl.Register );
+        MUX_IO_Read( MUX_2_TYPEC_SWITCH_I2C_ADDRESS, CBTL08GP053_REG_OP2_CTRL, &Context.CBTL08GP053_Registers.Op2Ctrl.Register );
+        printf( "\t\tOP2_CTRL   : 0x%0.2x\n", Context.CBTL08GP053_Registers.Op2Ctrl.Register );
+        MUX_IO_Read( MUX_2_TYPEC_SWITCH_I2C_ADDRESS, CBTL08GP053_REG_OP3_CTRL, &Context.CBTL08GP053_Registers.Op3Ctrl.Register );
+        printf( "\t\tOP3_CTRL   : 0x%0.2x\n", Context.CBTL08GP053_Registers.Op3Ctrl.Register );
+        MUX_IO_Read( MUX_2_TYPEC_SWITCH_I2C_ADDRESS, CBTL08GP053_REG_OP4_CTRL, &Context.CBTL08GP053_Registers.Op4Ctrl.Register );
+        printf( "\t\tOP4_CTRL   : 0x%0.2x\n", Context.CBTL08GP053_Registers.Op4Ctrl.Register );
+        MUX_IO_Read( MUX_2_TYPEC_SWITCH_I2C_ADDRESS, CBTL08GP053_REG_OP5_CTRL, &Context.CBTL08GP053_Registers.Op5Ctrl.Register );
+        printf( "\t\tOP5_CTRL   : 0x%0.2x\n", Context.CBTL08GP053_Registers.Op5Ctrl.Register );
+        MUX_IO_Read( MUX_2_TYPEC_SWITCH_I2C_ADDRESS, CBTL08GP053_REG_CROSS5_CTRL, &Context.CBTL08GP053_Registers.Cross5Ctrl.Register );
+        printf( "\t\tCROSS5_CTRL: 0x%0.2x\n", Context.CBTL08GP053_Registers.Cross5Ctrl.Register );
+        MUX_IO_Read( MUX_2_TYPEC_SWITCH_I2C_ADDRESS, CBTL08GP053_REG_SW_CTRL, &Context.CBTL08GP053_Registers.SwCtrl.Register );
+        printf( "\t\tSW_CTRL    : 0x%0.2x\n", Context.CBTL08GP053_Registers.SwCtrl.Register );
+        MUX_IO_Read( MUX_2_TYPEC_SWITCH_I2C_ADDRESS, CBTL08GP053_REG_REVISION, &Context.CBTL08GP053_Registers.Revision );
+        printf( "\t\tREVISION   : 0x%0.2x\n", Context.CBTL08GP053_Registers.Revision );
     }
+
 #endif /*  CBTL08GP053_DEBUG */
 
 #if defined(SN65DP141_DEBUG)
-    if ((Device & DEVICE_SN65DP141) == DEVICE_SN65DP141)
+
+    if( ( Device & DEVICE_SN65DP141 ) == DEVICE_SN65DP141 )
     {
-        printf("\n\tSN65DP141 registers dump:\n");
-        MUX_IO_Read(MUX_2_DP_REDRIVER_I2C_ADDRESS, SN65DP141_REG_CFG, &Context.SN65DP141_Registers.General.Register);
-        printf("\t\tGeneral Device Settings   : 0x%0.2x\n", Context.SN65DP141_Registers.General.Register);
-        MUX_IO_Read(MUX_2_DP_REDRIVER_I2C_ADDRESS, SN65DP141_REG_CHEN, &Context.SN65DP141_Registers.ChannelEnable.Register);
-        printf("\t\tChannel Enable            : 0x%0.2x\n", Context.SN65DP141_Registers.ChannelEnable.Register);
-        MUX_IO_Read(MUX_2_DP_REDRIVER_I2C_ADDRESS, SN65DP141_REG_CH0_CFG, &Context.SN65DP141_Registers.Channel0Ctrl.Register);
-        printf("\t\tChannel 0 Control Settings: 0x%0.2x\n", Context.SN65DP141_Registers.Channel0Ctrl.Register);
-        MUX_IO_Read(MUX_2_DP_REDRIVER_I2C_ADDRESS, SN65DP141_REG_CH0_EN, &Context.SN65DP141_Registers.Channel0Enable.Register);
-        printf("\t\tChannel 0 Enable Settings : 0x%0.2x\n", Context.SN65DP141_Registers.Channel0Enable.Register);
-        MUX_IO_Read(MUX_2_DP_REDRIVER_I2C_ADDRESS, SN65DP141_REG_CH1_CFG, &Context.SN65DP141_Registers.Channel1Ctrl.Register);
-        printf("\t\tChannel 1 Control Settings: 0x%0.2x\n", Context.SN65DP141_Registers.Channel1Ctrl.Register);
-        MUX_IO_Read(MUX_2_DP_REDRIVER_I2C_ADDRESS, SN65DP141_REG_CH1_EN, &Context.SN65DP141_Registers.Channel1Enable.Register);
-        printf("\t\tChannel 1 Enable Settings : 0x%0.2x\n", Context.SN65DP141_Registers.Channel1Enable.Register);
-        MUX_IO_Read(MUX_2_DP_REDRIVER_I2C_ADDRESS, SN65DP141_REG_CH2_CFG, &Context.SN65DP141_Registers.Channel2Ctrl.Register);
-        printf("\t\tChannel 2 Control Settings: 0x%0.2x\n", Context.SN65DP141_Registers.Channel2Ctrl.Register);
-        MUX_IO_Read(MUX_2_DP_REDRIVER_I2C_ADDRESS, SN65DP141_REG_CH2_EN, &Context.SN65DP141_Registers.Channel2Enable.Register);
-        printf("\t\tChannel 2 Enable Settings : 0x%0.2x\n", Context.SN65DP141_Registers.Channel2Enable.Register);
-        MUX_IO_Read(MUX_2_DP_REDRIVER_I2C_ADDRESS, SN65DP141_REG_CH3_CFG, &Context.SN65DP141_Registers.Channel3Ctrl.Register);
-        printf("\t\tChannel 3 Control Settings: 0x%0.2x\n", Context.SN65DP141_Registers.Channel3Ctrl.Register);
-        MUX_IO_Read(MUX_2_DP_REDRIVER_I2C_ADDRESS, SN65DP141_REG_CH3_EN, &Context.SN65DP141_Registers.Channel3Enable.Register);
-        printf("\t\tChannel 3 Enable Settings : 0x%0.2x\n", Context.SN65DP141_Registers.Channel3Enable.Register);
+        printf( "\n\tSN65DP141 registers dump:\n" );
+        MUX_IO_Read( MUX_2_DP_REDRIVER_I2C_ADDRESS, SN65DP141_REG_CFG, &Context.SN65DP141_Registers.General.Register );
+        printf( "\t\tGeneral Device Settings   : 0x%0.2x\n", Context.SN65DP141_Registers.General.Register );
+        MUX_IO_Read( MUX_2_DP_REDRIVER_I2C_ADDRESS, SN65DP141_REG_CHEN, &Context.SN65DP141_Registers.ChannelEnable.Register );
+        printf( "\t\tChannel Enable            : 0x%0.2x\n", Context.SN65DP141_Registers.ChannelEnable.Register );
+        MUX_IO_Read( MUX_2_DP_REDRIVER_I2C_ADDRESS, SN65DP141_REG_CH0_CFG, &Context.SN65DP141_Registers.Channel0Ctrl.Register );
+        printf( "\t\tChannel 0 Control Settings: 0x%0.2x\n", Context.SN65DP141_Registers.Channel0Ctrl.Register );
+        MUX_IO_Read( MUX_2_DP_REDRIVER_I2C_ADDRESS, SN65DP141_REG_CH0_EN, &Context.SN65DP141_Registers.Channel0Enable.Register );
+        printf( "\t\tChannel 0 Enable Settings : 0x%0.2x\n", Context.SN65DP141_Registers.Channel0Enable.Register );
+        MUX_IO_Read( MUX_2_DP_REDRIVER_I2C_ADDRESS, SN65DP141_REG_CH1_CFG, &Context.SN65DP141_Registers.Channel1Ctrl.Register );
+        printf( "\t\tChannel 1 Control Settings: 0x%0.2x\n", Context.SN65DP141_Registers.Channel1Ctrl.Register );
+        MUX_IO_Read( MUX_2_DP_REDRIVER_I2C_ADDRESS, SN65DP141_REG_CH1_EN, &Context.SN65DP141_Registers.Channel1Enable.Register );
+        printf( "\t\tChannel 1 Enable Settings : 0x%0.2x\n", Context.SN65DP141_Registers.Channel1Enable.Register );
+        MUX_IO_Read( MUX_2_DP_REDRIVER_I2C_ADDRESS, SN65DP141_REG_CH2_CFG, &Context.SN65DP141_Registers.Channel2Ctrl.Register );
+        printf( "\t\tChannel 2 Control Settings: 0x%0.2x\n", Context.SN65DP141_Registers.Channel2Ctrl.Register );
+        MUX_IO_Read( MUX_2_DP_REDRIVER_I2C_ADDRESS, SN65DP141_REG_CH2_EN, &Context.SN65DP141_Registers.Channel2Enable.Register );
+        printf( "\t\tChannel 2 Enable Settings : 0x%0.2x\n", Context.SN65DP141_Registers.Channel2Enable.Register );
+        MUX_IO_Read( MUX_2_DP_REDRIVER_I2C_ADDRESS, SN65DP141_REG_CH3_CFG, &Context.SN65DP141_Registers.Channel3Ctrl.Register );
+        printf( "\t\tChannel 3 Control Settings: 0x%0.2x\n", Context.SN65DP141_Registers.Channel3Ctrl.Register );
+        MUX_IO_Read( MUX_2_DP_REDRIVER_I2C_ADDRESS, SN65DP141_REG_CH3_EN, &Context.SN65DP141_Registers.Channel3Enable.Register );
+        printf( "\t\tChannel 3 Enable Settings : 0x%0.2x\n", Context.SN65DP141_Registers.Channel3Enable.Register );
     }
+
 #endif /* SN65DP141_DEBUG */
 
 #if defined(TUSB546_DEBUG)
-    if ((Device & DEVICE_TUSB546) == DEVICE_TUSB546)
+
+    if( ( Device & DEVICE_TUSB546 ) == DEVICE_TUSB546 )
     {
-        MUX_IO_Read(MUX_1_TYPEC_SWITCH_I2C_ADDRESS, TUSB546_REG_CTRL, &Context.TUSB546_Registers.General.Register);
-        MUX_IO_Read(MUX_1_TYPEC_SWITCH_I2C_ADDRESS, TUSB546_REG_DP_CTRL1, &Context.TUSB546_Registers.DPCtrlStatus10.Register);
-        MUX_IO_Read(MUX_1_TYPEC_SWITCH_I2C_ADDRESS, TUSB546_REG_DP_CTRL2, &Context.TUSB546_Registers.DPCtrlStatus11.Register);
-        MUX_IO_Read(MUX_1_TYPEC_SWITCH_I2C_ADDRESS, TUSB546_REG_DP_CTRL3, &Context.TUSB546_Registers.DPCtrlStatus12.Register);
-        MUX_IO_Read(MUX_1_TYPEC_SWITCH_I2C_ADDRESS, TUSB546_REG_DP_CTRL4, &Context.TUSB546_Registers.DPCtrlStatus13.Register);
-        MUX_IO_Read(MUX_1_TYPEC_SWITCH_I2C_ADDRESS, TUSB546_REG_USB3_CTRL1, &Context.TUSB546_Registers.USBCtrlStatus20.Register);
-        MUX_IO_Read(MUX_1_TYPEC_SWITCH_I2C_ADDRESS, TUSB546_REG_USB3_CTRL2, &Context.TUSB546_Registers.USBCtrlStatus21.Register);
-        MUX_IO_Read(MUX_1_TYPEC_SWITCH_I2C_ADDRESS, TUSB546_REG_USB3_CTRL3, &Context.TUSB546_Registers.USBCtrlStatus22.Register);
+        MUX_IO_Read( MUX_1_TYPEC_SWITCH_I2C_ADDRESS, TUSB546_REG_CTRL, &Context.TUSB546_Registers.General.Register );
+        MUX_IO_Read( MUX_1_TYPEC_SWITCH_I2C_ADDRESS, TUSB546_REG_DP_CTRL1, &Context.TUSB546_Registers.DPCtrlStatus10.Register );
+        MUX_IO_Read( MUX_1_TYPEC_SWITCH_I2C_ADDRESS, TUSB546_REG_DP_CTRL2, &Context.TUSB546_Registers.DPCtrlStatus11.Register );
+        MUX_IO_Read( MUX_1_TYPEC_SWITCH_I2C_ADDRESS, TUSB546_REG_DP_CTRL3, &Context.TUSB546_Registers.DPCtrlStatus12.Register );
+        MUX_IO_Read( MUX_1_TYPEC_SWITCH_I2C_ADDRESS, TUSB546_REG_DP_CTRL4, &Context.TUSB546_Registers.DPCtrlStatus13.Register );
+        MUX_IO_Read( MUX_1_TYPEC_SWITCH_I2C_ADDRESS, TUSB546_REG_USB3_CTRL1, &Context.TUSB546_Registers.USBCtrlStatus20.Register );
+        MUX_IO_Read( MUX_1_TYPEC_SWITCH_I2C_ADDRESS, TUSB546_REG_USB3_CTRL2, &Context.TUSB546_Registers.USBCtrlStatus21.Register );
+        MUX_IO_Read( MUX_1_TYPEC_SWITCH_I2C_ADDRESS, TUSB546_REG_USB3_CTRL3, &Context.TUSB546_Registers.USBCtrlStatus22.Register );
     }
+
 #endif /* TUSB546_DEBUG */
 }
 #endif /* TUSB546_DEBUG || CBTL08GP053_DEBUG || SN65DP141_DEBUG */
@@ -865,12 +883,12 @@ void BSP_MUX_DumpDeviceRegisters(uint32_t Device)
 *     @arg DET_USB3_DET
 * @retval None
 */
-static void MUX_DET_Init(DetectId_TypeDef Det)
+static void MUX_DET_Init( DetectId_TypeDef Det )
 {
     GPIO_InitTypeDef  GPIO_InitStruct;
 
     /* Enable the GPIO_DET clock */
-    DETx_GPIO_CLK_ENABLE(Det);
+    DETx_GPIO_CLK_ENABLE( Det );
 
     /* Configure the GPIO_MOS pin */
     GPIO_InitStruct.Pin = DET_PIN[Det];
@@ -878,11 +896,11 @@ static void MUX_DET_Init(DetectId_TypeDef Det)
     GPIO_InitStruct.Pull = GPIO_PULLDOWN;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
 
-    HAL_GPIO_Init(DET_PORT[Det], &GPIO_InitStruct);
+    HAL_GPIO_Init( DET_PORT[Det], &GPIO_InitStruct );
 
     /* Enable and set EXTI lines Interrupt to the lowest priority */
-    HAL_NVIC_SetPriority(DET_IRQn[Det], 2, 0);
-    HAL_NVIC_EnableIRQ(DET_IRQn[Det]);
+    HAL_NVIC_SetPriority( DET_IRQn[Det], 2, 0 );
+    HAL_NVIC_EnableIRQ( DET_IRQn[Det] );
 }
 
 /**
@@ -893,12 +911,12 @@ static void MUX_DET_Init(DetectId_TypeDef Det)
 *     @arg DET_USB3_DET
 * @retval None
 */
-static void MUX_DET_DeInit(DetectId_TypeDef Det)
+static void MUX_DET_DeInit( DetectId_TypeDef Det )
 {
     /* Disable EXTI lines Interrupt */
-    HAL_NVIC_DisableIRQ(DET_IRQn[Det]);
+    HAL_NVIC_DisableIRQ( DET_IRQn[Det] );
 
-    HAL_GPIO_DeInit(DET_PORT[Det], DET_PIN[Det]);
+    HAL_GPIO_DeInit( DET_PORT[Det], DET_PIN[Det] );
 }
 
 /**
@@ -909,32 +927,34 @@ static void MUX_DET_DeInit(DetectId_TypeDef Det)
 *     @arg DET_USB3_DET
 * @retval The Detect GPIO pin value
 */
-static MUX_DETState_TypeDef MUX_DET_GetState(DetectId_TypeDef Det)
+static MUX_DETState_TypeDef MUX_DET_GetState( DetectId_TypeDef Det )
 {
-  GPIO_PinState PinState;
+    GPIO_PinState PinState;
 
-  PinState = HAL_GPIO_ReadPin(DET_PORT[Det], DET_PIN[Det]);
+    PinState = HAL_GPIO_ReadPin( DET_PORT[Det], DET_PIN[Det] );
 
-  if (DET_HPD_SOURCE == Det)
-  {
-    /* Update Context */
-    Context.HPDState = HPD_STATE_LOW;
-    if (GPIO_PIN_SET == PinState)
+    if( DET_HPD_SOURCE == Det )
     {
-      Context.HPDState = HPD_STATE_HIGH;
-    }
-  }
-  else
-  {
-    /* Update Context */
-    Context.USB3DetectState = USB3_NOT_CONNECTED;
-    if (GPIO_PIN_SET == PinState)
-    {
-      Context.USB3DetectState = USB3_CONNECTED;
-    }
-  }
+        /* Update Context */
+        Context.HPDState = HPD_STATE_LOW;
 
-  return (PinState == GPIO_PIN_RESET) ? DET_STATE_LOW : DET_STATE_HIGH;
+        if( GPIO_PIN_SET == PinState )
+        {
+            Context.HPDState = HPD_STATE_HIGH;
+        }
+    }
+    else
+    {
+        /* Update Context */
+        Context.USB3DetectState = USB3_NOT_CONNECTED;
+
+        if( GPIO_PIN_SET == PinState )
+        {
+            Context.USB3DetectState = USB3_CONNECTED;
+        }
+    }
+
+    return ( PinState == GPIO_PIN_RESET ) ? DET_STATE_LOW : DET_STATE_HIGH;
 }
 
 /**
@@ -944,12 +964,12 @@ static MUX_DETState_TypeDef MUX_DET_GetState(DetectId_TypeDef Det)
 *     @arg SEL_HPDIN
 * @retval None
 */
-static void MUX_SEL_Init(SelectId_TypeDef Sel)
+static void MUX_SEL_Init( SelectId_TypeDef Sel )
 {
     GPIO_InitTypeDef  GPIO_InitStruct;
 
     /* Enable the GPIO_DET clock */
-    SELx_GPIO_CLK_ENABLE(Sel);
+    SELx_GPIO_CLK_ENABLE( Sel );
 
     /* Configure the GPIO_MOS pin */
     GPIO_InitStruct.Pin = SEL_PIN[Sel];
@@ -957,9 +977,9 @@ static void MUX_SEL_Init(SelectId_TypeDef Sel)
     GPIO_InitStruct.Pull = GPIO_PULLDOWN;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
 
-    HAL_GPIO_Init(SEL_PORT[Sel], &GPIO_InitStruct);
+    HAL_GPIO_Init( SEL_PORT[Sel], &GPIO_InitStruct );
 
-    HAL_GPIO_WritePin(SEL_PORT[Sel], SEL_PIN[Sel], GPIO_PIN_RESET);
+    HAL_GPIO_WritePin( SEL_PORT[Sel], SEL_PIN[Sel], GPIO_PIN_RESET );
 }
 
 /**
@@ -969,9 +989,9 @@ static void MUX_SEL_Init(SelectId_TypeDef Sel)
 *     @arg SEL_HPDIN
 * @retval None
 */
-static void MUX_SEL_DeInit(SelectId_TypeDef Sel)
+static void MUX_SEL_DeInit( SelectId_TypeDef Sel )
 {
-    HAL_GPIO_DeInit(SEL_PORT[Sel], SEL_PIN[Sel]);
+    HAL_GPIO_DeInit( SEL_PORT[Sel], SEL_PIN[Sel] );
 }
 
 /**
@@ -981,9 +1001,9 @@ static void MUX_SEL_DeInit(SelectId_TypeDef Sel)
 *     @arg SEL_HPDIN
 * @retval None
 */
-static void MUX_SEL_On(SelectId_TypeDef Sel)
+static void MUX_SEL_On( SelectId_TypeDef Sel )
 {
-    HAL_GPIO_WritePin(SEL_PORT[Sel], SEL_PIN[Sel], GPIO_PIN_SET);
+    HAL_GPIO_WritePin( SEL_PORT[Sel], SEL_PIN[Sel], GPIO_PIN_SET );
 }
 
 /**
@@ -993,9 +1013,9 @@ static void MUX_SEL_On(SelectId_TypeDef Sel)
 *     @arg SEL_HPDIN
 * @retval None
 */
-static void MUX_SEL_Off(SelectId_TypeDef Sel)
+static void MUX_SEL_Off( SelectId_TypeDef Sel )
 {
-    HAL_GPIO_WritePin(SEL_PORT[Sel], SEL_PIN[Sel], GPIO_PIN_RESET);
+    HAL_GPIO_WritePin( SEL_PORT[Sel], SEL_PIN[Sel], GPIO_PIN_RESET );
 }
 
 /**
@@ -1003,27 +1023,27 @@ static void MUX_SEL_Off(SelectId_TypeDef Sel)
 * @param  DebounceTime Debounce time (in us)
 * @retval None
 */
-static void MUX_DebounceTimerSetConfig(uint32_t DebounceTime)
+static void MUX_DebounceTimerSetConfig( uint32_t DebounceTime )
 {
-    __HAL_TIM_RESET_HANDLE_STATE(&htim);
+    __HAL_TIM_RESET_HANDLE_STATE( &htim );
 
-    htim.Init.Prescaler         = (DEBOUNCE_TIM_COUNTER_CLK_FREQ() / 1000000) -1;
+    htim.Init.Prescaler         = ( DEBOUNCE_TIM_COUNTER_CLK_FREQ() / 1000000 ) - 1;
     htim.Init.CounterMode       = TIM_COUNTERMODE_UP;
     htim.Init.Period            = DebounceTime - 1;
     htim.Init.ClockDivision     = TIM_CLOCKDIVISION_DIV1;
     htim.Init.RepetitionCounter = 0;
     htim.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
 
-    HAL_TIM_Base_Init(&htim);
+    HAL_TIM_Base_Init( &htim );
 }
 
 /**
 * @brief  Reset debounce timer configuration.
 * @retval None
 */
-static void MUX_DebounceTimerResetConfig(void)
+static void MUX_DebounceTimerResetConfig( void )
 {
-    HAL_TIM_Base_DeInit(&htim);
+    HAL_TIM_Base_DeInit( &htim );
 }
 
 /**
@@ -1031,32 +1051,32 @@ static void MUX_DebounceTimerResetConfig(void)
   * @param  htim TIM handle
   * @retval None
   */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+void HAL_TIM_PeriodElapsedCallback( TIM_HandleTypeDef *htim )
 {
-    HAL_TIM_Base_Stop_IT(htim);
+    HAL_TIM_Base_Stop_IT( htim );
 
-    if ((Context.USB3DetectState == USB3_NOT_CONNECTED) && (DET_STATE_HIGH == MUX_DET_GetState(DET_USB3_DET)))
+    if( ( Context.USB3DetectState == USB3_NOT_CONNECTED ) && ( DET_STATE_HIGH == MUX_DET_GetState( DET_USB3_DET ) ) )
     {
         /* Invoke registered callback function */
-        Context.pfnUSB3DetectCallback(TYPE_C_MUX_1, USB3_CONNECTED);
+        Context.pfnUSB3DetectCallback( TYPE_C_MUX_1, USB3_CONNECTED );
     }
 
-    if ((Context.USB3DetectState == USB3_CONNECTED) && (DET_STATE_LOW == MUX_DET_GetState(DET_USB3_DET)))
+    if( ( Context.USB3DetectState == USB3_CONNECTED ) && ( DET_STATE_LOW == MUX_DET_GetState( DET_USB3_DET ) ) )
     {
         /* Invoke registered callback function */
-        Context.pfnUSB3DetectCallback(TYPE_C_MUX_1, USB3_NOT_CONNECTED);
+        Context.pfnUSB3DetectCallback( TYPE_C_MUX_1, USB3_NOT_CONNECTED );
     }
 
-    if ((Context.HPDState == HPD_STATE_LOW) && (DET_STATE_HIGH == MUX_DET_GetState(DET_HPD_SOURCE)))
+    if( ( Context.HPDState == HPD_STATE_LOW ) && ( DET_STATE_HIGH == MUX_DET_GetState( DET_HPD_SOURCE ) ) )
     {
         /* Invoke registered callback function */
-        Context.pfnHPDCallbackFunc(TYPE_C_MUX_2, HPD_STATE_HIGH);
+        Context.pfnHPDCallbackFunc( TYPE_C_MUX_2, HPD_STATE_HIGH );
     }
 
-    if ((Context.HPDState == HPD_STATE_HIGH) && (DET_STATE_LOW == MUX_DET_GetState(DET_HPD_SOURCE)))
+    if( ( Context.HPDState == HPD_STATE_HIGH ) && ( DET_STATE_LOW == MUX_DET_GetState( DET_HPD_SOURCE ) ) )
     {
         /* Invoke registered callback function */
-        Context.pfnHPDCallbackFunc(TYPE_C_MUX_2, HPD_STATE_LOW);
+        Context.pfnHPDCallbackFunc( TYPE_C_MUX_2, HPD_STATE_LOW );
     }
 }
 /**

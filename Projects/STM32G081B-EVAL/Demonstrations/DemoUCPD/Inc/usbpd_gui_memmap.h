@@ -22,7 +22,7 @@
 #define __USBPD_GUI_MEMMAP_H_
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -48,14 +48,14 @@
 */
 #define INDEX_PAGE              (FLASH_PAGE_NB - 1)          /* Index of latest page                      */
 #define ADDR_FLASH_LAST_PAGE    (FLASH_BASE + INDEX_PAGE * FLASH_PAGE_SIZE)  /* Base @ of latest page   */
-#define ADDR_FLASH_PAGE_END     (ADDR_FLASH_LAST_PAGE + FLASH_PAGE_SIZE - 1) 
+#define ADDR_FLASH_PAGE_END     (ADDR_FLASH_LAST_PAGE + FLASH_PAGE_SIZE - 1)
 
 #define GUI_FLASH_ADDR_NB_PDO_SNK_P0  (ADDR_FLASH_LAST_PAGE)
 #define GUI_FLASH_ADDR_NB_PDO_SRC_P0  (ADDR_FLASH_LAST_PAGE + 1U)
 #define GUI_FLASH_ADDR_NB_PDO_SNK_P1  (ADDR_FLASH_LAST_PAGE + 2U)
 #define GUI_FLASH_ADDR_NB_PDO_SRC_P1  (ADDR_FLASH_LAST_PAGE + 3U)
 
-#define GUI_FLASH_ADDR_PDO_SRC_P0      (ADDR_FLASH_LAST_PAGE + 8U) 
+#define GUI_FLASH_ADDR_PDO_SRC_P0      (ADDR_FLASH_LAST_PAGE + 8U)
 /* New Address should be modulo 8 */
 /* New Address = (Previous Address + (size / 8 * 8) + ((size % 8) + 7) / 8 * 8) */
 #define GUI_FLASH_ADDR_PDO_SNK_P0      (GUI_FLASH_ADDR_PDO_SRC_P0 +  ((USBPD_MAX_NB_PDO * 4) / 8 * 8) + ((((USBPD_MAX_NB_PDO * 4) & 0x07) + 7) / 8 * 8 ))

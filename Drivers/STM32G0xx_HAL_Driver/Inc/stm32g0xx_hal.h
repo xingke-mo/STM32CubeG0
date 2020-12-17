@@ -7,11 +7,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -43,10 +43,10 @@ extern "C" {
   */
 typedef enum
 {
-  HAL_TICK_FREQ_10HZ         = 100U,
-  HAL_TICK_FREQ_100HZ        = 10U,
-  HAL_TICK_FREQ_1KHZ         = 1U,
-  HAL_TICK_FREQ_DEFAULT      = HAL_TICK_FREQ_1KHZ
+    HAL_TICK_FREQ_10HZ         = 100U,
+    HAL_TICK_FREQ_100HZ        = 10U,
+    HAL_TICK_FREQ_1KHZ         = 1U,
+    HAL_TICK_FREQ_DEFAULT      = HAL_TICK_FREQ_1KHZ
 } HAL_TickFreqTypeDef;
 /**
   * @}
@@ -188,7 +188,7 @@ typedef enum
 #define SYSCFG_FASTMODEPLUS_I2C1       SYSCFG_CFGR1_I2C1_FMP /*!< Enable Fast mode Plus on I2C1 */
 #define SYSCFG_FASTMODEPLUS_I2C2       SYSCFG_CFGR1_I2C2_FMP /*!< Enable Fast mode Plus on I2C2 */
 #if  defined (I2C3)
-#define SYSCFG_FASTMODEPLUS_I2C3       SYSCFG_CFGR1_I2C3_FMP /*!< Enable Fast mode Plus on I2C3 */  
+#define SYSCFG_FASTMODEPLUS_I2C3       SYSCFG_CFGR1_I2C3_FMP /*!< Enable Fast mode Plus on I2C3 */
 #endif /* I2C3 */
 
 /**
@@ -496,7 +496,7 @@ typedef enum
 #define __HAL_DBGMCU_FREEZE_TIM17()          SET_BIT(DBG->APBFZ2, DBG_APB_FZ2_DBG_TIM17_STOP)
 #define __HAL_DBGMCU_UNFREEZE_TIM17()        CLEAR_BIT(DBG->APBFZ2, DBG_APB_FZ2_DBG_TIM17_STOP)
 #endif /* DBG_APB_FZ2_DBG_TIM17_STOP */
-    
+
 /**
   * @}
   */
@@ -510,7 +510,7 @@ typedef enum
   * @note Allow to determine interrupt source per line.
   */
 #define __HAL_GET_PENDING_IT(__SOURCE__)     (SYSCFG->IT_LINE_SR[((__SOURCE__) >> 0x18U)] & ((__SOURCE__) & 0x00FFFFFF))
-    
+
 /** @brief  Main Flash memory mapped at 0x00000000
   */
 #define __HAL_SYSCFG_REMAPMEMORY_FLASH()     CLEAR_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_MEM_MODE)
@@ -730,11 +730,11 @@ typedef enum
   */
 
 /* Initialization and Configuration functions  ******************************/
-HAL_StatusTypeDef HAL_Init(void);
-HAL_StatusTypeDef HAL_DeInit(void);
-void HAL_MspInit(void);
-void HAL_MspDeInit(void);
-HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority);
+HAL_StatusTypeDef HAL_Init( void );
+HAL_StatusTypeDef HAL_DeInit( void );
+void HAL_MspInit( void );
+void HAL_MspDeInit( void );
+HAL_StatusTypeDef HAL_InitTick( uint32_t TickPriority );
 
 /**
   * @}
@@ -745,20 +745,20 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority);
   */
 
 /* Peripheral Control functions  ************************************************/
-void HAL_IncTick(void);
-void HAL_Delay(uint32_t Delay);
-uint32_t HAL_GetTick(void);
-uint32_t HAL_GetTickPrio(void);
-HAL_StatusTypeDef HAL_SetTickFreq(HAL_TickFreqTypeDef Freq);
-HAL_TickFreqTypeDef HAL_GetTickFreq(void);
-void HAL_SuspendTick(void);
-void HAL_ResumeTick(void);
-uint32_t HAL_GetHalVersion(void);
-uint32_t HAL_GetREVID(void);
-uint32_t HAL_GetDEVID(void);
-uint32_t HAL_GetUIDw0(void);
-uint32_t HAL_GetUIDw1(void);
-uint32_t HAL_GetUIDw2(void);
+void HAL_IncTick( void );
+void HAL_Delay( uint32_t Delay );
+uint32_t HAL_GetTick( void );
+uint32_t HAL_GetTickPrio( void );
+HAL_StatusTypeDef HAL_SetTickFreq( HAL_TickFreqTypeDef Freq );
+HAL_TickFreqTypeDef HAL_GetTickFreq( void );
+void HAL_SuspendTick( void );
+void HAL_ResumeTick( void );
+uint32_t HAL_GetHalVersion( void );
+uint32_t HAL_GetREVID( void );
+uint32_t HAL_GetDEVID( void );
+uint32_t HAL_GetUIDw0( void );
+uint32_t HAL_GetUIDw1( void );
+uint32_t HAL_GetUIDw2( void );
 
 /**
   * @}
@@ -769,10 +769,10 @@ uint32_t HAL_GetUIDw2(void);
   */
 
 /* DBGMCU Peripheral Control functions  *****************************************/
-void HAL_DBGMCU_EnableDBGStopMode(void);
-void HAL_DBGMCU_DisableDBGStopMode(void);
-void HAL_DBGMCU_EnableDBGStandbyMode(void);
-void HAL_DBGMCU_DisableDBGStandbyMode(void);
+void HAL_DBGMCU_EnableDBGStopMode( void );
+void HAL_DBGMCU_DisableDBGStopMode( void );
+void HAL_DBGMCU_EnableDBGStandbyMode( void );
+void HAL_DBGMCU_DisableDBGStandbyMode( void );
 
 /**
   * @}
@@ -796,23 +796,23 @@ extern HAL_TickFreqTypeDef uwTickFreq;
 /* SYSCFG Control functions  ****************************************************/
 
 #if defined(VREFBUF)
-void HAL_SYSCFG_VREFBUF_VoltageScalingConfig(uint32_t VoltageScaling);
-void HAL_SYSCFG_VREFBUF_HighImpedanceConfig(uint32_t Mode);
-void HAL_SYSCFG_VREFBUF_TrimmingConfig(uint32_t TrimmingValue);
-HAL_StatusTypeDef HAL_SYSCFG_EnableVREFBUF(void);
-void HAL_SYSCFG_DisableVREFBUF(void);
+void HAL_SYSCFG_VREFBUF_VoltageScalingConfig( uint32_t VoltageScaling );
+void HAL_SYSCFG_VREFBUF_HighImpedanceConfig( uint32_t Mode );
+void HAL_SYSCFG_VREFBUF_TrimmingConfig( uint32_t TrimmingValue );
+HAL_StatusTypeDef HAL_SYSCFG_EnableVREFBUF( void );
+void HAL_SYSCFG_DisableVREFBUF( void );
 #endif /* VREFBUF */
 
-void HAL_SYSCFG_EnableIOAnalogSwitchBooster(void);
-void HAL_SYSCFG_DisableIOAnalogSwitchBooster(void);
-void HAL_SYSCFG_EnableRemap(uint32_t PinRemap);
-void HAL_SYSCFG_DisableRemap(uint32_t PinRemap);
+void HAL_SYSCFG_EnableIOAnalogSwitchBooster( void );
+void HAL_SYSCFG_DisableIOAnalogSwitchBooster( void );
+void HAL_SYSCFG_EnableRemap( uint32_t PinRemap );
+void HAL_SYSCFG_DisableRemap( uint32_t PinRemap );
 #if defined(SYSCFG_CDEN_SUPPORT)
-void HAL_SYSCFG_EnableClampingDiode(uint32_t PinConfig);
-void HAL_SYSCFG_DisableClampingDiode(uint32_t PinConfig);
+void HAL_SYSCFG_EnableClampingDiode( uint32_t PinConfig );
+void HAL_SYSCFG_DisableClampingDiode( uint32_t PinConfig );
 #endif /* SYSCFG_CDEN_SUPPORT */
 #if defined (SYSCFG_CFGR1_UCPD1_STROBE) || defined (SYSCFG_CFGR1_UCPD2_STROBE)
-void HAL_SYSCFG_StrobeDBattpinsConfig(uint32_t ConfigDeadBattery);
+void HAL_SYSCFG_StrobeDBattpinsConfig( uint32_t ConfigDeadBattery );
 #endif /* SYSCFG_CFGR1_UCPD1_STROBE || SYSCFG_CFGR1_UCPD2_STROBE */
 /**
   * @}

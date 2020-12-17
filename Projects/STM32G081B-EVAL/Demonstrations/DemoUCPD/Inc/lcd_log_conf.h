@@ -63,16 +63,16 @@
 #define     YWINDOW_SIZE            14
 
 #if (YWINDOW_SIZE > 14)
-  #error "Wrong YWINDOW SIZE"
+    #error "Wrong YWINDOW SIZE"
 #endif
 
 /* Redirect the printf to the LCD */
 #ifdef __GNUC__
-/* With GCC, small printf (option LD Linker->Libraries->Small printf
-   set to 'Yes') calls __io_putchar() */
-#define LCD_LOG_PUTCHAR int __io_putchar(int ch)
+    /* With GCC, small printf (option LD Linker->Libraries->Small printf
+    set to 'Yes') calls __io_putchar() */
+    #define LCD_LOG_PUTCHAR int __io_putchar(int ch)
 #else
-#define LCD_LOG_PUTCHAR int fputc(int ch, FILE *f)
+    #define LCD_LOG_PUTCHAR int fputc(int ch, FILE *f)
 #endif /* __GNUC__ */
 
 

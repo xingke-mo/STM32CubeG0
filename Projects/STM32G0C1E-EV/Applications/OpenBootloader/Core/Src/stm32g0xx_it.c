@@ -37,40 +37,40 @@
 /**
   * @brief This function handles Non maskable interrupt.
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
 }
 
 /**
   * @brief This function handles Hard fault interrupt.
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  while (1)
-  {
-  }
+    while( 1 )
+    {
+    }
 }
 
 /**
   * @brief This function handles System service call via SWI instruction.
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
 }
 
 /**
   * @brief This function handles Pendable request for system service.
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
 }
 
 /**
   * @brief This function handles System tick timer.
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
-  HAL_IncTick();
+    HAL_IncTick();
 }
 
 /******************************************************************************/
@@ -79,9 +79,9 @@ void SysTick_Handler(void)
 /**
   * @brief This function handles USB FS global interrupt / USB FS wake-up interrupt through EXTI line 34.
   */
-void USB_UCPD1_2_IRQHandler(void)
+void USB_UCPD1_2_IRQHandler( void )
 {
-  HAL_PCD_IRQHandler(&hpcd);
+    HAL_PCD_IRQHandler( &hpcd );
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

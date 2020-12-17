@@ -32,17 +32,17 @@
 /* Exported variables --------------------------------------------------------*/
 OPENBL_MemoryTypeDef RAM_Descriptor =
 {
-  RAM_START_ADDRESS + OPENBL_RAM_SIZE, /* OPENBL_RAM_SIZE is added to the RAM start address to protect OpenBootloader RAM area */
-  RAM_END_ADDRESS,
-  (128 * 1024),
-  RAM_AREA,
-  OPENBL_RAM_Read,
-  OPENBL_RAM_Write,
-  NULL,
-  NULL,
-  OPENBL_RAM_JumpToAddress,
-  NULL,
-  NULL
+    RAM_START_ADDRESS + OPENBL_RAM_SIZE, /* OPENBL_RAM_SIZE is added to the RAM start address to protect OpenBootloader RAM area */
+    RAM_END_ADDRESS,
+    ( 128 * 1024 ),
+    RAM_AREA,
+    OPENBL_RAM_Read,
+    OPENBL_RAM_Write,
+    NULL,
+    NULL,
+    OPENBL_RAM_JumpToAddress,
+    NULL,
+    NULL
 };
 
 /* Exported functions --------------------------------------------------------*/
@@ -52,9 +52,9 @@ OPENBL_MemoryTypeDef RAM_Descriptor =
   * @param  Address The address to be read.
   * @retval Returns the read value.
   */
-uint8_t OPENBL_RAM_Read(uint32_t Address)
+uint8_t OPENBL_RAM_Read( uint32_t Address )
 {
-  return (*(uint8_t *)(Address));
+    return ( *( uint8_t * )( Address ) );
 }
 
 /**
@@ -64,20 +64,20 @@ uint8_t OPENBL_RAM_Read(uint32_t Address)
   * @param  DataLength The length of the data to be written.
   * @retval None.
   */
-void OPENBL_RAM_Write(uint32_t Address, uint8_t *Data, uint32_t DataLength)
+void OPENBL_RAM_Write( uint32_t Address, uint8_t *Data, uint32_t DataLength )
 {
-  uint32_t index          = 0U;
-  uint32_t aligned_length = DataLength;
+    uint32_t index          = 0U;
+    uint32_t aligned_length = DataLength;
 
-  if (aligned_length & 0x3)
-  {
-    aligned_length = (aligned_length & 0xFCU) + 4U;
-  }
+    if( aligned_length & 0x3 )
+    {
+        aligned_length = ( aligned_length & 0xFCU ) + 4U;
+    }
 
-  for (index = 0U; index < aligned_length; index += 4U)
-  {
-    *(__IO uint32_t *)(Address + index) = *(__IO uint32_t *)(Data + index);
-  }
+    for( index = 0U; index < aligned_length; index += 4U )
+    {
+        *( __IO uint32_t * )( Address + index ) = *( __IO uint32_t * )( Data + index );
+    }
 }
 
 /**
@@ -85,22 +85,22 @@ void OPENBL_RAM_Write(uint32_t Address, uint8_t *Data, uint32_t DataLength)
   * @param  Address The address where the function will jump.
   * @retval None.
   */
-void OPENBL_RAM_JumpToAddress(uint32_t Address)
+void OPENBL_RAM_JumpToAddress( uint32_t Address )
 {
-  Function_Pointer jump_to_address;
+    Function_Pointer jump_to_address;
 
-  /* Deinitialize all HW resources used by the Bootloader to their reset values */
-  OpenBootloader_DeInit();
+    /* Deinitialize all HW resources used by the Bootloader to their reset values */
+    OpenBootloader_DeInit();
 
-  /* Enable IRQ */
-  Common_EnableIrq();
+    /* Enable IRQ */
+    Common_EnableIrq();
 
-  jump_to_address = (Function_Pointer)(*(__IO uint32_t *)(Address + 4U));
+    jump_to_address = ( Function_Pointer )( *( __IO uint32_t * )( Address + 4U ) );
 
-  /* Initialize user application's stack pointer */
-  Common_SetMsp(*(__IO uint32_t *) Address);
+    /* Initialize user application's stack pointer */
+    Common_SetMsp( *( __IO uint32_t * ) Address );
 
-  jump_to_address();
+    jump_to_address();
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -7,45 +7,45 @@
 
 /* Get access to the SysTick structure. */
 #if   defined ARMCM0
-  #include "ARMCM0.h"
+    #include "ARMCM0.h"
 #elif defined ARMCM0P
-  #include "ARMCM0plus.h"
+    #include "ARMCM0plus.h"
 #elif defined ARMCM0P_MPU
-  #include "ARMCM0plus_MPU.h"
+    #include "ARMCM0plus_MPU.h"
 #elif defined ARMCM3
-  #include "ARMCM3.h"
+    #include "ARMCM3.h"
 #elif defined ARMCM4
-  #include "ARMCM4.h"
+    #include "ARMCM4.h"
 #elif defined ARMCM4_FP
-  #include "ARMCM4_FP.h"
+    #include "ARMCM4_FP.h"
 #elif defined ARMCM7
-  #include "ARMCM7.h" 
+    #include "ARMCM7.h"
 #elif defined ARMCM7_SP
-  #include "ARMCM7_SP.h"
+    #include "ARMCM7_SP.h"
 #elif defined ARMCM7_DP
-  #include "ARMCM7_DP.h"
+    #include "ARMCM7_DP.h"
 #elif defined ARMSC000
-  #include "ARMSC000.h"
+    #include "ARMSC000.h"
 #elif defined ARMSC300
-  #include "ARMSC300.h"
+    #include "ARMSC300.h"
 #elif defined ARMv8MBL
-  #include "ARMv8MBL.h"
+    #include "ARMv8MBL.h"
 #elif defined ARMv8MML
-  #include "ARMv8MML.h"
+    #include "ARMv8MML.h"
 #elif defined ARMv8MML_DSP
-  #include "ARMv8MML_DSP.h"
+    #include "ARMv8MML_DSP.h"
 #elif defined ARMv8MML_SP
-  #include "ARMv8MML_SP.h"
+    #include "ARMv8MML_SP.h"
 #elif defined ARMv8MML_DSP_SP
-  #include "ARMv8MML_DSP_SP.h"
+    #include "ARMv8MML_DSP_SP.h"
 #elif defined ARMv8MML_DP
-  #include "ARMv8MML_DP.h"
+    #include "ARMv8MML_DP.h"
 #elif defined ARMv8MML_DSP_DP
-  #include "ARMv8MML_DSP_DP.h"
+    #include "ARMv8MML_DSP_DP.h"
 #elif defined ARMv7A
-  /* TODO */
+    /* TODO */
 #else
-  #warning "no appropriate header file found!"
+    #warning "no appropriate header file found!"
 #endif
 
 /*--------------------------------------------------------------------------------*/
@@ -90,5 +90,5 @@
  */
 #define JTEST_SYSTICK_VALUE(systick_ptr)                    \
     ((systick_ptr)->VAL)
-           
+
 #endif /* _JTEST_SYSTICK_H_ */

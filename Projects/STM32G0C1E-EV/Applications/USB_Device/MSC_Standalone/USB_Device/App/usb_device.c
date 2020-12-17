@@ -40,7 +40,7 @@
 
 /* USER CODE END PFP */
 
-extern void Error_Handler(void);
+extern void Error_Handler( void );
 /* USB Device Core handle declaration. */
 USBD_HandleTypeDef hUsbDeviceFS;
 extern USBD_DescriptorsTypeDef MSC_Desc;
@@ -63,27 +63,35 @@ extern USBD_DescriptorsTypeDef MSC_Desc;
   * Init USB device Library, add supported class and start the library
   * @retval None
   */
-void MX_USB_Device_Init(void)
+void MX_USB_Device_Init( void )
 {
-  /* USER CODE BEGIN USB_Device_Init_PreTreatment */
-  /* USER CODE END USB_Device_Init_PreTreatment */
+    /* USER CODE BEGIN USB_Device_Init_PreTreatment */
+    /* USER CODE END USB_Device_Init_PreTreatment */
 
-  /* Init Device Library, add supported class and start the library. */
-  if (USBD_Init(&hUsbDeviceFS, &MSC_Desc, 0) != USBD_OK) {
-    Error_Handler();
-  }
-  if (USBD_RegisterClass(&hUsbDeviceFS, &USBD_MSC) != USBD_OK) {
-    Error_Handler();
-  }
-  if (USBD_MSC_RegisterStorage(&hUsbDeviceFS, &USBD_Storage_Interface_fops_FS) != USBD_OK) {
-    Error_Handler();
-  }
-  if (USBD_Start(&hUsbDeviceFS) != USBD_OK) {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USB_Device_Init_PostTreatment */
+    /* Init Device Library, add supported class and start the library. */
+    if( USBD_Init( &hUsbDeviceFS, &MSC_Desc, 0 ) != USBD_OK )
+    {
+        Error_Handler();
+    }
 
-  /* USER CODE END USB_Device_Init_PostTreatment */
+    if( USBD_RegisterClass( &hUsbDeviceFS, &USBD_MSC ) != USBD_OK )
+    {
+        Error_Handler();
+    }
+
+    if( USBD_MSC_RegisterStorage( &hUsbDeviceFS, &USBD_Storage_Interface_fops_FS ) != USBD_OK )
+    {
+        Error_Handler();
+    }
+
+    if( USBD_Start( &hUsbDeviceFS ) != USBD_OK )
+    {
+        Error_Handler();
+    }
+
+    /* USER CODE BEGIN USB_Device_Init_PostTreatment */
+
+    /* USER CODE END USB_Device_Init_PostTreatment */
 }
 
 /**

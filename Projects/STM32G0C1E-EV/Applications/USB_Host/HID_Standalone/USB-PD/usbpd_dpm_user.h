@@ -23,7 +23,7 @@
 #define __USBPD_DPM_USER_H_
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -71,8 +71,8 @@
 /** @addtogroup USBPD_USER_EXPORTED_FUNCTIONS_GROUP1
   * @{
   */
-void                USBPD_DPM_UserExecute(void const *argument);
-void                USBPD_DPM_UserCableDetection(uint8_t PortNum, USBPD_CAD_EVENT State);
+void                USBPD_DPM_UserExecute( void const *argument );
+void                USBPD_DPM_UserCableDetection( uint8_t PortNum, USBPD_CAD_EVENT State );
 
 /**
   * @}

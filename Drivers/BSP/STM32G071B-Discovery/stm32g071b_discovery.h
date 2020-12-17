@@ -58,67 +58,67 @@ extern "C" {
  */
 typedef enum
 {
-  ALERT_VBUS = 0,
-  ALERT_CC1 = 1,
-  ALERT_CC2 = 2
-}Alert_TypeDef;
+    ALERT_VBUS = 0,
+    ALERT_CC1 = 1,
+    ALERT_CC2 = 2
+} Alert_TypeDef;
 
 /**
  * @brief LED Types Definition
  */
 typedef enum
 {
-  LED4 = 0,
-  LED5 = 1,
-  LED6 = 2,
-  LED7 = 3,
-  LED_ORANGE  = LED4,
-  LED_GREEN   = LED6,
-}Led_TypeDef;
+    LED4 = 0,
+    LED5 = 1,
+    LED6 = 2,
+    LED7 = 3,
+    LED_ORANGE  = LED4,
+    LED_GREEN   = LED6,
+} Led_TypeDef;
 
 /**
  * @brief JOYSTICK Types Definition
  */
 typedef enum
 {
-  JOY_SEL   = 0,
-  JOY_LEFT  = 1,
-  JOY_RIGHT = 2,
-  JOY_DOWN  = 3,
-  JOY_UP    = 4,
-  JOY_NONE  = 5
-}JOYState_TypeDef;
+    JOY_SEL   = 0,
+    JOY_LEFT  = 1,
+    JOY_RIGHT = 2,
+    JOY_DOWN  = 3,
+    JOY_UP    = 4,
+    JOY_NONE  = 5
+} JOYState_TypeDef;
 
 typedef enum
 {
-  JOY_MODE_GPIO = 0,
-  JOY_MODE_EXTI = 1
-}JOYMode_TypeDef;
+    JOY_MODE_GPIO = 0,
+    JOY_MODE_EXTI = 1
+} JOYMode_TypeDef;
 
 /**
  * @brief DOOR SENSE Types Definition
  */
 typedef enum
 {
-  DOOR_OPEN  = 0,
-  DOOR_CLOSE = 1
-}DOORState_TypeDef;
+    DOOR_OPEN  = 0,
+    DOOR_CLOSE = 1
+} DOORState_TypeDef;
 
 typedef enum
 {
-  DOOR_MODE_GPIO = 0,
-  DOOR_MODE_EXTI = 1
-}DOORMode_TypeDef;
+    DOOR_MODE_GPIO = 0,
+    DOOR_MODE_EXTI = 1
+} DOORMode_TypeDef;
 
 /**
  * @brief MOSFET Types Definition
  */
 typedef enum
 {
-  MOSFET_ENCC1 = 0,
-  MOSFET_ENCC2,
-  MOSFET_RD_CC1,
-}Mosfet_TypeDef;
+    MOSFET_ENCC1 = 0,
+    MOSFET_ENCC2,
+    MOSFET_RD_CC1,
+} Mosfet_TypeDef;
 
 /**
   * @}
@@ -398,10 +398,10 @@ typedef enum
 #define DISCOVERY_I2C1_FORCE_RESET()          __HAL_RCC_I2C1_FORCE_RESET()
 #define DISCOVERY_I2C1_RELEASE_RESET()        __HAL_RCC_I2C1_RELEASE_RESET()
 
-#define DISCOVERY_I2C1_SCL_PIN                GPIO_PIN_6		/* PB.6 */
-#define DISCOVERY_I2C1_SDA_PIN                GPIO_PIN_7		/* PB.7 */
+#define DISCOVERY_I2C1_SCL_PIN                GPIO_PIN_6        /* PB.6 */
+#define DISCOVERY_I2C1_SDA_PIN                GPIO_PIN_7        /* PB.7 */
 
-#define DISCOVERY_I2C1_GPIO_PORT              GPIOB			/* GPIOB */
+#define DISCOVERY_I2C1_GPIO_PORT              GPIOB         /* GPIOB */
 #define DISCOVERY_I2C1_GPIO_CLK_ENABLE()     __HAL_RCC_GPIOB_CLK_ENABLE()
 
 #define DISCOVERY_I2C1_SCL_SDA_AF             GPIO_AF6_I2C1
@@ -464,8 +464,8 @@ typedef enum
 /**
   * @brief  LCD Control pins
   */
-#define LCD_CS_PIN                      GPIO_PIN_3		/* PA. 03*/
-#define LCD_CS_GPIO_PORT                GPIOA			/* GPIOA */
+#define LCD_CS_PIN                      GPIO_PIN_3      /* PA. 03*/
+#define LCD_CS_GPIO_PORT                GPIOA           /* GPIOA */
 #define LCD_CS_GPIO_CLK_ENABLE()        __HAL_RCC_GPIOA_CLK_ENABLE()
 #define LCD_CS_GPIO_CLK_DISABLE()       __HAL_RCC_GPIOA_CLK_DISABLE()
 
@@ -478,8 +478,8 @@ typedef enum
 /**
   * @brief  LCD Reset pins
   */
-#define LCD_RST_PIN                     GPIO_PIN_6		/* PA. 06*/
-#define LCD_RST_GPIO_PORT               GPIOA			/* GPIOA */
+#define LCD_RST_PIN                     GPIO_PIN_6      /* PA. 06*/
+#define LCD_RST_GPIO_PORT               GPIOA           /* GPIOA */
 #define LCD_RST_GPIO_CLK_ENABLE()       __HAL_RCC_GPIOA_CLK_ENABLE()
 #define LCD_RST_GPIO_CLK_DISABLE()      __HAL_RCC_GPIOA_CLK_DISABLE()
 
@@ -492,8 +492,8 @@ typedef enum
 /**
   * @brief  LCD Reset pins
   */
-#define LCD_DC_PIN                      GPIO_PIN_7		/* PA. 07*/
-#define LCD_DC_GPIO_PORT                GPIOA    		/* GPIOA */
+#define LCD_DC_PIN                      GPIO_PIN_7      /* PA. 07*/
+#define LCD_DC_GPIO_PORT                GPIOA           /* GPIOA */
 #define LCD_DC_GPIO_CLK_ENABLE()        __HAL_RCC_GPIOA_CLK_ENABLE()
 #define LCD_DC_GPIO_CLK_DISABLE()       __HAL_RCC_GPIOA_CLK_DISABLE()
 
@@ -518,26 +518,26 @@ typedef enum
 /** @defgroup STM32G071B_DISCOVERY_Exported_Functions Exported Functions
   * @{
   */
-uint32_t                BSP_GetVersion(void);
+uint32_t                BSP_GetVersion( void );
 #if defined(_GUI_INTERFACE)
-const uint8_t*          BSP_GetHWBoardVersionName(void);
-const uint8_t*          BSP_GetPDTypeName(void);
+const uint8_t          *BSP_GetHWBoardVersionName( void );
+const uint8_t          *BSP_GetPDTypeName( void );
 #endif /* _GUI_INTERFACE */
-void                    BSP_LED_Init(Led_TypeDef Led);
-void                    BSP_LED_DeInit(Led_TypeDef Led);
-void                    BSP_LED_On(Led_TypeDef Led);
-void                    BSP_LED_Off(Led_TypeDef Led);
-void                    BSP_LED_Toggle(Led_TypeDef Led);
-uint8_t                 BSP_JOY_Init(JOYMode_TypeDef Joy_Mode);
-void                    BSP_JOY_DeInit(void);
-JOYState_TypeDef        BSP_JOY_GetState(void);
-uint8_t                 BSP_DOOR_Init(DOORMode_TypeDef Door_Mode);
-void                    BSP_DOOR_DeInit(void);
-DOORState_TypeDef       BSP_DOOR_GetState(void);
-void                    BSP_MOSFET_Init(Mosfet_TypeDef Mosfet);
-void                    BSP_MOSFET_DeInit(Mosfet_TypeDef Mosfet);
-void                    BSP_MOSFET_On(Mosfet_TypeDef Mosfet);
-void                    BSP_MOSFET_Off(Mosfet_TypeDef Mosfet);
+void                    BSP_LED_Init( Led_TypeDef Led );
+void                    BSP_LED_DeInit( Led_TypeDef Led );
+void                    BSP_LED_On( Led_TypeDef Led );
+void                    BSP_LED_Off( Led_TypeDef Led );
+void                    BSP_LED_Toggle( Led_TypeDef Led );
+uint8_t                 BSP_JOY_Init( JOYMode_TypeDef Joy_Mode );
+void                    BSP_JOY_DeInit( void );
+JOYState_TypeDef        BSP_JOY_GetState( void );
+uint8_t                 BSP_DOOR_Init( DOORMode_TypeDef Door_Mode );
+void                    BSP_DOOR_DeInit( void );
+DOORState_TypeDef       BSP_DOOR_GetState( void );
+void                    BSP_MOSFET_Init( Mosfet_TypeDef Mosfet );
+void                    BSP_MOSFET_DeInit( Mosfet_TypeDef Mosfet );
+void                    BSP_MOSFET_On( Mosfet_TypeDef Mosfet );
+void                    BSP_MOSFET_Off( Mosfet_TypeDef Mosfet );
 /**
   * @}
   */

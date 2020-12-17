@@ -22,7 +22,7 @@
 extern "C" {
 #endif
 
-  /* Includes ----------------------------------------------------------------*/
+/* Includes ----------------------------------------------------------------*/
 #include <stdint.h>
 
 /* Exported types ------------------------------------------------------------*/
@@ -30,13 +30,13 @@ extern "C" {
 #define BIN_ID_NONE   0x00000000U
 #define BIN_ID_LEGACY 0x00000001U
 #define BIN_ID_UCPD   0x00000002U
-  
+
 /* Exported macros -----------------------------------------------------------*/
 
 /* Exported functions --------------------------------------------------------*/
-void      UTILS_SetImageId(uint32_t ImageId);
-uint32_t  UTILS_GetImageId(void);
-void      UTILS_DisplayBuildOption(uint32_t Timeout);
+void      UTILS_SetImageId( uint32_t ImageId );
+uint32_t  UTILS_GetImageId( void );
+void      UTILS_DisplayBuildOption( uint32_t Timeout );
 #ifdef __cplusplus
 }
 #endif

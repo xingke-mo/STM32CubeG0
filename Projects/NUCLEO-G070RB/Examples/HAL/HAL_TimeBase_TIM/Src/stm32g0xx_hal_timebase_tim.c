@@ -1,16 +1,16 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file    stm32g0xx_hal_timebase_TIM.c 
+  * @file    stm32g0xx_hal_timebase_TIM.c
   * @brief   HAL time base based on the hardware TIM.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -39,50 +39,51 @@ TIM_HandleTypeDef        htim7;
   * @param  TickPriority: Tick interrupt priority.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
+HAL_StatusTypeDef HAL_InitTick( uint32_t TickPriority )
 {
-  RCC_ClkInitTypeDef    clkconfig;
-  uint32_t              uwTimclock = 0;
-  uint32_t              uwPrescalerValue = 0;
-  uint32_t              pFLatency;
-  /*Configure the TIM7 IRQ priority */
-  HAL_NVIC_SetPriority(TIM7_IRQn, TickPriority ,0);
+    RCC_ClkInitTypeDef    clkconfig;
+    uint32_t              uwTimclock = 0;
+    uint32_t              uwPrescalerValue = 0;
+    uint32_t              pFLatency;
+    /*Configure the TIM7 IRQ priority */
+    HAL_NVIC_SetPriority( TIM7_IRQn, TickPriority, 0 );
 
-  /* Enable the TIM7 global Interrupt */
-  HAL_NVIC_EnableIRQ(TIM7_IRQn);
-  /* Enable TIM7 clock */
-  __HAL_RCC_TIM7_CLK_ENABLE();
+    /* Enable the TIM7 global Interrupt */
+    HAL_NVIC_EnableIRQ( TIM7_IRQn );
+    /* Enable TIM7 clock */
+    __HAL_RCC_TIM7_CLK_ENABLE();
 
-  /* Get clock configuration */
-  HAL_RCC_GetClockConfig(&clkconfig, &pFLatency);
+    /* Get clock configuration */
+    HAL_RCC_GetClockConfig( &clkconfig, &pFLatency );
 
-  /* Compute TIM7 clock */
-  uwTimclock = HAL_RCC_GetPCLK1Freq();
+    /* Compute TIM7 clock */
+    uwTimclock = HAL_RCC_GetPCLK1Freq();
 
-  /* Compute the prescaler value to have TIM7 counter clock equal to 1MHz */
-  uwPrescalerValue = (uint32_t) ((uwTimclock / 1000000) - 1);
+    /* Compute the prescaler value to have TIM7 counter clock equal to 1MHz */
+    uwPrescalerValue = ( uint32_t )( ( uwTimclock / 1000000 ) - 1 );
 
-  /* Initialize TIM7 */
-  htim7.Instance = TIM7;
+    /* Initialize TIM7 */
+    htim7.Instance = TIM7;
 
-  /* Initialize TIMx peripheral as follow:
-  + Period = [(TIM7CLK/1000) - 1]. to have a (1/1000) s time base.
-  + Prescaler = (uwTimclock/1000000 - 1) to have a 1MHz counter clock.
-  + ClockDivision = 0
-  + Counter direction = Up
-  */
-  htim7.Init.Period = (1000000 / 1000) - 1;
-  htim7.Init.Prescaler = uwPrescalerValue;
-  htim7.Init.ClockDivision = 0;
-  htim7.Init.CounterMode = TIM_COUNTERMODE_UP;
-  if(HAL_TIM_Base_Init(&htim7) == HAL_OK)
-  {
-    /* Start the TIM time Base generation in interrupt mode */
-    return HAL_TIM_Base_Start_IT(&htim7);
-  }
+    /* Initialize TIMx peripheral as follow:
+    + Period = [(TIM7CLK/1000) - 1]. to have a (1/1000) s time base.
+    + Prescaler = (uwTimclock/1000000 - 1) to have a 1MHz counter clock.
+    + ClockDivision = 0
+    + Counter direction = Up
+    */
+    htim7.Init.Period = ( 1000000 / 1000 ) - 1;
+    htim7.Init.Prescaler = uwPrescalerValue;
+    htim7.Init.ClockDivision = 0;
+    htim7.Init.CounterMode = TIM_COUNTERMODE_UP;
 
-  /* Return function status */
-  return HAL_ERROR;
+    if( HAL_TIM_Base_Init( &htim7 ) == HAL_OK )
+    {
+        /* Start the TIM time Base generation in interrupt mode */
+        return HAL_TIM_Base_Start_IT( &htim7 );
+    }
+
+    /* Return function status */
+    return HAL_ERROR;
 }
 
 /**
@@ -91,10 +92,10 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   * @param  None
   * @retval None
   */
-void HAL_SuspendTick(void)
+void HAL_SuspendTick( void )
 {
-  /* Disable TIM7 update Interrupt */
-  __HAL_TIM_DISABLE_IT(&htim7, TIM_IT_UPDATE);
+    /* Disable TIM7 update Interrupt */
+    __HAL_TIM_DISABLE_IT( &htim7, TIM_IT_UPDATE );
 }
 
 /**
@@ -103,10 +104,10 @@ void HAL_SuspendTick(void)
   * @param  None
   * @retval None
   */
-void HAL_ResumeTick(void)
+void HAL_ResumeTick( void )
 {
-  /* Enable TIM7 Update interrupt */
-  __HAL_TIM_ENABLE_IT(&htim7, TIM_IT_UPDATE);
+    /* Enable TIM7 Update interrupt */
+    __HAL_TIM_ENABLE_IT( &htim7, TIM_IT_UPDATE );
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

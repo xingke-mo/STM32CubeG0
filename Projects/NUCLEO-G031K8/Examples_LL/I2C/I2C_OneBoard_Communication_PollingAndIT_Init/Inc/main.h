@@ -81,7 +81,7 @@ extern "C" {
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void Error_Handler(void);
+void Error_Handler( void );
 
 /* USER CODE BEGIN EFP */
 
@@ -106,10 +106,10 @@ void Error_Handler(void);
 
 #define SLAVE_OWN_ADDRESS                       0x5A
 
-void Slave_Reception_Callback(void);
-void Slave_Complete_Callback(void);
-void UserButton_Callback(void);
-void Error_Callback(void);
+void Slave_Reception_Callback( void );
+void Slave_Complete_Callback( void );
+void UserButton_Callback( void );
+void Error_Callback( void );
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

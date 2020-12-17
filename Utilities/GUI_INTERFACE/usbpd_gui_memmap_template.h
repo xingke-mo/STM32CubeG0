@@ -22,7 +22,7 @@
 #define __USBPD_GUI_MEMMAP_H_
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -48,7 +48,7 @@
 */
 #define INDEX_PAGE              (FLASH_PAGE_NB - 1u)          /* Index of latest page                      */
 #define ADDR_FLASH_LAST_PAGE    (FLASH_BASE + (INDEX_PAGE * FLASH_PAGE_SIZE))  /* Base @ of latest page    */
-#define ADDR_FLASH_PAGE_END     (ADDR_FLASH_LAST_PAGE + FLASH_PAGE_SIZE - 1u) 
+#define ADDR_FLASH_PAGE_END     (ADDR_FLASH_LAST_PAGE + FLASH_PAGE_SIZE - 1u)
 
 #define GUI_FLASH_MAGIC_NUMBER         ADDR_FLASH_LAST_PAGE
 /* should be aligned on double word */

@@ -9,11 +9,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -50,17 +50,17 @@
 /*#define RTC_CLOCK_SOURCE_LSE*/
 
 #ifdef RTC_CLOCK_SOURCE_LSI
-/* ck_apre=LSIFreq/(ASYNC prediv + 1) = 256Hz with LSIFreq=32 kHz RC */
-#define RTC_ASYNCH_PREDIV          ((uint32_t)0x7C)
-/* ck_spre=ck_apre/(SYNC prediv + 1) = 1 Hz */
-#define RTC_SYNCH_PREDIV           ((uint32_t)0xFF)
+    /* ck_apre=LSIFreq/(ASYNC prediv + 1) = 256Hz with LSIFreq=32 kHz RC */
+    #define RTC_ASYNCH_PREDIV          ((uint32_t)0x7C)
+    /* ck_spre=ck_apre/(SYNC prediv + 1) = 1 Hz */
+    #define RTC_SYNCH_PREDIV           ((uint32_t)0xFF)
 #endif
 
 #ifdef RTC_CLOCK_SOURCE_LSE
-/* ck_apre=LSEFreq/(ASYNC prediv + 1) = 256Hz with LSEFreq=32768Hz */
-#define RTC_ASYNCH_PREDIV          ((uint32_t)0x7F)
-/* ck_spre=ck_apre/(SYNC prediv + 1) = 1 Hz */
-#define RTC_SYNCH_PREDIV           ((uint32_t)0x00FF)
+    /* ck_apre=LSEFreq/(ASYNC prediv + 1) = 256Hz with LSEFreq=32768Hz */
+    #define RTC_ASYNCH_PREDIV          ((uint32_t)0x7F)
+    /* ck_spre=ck_apre/(SYNC prediv + 1) = 1 Hz */
+    #define RTC_SYNCH_PREDIV           ((uint32_t)0x00FF)
 #endif
 
 /* USER CODE END PD */
@@ -76,19 +76,19 @@
 __IO uint8_t ubButtonPress = 0;
 
 #if (USE_TIMEOUT == 1)
-uint32_t Timeout = 0; /* Variable used for Timeout management */
+    uint32_t Timeout = 0; /* Variable used for Timeout management */
 #endif /* USE_TIMEOUT */
 
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
-void SystemClock_Config(void);
-static void MX_GPIO_Init(void);
+void SystemClock_Config( void );
+static void MX_GPIO_Init( void );
 /* USER CODE BEGIN PFP */
-void     Configure_RTC(void);
-void     EnterStandbyMode(void);
-void     LED_Blinking(uint32_t Period);
-void     WaitForUserButtonPress(void);
+void     Configure_RTC( void );
+void     EnterStandbyMode( void );
+void     LED_Blinking( uint32_t Period );
+void     WaitForUserButtonPress( void );
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -100,113 +100,118 @@ void     WaitForUserButtonPress(void);
   * @brief  The application entry point.
   * @retval int
   */
-int main(void)
+int main( void )
 {
-  /* USER CODE BEGIN 1 */
-  /* USER CODE END 1 */
+    /* USER CODE BEGIN 1 */
+    /* USER CODE END 1 */
 
-  /* MCU Configuration--------------------------------------------------------*/
+    /* MCU Configuration--------------------------------------------------------*/
 
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
 
-  LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SYSCFG);
-  LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_PWR);
+    LL_APB2_GRP1_EnableClock( LL_APB2_GRP1_PERIPH_SYSCFG );
+    LL_APB1_GRP1_EnableClock( LL_APB1_GRP1_PERIPH_PWR );
 
-  /* System interrupt init*/
+    /* System interrupt init*/
 
-  /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
-  */
-  LL_SYSCFG_DisableDBATT(LL_SYSCFG_UCPD1_STROBE | LL_SYSCFG_UCPD2_STROBE);
+    /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
+    */
+    LL_SYSCFG_DisableDBATT( LL_SYSCFG_UCPD1_STROBE | LL_SYSCFG_UCPD2_STROBE );
 
-  /* USER CODE BEGIN Init */
+    /* USER CODE BEGIN Init */
 
-  /* USER CODE END Init */
+    /* USER CODE END Init */
 
-  /* Configure the system clock */
-  SystemClock_Config();
+    /* Configure the system clock */
+    SystemClock_Config();
 
-  /* USER CODE BEGIN SysInit */
+    /* USER CODE BEGIN SysInit */
 
-  /* USER CODE END SysInit */
+    /* USER CODE END SysInit */
 
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  /* USER CODE BEGIN 2 */
+    /* Initialize all configured peripherals */
+    MX_GPIO_Init();
+    /* USER CODE BEGIN 2 */
 
-  /* Configure RTC to use WUT */
-  Configure_RTC();
-  /* Check and handle if the system was resumed from StandBy mode */
-  if (LL_PWR_IsActiveFlag_SB() != 1)
-  {
-    /* ##### Run after normal reset ##### */
-    /* Fast Toggle LED in waiting for user-button press */
-    WaitForUserButtonPress();
+    /* Configure RTC to use WUT */
+    Configure_RTC();
 
-    /* Enable wake-up timer and enter in standby mode */
-    EnterStandbyMode();
-  }
-  else
-  {
-    /* ##### Run after standby mode ##### */
-    /* Clear Standby flag */
-    LL_PWR_ClearFlag_SB();
+    /* Check and handle if the system was resumed from StandBy mode */
+    if( LL_PWR_IsActiveFlag_SB() != 1 )
+    {
+        /* ##### Run after normal reset ##### */
+        /* Fast Toggle LED in waiting for user-button press */
+        WaitForUserButtonPress();
 
-    /* Reset RTC Internal Wake up flag */
-    LL_RTC_ClearFlag_WUT(RTC);
+        /* Enable wake-up timer and enter in standby mode */
+        EnterStandbyMode();
+    }
+    else
+    {
+        /* ##### Run after standby mode ##### */
+        /* Clear Standby flag */
+        LL_PWR_ClearFlag_SB();
 
-    /* Slow Toggle LED */
-    LED_Blinking(LED_BLINK_SLOW);
-  }
+        /* Reset RTC Internal Wake up flag */
+        LL_RTC_ClearFlag_WUT( RTC );
 
-  /* USER CODE END 2 */
+        /* Slow Toggle LED */
+        LED_Blinking( LED_BLINK_SLOW );
+    }
 
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-    /* USER CODE END WHILE */
+    /* USER CODE END 2 */
 
-    /* USER CODE BEGIN 3 */
-  }
-  /* USER CODE END 3 */
+    /* Infinite loop */
+    /* USER CODE BEGIN WHILE */
+    while( 1 )
+    {
+        /* USER CODE END WHILE */
+
+        /* USER CODE BEGIN 3 */
+    }
+
+    /* USER CODE END 3 */
 }
 
 /**
   * @brief System Clock Configuration
   * @retval None
   */
-void SystemClock_Config(void)
+void SystemClock_Config( void )
 {
-  LL_FLASH_SetLatency(LL_FLASH_LATENCY_2);
+    LL_FLASH_SetLatency( LL_FLASH_LATENCY_2 );
 
-  /* HSI configuration and activation */
-  LL_RCC_HSI_Enable();
-  while(LL_RCC_HSI_IsReady() != 1)
-  {
-  }
+    /* HSI configuration and activation */
+    LL_RCC_HSI_Enable();
 
-  /* Main PLL configuration and activation */
-  LL_RCC_PLL_ConfigDomain_SYS(LL_RCC_PLLSOURCE_HSI, LL_RCC_PLLM_DIV_4, 70, LL_RCC_PLLR_DIV_5);
-  LL_RCC_PLL_Enable();
-  LL_RCC_PLL_EnableDomain_SYS();
-  while(LL_RCC_PLL_IsReady() != 1)
-  {
-  }
+    while( LL_RCC_HSI_IsReady() != 1 )
+    {
+    }
 
-  /* Set AHB prescaler*/
-  LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
+    /* Main PLL configuration and activation */
+    LL_RCC_PLL_ConfigDomain_SYS( LL_RCC_PLLSOURCE_HSI, LL_RCC_PLLM_DIV_4, 70, LL_RCC_PLLR_DIV_5 );
+    LL_RCC_PLL_Enable();
+    LL_RCC_PLL_EnableDomain_SYS();
 
-  /* Sysclk activation on the main PLL */
-  LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_PLL);
-  while(LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_PLL)
-  {
-  }
+    while( LL_RCC_PLL_IsReady() != 1 )
+    {
+    }
 
-  /* Set APB1 prescaler*/
-  LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
-  LL_Init1msTick(56000000);
-  /* Update CMSIS variable (which can be updated also through SystemCoreClockUpdate function) */
-  LL_SetSystemCoreClock(56000000);
+    /* Set AHB prescaler*/
+    LL_RCC_SetAHBPrescaler( LL_RCC_SYSCLK_DIV_1 );
+
+    /* Sysclk activation on the main PLL */
+    LL_RCC_SetSysClkSource( LL_RCC_SYS_CLKSOURCE_PLL );
+
+    while( LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_PLL )
+    {
+    }
+
+    /* Set APB1 prescaler*/
+    LL_RCC_SetAPB1Prescaler( LL_RCC_APB1_DIV_1 );
+    LL_Init1msTick( 56000000 );
+    /* Update CMSIS variable (which can be updated also through SystemCoreClockUpdate function) */
+    LL_SetSystemCoreClock( 56000000 );
 }
 
 /**
@@ -214,45 +219,45 @@ void SystemClock_Config(void)
   * @param None
   * @retval None
   */
-static void MX_GPIO_Init(void)
+static void MX_GPIO_Init( void )
 {
-  LL_EXTI_InitTypeDef EXTI_InitStruct = {0};
-  LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
+    LL_EXTI_InitTypeDef EXTI_InitStruct = {0};
+    LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
 
-  /* GPIO Ports Clock Enable */
-  LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOC);
-  LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOA);
+    /* GPIO Ports Clock Enable */
+    LL_IOP_GRP1_EnableClock( LL_IOP_GRP1_PERIPH_GPIOC );
+    LL_IOP_GRP1_EnableClock( LL_IOP_GRP1_PERIPH_GPIOA );
 
-  /**/
-  LL_GPIO_ResetOutputPin(LED4_GPIO_Port, LED4_Pin);
+    /**/
+    LL_GPIO_ResetOutputPin( LED4_GPIO_Port, LED4_Pin );
 
-  /**/
-  LL_EXTI_SetEXTISource(LL_EXTI_CONFIG_PORTC, LL_EXTI_CONFIG_LINE13);
+    /**/
+    LL_EXTI_SetEXTISource( LL_EXTI_CONFIG_PORTC, LL_EXTI_CONFIG_LINE13 );
 
-  /**/
-  EXTI_InitStruct.Line_0_31 = LL_EXTI_LINE_13;
-  EXTI_InitStruct.LineCommand = ENABLE;
-  EXTI_InitStruct.Mode = LL_EXTI_MODE_IT;
-  EXTI_InitStruct.Trigger = LL_EXTI_TRIGGER_FALLING;
-  LL_EXTI_Init(&EXTI_InitStruct);
+    /**/
+    EXTI_InitStruct.Line_0_31 = LL_EXTI_LINE_13;
+    EXTI_InitStruct.LineCommand = ENABLE;
+    EXTI_InitStruct.Mode = LL_EXTI_MODE_IT;
+    EXTI_InitStruct.Trigger = LL_EXTI_TRIGGER_FALLING;
+    LL_EXTI_Init( &EXTI_InitStruct );
 
-  /**/
-  LL_GPIO_SetPinPull(USER_BUTTON_GPIO_Port, USER_BUTTON_Pin, LL_GPIO_PULL_NO);
+    /**/
+    LL_GPIO_SetPinPull( USER_BUTTON_GPIO_Port, USER_BUTTON_Pin, LL_GPIO_PULL_NO );
 
-  /**/
-  LL_GPIO_SetPinMode(USER_BUTTON_GPIO_Port, USER_BUTTON_Pin, LL_GPIO_MODE_INPUT);
+    /**/
+    LL_GPIO_SetPinMode( USER_BUTTON_GPIO_Port, USER_BUTTON_Pin, LL_GPIO_MODE_INPUT );
 
-  /**/
-  GPIO_InitStruct.Pin = LED4_Pin;
-  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  LL_GPIO_Init(LED4_GPIO_Port, &GPIO_InitStruct);
+    /**/
+    GPIO_InitStruct.Pin = LED4_Pin;
+    GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+    GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+    GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+    GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+    LL_GPIO_Init( LED4_GPIO_Port, &GPIO_InitStruct );
 
-  /* EXTI interrupt init*/
-  NVIC_SetPriority(EXTI4_15_IRQn, 3);
-  NVIC_EnableIRQ(EXTI4_15_IRQn);
+    /* EXTI interrupt init*/
+    NVIC_SetPriority( EXTI4_15_IRQn, 3 );
+    NVIC_EnableIRQ( EXTI4_15_IRQn );
 
 }
 
@@ -263,126 +268,142 @@ static void MX_GPIO_Init(void)
   * Param   None
   * Retval  None
   */
-void Configure_RTC(void)
+void Configure_RTC( void )
 {
-  /*##-1- Enables the PWR Clock and Enables access to the backup domain #######*/
-  /* To change the source clock of the RTC feature (LSE, LSI), you have to:
-     - Enable the power clock
-     - Enable write access to configure the RTC clock source (to be done once after reset).
-     - Reset the Back up Domain
-     - Configure the needed RTC clock source */
-  LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_PWR);
+    /*##-1- Enables the PWR Clock and Enables access to the backup domain #######*/
+    /* To change the source clock of the RTC feature (LSE, LSI), you have to:
+       - Enable the power clock
+       - Enable write access to configure the RTC clock source (to be done once after reset).
+       - Reset the Back up Domain
+       - Configure the needed RTC clock source */
+    LL_APB1_GRP1_EnableClock( LL_APB1_GRP1_PERIPH_PWR );
 
-  LL_PWR_EnableBkUpAccess();
+    LL_PWR_EnableBkUpAccess();
 
-  /*##-2- Configure LSE/LSI as RTC clock source ###############################*/
+    /*##-2- Configure LSE/LSI as RTC clock source ###############################*/
 #ifdef RTC_CLOCK_SOURCE_LSE
-  /* Enable LSE only if disabled.*/
-  if (LL_RCC_LSE_IsReady() == 0)
-  {
-    LL_RCC_ForceBackupDomainReset();
-    LL_RCC_ReleaseBackupDomainReset();
-    LL_RCC_LSE_Enable();
-#if (USE_TIMEOUT == 1)
-    Timeout = LSE_TIMEOUT_VALUE;
-#endif /* USE_TIMEOUT */
-    while (LL_RCC_LSE_IsReady() != 1)
-    {
-#if (USE_TIMEOUT == 1)
-      if (LL_SYSTICK_IsActiveCounterFlag())
-      {
-        Timeout --;
-      }
-      if (Timeout == 0)
-      {
-        /* LSE activation error */
-        LED_Blinking(LED_BLINK_ERROR);
-      }
-#endif /* USE_TIMEOUT */
-    }
-    LL_RCC_SetRTCClockSource(LL_RCC_RTC_CLKSOURCE_LSE);
 
-    /*##-3- Enable RTC peripheral Clocks #######################################*/
-    /* Enable RTC Clock */
-    LL_RCC_EnableRTC();
-  }
+    /* Enable LSE only if disabled.*/
+    if( LL_RCC_LSE_IsReady() == 0 )
+    {
+        LL_RCC_ForceBackupDomainReset();
+        LL_RCC_ReleaseBackupDomainReset();
+        LL_RCC_LSE_Enable();
+#if (USE_TIMEOUT == 1)
+        Timeout = LSE_TIMEOUT_VALUE;
+#endif /* USE_TIMEOUT */
+
+        while( LL_RCC_LSE_IsReady() != 1 )
+        {
+#if (USE_TIMEOUT == 1)
+
+            if( LL_SYSTICK_IsActiveCounterFlag() )
+            {
+                Timeout --;
+            }
+
+            if( Timeout == 0 )
+            {
+                /* LSE activation error */
+                LED_Blinking( LED_BLINK_ERROR );
+            }
+
+#endif /* USE_TIMEOUT */
+        }
+
+        LL_RCC_SetRTCClockSource( LL_RCC_RTC_CLKSOURCE_LSE );
+
+        /*##-3- Enable RTC peripheral Clocks #######################################*/
+        /* Enable RTC Clock */
+        LL_RCC_EnableRTC();
+    }
+
 #elif defined(RTC_CLOCK_SOURCE_LSI)
-  if (LL_RCC_LSI_IsReady() == 0)
-  {
-    LL_RCC_ForceBackupDomainReset();
-    LL_RCC_ReleaseBackupDomainReset();
-    LL_RCC_LSI_Enable();
-#if (USE_TIMEOUT == 1)
-    Timeout = LSI_TIMEOUT_VALUE;
-#endif /* USE_TIMEOUT */
-    while (LL_RCC_LSI_IsReady() != 1)
-    {
-#if (USE_TIMEOUT == 1)
-      if (LL_SYSTICK_IsActiveCounterFlag())
-      {
-        Timeout --;
-      }
-      if (Timeout == 0)
-      {
-        /* LSI activation error */
-        LED_Blinking(LED_BLINK_ERROR);
-      }
-#endif /* USE_TIMEOUT */
-    }
-    LL_RCC_SetRTCClockSource(LL_RCC_RTC_CLKSOURCE_LSI);
 
-    /*##-3- Enable RTC peripheral Clocks #######################################*/
-    /* Enable RTC Clock */
-    LL_RCC_EnableRTC();
-  }
+    if( LL_RCC_LSI_IsReady() == 0 )
+    {
+        LL_RCC_ForceBackupDomainReset();
+        LL_RCC_ReleaseBackupDomainReset();
+        LL_RCC_LSI_Enable();
+#if (USE_TIMEOUT == 1)
+        Timeout = LSI_TIMEOUT_VALUE;
+#endif /* USE_TIMEOUT */
+
+        while( LL_RCC_LSI_IsReady() != 1 )
+        {
+#if (USE_TIMEOUT == 1)
+
+            if( LL_SYSTICK_IsActiveCounterFlag() )
+            {
+                Timeout --;
+            }
+
+            if( Timeout == 0 )
+            {
+                /* LSI activation error */
+                LED_Blinking( LED_BLINK_ERROR );
+            }
+
+#endif /* USE_TIMEOUT */
+        }
+
+        LL_RCC_SetRTCClockSource( LL_RCC_RTC_CLKSOURCE_LSI );
+
+        /*##-3- Enable RTC peripheral Clocks #######################################*/
+        /* Enable RTC Clock */
+        LL_RCC_EnableRTC();
+    }
 
 #else
 #error "configure clock for RTC"
 #endif
 
-  /*##-4- Configure RTC ######################################################*/
-  /* Enable RTC APB clock  */
-  LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_RTC);
+    /*##-4- Configure RTC ######################################################*/
+    /* Enable RTC APB clock  */
+    LL_APB1_GRP1_EnableClock( LL_APB1_GRP1_PERIPH_RTC );
 
-  /* Disable RTC registers write protection */
-  LL_RTC_DisableWriteProtection(RTC);
+    /* Disable RTC registers write protection */
+    LL_RTC_DisableWriteProtection( RTC );
 
-  /* Set prescaler according to source clock */
-  LL_RTC_SetAsynchPrescaler(RTC, RTC_ASYNCH_PREDIV);
-  LL_RTC_SetSynchPrescaler(RTC, RTC_SYNCH_PREDIV);
+    /* Set prescaler according to source clock */
+    LL_RTC_SetAsynchPrescaler( RTC, RTC_ASYNCH_PREDIV );
+    LL_RTC_SetSynchPrescaler( RTC, RTC_SYNCH_PREDIV );
 
-  /* Disable wake up timer to modify it */
-  LL_RTC_WAKEUP_Disable(RTC);
+    /* Disable wake up timer to modify it */
+    LL_RTC_WAKEUP_Disable( RTC );
 
-  /* Wait until it is allow to modify wake up reload value */
+    /* Wait until it is allow to modify wake up reload value */
 #if (USE_TIMEOUT == 1)
-  Timeout = RTC_TIMEOUT_VALUE;
+    Timeout = RTC_TIMEOUT_VALUE;
 #endif /* USE_TIMEOUT */
 
-  while (LL_RTC_IsActiveFlag_WUTW(RTC) != 1)
-  {
+    while( LL_RTC_IsActiveFlag_WUTW( RTC ) != 1 )
+    {
 #if (USE_TIMEOUT == 1)
-    if (LL_SYSTICK_IsActiveCounterFlag())
-    {
-      Timeout --;
-    }
-    if (Timeout == 0)
-    {
-      /* LSI activation error */
-      LED_Blinking(LED_BLINK_ERROR);
-    }
+
+        if( LL_SYSTICK_IsActiveCounterFlag() )
+        {
+            Timeout --;
+        }
+
+        if( Timeout == 0 )
+        {
+            /* LSI activation error */
+            LED_Blinking( LED_BLINK_ERROR );
+        }
+
 #endif /* USE_TIMEOUT */
-  }
+    }
 
-  /* Setting the Wakeup time to RTC_WUT_TIME s
-       If LL_RTC_WAKEUPCLOCK_CKSPRE is selected, the frequency is 1Hz,
-       this allows to get a wakeup time equal to RTC_WUT_TIME s
-       if the counter is RTC_WUT_TIME */
-  LL_RTC_WAKEUP_SetAutoReload(RTC, RTC_WUT_TIME);
-  LL_RTC_WAKEUP_SetClock(RTC, LL_RTC_WAKEUPCLOCK_CKSPRE);
+    /* Setting the Wakeup time to RTC_WUT_TIME s
+         If LL_RTC_WAKEUPCLOCK_CKSPRE is selected, the frequency is 1Hz,
+         this allows to get a wakeup time equal to RTC_WUT_TIME s
+         if the counter is RTC_WUT_TIME */
+    LL_RTC_WAKEUP_SetAutoReload( RTC, RTC_WUT_TIME );
+    LL_RTC_WAKEUP_SetClock( RTC, LL_RTC_WAKEUPCLOCK_CKSPRE );
 
-  /* Enable RTC registers write protection */
-  LL_RTC_EnableWriteProtection(RTC);
+    /* Enable RTC registers write protection */
+    LL_RTC_EnableWriteProtection( RTC );
 
 }
 /**
@@ -390,42 +411,42 @@ void Configure_RTC(void)
   * @param  None
   * @retval None
   */
-void EnterStandbyMode(void)
+void EnterStandbyMode( void )
 {
-  /* ######## ENABLE WUT #################################################*/
-  /* Disable RTC registers write protection */
-  LL_RTC_DisableWriteProtection(RTC);
+    /* ######## ENABLE WUT #################################################*/
+    /* Disable RTC registers write protection */
+    LL_RTC_DisableWriteProtection( RTC );
 
-  /* Enable wake up counter and wake up interrupt */
-  /* Note: Periodic wakeup interrupt should be enabled to exit the device
-     from low-power modes.*/
-  LL_RTC_EnableIT_WUT(RTC);
-  LL_RTC_WAKEUP_Enable(RTC);
+    /* Enable wake up counter and wake up interrupt */
+    /* Note: Periodic wakeup interrupt should be enabled to exit the device
+       from low-power modes.*/
+    LL_RTC_EnableIT_WUT( RTC );
+    LL_RTC_WAKEUP_Enable( RTC );
 
-  /* Enable RTC registers write protection */
-  LL_RTC_EnableWriteProtection(RTC);
+    /* Enable RTC registers write protection */
+    LL_RTC_EnableWriteProtection( RTC );
 
-  /* ######## ENTER IN STANDBY MODE ######################################*/
-  /** Request to enter STANDBY mode
-    * Following procedure describe in STM32G0xx Reference Manual
-    * See PWR part, section Low-power modes, Standby mode
-    */
-  /* Reset Internal Wake up flag */
-  LL_RTC_ClearFlag_WUT(RTC);
+    /* ######## ENTER IN STANDBY MODE ######################################*/
+    /** Request to enter STANDBY mode
+      * Following procedure describe in STM32G0xx Reference Manual
+      * See PWR part, section Low-power modes, Standby mode
+      */
+    /* Reset Internal Wake up flag */
+    LL_RTC_ClearFlag_WUT( RTC );
 
-  /* Set Standby mode */
-  LL_PWR_SetPowerMode(LL_PWR_MODE_STANDBY);
+    /* Set Standby mode */
+    LL_PWR_SetPowerMode( LL_PWR_MODE_STANDBY );
 
-  /* Set SLEEPDEEP bit of Cortex System Control Register */
-  LL_LPM_EnableDeepSleep();
+    /* Set SLEEPDEEP bit of Cortex System Control Register */
+    LL_LPM_EnableDeepSleep();
 
-  /* This option is used to ensure that store operations are completed */
+    /* This option is used to ensure that store operations are completed */
 #if defined ( __CC_ARM)
-  __force_stores();
+    __force_stores();
 #endif
 
-  /* Request Wait For Interrupt */
-  __WFI();
+    /* Request Wait For Interrupt */
+    __WFI();
 }
 
 /**
@@ -437,14 +458,14 @@ void EnterStandbyMode(void)
   *     @arg LED_BLINK_ERROR : Error specific Blinking
   * @retval None
   */
-void LED_Blinking(uint32_t Period)
+void LED_Blinking( uint32_t Period )
 {
-  /* Toggle IO in an infinite loop */
-  while (1)
-  {
-    LL_GPIO_TogglePin(LED4_GPIO_Port, LED4_Pin);
-    LL_mDelay(Period);
-  }
+    /* Toggle IO in an infinite loop */
+    while( 1 )
+    {
+        LL_GPIO_TogglePin( LED4_GPIO_Port, LED4_Pin );
+        LL_mDelay( Period );
+    }
 }
 
 /**
@@ -453,13 +474,13 @@ void LED_Blinking(uint32_t Period)
   * @retval None
   */
 /*  */
-void WaitForUserButtonPress(void)
+void WaitForUserButtonPress( void )
 {
-  while (ubButtonPress == 0)
-  {
-    LL_GPIO_TogglePin(LED4_GPIO_Port, LED4_Pin);
-    LL_mDelay(LED_BLINK_FAST);
-  }
+    while( ubButtonPress == 0 )
+    {
+        LL_GPIO_TogglePin( LED4_GPIO_Port, LED4_Pin );
+        LL_mDelay( LED_BLINK_FAST );
+    }
 }
 
 
@@ -472,10 +493,10 @@ void WaitForUserButtonPress(void)
   * @param  None
   * @retval None
   */
-void UserButton_Callback(void)
+void UserButton_Callback( void )
 {
-  /* Update User push-button variable : to be checked in waiting loop in main function */
-  ubButtonPress = 1;
+    /* Update User push-button variable : to be checked in waiting loop in main function */
+    ubButtonPress = 1;
 }
 
 /* USER CODE END 4 */
@@ -484,12 +505,12 @@ void UserButton_Callback(void)
   * @brief  This function is executed in case of error occurrence.
   * @retval None
   */
-void Error_Handler(void)
+void Error_Handler( void )
 {
-  /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
+    /* USER CODE BEGIN Error_Handler_Debug */
+    /* User can add his own implementation to report the HAL error return state */
 
-  /* USER CODE END Error_Handler_Debug */
+    /* USER CODE END Error_Handler_Debug */
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -500,17 +521,18 @@ void Error_Handler(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t *file, uint32_t line)
+void assert_failed( uint8_t *file, uint32_t line )
 {
-  /* USER CODE BEGIN 6 */
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* USER CODE BEGIN 6 */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {
-  }
-  /* USER CODE END 6 */
+    /* Infinite loop */
+    while( 1 )
+    {
+    }
+
+    /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
 

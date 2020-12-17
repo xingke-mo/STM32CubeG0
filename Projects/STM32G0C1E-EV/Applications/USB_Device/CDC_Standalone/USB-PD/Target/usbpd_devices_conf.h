@@ -138,7 +138,7 @@ extern "C" {
 #define TIMX_CHANNEL2_GETFLAG          LL_TIM_IsActiveFlag_CC2
 #define TIMX_CHANNEL3_GETFLAG          LL_TIM_IsActiveFlag_CC3
 #define TIMX_CHANNEL4_GETFLAG          LL_TIM_IsActiveFlag_CC4
-                                     
+
 #ifdef __cplusplus
 }
 #endif

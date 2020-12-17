@@ -8,11 +8,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -51,13 +51,13 @@ __IO uint32_t  ClockSourceStatus = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
-void SystemClock_Config(void);
-static void MX_GPIO_Init(void);
+void SystemClock_Config( void );
+static void MX_GPIO_Init( void );
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
-static void SystemClockHSI_Config(void);
-static void SystemClockHSE_Config(void);
-static void SwitchSystemClock(void);
+static void SystemClockHSI_Config( void );
+static void SystemClockHSE_Config( void );
+static void SwitchSystemClock( void );
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -69,107 +69,110 @@ static void SwitchSystemClock(void);
   * @brief  The application entry point.
   * @retval int
   */
-int main(void)
+int main( void )
 {
-  /* USER CODE BEGIN 1 */
-  /* USER CODE END 1 */
+    /* USER CODE BEGIN 1 */
+    /* USER CODE END 1 */
 
-  /* MCU Configuration--------------------------------------------------------*/
+    /* MCU Configuration--------------------------------------------------------*/
 
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+    HAL_Init();
 
-  /* USER CODE BEGIN Init */
+    /* USER CODE BEGIN Init */
 
-  /* USER CODE END Init */
+    /* USER CODE END Init */
 
-  /* Configure the system clock */
-  SystemClock_Config();
+    /* Configure the system clock */
+    SystemClock_Config();
 
-  /* USER CODE BEGIN SysInit */
+    /* USER CODE BEGIN SysInit */
 
-  /* USER CODE END SysInit */
+    /* USER CODE END SysInit */
 
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  /* USER CODE BEGIN 2 */
+    /* Initialize all configured peripherals */
+    MX_GPIO_Init();
+    /* USER CODE BEGIN 2 */
 
-  /* Configure LED1 and LED3 */
-  BSP_LED_Init(LED1);
-  BSP_LED_Init(LED3);
+    /* Configure LED1 and LED3 */
+    BSP_LED_Init( LED1 );
+    BSP_LED_Init( LED3 );
 
-  /* Initialize Tamper push-button, will be used to trigger an interrupt each time it's pressed.*/
-  BSP_PB_Init(BUTTON_TAMPER, BUTTON_MODE_EXTI);
+    /* Initialize Tamper push-button, will be used to trigger an interrupt each time it's pressed.*/
+    BSP_PB_Init( BUTTON_TAMPER, BUTTON_MODE_EXTI );
 
-  /* Output SYSCLK  on MCO1 pin(PA.08) */
-  HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_SYSCLK, RCC_MCODIV_1);
+    /* Output SYSCLK  on MCO1 pin(PA.08) */
+    HAL_RCC_MCOConfig( RCC_MCO1, RCC_MCO1SOURCE_SYSCLK, RCC_MCODIV_1 );
 
-  /* USER CODE END 2 */
+    /* USER CODE END 2 */
 
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
-    /* check if Tamper push-button has been pressed to switch clock config */
-    if (SwitchClock != RESET)
+    /* Infinite loop */
+    /* USER CODE BEGIN WHILE */
+    while( 1 )
     {
-      SwitchSystemClock();
+        /* USER CODE END WHILE */
+
+        /* USER CODE BEGIN 3 */
+        /* check if Tamper push-button has been pressed to switch clock config */
+        if( SwitchClock != RESET )
+        {
+            SwitchSystemClock();
+        }
+
+        /* Toggle LED1 in an infinite loop */
+        BSP_LED_Toggle( LED1 );
+        HAL_Delay( 100 );
     }
 
-    /* Toggle LED1 in an infinite loop */
-    BSP_LED_Toggle(LED1);
-    HAL_Delay(100);
-  }
-
-  /* USER CODE END 3 */
+    /* USER CODE END 3 */
 }
 
 /**
   * @brief System Clock Configuration
   * @retval None
   */
-void SystemClock_Config(void)
+void SystemClock_Config( void )
 {
-  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
-  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+    RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+    RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
-  /** Configure the main internal regulator output voltage
-  */
-  HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1);
-  /** Initializes the RCC Oscillators according to the specified parameters
-  * in the RCC_OscInitTypeDef structure.
-  */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-  RCC_OscInitStruct.HSIDiv = RCC_HSI_DIV1;
-  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLM = RCC_PLLM_DIV1;
-  RCC_OscInitStruct.PLL.PLLN = 8;
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-  RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV2;
-  RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV2;
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /** Initializes the CPU, AHB and APB buses clocks
-  */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+    /** Configure the main internal regulator output voltage
+    */
+    HAL_PWREx_ControlVoltageScaling( PWR_REGULATOR_VOLTAGE_SCALE1 );
+    /** Initializes the RCC Oscillators according to the specified parameters
+    * in the RCC_OscInitTypeDef structure.
+    */
+    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+    RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+    RCC_OscInitStruct.HSIDiv = RCC_HSI_DIV1;
+    RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+    RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+    RCC_OscInitStruct.PLL.PLLM = RCC_PLLM_DIV1;
+    RCC_OscInitStruct.PLL.PLLN = 8;
+    RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+    RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV2;
+    RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV2;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_SYSCLK, RCC_MCODIV_1);
+    if( HAL_RCC_OscConfig( &RCC_OscInitStruct ) != HAL_OK )
+    {
+        Error_Handler();
+    }
+
+    /** Initializes the CPU, AHB and APB buses clocks
+    */
+    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
+                                  | RCC_CLOCKTYPE_PCLK1;
+    RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+    RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+
+    if( HAL_RCC_ClockConfig( &RCC_ClkInitStruct, FLASH_LATENCY_2 ) != HAL_OK )
+    {
+        Error_Handler();
+    }
+
+    HAL_RCC_MCOConfig( RCC_MCO1, RCC_MCO1SOURCE_SYSCLK, RCC_MCODIV_1 );
 }
 
 /**
@@ -177,20 +180,20 @@ void SystemClock_Config(void)
   * @param None
   * @retval None
   */
-static void MX_GPIO_Init(void)
+static void MX_GPIO_Init( void )
 {
-  GPIO_InitTypeDef GPIO_InitStruct = {0};
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
 
-  /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOA_CLK_ENABLE();
+    /* GPIO Ports Clock Enable */
+    __HAL_RCC_GPIOA_CLK_ENABLE();
 
-  /*Configure GPIO pin : PA8 */
-  GPIO_InitStruct.Pin = GPIO_PIN_8;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  GPIO_InitStruct.Alternate = GPIO_AF0_MCO;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+    /*Configure GPIO pin : PA8 */
+    GPIO_InitStruct.Pin = GPIO_PIN_8;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF0_MCO;
+    HAL_GPIO_Init( GPIOA, &GPIO_InitStruct );
 
 }
 
@@ -200,12 +203,12 @@ static void MX_GPIO_Init(void)
   * @param  GPIO_Pin: Specifies the pins connected EXTI line
   * @retval None
   */
-void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
+void HAL_GPIO_EXTI_Falling_Callback( uint16_t GPIO_Pin )
 {
-  if (GPIO_Pin == TAMPER_BUTTON_PIN)
-  {
-    SwitchClock = SET;
-  }
+    if( GPIO_Pin == TAMPER_BUTTON_PIN )
+    {
+        SwitchClock = SET;
+    }
 }
 
 
@@ -213,23 +216,23 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
   * @brief  switch in system clock out of ISR context.
   * @retval None
   */
-static void SwitchSystemClock(void)
+static void SwitchSystemClock( void )
 {
-  if (__HAL_RCC_GET_PLL_OSCSOURCE() == RCC_PLLSOURCE_HSI)
-  {
-    /* PLL source is HSI oscillator */
-    /* Set SYSCLK frequency to 64000000 Hz, coming from the PLL which is clocked by HSE  */
-    SystemClockHSE_Config();
-  }
-  else if (__HAL_RCC_GET_PLL_OSCSOURCE() == RCC_PLLSOURCE_HSE)
-  {
-    /* PLL source is HSE  oscillator */
-    /* Set SYSCLK frequency to 64000000 Hz, coming from the PLL which is clocked by HSI */
-    SystemClockHSI_Config();
-  }
+    if( __HAL_RCC_GET_PLL_OSCSOURCE() == RCC_PLLSOURCE_HSI )
+    {
+        /* PLL source is HSI oscillator */
+        /* Set SYSCLK frequency to 64000000 Hz, coming from the PLL which is clocked by HSE  */
+        SystemClockHSE_Config();
+    }
+    else if( __HAL_RCC_GET_PLL_OSCSOURCE() == RCC_PLLSOURCE_HSE )
+    {
+        /* PLL source is HSE  oscillator */
+        /* Set SYSCLK frequency to 64000000 Hz, coming from the PLL which is clocked by HSI */
+        SystemClockHSI_Config();
+    }
 
-  /* reset global variable */
-  SwitchClock = RESET;
+    /* reset global variable */
+    SwitchClock = RESET;
 }
 
 /**
@@ -251,57 +254,62 @@ static void SwitchSystemClock(void)
   * @param  None
   * @retval None
   */
-static void SystemClockHSE_Config(void)
+static void SystemClockHSE_Config( void )
 {
-  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
-  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+    RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+    RCC_OscInitTypeDef RCC_OscInitStruct = {0};
 
-  /* -1- Select HSI as system clock source to allow modification of the PLL configuration */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_SYSCLK;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)  
-  {
-    /* Initialization Error */
-    Error_Handler();
-  }
+    /* -1- Select HSI as system clock source to allow modification of the PLL configuration */
+    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_SYSCLK;
+    RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
 
-  /* -2- Enable HSE  Oscillator, select it as PLL source and finally activate the PLL */
-  RCC_OscInitStruct.OscillatorType        = RCC_OSCILLATORTYPE_HSE;
-  RCC_OscInitStruct.HSEState              = RCC_HSE_ON;
-  RCC_OscInitStruct.PLL.PLLSource         = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLState          = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLM              = RCC_PLLM_DIV1;
-  RCC_OscInitStruct.PLL.PLLN              = 32;
-  RCC_OscInitStruct.PLL.PLLP              = RCC_PLLP_DIV4;
-  RCC_OscInitStruct.PLL.PLLQ              = RCC_PLLQ_DIV4;
-  RCC_OscInitStruct.PLL.PLLR              = RCC_PLLR_DIV4;
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-  {
-    /* Initialization Error */
-    Error_Handler();
-  }
+    if( HAL_RCC_ClockConfig( &RCC_ClkInitStruct, FLASH_LATENCY_0 ) != HAL_OK )
+    {
+        /* Initialization Error */
+        Error_Handler();
+    }
 
-  /* -3- Select the PLL as system clock source and configure the HCLK and PCLK1 clocks dividers */
-  RCC_ClkInitStruct.ClockType       = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1);
-  RCC_ClkInitStruct.SYSCLKSource    = RCC_SYSCLKSOURCE_PLLCLK;
-  RCC_ClkInitStruct.AHBCLKDivider   = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider  = RCC_HCLK_DIV1;
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
-  {
-    /* Initialization Error */
-    Error_Handler();
-  }
+    /* -2- Enable HSE  Oscillator, select it as PLL source and finally activate the PLL */
+    RCC_OscInitStruct.OscillatorType        = RCC_OSCILLATORTYPE_HSE;
+    RCC_OscInitStruct.HSEState              = RCC_HSE_ON;
+    RCC_OscInitStruct.PLL.PLLSource         = RCC_PLLSOURCE_HSE;
+    RCC_OscInitStruct.PLL.PLLState          = RCC_PLL_ON;
+    RCC_OscInitStruct.PLL.PLLM              = RCC_PLLM_DIV1;
+    RCC_OscInitStruct.PLL.PLLN              = 32;
+    RCC_OscInitStruct.PLL.PLLP              = RCC_PLLP_DIV4;
+    RCC_OscInitStruct.PLL.PLLQ              = RCC_PLLQ_DIV4;
+    RCC_OscInitStruct.PLL.PLLR              = RCC_PLLR_DIV4;
 
-  /* -4- Optional: Disable HSI Oscillator (if the HSI is no more needed by the application)*/
-  RCC_OscInitStruct.OscillatorType  = RCC_OSCILLATORTYPE_HSI;
-  RCC_OscInitStruct.HSIState        = RCC_HSI_OFF;
-  RCC_OscInitStruct.PLL.PLLState    = RCC_PLL_NONE;
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-  {
-    /* Initialization Error */
-    Error_Handler();
-  }
-  ClockSourceStatus = 1;
+    if( HAL_RCC_OscConfig( &RCC_OscInitStruct ) != HAL_OK )
+    {
+        /* Initialization Error */
+        Error_Handler();
+    }
+
+    /* -3- Select the PLL as system clock source and configure the HCLK and PCLK1 clocks dividers */
+    RCC_ClkInitStruct.ClockType       = ( RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 );
+    RCC_ClkInitStruct.SYSCLKSource    = RCC_SYSCLKSOURCE_PLLCLK;
+    RCC_ClkInitStruct.AHBCLKDivider   = RCC_SYSCLK_DIV1;
+    RCC_ClkInitStruct.APB1CLKDivider  = RCC_HCLK_DIV1;
+
+    if( HAL_RCC_ClockConfig( &RCC_ClkInitStruct, FLASH_LATENCY_2 ) != HAL_OK )
+    {
+        /* Initialization Error */
+        Error_Handler();
+    }
+
+    /* -4- Optional: Disable HSI Oscillator (if the HSI is no more needed by the application)*/
+    RCC_OscInitStruct.OscillatorType  = RCC_OSCILLATORTYPE_HSI;
+    RCC_OscInitStruct.HSIState        = RCC_HSI_OFF;
+    RCC_OscInitStruct.PLL.PLLState    = RCC_PLL_NONE;
+
+    if( HAL_RCC_OscConfig( &RCC_OscInitStruct ) != HAL_OK )
+    {
+        /* Initialization Error */
+        Error_Handler();
+    }
+
+    ClockSourceStatus = 1;
 }
 
 /**
@@ -323,60 +331,63 @@ static void SystemClockHSE_Config(void)
   * @param  None
   * @retval None
   */
-static void SystemClockHSI_Config(void)
+static void SystemClockHSI_Config( void )
 {
-  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
-  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+    RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+    RCC_OscInitTypeDef RCC_OscInitStruct = {0};
 
-  /* -1- Select HSE  as system clock source to allow modification of the PLL configuration */
-  RCC_ClkInitStruct.ClockType       = RCC_CLOCKTYPE_SYSCLK;
-  RCC_ClkInitStruct.SYSCLKSource    = RCC_SYSCLKSOURCE_HSE;
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
-  {
-    /* Initialization Error */
-    Error_Handler();
-  }
+    /* -1- Select HSE  as system clock source to allow modification of the PLL configuration */
+    RCC_ClkInitStruct.ClockType       = RCC_CLOCKTYPE_SYSCLK;
+    RCC_ClkInitStruct.SYSCLKSource    = RCC_SYSCLKSOURCE_HSE;
 
-  /* -2- Enable HSI Oscillator, select it as PLL source and finally activate the PLL */
-  RCC_OscInitStruct.OscillatorType       = RCC_OSCILLATORTYPE_HSI;
-  RCC_OscInitStruct.HSIState             = RCC_HSI_ON;
-  RCC_OscInitStruct.HSICalibrationValue  = RCC_HSICALIBRATION_DEFAULT;
-  RCC_OscInitStruct.PLL.PLLState         = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource        = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLM       = RCC_PLLM_DIV1;
-  RCC_OscInitStruct.PLL.PLLN       = 20;
-  RCC_OscInitStruct.PLL.PLLP       = RCC_PLLP_DIV5;
-  RCC_OscInitStruct.PLL.PLLQ       = RCC_PLLQ_DIV5;
-  RCC_OscInitStruct.PLL.PLLR       = RCC_PLLR_DIV5;
+    if( HAL_RCC_ClockConfig( &RCC_ClkInitStruct, FLASH_LATENCY_0 ) != HAL_OK )
+    {
+        /* Initialization Error */
+        Error_Handler();
+    }
 
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-  {
-    /* Initialization Error */
-    Error_Handler();
-  }
+    /* -2- Enable HSI Oscillator, select it as PLL source and finally activate the PLL */
+    RCC_OscInitStruct.OscillatorType       = RCC_OSCILLATORTYPE_HSI;
+    RCC_OscInitStruct.HSIState             = RCC_HSI_ON;
+    RCC_OscInitStruct.HSICalibrationValue  = RCC_HSICALIBRATION_DEFAULT;
+    RCC_OscInitStruct.PLL.PLLState         = RCC_PLL_ON;
+    RCC_OscInitStruct.PLL.PLLSource        = RCC_PLLSOURCE_HSI;
+    RCC_OscInitStruct.PLL.PLLM       = RCC_PLLM_DIV1;
+    RCC_OscInitStruct.PLL.PLLN       = 20;
+    RCC_OscInitStruct.PLL.PLLP       = RCC_PLLP_DIV5;
+    RCC_OscInitStruct.PLL.PLLQ       = RCC_PLLQ_DIV5;
+    RCC_OscInitStruct.PLL.PLLR       = RCC_PLLR_DIV5;
 
-  /* -3- Select the PLL as system clock source and configure the HCLK and PCLK1 clocks dividers */
-  RCC_ClkInitStruct.ClockType       = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1);
-  RCC_ClkInitStruct.SYSCLKSource    = RCC_SYSCLKSOURCE_PLLCLK;
-  RCC_ClkInitStruct.AHBCLKDivider   = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider  = RCC_HCLK_DIV1;
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
-  {
-    /* Initialization Error */
-    Error_Handler();
-  }
+    if( HAL_RCC_OscConfig( &RCC_OscInitStruct ) != HAL_OK )
+    {
+        /* Initialization Error */
+        Error_Handler();
+    }
 
-  /* -4- Optional: Disable HSE  Oscillator (if the HSE  is no more needed by the application) */
-  RCC_OscInitStruct.OscillatorType  = RCC_OSCILLATORTYPE_HSE;
-  RCC_OscInitStruct.HSEState        = RCC_HSE_OFF;
-  RCC_OscInitStruct.PLL.PLLState    = RCC_PLL_NONE;
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-  {
-    /* Initialization Error */
-    Error_Handler();
-  }
+    /* -3- Select the PLL as system clock source and configure the HCLK and PCLK1 clocks dividers */
+    RCC_ClkInitStruct.ClockType       = ( RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 );
+    RCC_ClkInitStruct.SYSCLKSource    = RCC_SYSCLKSOURCE_PLLCLK;
+    RCC_ClkInitStruct.AHBCLKDivider   = RCC_SYSCLK_DIV1;
+    RCC_ClkInitStruct.APB1CLKDivider  = RCC_HCLK_DIV1;
 
-  ClockSourceStatus = 2;
+    if( HAL_RCC_ClockConfig( &RCC_ClkInitStruct, FLASH_LATENCY_2 ) != HAL_OK )
+    {
+        /* Initialization Error */
+        Error_Handler();
+    }
+
+    /* -4- Optional: Disable HSE  Oscillator (if the HSE  is no more needed by the application) */
+    RCC_OscInitStruct.OscillatorType  = RCC_OSCILLATORTYPE_HSE;
+    RCC_OscInitStruct.HSEState        = RCC_HSE_OFF;
+    RCC_OscInitStruct.PLL.PLLState    = RCC_PLL_NONE;
+
+    if( HAL_RCC_OscConfig( &RCC_OscInitStruct ) != HAL_OK )
+    {
+        /* Initialization Error */
+        Error_Handler();
+    }
+
+    ClockSourceStatus = 2;
 
 }
 
@@ -386,17 +397,19 @@ static void SystemClockHSI_Config(void)
   * @brief  This function is executed in case of error occurrence.
   * @retval None
   */
-void Error_Handler(void)
+void Error_Handler( void )
 {
-  /* USER CODE BEGIN Error_Handler_Debug */
-  ClockSourceStatus = 0xE;
-  /* Turn LED3 on */
-  BSP_LED_On(LED3);
-  /* User can add his own implementation to report the HAL error return state */
-  while (1)
-  {
-  }
-  /* USER CODE END Error_Handler_Debug */
+    /* USER CODE BEGIN Error_Handler_Debug */
+    ClockSourceStatus = 0xE;
+    /* Turn LED3 on */
+    BSP_LED_On( LED3 );
+
+    /* User can add his own implementation to report the HAL error return state */
+    while( 1 )
+    {
+    }
+
+    /* USER CODE END Error_Handler_Debug */
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -407,16 +420,17 @@ void Error_Handler(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t *file, uint32_t line)
+void assert_failed( uint8_t *file, uint32_t line )
 {
-  /* USER CODE BEGIN 6 */
-  /* User can add his own implementation to report the file name and line number,
-    ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-  /* Infinite loop */
-  while (1)
-  {
-  }
-  /* USER CODE END 6 */
+    /* USER CODE BEGIN 6 */
+    /* User can add his own implementation to report the file name and line number,
+      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* Infinite loop */
+    while( 1 )
+    {
+    }
+
+    /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
 

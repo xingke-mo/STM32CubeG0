@@ -32,7 +32,7 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
-static uint32_t GetPage(uint32_t Address);
+static uint32_t GetPage( uint32_t Address );
 
 /* Exported functions---------------------------------------------------------*/
 /**
@@ -40,44 +40,44 @@ static uint32_t GetPage(uint32_t Address);
   * @param  Add: Address of sector to be erased.
   * @retval 0 if operation is successful, MAL_FAIL else.
   */
-uint16_t OPENBL_USB_EraseMemory(uint32_t Add)
+uint16_t OPENBL_USB_EraseMemory( uint32_t Add )
 {
-  ErrorStatus error_value;
-  uint8_t status;
-  uint32_t numpage;
-  uint32_t page;
-  uint8_t usb_ram_buffer[USB_RAM_BUFFER_SIZE];
-  uint8_t *ramaddress;
+    ErrorStatus error_value;
+    uint8_t status;
+    uint32_t numpage;
+    uint32_t page;
+    uint8_t usb_ram_buffer[USB_RAM_BUFFER_SIZE];
+    uint8_t *ramaddress;
 
-  ramaddress = (uint8_t *) usb_ram_buffer;
-  numpage = 1;
+    ramaddress = ( uint8_t * ) usb_ram_buffer;
+    numpage = 1;
 
-  *ramaddress = (uint8_t)(numpage & 0x00FFU);
-  ramaddress++;
+    *ramaddress = ( uint8_t )( numpage & 0x00FFU );
+    ramaddress++;
 
-  *ramaddress = (uint8_t)((numpage & 0xFF00U) >> 8);
-  ramaddress++;
+    *ramaddress = ( uint8_t )( ( numpage & 0xFF00U ) >> 8 );
+    ramaddress++;
 
-  page = GetPage(Add);
+    page = GetPage( Add );
 
-  *ramaddress = (uint8_t)(page & 0x00FFU);
-  ramaddress++;
+    *ramaddress = ( uint8_t )( page & 0x00FFU );
+    ramaddress++;
 
-  *ramaddress = (uint8_t)((page & 0xFF00U) >> 8);
-  ramaddress++;
+    *ramaddress = ( uint8_t )( ( page & 0xFF00U ) >> 8 );
+    ramaddress++;
 
-  error_value = OPENBL_MEM_Erase(FLASH_START_ADDRESS, (uint8_t *) usb_ram_buffer, 20);
+    error_value = OPENBL_MEM_Erase( FLASH_START_ADDRESS, ( uint8_t * ) usb_ram_buffer, 20 );
 
-  if (error_value != SUCCESS)
-  {
-    status = 1U;
-  }
-  else
-  {
-    status = 0U;
-  }
+    if( error_value != SUCCESS )
+    {
+        status = 1U;
+    }
+    else
+    {
+        status = 0U;
+    }
 
-  return status;
+    return status;
 }
 
 /**
@@ -87,23 +87,23 @@ uint16_t OPENBL_USB_EraseMemory(uint32_t Add)
   * @param  Length: Number of data to be written (in bytes).
   * @retval USBD_OK if operation is successful, MAL_FAIL else.
   */
-void OPENBL_USB_WriteMemory(uint8_t *pSrc, uint8_t *pDest, uint32_t Length)
+void OPENBL_USB_WriteMemory( uint8_t *pSrc, uint8_t *pDest, uint32_t Length )
 {
-  uint32_t mem_area;
-  uint8_t *ptemp = ((uint8_t *)(&(pDest)));
-  uint32_t addr = (uint32_t)ptemp[0] | ((uint32_t)ptemp[1] << 8) |
-                  ((uint32_t)ptemp[2] << 16) | ((uint32_t)ptemp[3] << 24);
+    uint32_t mem_area;
+    uint8_t *ptemp = ( ( uint8_t * )( &( pDest ) ) );
+    uint32_t addr = ( uint32_t )ptemp[0] | ( ( uint32_t )ptemp[1] << 8 ) |
+                    ( ( uint32_t )ptemp[2] << 16 ) | ( ( uint32_t )ptemp[3] << 24 );
 
-  OPENBL_MEM_Write(addr, pSrc, Length);
+    OPENBL_MEM_Write( addr, pSrc, Length );
 
-  /* Check if the received address is an option byte address */
-  mem_area = OPENBL_MEM_GetAddressArea(addr);
+    /* Check if the received address is an option byte address */
+    mem_area = OPENBL_MEM_GetAddressArea( addr );
 
-  if (mem_area == OB_AREA)
-  {
-    /* Launch Option Bytes reload */
-    OPENBL_MEM_OptionBytesLaunch();
-  }
+    if( mem_area == OB_AREA )
+    {
+        /* Launch Option Bytes reload */
+        OPENBL_MEM_OptionBytesLaunch();
+    }
 }
 
 /**
@@ -113,24 +113,24 @@ void OPENBL_USB_WriteMemory(uint8_t *pSrc, uint8_t *pDest, uint32_t Length)
   * @param  Length: Number of data to be read (in bytes).
   * @retval Pointer to the physical address where data should be read.
   */
-uint8_t *OPENBL_USB_ReadMemory(uint8_t *pSrc, uint8_t *pDest, uint32_t Length)
+uint8_t *OPENBL_USB_ReadMemory( uint8_t *pSrc, uint8_t *pDest, uint32_t Length )
 {
-  uint32_t memory_index;
-  uint32_t i;
-  uint8_t *ptemp = ((uint8_t *)(&(pSrc)));
-  uint32_t address = (uint32_t)ptemp[0] | ((uint32_t)ptemp[1] << 8) |
-                     ((uint32_t)ptemp[2] << 16) | ((uint32_t)ptemp[3] << 24);
+    uint32_t memory_index;
+    uint32_t i;
+    uint8_t *ptemp = ( ( uint8_t * )( &( pSrc ) ) );
+    uint32_t address = ( uint32_t )ptemp[0] | ( ( uint32_t )ptemp[1] << 8 ) |
+                       ( ( uint32_t )ptemp[2] << 16 ) | ( ( uint32_t )ptemp[3] << 24 );
 
-  memory_index = OPENBL_MEM_GetMemoryIndex(address);
+    memory_index = OPENBL_MEM_GetMemoryIndex( address );
 
-  for (i = 0; i < Length; i++)
-  {
-    pDest[i] = OPENBL_MEM_Read(address, memory_index);
-    address++;
-  }
+    for( i = 0; i < Length; i++ )
+    {
+        pDest[i] = OPENBL_MEM_Read( address, memory_index );
+        address++;
+    }
 
-  /* Return a valid address to avoid HardFault */
-  return pDest;
+    /* Return a valid address to avoid HardFault */
+    return pDest;
 }
 
 /**
@@ -140,22 +140,22 @@ uint8_t *OPENBL_USB_ReadMemory(uint8_t *pSrc, uint8_t *pDest, uint32_t Length)
   */
 
 /* Private functions ---------------------------------------------------------*/
-static uint32_t GetPage(uint32_t Address)
+static uint32_t GetPage( uint32_t Address )
 {
-  uint32_t page;
+    uint32_t page;
 
-  if (Address < (FLASH_BASE + FLASH_BANK_SIZE))
-  {
-    /* Bank 1 */
-    page = (Address - FLASH_BASE) / FLASH_PAGE_SIZE;
-  }
-  else
-  {
-    /* Bank 2 */
-    page = (Address - FLASH_BASE) / FLASH_PAGE_SIZE;
-  }
+    if( Address < ( FLASH_BASE + FLASH_BANK_SIZE ) )
+    {
+        /* Bank 1 */
+        page = ( Address - FLASH_BASE ) / FLASH_PAGE_SIZE;
+    }
+    else
+    {
+        /* Bank 2 */
+        page = ( Address - FLASH_BASE ) / FLASH_PAGE_SIZE;
+    }
 
-  return page;
+    return page;
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

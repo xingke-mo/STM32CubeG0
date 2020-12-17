@@ -24,7 +24,7 @@
 #define __USB_HOST__H__
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -55,20 +55,22 @@
   */
 
 /** Status of the application. */
-typedef enum {
-  APPLICATION_IDLE = 0,
-  APPLICATION_START,
-  APPLICATION_READY,
-  APPLICATION_DISCONNECT
-}ApplicationTypeDef;
+typedef enum
+{
+    APPLICATION_IDLE = 0,
+    APPLICATION_START,
+    APPLICATION_READY,
+    APPLICATION_DISCONNECT
+} ApplicationTypeDef;
 
 /** USER CODE BEGIN1 **/
-typedef enum {
-  HID_APP_IDLE = 0,
-  HID_APP_WAIT,
-  HID_APP_MOUSE,
-  HID_APP_KEYBOARD,
-}HID_APP_State;
+typedef enum
+{
+    HID_APP_IDLE = 0,
+    HID_APP_WAIT,
+    HID_APP_MOUSE,
+    HID_APP_KEYBOARD,
+} HID_APP_State;
 /** USER CODE END1 **/
 
 /**/
@@ -80,10 +82,10 @@ typedef enum {
 /* Exported functions -------------------------------------------------------*/
 
 /** @brief USB Host initialization function. */
-void MX_USB_HOST_Init(void);
+void MX_USB_HOST_Init( void );
 
-void MX_USB_HOST_Process(void);
-void USBH_HID_AppProcess(void);
+void MX_USB_HOST_Process( void );
+void USBH_HID_AppProcess( void );
 
 /**
   * @}

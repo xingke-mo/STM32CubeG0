@@ -34,60 +34,66 @@ extern USBH_HandleTypeDef hUsbHostFS;
 * @param  recu_level: Disk content level
 * @retval Operation result
 */
-FRESULT msc_explore_disk(char *path, uint8_t recu_level)
+FRESULT msc_explore_disk( char *path, uint8_t recu_level )
 {
-  FRESULT res = FR_OK;
-  FILINFO fno;
-  DIR dir;
-  char *fn;
-  char tmp[14];
+    FRESULT res = FR_OK;
+    FILINFO fno;
+    DIR dir;
+    char *fn;
+    char tmp[14];
 
-  res = f_opendir(&dir, path);
-  if(res == FR_OK)
-  {
-    while(USBH_MSC_IsReady(&hUsbHostFS))
+    res = f_opendir( &dir, path );
+
+    if( res == FR_OK )
     {
-      res = f_readdir(&dir, &fno);
-      if(res != FR_OK || fno.fname[0] == 0)
-      {
-        break;
-      }
-      if(fno.fname[0] == '.')
-      {
-        continue;
-      }
+        while( USBH_MSC_IsReady( &hUsbHostFS ) )
+        {
+            res = f_readdir( &dir, &fno );
 
-      fn = fno.fname;
-      strcpy(tmp, fn);
+            if( res != FR_OK || fno.fname[0] == 0 )
+            {
+                break;
+            }
 
-      if(recu_level == 1)
-      {
-        USBH_UsrLog("   |__");
-      }
-      else if(recu_level == 2)
-      {
-        USBH_UsrLog("   |   |__");
-      }
-      if((fno.fattrib & AM_DIR) == AM_DIR)
-      {
-        strcat(tmp, "\n");
-        USBH_UsrLog((void *)tmp);
-        msc_explore_disk(fn, 2);
-      }
-      else
-      {
-        strcat(tmp, "\n");
-        USBH_UsrLog((void *)tmp);
-      }
+            if( fno.fname[0] == '.' )
+            {
+                continue;
+            }
 
-      if(((fno.fattrib & AM_DIR) == AM_DIR)&&(recu_level == 2))
-      {
-        msc_explore_disk(fn, 2);
-      }
+            fn = fno.fname;
+            strcpy( tmp, fn );
+
+            if( recu_level == 1 )
+            {
+                USBH_UsrLog( "   |__" );
+            }
+            else if( recu_level == 2 )
+            {
+                USBH_UsrLog( "   |   |__" );
+            }
+
+            if( ( fno.fattrib & AM_DIR ) == AM_DIR )
+            {
+                strcat( tmp, "\n" );
+                USBH_UsrLog( ( void * )tmp );
+                msc_explore_disk( fn, 2 );
+            }
+            else
+            {
+                strcat( tmp, "\n" );
+                USBH_UsrLog( ( void * )tmp );
+            }
+
+            if( ( ( fno.fattrib & AM_DIR ) == AM_DIR ) && ( recu_level == 2 ) )
+            {
+                msc_explore_disk( fn, 2 );
+            }
+        }
+
+        f_closedir( &dir );
     }
-    f_closedir(&dir);
-  }
-  return res;
+
+    return res;
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

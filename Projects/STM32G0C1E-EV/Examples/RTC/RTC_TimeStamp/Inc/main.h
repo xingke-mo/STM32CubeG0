@@ -53,7 +53,7 @@ extern "C" {
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void Error_Handler(void);
+void Error_Handler( void );
 
 /* USER CODE BEGIN EFP */
 
@@ -77,7 +77,7 @@ void Error_Handler(void);
 #define RTC_SYNCH_PREDIV   0x00FF
 #endif
 
-void Error_Handler(void);
+void Error_Handler( void );
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

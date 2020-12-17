@@ -1,7 +1,7 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file    Demonstrations/Adafruit_LCD_1_8_SD_Joystick/Inc/stm32g0xx_it.h 
+  * @file    Demonstrations/Adafruit_LCD_1_8_SD_Joystick/Inc/stm32g0xx_it.h
   * @author  MCD Application Team
   * @brief   This file contains the headers of the interrupt handlers.
   ******************************************************************************
@@ -23,7 +23,7 @@
 #define __STM32G0xx_IT_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Private includes ----------------------------------------------------------*/
@@ -47,13 +47,13 @@
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void NMI_Handler(void);
-void HardFault_Handler(void);
-void SVC_Handler(void);
-void PendSV_Handler(void);
-void SysTick_Handler(void);
+void NMI_Handler( void );
+void HardFault_Handler( void );
+void SVC_Handler( void );
+void PendSV_Handler( void );
+void SysTick_Handler( void );
 /* USER CODE BEGIN EFP */
-void EXTI4_15_IRQHandler(void);
+void EXTI4_15_IRQHandler( void );
 /* USER CODE END EFP */
 
 #ifdef __cplusplus

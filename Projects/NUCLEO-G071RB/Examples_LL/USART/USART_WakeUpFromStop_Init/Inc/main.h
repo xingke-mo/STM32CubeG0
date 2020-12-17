@@ -70,11 +70,11 @@ extern "C" {
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void Error_Handler(void);
+void Error_Handler( void );
 
 /* USER CODE BEGIN EFP */
-void USART1_CharReception_Callback(void);
-void Error_Callback(void);
+void USART1_CharReception_Callback( void );
+void Error_Callback( void );
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

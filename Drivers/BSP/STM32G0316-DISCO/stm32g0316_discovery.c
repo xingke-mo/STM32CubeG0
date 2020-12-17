@@ -57,7 +57,7 @@
 /**
  * @brief LED variables
  */
-GPIO_TypeDef*   LED_PORT[LEDn] =  {LED2_GPIO_PORT};
+GPIO_TypeDef   *LED_PORT[LEDn] =  {LED2_GPIO_PORT};
 
 const uint16_t  LED_PIN[LEDn] =   {LED2_PIN};
 
@@ -73,9 +73,9 @@ const uint16_t  LED_PIN[LEDn] =   {LED2_PIN};
   * @brief  This method returns the STM32G0316 DISCOVERY BSP Driver revision
   * @retval version : 0xXYZR (8bits for each decimal, R for RC)
   */
-uint32_t BSP_GetVersion(void)
+uint32_t BSP_GetVersion( void )
 {
-  return __STM32G0316_DISCOVERY_BSP_VERSION;
+    return __STM32G0316_DISCOVERY_BSP_VERSION;
 }
 
 /** @addtogroup STM32G0316_DISCOVERY_Exported_Functions_LED
@@ -88,22 +88,22 @@ uint32_t BSP_GetVersion(void)
   *     @arg LED2
   * @retval None
   */
-void BSP_LED_Init(Led_TypeDef Led)
+void BSP_LED_Init( Led_TypeDef Led )
 {
-  GPIO_InitTypeDef  GPIO_InitStructure;
+    GPIO_InitTypeDef  GPIO_InitStructure;
 
-  /* Enable the GPIO_LED clock */
-  LEDx_GPIO_CLK_ENABLE(Led);
+    /* Enable the GPIO_LED clock */
+    LEDx_GPIO_CLK_ENABLE( Led );
 
-  /* Configure the GPIO_LED pin */
-  GPIO_InitStructure.Pin = LED_PIN[Led];
-  GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStructure.Pull = GPIO_NOPULL;
-  GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    /* Configure the GPIO_LED pin */
+    GPIO_InitStructure.Pin = LED_PIN[Led];
+    GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStructure.Pull = GPIO_NOPULL;
+    GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
 
-  HAL_GPIO_Init(LED_PORT[Led], &GPIO_InitStructure);
+    HAL_GPIO_Init( LED_PORT[Led], &GPIO_InitStructure );
 
-  HAL_GPIO_WritePin(LED_PORT[Led], GPIO_InitStructure.Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin( LED_PORT[Led], GPIO_InitStructure.Pin, GPIO_PIN_RESET );
 }
 
 /**
@@ -113,9 +113,9 @@ void BSP_LED_Init(Led_TypeDef Led)
   *     @arg LED2
   * @retval None
   */
-void BSP_LED_DeInit(Led_TypeDef Led)
+void BSP_LED_DeInit( Led_TypeDef Led )
 {
-  HAL_GPIO_DeInit(LED_PORT[Led], LED_PIN[Led]);
+    HAL_GPIO_DeInit( LED_PORT[Led], LED_PIN[Led] );
 }
 
 /**
@@ -125,9 +125,9 @@ void BSP_LED_DeInit(Led_TypeDef Led)
   *     @arg LED2
   * @retval None
   */
-void BSP_LED_On(Led_TypeDef Led)
+void BSP_LED_On( Led_TypeDef Led )
 {
-  HAL_GPIO_WritePin(LED_PORT[Led], LED_PIN[Led], GPIO_PIN_SET);
+    HAL_GPIO_WritePin( LED_PORT[Led], LED_PIN[Led], GPIO_PIN_SET );
 }
 
 /**
@@ -137,9 +137,9 @@ void BSP_LED_On(Led_TypeDef Led)
   *     @arg LED2
   * @retval None
   */
-void BSP_LED_Off(Led_TypeDef Led)
+void BSP_LED_Off( Led_TypeDef Led )
 {
-  HAL_GPIO_WritePin(LED_PORT[Led], LED_PIN[Led], GPIO_PIN_RESET);
+    HAL_GPIO_WritePin( LED_PORT[Led], LED_PIN[Led], GPIO_PIN_RESET );
 }
 
 /**
@@ -149,9 +149,9 @@ void BSP_LED_Off(Led_TypeDef Led)
   *     @arg LED2
   * @retval None
   */
-void BSP_LED_Toggle(Led_TypeDef Led)
+void BSP_LED_Toggle( Led_TypeDef Led )
 {
-  HAL_GPIO_TogglePin(LED_PORT[Led], LED_PIN[Led]);
+    HAL_GPIO_TogglePin( LED_PORT[Led], LED_PIN[Led] );
 }
 
 /**

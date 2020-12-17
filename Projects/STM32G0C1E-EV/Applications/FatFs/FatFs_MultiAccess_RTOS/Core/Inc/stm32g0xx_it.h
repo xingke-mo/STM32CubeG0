@@ -48,11 +48,11 @@ extern "C" {
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void NMI_Handler(void);
-void HardFault_Handler(void);
+void NMI_Handler( void );
+void HardFault_Handler( void );
 /* USER CODE BEGIN EFP */
-void SD_DETECT_PIN_IRQHandler(void);
-void EXTI4_15_IRQHandler(void);
+void SD_DETECT_PIN_IRQHandler( void );
+void EXTI4_15_IRQHandler( void );
 /* USER CODE END EFP */
 
 #ifdef __cplusplus

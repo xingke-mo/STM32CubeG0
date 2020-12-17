@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    ina230.h
   * @author  MCD Application Team
-  * @brief   This file contains all the functions prototypes for the ina230.c 
+  * @brief   This file contains all the functions prototypes for the ina230.c
   *          driver.
   ******************************************************************************
   * @attention
@@ -17,14 +17,14 @@
   *
   ******************************************************************************
   */
-  
+
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef INA230_H
 #define INA230_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -32,16 +32,16 @@
 
 /** @addtogroup BSP
   * @{
-  */ 
+  */
 
 /** @addtogroup Components
   * @{
-  */ 
+  */
 
 /** @addtogroup INA230
   * @{
   */
-  
+
 /** @defgroup INA230_Exported_Constants
   * @{
   */
@@ -150,13 +150,13 @@
 #define INA230_REG_MASK_ENABLE_LEN_Pos  (0U)
 #define INA230_REG_MASK_ENABLE_LEN_Msk  (0x1U << INA230_REG_MASK_ENABLE_LEN_Pos)  /*!< 0x0001 */
 #define INA230_REG_MASK_ENABLE_LEN      INA230_REG_MASK_ENABLE_LEN_Msk            /*!< Alert Latch Enable */
-  
+
 /*******************  Bit definition for Alert Limit register  ****************/
 #define INA230_REG_ALERT_LIMIT_DATA_Pos (0U)
 #define INA230_REG_ALERT_LIMIT_DATA_Msk (0xFFFFU << INA230_REG_ALERT_LIMIT_DATA_Pos) /*!< 0xFFFF */
 #define INA230_REG_ALERT_LIMIT_DATA     INA230_REG_ALERT_LIMIT_DATA_Msk              /*!< Alert Limit */
 
-   
+
 /** @defgroup INA230_MODE  INA230 operating mode
   * @{
   */
@@ -201,7 +201,7 @@
   * @}
   */
 
-/** @defgroup INA230_FLAG INA230 flags 
+/** @defgroup INA230_FLAG INA230 flags
   * @{
   */
 #define INA230_AFF        INA230_REG_MASK_ENABLE_AFF         /*!< Alert Function Flag   */
@@ -211,7 +211,7 @@
   * @}
   */
 
-/** @defgroup INA230_ALERTFUNC INA230 alert functions 
+/** @defgroup INA230_ALERTFUNC INA230 alert functions
   * @{
   */
 #define INA230_ALERTFUNC_SOL       INA230_REG_MASK_ENABLE_SOL         /*!< Shunt Voltage Over Limit  */
@@ -222,11 +222,11 @@
 /**
   * @}
   */
-    
+
 /**
   * @}
   */
-  
+
 #if defined(INA230_DEBUG)
 /** @defgroup INA230_Exported_Structure INA230 Exported Structure
   * @{
@@ -235,83 +235,87 @@
 #pragma anon_unions
 #endif
 
-typedef union {
-  uint16_t Register;
-  struct {
-    uint16_t MODE     :3;
-    uint16_t VSHUNTCT :3;
-    uint16_t VBUSCT   :3;
-    uint16_t AVG      :3;
-    uint16_t RESERVED :3;
-    uint16_t RST      :1;
-  };
+typedef union
+{
+    uint16_t Register;
+    struct
+    {
+        uint16_t MODE     : 3;
+        uint16_t VSHUNTCT : 3;
+        uint16_t VBUSCT   : 3;
+        uint16_t AVG      : 3;
+        uint16_t RESERVED : 3;
+        uint16_t RST      : 1;
+    };
 } INA230_Config_t;
 
-typedef union {
-  uint16_t Register;
-  struct {
-    uint16_t LEN      :1;
-    uint16_t APOL     :1;
-    uint16_t OVF      :1;
-    uint16_t CVRF     :1;
-    uint16_t AFF      :1;
-    uint16_t RESERVED :5;
-    uint16_t CNVR     :1;
-    uint16_t POL      :1;
-    uint16_t BUL      :1;
-    uint16_t BOL      :1;
-    uint16_t SUL      :1;
-    uint16_t SOL      :1;
-  };
+typedef union
+{
+    uint16_t Register;
+    struct
+    {
+        uint16_t LEN      : 1;
+        uint16_t APOL     : 1;
+        uint16_t OVF      : 1;
+        uint16_t CVRF     : 1;
+        uint16_t AFF      : 1;
+        uint16_t RESERVED : 5;
+        uint16_t CNVR     : 1;
+        uint16_t POL      : 1;
+        uint16_t BUL      : 1;
+        uint16_t BOL      : 1;
+        uint16_t SUL      : 1;
+        uint16_t SOL      : 1;
+    };
 } INA230_MaskEn_t;
 
 typedef struct
 {
-  INA230_Config_t    Config;      /*!< Configuration register (0x00)    */
-  uint16_t           VShunt;      /*!< Shunt voltage Register (0x01)    */
-  uint16_t           VBus;        /*!< Bus voltage register   (0x02)    */
-  uint16_t           Power;       /*!< Power Register         (0x03)    */
-  uint16_t           Current;     /*!< Current Register       (0x04)    */
-  uint16_t           Calibration; /*!< Calibration Registers  (0x05)    */
-  INA230_MaskEn_t    MaskEnable;  /*!< Mask/Enable Register  (0x06)     */
-  uint16_t           AlertLimit;  /*!< Alert Limit Register  (0x07)     */
-  uint16_t           DieId;       /*!< Die ID Registers      (0xFF)     */
+    INA230_Config_t    Config;      /*!< Configuration register (0x00)    */
+    uint16_t           VShunt;      /*!< Shunt voltage Register (0x01)    */
+    uint16_t           VBus;        /*!< Bus voltage register   (0x02)    */
+    uint16_t           Power;       /*!< Power Register         (0x03)    */
+    uint16_t           Current;     /*!< Current Register       (0x04)    */
+    uint16_t           Calibration; /*!< Calibration Registers  (0x05)    */
+    INA230_MaskEn_t    MaskEnable;  /*!< Mask/Enable Register  (0x06)     */
+    uint16_t           AlertLimit;  /*!< Alert Limit Register  (0x07)     */
+    uint16_t           DieId;       /*!< Die ID Registers      (0xFF)     */
 } INA230_Registers_t;
 
 /**
   * @}
   */
 #endif /* INA230_DEBUG */
-  
+
 /** @defgroup INA230_Exported_Functions
   * @{
   */
-void                        ina230_Init(uint16_t Address, PWRMON_Config_t * pConfig);
-void                        ina230_DeInit(uint16_t Address);
-uint16_t                    ina230_ReadId(uint16_t Address);
-void                        ina230_Reset(uint16_t Address);
-void                        ina230_SetCalibration(uint16_t Address, uint16_t Calibration);
-uint16_t                    ina230_GetCalibration(uint16_t);
-void                        ina230_SetAlertFunction(uint16_t Address, PWRMON_AlertFunction_t AlertFunction);
-PWRMON_AlertFunction_t      ina230_GetAlertFunction(uint16_t Address);
-void                        ina230_AlertPinConfig(uint16_t Address, PWRMON_AlertPinConfig_t * pAlertPinConfig);
-void                        ina230_SetVBusThreshold(uint16_t Address, uint16_t VBusThreshold);
-uint16_t                    ina230_GetVBusThreshold(uint16_t Address);
-void                        ina230_SetVShuntThreshold(uint16_t Address, int16_t VShuntThreshold);
-int16_t                     ina230_GetVShuntThreshold(uint16_t Address);
-void                        ina230_SetPowerThreshold(uint16_t Address, uint32_t PowerThreshold);
-uint32_t                    ina230_GetPowerThreshold(uint16_t Address);
-void                        ina230_AlertThresholdEnableIT(uint16_t Address);
-void                        ina230_AlertThresholdDisableIT(uint16_t Address);
-void                        ina230_ConversionReadyEnableIT(uint16_t Address);
-void                        ina230_ConversionReadyDisableIT(uint16_t Adress);
-void                        ina230_StartConversion(uint16_t Address, PWRMON_InputSignal_t InputSignal, PWRMON_OperatingMode_t  Mode);
-void                        ina230_StopConversion(uint16_t Address);
-uint16_t                    ina230_GetVBus(uint16_t Address);
-int16_t                     ina230_GetVShunt(uint16_t Address);
-uint16_t                    ina230_GetPower(uint16_t Address);
-int16_t                     ina230_GetCurrent(uint16_t Address);
-uint8_t                     ina230_GetFlag(uint16_t Address, PWRMON_Flag_t Flag);
+void                        ina230_Init( uint16_t Address, PWRMON_Config_t *pConfig );
+void                        ina230_DeInit( uint16_t Address );
+uint16_t                    ina230_ReadId( uint16_t Address );
+void                        ina230_Reset( uint16_t Address );
+void                        ina230_SetCalibration( uint16_t Address, uint16_t Calibration );
+uint16_t                    ina230_GetCalibration( uint16_t );
+void                        ina230_SetAlertFunction( uint16_t Address, PWRMON_AlertFunction_t AlertFunction );
+PWRMON_AlertFunction_t      ina230_GetAlertFunction( uint16_t Address );
+void                        ina230_AlertPinConfig( uint16_t Address, PWRMON_AlertPinConfig_t *pAlertPinConfig );
+void                        ina230_SetVBusThreshold( uint16_t Address, uint16_t VBusThreshold );
+uint16_t                    ina230_GetVBusThreshold( uint16_t Address );
+void                        ina230_SetVShuntThreshold( uint16_t Address, int16_t VShuntThreshold );
+int16_t                     ina230_GetVShuntThreshold( uint16_t Address );
+void                        ina230_SetPowerThreshold( uint16_t Address, uint32_t PowerThreshold );
+uint32_t                    ina230_GetPowerThreshold( uint16_t Address );
+void                        ina230_AlertThresholdEnableIT( uint16_t Address );
+void                        ina230_AlertThresholdDisableIT( uint16_t Address );
+void                        ina230_ConversionReadyEnableIT( uint16_t Address );
+void                        ina230_ConversionReadyDisableIT( uint16_t Adress );
+void                        ina230_StartConversion( uint16_t Address, PWRMON_InputSignal_t InputSignal, PWRMON_OperatingMode_t  Mode );
+void                        ina230_StopConversion( uint16_t Address );
+uint16_t                    ina230_GetVBus( uint16_t Address );
+int16_t                     ina230_GetVShunt( uint16_t Address );
+uint16_t                    ina230_GetPower( uint16_t Address );
+int16_t                     ina230_GetCurrent( uint16_t Address );
+uint8_t                     ina230_GetFlag( uint16_t Address, PWRMON_Flag_t Flag );
 /**
   * @}
   */
@@ -323,12 +327,12 @@ uint8_t                     ina230_GetFlag(uint16_t Address, PWRMON_Flag_t Flag)
 extern PWRMON_Drv_t ina230_drv;
 
 /* PWRMON IO functions */
-uint8_t  PWRMON_IO_Init(uint16_t Addr);
-void     PWRMON_IO_DeInit(uint16_t Addr);
-uint8_t  PWRMON_IO_Write(uint16_t Addr, uint8_t Reg, uint8_t * pData);
-uint8_t  PWRMON_IO_Read(uint16_t Addr, uint8_t Reg, uint8_t * pData);
-void     PWRMON_IO_EnableIT(uint16_t Addr, uint8_t ActiveEdge);
-void     PWRMON_IO_DisableIT(uint16_t Addr);
+uint8_t  PWRMON_IO_Init( uint16_t Addr );
+void     PWRMON_IO_DeInit( uint16_t Addr );
+uint8_t  PWRMON_IO_Write( uint16_t Addr, uint8_t Reg, uint8_t *pData );
+uint8_t  PWRMON_IO_Read( uint16_t Addr, uint8_t Reg, uint8_t *pData );
+void     PWRMON_IO_EnableIT( uint16_t Addr, uint8_t ActiveEdge );
+void     PWRMON_IO_DisableIT( uint16_t Addr );
 /**
   * @}
   */
@@ -339,16 +343,16 @@ void     PWRMON_IO_DisableIT(uint16_t Addr);
 
 /**
   * @}
-  */ 
-  
+  */
+
 /**
   * @}
-  */ 
+  */
 
 #ifdef __cplusplus
-  }
+}
 #endif
-  
+
 #endif /* INA230_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/ 
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

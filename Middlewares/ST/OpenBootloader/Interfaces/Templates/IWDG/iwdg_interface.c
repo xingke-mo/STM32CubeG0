@@ -32,11 +32,11 @@ static IWDG_HandleTypeDef IWDGHandle;
 /* Private functions ---------------------------------------------------------*/
 /* Exported functions --------------------------------------------------------*/
 
-void OPENBL_IWDG_Configuration(void)
+void OPENBL_IWDG_Configuration( void )
 {
 }
 
-void OPENBL_IWDG_Refresh(void)
+void OPENBL_IWDG_Refresh( void )
 {
 }
 

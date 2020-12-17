@@ -23,7 +23,7 @@
 #define __USBPD_VDM_USER_H_
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -42,8 +42,8 @@
 /* Exported macro ------------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions --------------------------------------------------------*/
-USBPD_StatusTypeDef USBPD_VDM_UserInit(uint8_t PortNum);
-void                USBPD_VDM_UserReset(uint8_t PortNum);
+USBPD_StatusTypeDef USBPD_VDM_UserInit( uint8_t PortNum );
+void                USBPD_VDM_UserReset( uint8_t PortNum );
 
 /**
   * @}

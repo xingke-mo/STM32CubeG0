@@ -18,9 +18,9 @@
   */
 #undef GLOBAL
 #ifdef __APP_THERMOMETER_C
-#define GLOBAL
+    #define GLOBAL
 #else
-#define GLOBAL extern
+    #define GLOBAL extern
 #endif
 
 /* Includes ------------------------------------------------------------------*/

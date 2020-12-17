@@ -33,24 +33,24 @@ Send_BusyByte_Func *BusyByteCallback = 0;
 uint32_t Flash_BusyState = FLASH_BUSY_STATE_DISABLED;
 
 /* Private function prototypes -----------------------------------------------*/
-static void OPENBL_FLASH_ProgramDoubleWord(uint32_t Address, uint64_t Data);
-static ErrorStatus OPENBL_FLASH_EnableWriteProtection(uint8_t *ListOfPages, uint32_t Length);
-static ErrorStatus OPENBL_FLASH_DisableWriteProtection(void);
+static void OPENBL_FLASH_ProgramDoubleWord( uint32_t Address, uint64_t Data );
+static ErrorStatus OPENBL_FLASH_EnableWriteProtection( uint8_t *ListOfPages, uint32_t Length );
+static ErrorStatus OPENBL_FLASH_DisableWriteProtection( void );
 
 /* Exported variables --------------------------------------------------------*/
 OPENBL_MemoryTypeDef FLASH_Descriptor =
 {
-  FLASH_START_ADDRESS,
-  FLASH_END_ADDRESS,
-  (512U * 1024U),
-  FLASH_AREA,
-  OPENBL_FLASH_Read,
-  OPENBL_FLASH_Write,
-  OPENBL_FLASH_SetReadOutProtectionLevel,
-  OPENBL_FLASH_SetWriteProtection,
-  OPENBL_FLASH_JumpToAddress,
-  NULL,
-  OPENBL_FLASH_Erase
+    FLASH_START_ADDRESS,
+    FLASH_END_ADDRESS,
+    ( 512U * 1024U ),
+    FLASH_AREA,
+    OPENBL_FLASH_Read,
+    OPENBL_FLASH_Write,
+    OPENBL_FLASH_SetReadOutProtectionLevel,
+    OPENBL_FLASH_SetWriteProtection,
+    OPENBL_FLASH_JumpToAddress,
+    NULL,
+    OPENBL_FLASH_Erase
 };
 
 /* Exported functions --------------------------------------------------------*/
@@ -59,7 +59,7 @@ OPENBL_MemoryTypeDef FLASH_Descriptor =
   * @brief  Unlock the FLASH control register access.
   * @retval None.
   */
-void OPENBL_FLASH_Unlock(void)
+void OPENBL_FLASH_Unlock( void )
 {
 }
 
@@ -67,7 +67,7 @@ void OPENBL_FLASH_Unlock(void)
   * @brief  Lock the FLASH control register access.
   * @retval None.
   */
-void OPENBL_FLASH_Lock(void)
+void OPENBL_FLASH_Lock( void )
 {
 }
 
@@ -75,7 +75,7 @@ void OPENBL_FLASH_Lock(void)
   * @brief  Unlock the FLASH Option Bytes Registers access.
   * @retval None.
   */
-void OPENBL_FLASH_OB_Unlock(void)
+void OPENBL_FLASH_OB_Unlock( void )
 {
 }
 
@@ -83,7 +83,7 @@ void OPENBL_FLASH_OB_Unlock(void)
   * @brief  Launch the option byte loading.
   * @retval None.
   */
-void OPENBL_FLASH_OB_Launch(void)
+void OPENBL_FLASH_OB_Launch( void )
 {
 }
 
@@ -92,9 +92,9 @@ void OPENBL_FLASH_OB_Launch(void)
   * @param  Address The address to be read.
   * @retval Returns the read value.
   */
-uint8_t OPENBL_FLASH_Read(uint32_t Address)
+uint8_t OPENBL_FLASH_Read( uint32_t Address )
 {
-  return (*(uint8_t *)(Address));
+    return ( *( uint8_t * )( Address ) );
 }
 
 /**
@@ -104,7 +104,7 @@ uint8_t OPENBL_FLASH_Read(uint32_t Address)
   * @param  DataLength The length of the data to be written.
   * @retval None.
   */
-void OPENBL_FLASH_Write(uint32_t Address, uint8_t *Data, uint32_t DataLength)
+void OPENBL_FLASH_Write( uint32_t Address, uint8_t *Data, uint32_t DataLength )
 {
 }
 
@@ -113,7 +113,7 @@ void OPENBL_FLASH_Write(uint32_t Address, uint8_t *Data, uint32_t DataLength)
   * @param  Address The address where the function will jump.
   * @retval None.
   */
-void OPENBL_FLASH_JumpToAddress(uint32_t Address)
+void OPENBL_FLASH_JumpToAddress( uint32_t Address )
 {
 }
 
@@ -124,10 +124,10 @@ void OPENBL_FLASH_JumpToAddress(uint32_t Address)
   *         @arg OB_RDP_LEVEL_1: Read protection of the memory
   *         @arg OB_RDP_LEVEL_2: Full chip protection
   */
-uint32_t OPENBL_FLASH_GetReadOutProtectionLevel(void)
+uint32_t OPENBL_FLASH_GetReadOutProtectionLevel( void )
 {
-  FLASH_OBProgramInitTypeDef flash_ob;
-  return flash_ob.RDPLevel;
+    FLASH_OBProgramInitTypeDef flash_ob;
+    return flash_ob.RDPLevel;
 }
 
 /**
@@ -138,7 +138,7 @@ uint32_t OPENBL_FLASH_GetReadOutProtectionLevel(void)
   *         @arg OB_RDP_LEVEL_2: Full chip protection
   * @retval None.
   */
-void OPENBL_FLASH_SetReadOutProtectionLevel(uint32_t Level)
+void OPENBL_FLASH_SetReadOutProtectionLevel( uint32_t Level )
 {
 }
 
@@ -153,10 +153,10 @@ void OPENBL_FLASH_SetReadOutProtectionLevel(uint32_t Level)
   *          - SUCCESS: Enable or disable of the write protection is done
   *          - ERROR:   Enable or disable of the write protection is not done
   */
-ErrorStatus OPENBL_FLASH_SetWriteProtection(FunctionalState State, uint8_t *ListOfPages, uint32_t Length)
+ErrorStatus OPENBL_FLASH_SetWriteProtection( FunctionalState State, uint8_t *ListOfPages, uint32_t Length )
 {
-  ErrorStatus status = SUCCESS;
-  return status;
+    ErrorStatus status = SUCCESS;
+    return status;
 }
 
 /**
@@ -167,10 +167,10 @@ ErrorStatus OPENBL_FLASH_SetWriteProtection(FunctionalState State, uint8_t *List
   *          - SUCCESS: Mass erase operation done
   *          - ERROR:   Mass erase operation failed or the value of one parameter is not ok
   */
-ErrorStatus OPENBL_FLASH_MassErase(uint8_t *p_Data, uint32_t DataLength)
+ErrorStatus OPENBL_FLASH_MassErase( uint8_t *p_Data, uint32_t DataLength )
 {
-  ErrorStatus status = SUCCESS;
-  return status;
+    ErrorStatus status = SUCCESS;
+    return status;
 }
 
 /**
@@ -181,10 +181,10 @@ ErrorStatus OPENBL_FLASH_MassErase(uint8_t *p_Data, uint32_t DataLength)
   *          - SUCCESS: Erase operation done
   *          - ERROR:   Erase operation failed or the value of one parameter is not ok
   */
-ErrorStatus OPENBL_FLASH_Erase(uint8_t *p_Data, uint32_t DataLength)
+ErrorStatus OPENBL_FLASH_Erase( uint8_t *p_Data, uint32_t DataLength )
 {
-  ErrorStatus status = SUCCESS;
-  return status;
+    ErrorStatus status = SUCCESS;
+    return status;
 }
 
 
@@ -193,7 +193,7 @@ ErrorStatus OPENBL_FLASH_Erase(uint8_t *p_Data, uint32_t DataLength)
  *         during flash operations
  * @retval None.
 */
-void OPENBL_Enable_BusyState_Sending(Send_BusyByte_Func *pCallback)
+void OPENBL_Enable_BusyState_Sending( Send_BusyByte_Func *pCallback )
 {
 }
 
@@ -201,7 +201,7 @@ void OPENBL_Enable_BusyState_Sending(Send_BusyByte_Func *pCallback)
  * @brief  This function is used to disable the send of busy state in I2C non stretch mode.
  * @retval None.
 */
-void OPENBL_Disable_BusyState_Sending(void)
+void OPENBL_Disable_BusyState_Sending( void )
 {
 }
 /* Private functions ---------------------------------------------------------*/
@@ -212,7 +212,7 @@ void OPENBL_Disable_BusyState_Sending(void)
   * @param  Data specifies the data to be programmed.
   * @retval None.
   */
-static void OPENBL_FLASH_ProgramDoubleWord(uint32_t Address, uint64_t Data)
+static void OPENBL_FLASH_ProgramDoubleWord( uint32_t Address, uint64_t Data )
 {
 }
 
@@ -224,10 +224,10 @@ static void OPENBL_FLASH_ProgramDoubleWord(uint32_t Address, uint64_t Data)
   *          - SUCCESS: Enable or disable of the write protection is done
   *          - ERROR:   Enable or disable of the write protection is not done
   */
-static ErrorStatus OPENBL_FLASH_EnableWriteProtection(uint8_t *ListOfPages, uint32_t Length)
+static ErrorStatus OPENBL_FLASH_EnableWriteProtection( uint8_t *ListOfPages, uint32_t Length )
 {
-  ErrorStatus status = SUCCESS;
-  return status;
+    ErrorStatus status = SUCCESS;
+    return status;
 }
 
 /**
@@ -236,10 +236,10 @@ static ErrorStatus OPENBL_FLASH_EnableWriteProtection(uint8_t *ListOfPages, uint
   *          - SUCCESS: Enable or disable of the write protection is done
   *          - ERROR:   Enable or disable of the write protection is not done
   */
-static ErrorStatus OPENBL_FLASH_DisableWriteProtection(void)
+static ErrorStatus OPENBL_FLASH_DisableWriteProtection( void )
 {
-  ErrorStatus status = SUCCESS;
-  return status;
+    ErrorStatus status = SUCCESS;
+    return status;
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

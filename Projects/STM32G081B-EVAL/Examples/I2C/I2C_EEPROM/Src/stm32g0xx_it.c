@@ -49,7 +49,7 @@ extern I2C_HandleTypeDef I2cHandle;
   * @param  None
   * @retval None
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
 }
 
@@ -58,12 +58,12 @@ void NMI_Handler(void)
   * @param  None
   * @retval None
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Hard Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -71,7 +71,7 @@ void HardFault_Handler(void)
   * @param  None
   * @retval None
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
 }
 
@@ -80,7 +80,7 @@ void SVC_Handler(void)
   * @param  None
   * @retval None
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
 }
 
@@ -89,9 +89,9 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
-  HAL_IncTick();
+    HAL_IncTick();
 }
 
 /******************************************************************************/
@@ -103,28 +103,31 @@ void SysTick_Handler(void)
 /**
   * @brief This function handles DMA1 channel 1 interrupt.
   */
-void I2Cx_DMA_TX_IRQHandler(void)
+void I2Cx_DMA_TX_IRQHandler( void )
 {
-  HAL_DMA_IRQHandler(I2cHandle.hdmatx);
+    HAL_DMA_IRQHandler( I2cHandle.hdmatx );
 }
 
 /**
   * @brief This function handles DMA1 channel 2 and channel 3 interrupts.
   */
-void I2Cx_DMA_RX_IRQHandler(void)
+void I2Cx_DMA_RX_IRQHandler( void )
 {
-  HAL_DMA_IRQHandler(I2cHandle.hdmarx);
+    HAL_DMA_IRQHandler( I2cHandle.hdmarx );
 }
 
 /**
   * @brief This function handles I2C1 global interrupt.
   */
-void I2Cx_IRQHandler(void)
+void I2Cx_IRQHandler( void )
 {
-  if (I2cHandle.Instance->ISR & (I2C_FLAG_BERR | I2C_FLAG_ARLO | I2C_FLAG_OVR)) {
-    HAL_I2C_ER_IRQHandler(&I2cHandle);
-  } else {
-    HAL_I2C_EV_IRQHandler(&I2cHandle);
-  }
+    if( I2cHandle.Instance->ISR & ( I2C_FLAG_BERR | I2C_FLAG_ARLO | I2C_FLAG_OVR ) )
+    {
+        HAL_I2C_ER_IRQHandler( &I2cHandle );
+    }
+    else
+    {
+        HAL_I2C_EV_IRQHandler( &I2cHandle );
+    }
 }
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -59,10 +59,10 @@ __IO uint8_t ubCRCValue = 0;
 
 static const uint8_t aDataBuffer[BUFFER_SIZE] =
 {
-  0x21, 0x10, 0x00, 0x00, 0x63, 0x30, 0x42, 0x20, 0xa5, 0x50, 0x84, 0x40,
-  0xe7, 0x70, 0xc6, 0x60, 0x4a, 0xa1, 0x29, 0x91, 0x8c, 0xc1, 0x6b, 0xb1,
-  0xce, 0xe1, 0xad, 0xd1, 0x31, 0x12, 0xef, 0xf1, 0x52, 0x22, 0x73, 0x32,
-  0xa1, 0xb2, 0xc3
+    0x21, 0x10, 0x00, 0x00, 0x63, 0x30, 0x42, 0x20, 0xa5, 0x50, 0x84, 0x40,
+    0xe7, 0x70, 0xc6, 0x60, 0x4a, 0xa1, 0x29, 0x91, 0x8c, 0xc1, 0x6b, 0xb1,
+    0xce, 0xe1, 0xad, 0xd1, 0x31, 0x12, 0xef, 0xf1, 0x52, 0x22, 0x73, 0x32,
+    0xa1, 0xb2, 0xc3
 };
 
 /* Expected CRC Value */
@@ -71,14 +71,14 @@ uint8_t ubExpectedCRCValue = 0xA6;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
-void SystemClock_Config(void);
-static void MX_GPIO_Init(void);
-static void MX_CRC_Init(void);
+void SystemClock_Config( void );
+static void MX_GPIO_Init( void );
+static void MX_CRC_Init( void );
 /* USER CODE BEGIN PFP */
-uint8_t  Calculate_CRC(uint32_t);
-void     CheckCRCResultValue(void);
-void     LED_On(void);
-void     LED_Blinking(uint32_t Period);
+uint8_t  Calculate_CRC( uint32_t );
+void     CheckCRCResultValue( void );
+void     LED_On( void );
+void     LED_Blinking( uint32_t Period );
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -90,87 +90,90 @@ void     LED_Blinking(uint32_t Period);
   * @brief  The application entry point.
   * @retval int
   */
-int main(void)
+int main( void )
 {
-  /* USER CODE BEGIN 1 */
+    /* USER CODE BEGIN 1 */
 
 
-  /* USER CODE END 1 */
+    /* USER CODE END 1 */
 
-  /* MCU Configuration--------------------------------------------------------*/
+    /* MCU Configuration--------------------------------------------------------*/
 
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
 
-  LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SYSCFG);
-  LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_PWR);
+    LL_APB2_GRP1_EnableClock( LL_APB2_GRP1_PERIPH_SYSCFG );
+    LL_APB1_GRP1_EnableClock( LL_APB1_GRP1_PERIPH_PWR );
 
-  /* System interrupt init*/
+    /* System interrupt init*/
 
-  /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
-  */
-  LL_SYSCFG_DisableDBATT(LL_SYSCFG_UCPD1_STROBE | LL_SYSCFG_UCPD2_STROBE);
+    /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
+    */
+    LL_SYSCFG_DisableDBATT( LL_SYSCFG_UCPD1_STROBE | LL_SYSCFG_UCPD2_STROBE );
 
-  /* USER CODE BEGIN Init */
+    /* USER CODE BEGIN Init */
 
-  /* USER CODE END Init */
+    /* USER CODE END Init */
 
-  /* Configure the system clock */
-  SystemClock_Config();
+    /* Configure the system clock */
+    SystemClock_Config();
 
-  /* USER CODE BEGIN SysInit */
+    /* USER CODE BEGIN SysInit */
 
-  /* USER CODE END SysInit */
+    /* USER CODE END SysInit */
 
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  MX_CRC_Init();
-  /* USER CODE BEGIN 2 */
+    /* Initialize all configured peripherals */
+    MX_GPIO_Init();
+    MX_CRC_Init();
+    /* USER CODE BEGIN 2 */
 
-  /* Perform CRC calculation on data contained in aDataBuffer */
-  ubCRCValue = Calculate_CRC(BUFFER_SIZE);
+    /* Perform CRC calculation on data contained in aDataBuffer */
+    ubCRCValue = Calculate_CRC( BUFFER_SIZE );
 
-  /* Check if CRC computed result value is equal to expected one */
-  CheckCRCResultValue();
+    /* Check if CRC computed result value is equal to expected one */
+    CheckCRCResultValue();
 
-  /* USER CODE END 2 */
+    /* USER CODE END 2 */
 
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-    /* USER CODE END WHILE */
+    /* Infinite loop */
+    /* USER CODE BEGIN WHILE */
+    while( 1 )
+    {
+        /* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */
-  }
-  /* USER CODE END 3 */
+        /* USER CODE BEGIN 3 */
+    }
+
+    /* USER CODE END 3 */
 }
 
 /**
   * @brief System Clock Configuration
   * @retval None
   */
-void SystemClock_Config(void)
+void SystemClock_Config( void )
 {
-  /* HSI configuration and activation */
-  LL_RCC_HSI_Enable();
-  while(LL_RCC_HSI_IsReady() != 1)
-  {
-  }
+    /* HSI configuration and activation */
+    LL_RCC_HSI_Enable();
 
-  /* Set AHB prescaler*/
-  LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
+    while( LL_RCC_HSI_IsReady() != 1 )
+    {
+    }
 
-  /* Sysclk activation on the HSI */
-  LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_HSI);
-  while(LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_HSI)
-  {
-  }
+    /* Set AHB prescaler*/
+    LL_RCC_SetAHBPrescaler( LL_RCC_SYSCLK_DIV_1 );
 
-  /* Set APB1 prescaler*/
-  LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
-  LL_Init1msTick(16000000);
-  /* Update CMSIS variable (which can be updated also through SystemCoreClockUpdate function) */
-  LL_SetSystemCoreClock(16000000);
+    /* Sysclk activation on the HSI */
+    LL_RCC_SetSysClkSource( LL_RCC_SYS_CLKSOURCE_HSI );
+
+    while( LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_HSI )
+    {
+    }
+
+    /* Set APB1 prescaler*/
+    LL_RCC_SetAPB1Prescaler( LL_RCC_APB1_DIV_1 );
+    LL_Init1msTick( 16000000 );
+    /* Update CMSIS variable (which can be updated also through SystemCoreClockUpdate function) */
+    LL_SetSystemCoreClock( 16000000 );
 }
 
 /**
@@ -178,31 +181,31 @@ void SystemClock_Config(void)
   * @param None
   * @retval None
   */
-static void MX_CRC_Init(void)
+static void MX_CRC_Init( void )
 {
 
-  /* USER CODE BEGIN CRC_Init 0 */
+    /* USER CODE BEGIN CRC_Init 0 */
 
-  /* USER CODE END CRC_Init 0 */
+    /* USER CODE END CRC_Init 0 */
 
-  /* Peripheral clock enable */
-  LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_CRC);
+    /* Peripheral clock enable */
+    LL_AHB1_GRP1_EnableClock( LL_AHB1_GRP1_PERIPH_CRC );
 
-  /* USER CODE BEGIN CRC_Init 1 */
+    /* USER CODE BEGIN CRC_Init 1 */
 
-  /* USER CODE END CRC_Init 1 */
-  LL_CRC_SetInputDataReverseMode(CRC, LL_CRC_INDATA_REVERSE_NONE);
-  LL_CRC_SetOutputDataReverseMode(CRC, LL_CRC_OUTDATA_REVERSE_NONE);
-  LL_CRC_SetPolynomialCoef(CRC, LL_CRC_DEFAULT_CRC32_POLY);
-  LL_CRC_SetPolynomialSize(CRC, LL_CRC_POLYLENGTH_32B);
-  LL_CRC_SetInitialData(CRC, LL_CRC_DEFAULT_CRC_INITVALUE);
-  /* USER CODE BEGIN CRC_Init 2 */
+    /* USER CODE END CRC_Init 1 */
+    LL_CRC_SetInputDataReverseMode( CRC, LL_CRC_INDATA_REVERSE_NONE );
+    LL_CRC_SetOutputDataReverseMode( CRC, LL_CRC_OUTDATA_REVERSE_NONE );
+    LL_CRC_SetPolynomialCoef( CRC, LL_CRC_DEFAULT_CRC32_POLY );
+    LL_CRC_SetPolynomialSize( CRC, LL_CRC_POLYLENGTH_32B );
+    LL_CRC_SetInitialData( CRC, LL_CRC_DEFAULT_CRC_INITVALUE );
+    /* USER CODE BEGIN CRC_Init 2 */
 
-  /* Configure CRC calculation unit with user defined polynomial value, 8-bit long */
-  LL_CRC_SetPolynomialCoef(CRC, CRC8_POLYNOMIAL_VALUE);
-  LL_CRC_SetPolynomialSize(CRC, LL_CRC_POLYLENGTH_8B);
+    /* Configure CRC calculation unit with user defined polynomial value, 8-bit long */
+    LL_CRC_SetPolynomialCoef( CRC, CRC8_POLYNOMIAL_VALUE );
+    LL_CRC_SetPolynomialSize( CRC, LL_CRC_POLYLENGTH_8B );
 
-  /* USER CODE END CRC_Init 2 */
+    /* USER CODE END CRC_Init 2 */
 
 }
 
@@ -211,23 +214,23 @@ static void MX_CRC_Init(void)
   * @param None
   * @retval None
   */
-static void MX_GPIO_Init(void)
+static void MX_GPIO_Init( void )
 {
-  LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
+    LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
 
-  /* GPIO Ports Clock Enable */
-  LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOA);
+    /* GPIO Ports Clock Enable */
+    LL_IOP_GRP1_EnableClock( LL_IOP_GRP1_PERIPH_GPIOA );
 
-  /**/
-  LL_GPIO_ResetOutputPin(LED4_GPIO_Port, LED4_Pin);
+    /**/
+    LL_GPIO_ResetOutputPin( LED4_GPIO_Port, LED4_Pin );
 
-  /**/
-  GPIO_InitStruct.Pin = LED4_Pin;
-  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  LL_GPIO_Init(LED4_GPIO_Port, &GPIO_InitStruct);
+    /**/
+    GPIO_InitStruct.Pin = LED4_Pin;
+    GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+    GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+    GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+    GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+    LL_GPIO_Init( LED4_GPIO_Port, &GPIO_InitStruct );
 
 }
 
@@ -238,38 +241,40 @@ static void MX_GPIO_Init(void)
   * @param  BufferSize Nb of bytes to be processed for CRC calculation
   * @retval 8-bit CRC value computed on input data buffer
   */
-uint8_t Calculate_CRC(uint32_t BufferSize)
+uint8_t Calculate_CRC( uint32_t BufferSize )
 {
-  register uint32_t data = 0;
-  register uint32_t index = 0;
+    register uint32_t data = 0;
+    register uint32_t index = 0;
 
-  /* Compute the CRC of Data Buffer array*/
-  for (index = 0; index < (BufferSize / 4); index++)
-  {
-    data = (uint32_t)((aDataBuffer[4 * index + 3] << 24) | (aDataBuffer[4 * index + 2] << 16) | (aDataBuffer[4 * index + 1] << 8) | aDataBuffer[4 * index]);
-    LL_CRC_FeedData32(CRC, data);
-  }
+    /* Compute the CRC of Data Buffer array*/
+    for( index = 0; index < ( BufferSize / 4 ); index++ )
+    {
+        data = ( uint32_t )( ( aDataBuffer[4 * index + 3] << 24 ) | ( aDataBuffer[4 * index + 2] << 16 ) | ( aDataBuffer[4 * index + 1] << 8 ) | aDataBuffer[4 * index] );
+        LL_CRC_FeedData32( CRC, data );
+    }
 
-  /* Last bytes specific handling */
-  if ((BUFFER_SIZE % 4) != 0)
-  {
-    if (BUFFER_SIZE % 4 == 1)
+    /* Last bytes specific handling */
+    if( ( BUFFER_SIZE % 4 ) != 0 )
     {
-      LL_CRC_FeedData8(CRC, aDataBuffer[4 * index]);
-    }
-    if (BUFFER_SIZE % 4 == 2)
-    {
-      LL_CRC_FeedData16(CRC, (uint16_t)((aDataBuffer[4 * index + 1] << 8) | aDataBuffer[4 * index]));
-    }
-    if (BUFFER_SIZE % 4 == 3)
-    {
-      LL_CRC_FeedData16(CRC, (uint16_t)((aDataBuffer[4 * index + 1] << 8) | aDataBuffer[4 * index]));
-      LL_CRC_FeedData8(CRC, aDataBuffer[4 * index + 2]);
-    }
-  }
+        if( BUFFER_SIZE % 4 == 1 )
+        {
+            LL_CRC_FeedData8( CRC, aDataBuffer[4 * index] );
+        }
 
-  /* Return computed CRC value */
-  return (LL_CRC_ReadData8(CRC));
+        if( BUFFER_SIZE % 4 == 2 )
+        {
+            LL_CRC_FeedData16( CRC, ( uint16_t )( ( aDataBuffer[4 * index + 1] << 8 ) | aDataBuffer[4 * index] ) );
+        }
+
+        if( BUFFER_SIZE % 4 == 3 )
+        {
+            LL_CRC_FeedData16( CRC, ( uint16_t )( ( aDataBuffer[4 * index + 1] << 8 ) | aDataBuffer[4 * index] ) );
+            LL_CRC_FeedData8( CRC, aDataBuffer[4 * index + 2] );
+        }
+    }
+
+    /* Return computed CRC value */
+    return ( LL_CRC_ReadData8( CRC ) );
 }
 
 /**
@@ -277,19 +282,19 @@ uint8_t Calculate_CRC(uint32_t BufferSize)
   * @param  None
   * @retval None
   */
-void CheckCRCResultValue(void)
+void CheckCRCResultValue( void )
 {
-  /* Compare the CRC value to the Expected one */
-  if (ubCRCValue != ubExpectedCRCValue)
-  {
-    /* Wrong CRC value: Set LED4 to Blinking mode (Error) */
-    LED_Blinking(LED_BLINK_ERROR);
-  }
-  else
-  {
-    /* Right CRC value: Turn LED4 on */
-    LED_On();
-  }
+    /* Compare the CRC value to the Expected one */
+    if( ubCRCValue != ubExpectedCRCValue )
+    {
+        /* Wrong CRC value: Set LED4 to Blinking mode (Error) */
+        LED_Blinking( LED_BLINK_ERROR );
+    }
+    else
+    {
+        /* Right CRC value: Turn LED4 on */
+        LED_On();
+    }
 }
 
 /**
@@ -297,10 +302,10 @@ void CheckCRCResultValue(void)
   * @param  None
   * @retval None
   */
-void LED_On(void)
+void LED_On( void )
 {
-  /* Turn LED4 on */
-  LL_GPIO_SetOutputPin(LED4_GPIO_Port, LED4_Pin);
+    /* Turn LED4 on */
+    LL_GPIO_SetOutputPin( LED4_GPIO_Port, LED4_Pin );
 }
 
 /**
@@ -312,14 +317,14 @@ void LED_On(void)
   *     @arg LED_BLINK_ERROR : Error specific Blinking
   * @retval None
   */
-void LED_Blinking(uint32_t Period)
+void LED_Blinking( uint32_t Period )
 {
-  /* Toggle IO in an infinite loop */
-  while (1)
-  {
-    LL_GPIO_TogglePin(LED4_GPIO_Port, LED4_Pin);
-    LL_mDelay(Period);
-  }
+    /* Toggle IO in an infinite loop */
+    while( 1 )
+    {
+        LL_GPIO_TogglePin( LED4_GPIO_Port, LED4_Pin );
+        LL_mDelay( Period );
+    }
 }
 
 
@@ -331,12 +336,12 @@ void LED_Blinking(uint32_t Period)
   * @brief  This function is executed in case of error occurrence.
   * @retval None
   */
-void Error_Handler(void)
+void Error_Handler( void )
 {
-  /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
+    /* USER CODE BEGIN Error_Handler_Debug */
+    /* User can add his own implementation to report the HAL error return state */
 
-  /* USER CODE END Error_Handler_Debug */
+    /* USER CODE END Error_Handler_Debug */
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -347,17 +352,18 @@ void Error_Handler(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t *file, uint32_t line)
+void assert_failed( uint8_t *file, uint32_t line )
 {
-  /* USER CODE BEGIN 6 */
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d", file, line) */
+    /* USER CODE BEGIN 6 */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {
-  }
-  /* USER CODE END 6 */
+    /* Infinite loop */
+    while( 1 )
+    {
+    }
+
+    /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
 

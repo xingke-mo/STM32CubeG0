@@ -106,13 +106,13 @@ extern USBD_VIDEO_ItfTypeDef USBD_VIDEO_fops_FS;
   * @brief  Manages the DMA full transfer complete event.
   * @retval None
   */
-void TransferComplete_CallBack_FS(void);
+void TransferComplete_CallBack_FS( void );
 
 /**
   * @brief  Manages the DMA half transfer complete event.
   * @retval None
   */
-void HalfTransfer_CallBack_FS(void);
+void HalfTransfer_CallBack_FS( void );
 
 /* USER CODE BEGIN EXPORTED_FUNCTIONS */
 

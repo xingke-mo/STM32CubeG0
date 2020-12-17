@@ -7,11 +7,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -61,24 +61,24 @@
 /**
   * Initializes the Global MSP.
   */
-void HAL_MspInit(void)
+void HAL_MspInit( void )
 {
-  /* USER CODE BEGIN MspInit 0 */
+    /* USER CODE BEGIN MspInit 0 */
 
-  /* USER CODE END MspInit 0 */
+    /* USER CODE END MspInit 0 */
 
-  __HAL_RCC_SYSCFG_CLK_ENABLE();
-  __HAL_RCC_PWR_CLK_ENABLE();
+    __HAL_RCC_SYSCFG_CLK_ENABLE();
+    __HAL_RCC_PWR_CLK_ENABLE();
 
-  /* System interrupt init*/
+    /* System interrupt init*/
 
-  /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
-  */
-  HAL_SYSCFG_StrobeDBattpinsConfig(SYSCFG_CFGR1_UCPD1_STROBE | SYSCFG_CFGR1_UCPD2_STROBE);
+    /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
+    */
+    HAL_SYSCFG_StrobeDBattpinsConfig( SYSCFG_CFGR1_UCPD1_STROBE | SYSCFG_CFGR1_UCPD2_STROBE );
 
-  /* USER CODE BEGIN MspInit 1 */
+    /* USER CODE BEGIN MspInit 1 */
 
-  /* USER CODE END MspInit 1 */
+    /* USER CODE END MspInit 1 */
 }
 
 /**
@@ -87,49 +87,51 @@ void HAL_MspInit(void)
 * @param hrtc: RTC handle pointer
 * @retval None
 */
-void HAL_RTC_MspInit(RTC_HandleTypeDef* hrtc)
+void HAL_RTC_MspInit( RTC_HandleTypeDef *hrtc )
 {
-  if(hrtc->Instance==RTC)
-  {
-  /* USER CODE BEGIN RTC_MspInit 0 */
-    RCC_OscInitTypeDef        RCC_OscInitStruct = {0};
-    RCC_PeriphCLKInitTypeDef  PeriphClkInitStruct = {0};
-
-    /* Enables the PWR Clock and Enables access to the backup domain */
-    /* To change the source clock of the RTC feature (LSE, LSI), You have to:
-       - Enable the power clock using __HAL_RCC_PWR_CLK_ENABLE()
-       - Enable write access using HAL_PWR_EnableBkUpAccess() function before to
-         configure the RTC clock source (to be done once after reset).
-       - Reset the Back up Domain using __HAL_RCC_BACKUPRESET_FORCE() and
-         __HAL_RCC_BACKUPRESET_RELEASE().
-       - Configure the needed RTc clock source */
-    __HAL_RCC_PWR_CLK_ENABLE();
-    HAL_PWR_EnableBkUpAccess();
-
-    /* Configure LSE as RTC clock source */
-    RCC_OscInitStruct.OscillatorType =  RCC_OSCILLATORTYPE_LSE;
-    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
-    RCC_OscInitStruct.LSEState = RCC_LSE_ON;
-    if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+    if( hrtc->Instance == RTC )
     {
-      Error_Handler();
+        /* USER CODE BEGIN RTC_MspInit 0 */
+        RCC_OscInitTypeDef        RCC_OscInitStruct = {0};
+        RCC_PeriphCLKInitTypeDef  PeriphClkInitStruct = {0};
+
+        /* Enables the PWR Clock and Enables access to the backup domain */
+        /* To change the source clock of the RTC feature (LSE, LSI), You have to:
+           - Enable the power clock using __HAL_RCC_PWR_CLK_ENABLE()
+           - Enable write access using HAL_PWR_EnableBkUpAccess() function before to
+             configure the RTC clock source (to be done once after reset).
+           - Reset the Back up Domain using __HAL_RCC_BACKUPRESET_FORCE() and
+             __HAL_RCC_BACKUPRESET_RELEASE().
+           - Configure the needed RTc clock source */
+        __HAL_RCC_PWR_CLK_ENABLE();
+        HAL_PWR_EnableBkUpAccess();
+
+        /* Configure LSE as RTC clock source */
+        RCC_OscInitStruct.OscillatorType =  RCC_OSCILLATORTYPE_LSE;
+        RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+        RCC_OscInitStruct.LSEState = RCC_LSE_ON;
+
+        if( HAL_RCC_OscConfig( &RCC_OscInitStruct ) != HAL_OK )
+        {
+            Error_Handler();
+        }
+
+        PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_RTC;
+        PeriphClkInitStruct.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
+
+        if( HAL_RCCEx_PeriphCLKConfig( &PeriphClkInitStruct ) != HAL_OK )
+        {
+            Error_Handler();
+        }
+
+        /* USER CODE END RTC_MspInit 0 */
+        /* Peripheral clock enable */
+        __HAL_RCC_RTC_ENABLE();
+        __HAL_RCC_RTCAPB_CLK_ENABLE();
+        /* USER CODE BEGIN RTC_MspInit 1 */
+
+        /* USER CODE END RTC_MspInit 1 */
     }
-
-    PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_RTC;
-    PeriphClkInitStruct.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
-    if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
-    {
-      Error_Handler();
-    }
-
-  /* USER CODE END RTC_MspInit 0 */
-    /* Peripheral clock enable */
-    __HAL_RCC_RTC_ENABLE();
-    __HAL_RCC_RTCAPB_CLK_ENABLE();
-  /* USER CODE BEGIN RTC_MspInit 1 */
-
-  /* USER CODE END RTC_MspInit 1 */
-  }
 
 }
 
@@ -139,22 +141,22 @@ void HAL_RTC_MspInit(RTC_HandleTypeDef* hrtc)
 * @param hrtc: RTC handle pointer
 * @retval None
 */
-void HAL_RTC_MspDeInit(RTC_HandleTypeDef* hrtc)
+void HAL_RTC_MspDeInit( RTC_HandleTypeDef *hrtc )
 {
-  if(hrtc->Instance==RTC)
-  {
-  /* USER CODE BEGIN RTC_MspDeInit 0 */
+    if( hrtc->Instance == RTC )
+    {
+        /* USER CODE BEGIN RTC_MspDeInit 0 */
 
-  /* USER CODE END RTC_MspDeInit 0 */
-    /* Peripheral clock disable */
-    __HAL_RCC_RTC_DISABLE();
-    __HAL_RCC_RTCAPB_CLK_DISABLE();
-  /* USER CODE BEGIN RTC_MspDeInit 1 */
-    /* Disables the PWR Clock and Disables access to the backup domain */
-    HAL_PWR_DisableBkUpAccess();
-    __HAL_RCC_PWR_CLK_DISABLE();
-  /* USER CODE END RTC_MspDeInit 1 */
-  }
+        /* USER CODE END RTC_MspDeInit 0 */
+        /* Peripheral clock disable */
+        __HAL_RCC_RTC_DISABLE();
+        __HAL_RCC_RTCAPB_CLK_DISABLE();
+        /* USER CODE BEGIN RTC_MspDeInit 1 */
+        /* Disables the PWR Clock and Disables access to the backup domain */
+        HAL_PWR_DisableBkUpAccess();
+        __HAL_RCC_PWR_CLK_DISABLE();
+        /* USER CODE END RTC_MspDeInit 1 */
+    }
 
 }
 

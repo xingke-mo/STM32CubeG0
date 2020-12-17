@@ -54,34 +54,34 @@ extern "C" {
 
 typedef enum
 {
-  MSC_INIT = 0,
-  MSC_IDLE,
-  MSC_TEST_UNIT_READY,
-  MSC_READ_CAPACITY10,
-  MSC_READ_INQUIRY,
-  MSC_REQUEST_SENSE,
-  MSC_READ,
-  MSC_WRITE,
-  MSC_UNRECOVERED_ERROR,
-  MSC_PERIODIC_CHECK,
+    MSC_INIT = 0,
+    MSC_IDLE,
+    MSC_TEST_UNIT_READY,
+    MSC_READ_CAPACITY10,
+    MSC_READ_INQUIRY,
+    MSC_REQUEST_SENSE,
+    MSC_READ,
+    MSC_WRITE,
+    MSC_UNRECOVERED_ERROR,
+    MSC_PERIODIC_CHECK,
 }
 MSC_StateTypeDef;
 
 typedef enum
 {
-  MSC_OK,
-  MSC_NOT_READY,
-  MSC_ERROR,
+    MSC_OK,
+    MSC_NOT_READY,
+    MSC_ERROR,
 
 }
 MSC_ErrorTypeDef;
 
 typedef enum
 {
-  MSC_REQ_IDLE = 0,
-  MSC_REQ_RESET,
-  MSC_REQ_GET_MAX_LUN,
-  MSC_REQ_ERROR,
+    MSC_REQ_IDLE = 0,
+    MSC_REQ_RESET,
+    MSC_REQ_GET_MAX_LUN,
+    MSC_REQ_ERROR,
 }
 MSC_ReqStateTypeDef;
 
@@ -93,13 +93,13 @@ MSC_ReqStateTypeDef;
 /* Structure for LUN */
 typedef struct
 {
-  MSC_StateTypeDef            state;
-  MSC_ErrorTypeDef            error;
-  USBH_StatusTypeDef          prev_ready_state;
-  SCSI_CapacityTypeDef        capacity;
-  SCSI_SenseTypeDef           sense;
-  SCSI_StdInquiryDataTypeDef  inquiry;
-  uint8_t                     state_changed;
+    MSC_StateTypeDef            state;
+    MSC_ErrorTypeDef            error;
+    USBH_StatusTypeDef          prev_ready_state;
+    SCSI_CapacityTypeDef        capacity;
+    SCSI_SenseTypeDef           sense;
+    SCSI_StdInquiryDataTypeDef  inquiry;
+    uint8_t                     state_changed;
 
 }
 MSC_LUNTypeDef;
@@ -107,23 +107,23 @@ MSC_LUNTypeDef;
 /* Structure for MSC process */
 typedef struct _MSC_Process
 {
-  uint8_t              max_lun;
-  uint8_t              Reserved[3];
-  uint8_t              InPipe;
-  uint8_t              OutPipe;
-  uint8_t              OutEp;
-  uint8_t              InEp;
-  uint16_t             OutEpSize;
-  uint16_t             InEpSize;
-  MSC_StateTypeDef     state;
-  MSC_ErrorTypeDef     error;
-  MSC_ReqStateTypeDef  req_state;
-  MSC_ReqStateTypeDef  prev_req_state;
-  BOT_HandleTypeDef    hbot;
-  MSC_LUNTypeDef       unit[MAX_SUPPORTED_LUN];
-  uint16_t             current_lun;
-  uint16_t             rw_lun;
-  uint32_t             timer;
+    uint8_t              max_lun;
+    uint8_t              Reserved[3];
+    uint8_t              InPipe;
+    uint8_t              OutPipe;
+    uint8_t              OutEp;
+    uint8_t              InEp;
+    uint16_t             OutEpSize;
+    uint16_t             InEpSize;
+    MSC_StateTypeDef     state;
+    MSC_ErrorTypeDef     error;
+    MSC_ReqStateTypeDef  req_state;
+    MSC_ReqStateTypeDef  prev_req_state;
+    BOT_HandleTypeDef    hbot;
+    MSC_LUNTypeDef       unit[MAX_SUPPORTED_LUN];
+    uint16_t             current_lun;
+    uint16_t             rw_lun;
+    uint32_t             timer;
 }
 MSC_HandleTypeDef;
 
@@ -172,18 +172,18 @@ extern USBH_ClassTypeDef  USBH_msc;
 /** @defgroup USBH_MSC_CORE_Exported_FunctionsPrototype
   * @{
   */
-uint8_t USBH_MSC_IsReady(USBH_HandleTypeDef *phost);
-uint8_t USBH_MSC_GetMaxLUN(USBH_HandleTypeDef *phost);
-uint8_t USBH_MSC_UnitIsReady(USBH_HandleTypeDef *phost, uint8_t lun);
+uint8_t USBH_MSC_IsReady( USBH_HandleTypeDef *phost );
+uint8_t USBH_MSC_GetMaxLUN( USBH_HandleTypeDef *phost );
+uint8_t USBH_MSC_UnitIsReady( USBH_HandleTypeDef *phost, uint8_t lun );
 
-USBH_StatusTypeDef USBH_MSC_GetLUNInfo(USBH_HandleTypeDef *phost, uint8_t lun,
-                                       MSC_LUNTypeDef *info);
+USBH_StatusTypeDef USBH_MSC_GetLUNInfo( USBH_HandleTypeDef *phost, uint8_t lun,
+                                        MSC_LUNTypeDef *info );
 
-USBH_StatusTypeDef USBH_MSC_Read(USBH_HandleTypeDef *phost, uint8_t lun,
-                                 uint32_t address, uint8_t *pbuf, uint32_t length);
+USBH_StatusTypeDef USBH_MSC_Read( USBH_HandleTypeDef *phost, uint8_t lun,
+                                  uint32_t address, uint8_t *pbuf, uint32_t length );
 
-USBH_StatusTypeDef USBH_MSC_Write(USBH_HandleTypeDef *phost, uint8_t lun,
-                                  uint32_t address, uint8_t *pbuf, uint32_t length);
+USBH_StatusTypeDef USBH_MSC_Write( USBH_HandleTypeDef *phost, uint8_t lun,
+                                   uint32_t address, uint8_t *pbuf, uint32_t length );
 /**
   * @}
   */

@@ -33,7 +33,7 @@
 extern OPENBL_CommandsTypeDef OPENBL_USART_Commands;
 
 /* Exported functions ------------------------------------------------------- */
-OPENBL_CommandsTypeDef *OPENBL_USART_GetCommandsList(void);
+OPENBL_CommandsTypeDef *OPENBL_USART_GetCommandsList( void );
 
 #endif /* OPENBL_USART_CMD_H */
 

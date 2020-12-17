@@ -28,8 +28,8 @@
 #define NPY_NO_DEPRECATED_API NPY_1_15_API_VERSION
 
 #ifdef WIN
-#pragma warning( disable : 4013 ) 
-#pragma warning( disable : 4244 ) 
+    #pragma warning( disable : 4013 )
+    #pragma warning( disable : 4244 )
 #endif
 
 #include <Python.h>
@@ -40,33 +40,34 @@
 
 
 #ifdef CMSISDSP
-#include "arm_math.h"
-#define MODNAME "cmsisdsp"
-#define MODINITNAME cmsisdsp
-#endif 
+    #include "arm_math.h"
+    #define MODNAME "cmsisdsp"
+    #define MODINITNAME cmsisdsp
+#endif
 
 #include <numpy/arrayobject.h>
 #include <numpy/ndarraytypes.h>
 
 #if PY_MAJOR_VERSION >= 3
-#define IS_PY3K
+    #define IS_PY3K
 #endif
 
-struct module_state {
+struct module_state
+{
     PyObject *error;
 };
 
 #if PY_MAJOR_VERSION >= 3
-#define GETSTATE(m) ((struct module_state*)PyModule_GetState(m))
+    #define GETSTATE(m) ((struct module_state*)PyModule_GetState(m))
 #else
-#define GETSTATE(m) (&_state)
-static struct module_state _state;
+    #define GETSTATE(m) (&_state)
+    static struct module_state _state;
 #endif
 
-static PyObject *
-error_out(PyObject *m) {
-    struct module_state *st = GETSTATE(m);
-    PyErr_SetString(st->error, "something bad happened");
+static PyObject *error_out( PyObject *m )
+{
+    struct module_state *st = GETSTATE( m );
+    PyErr_SetString( st->error, "something bad happened" );
     return NULL;
 }
 
@@ -96,14 +97,14 @@ static PyObject *                                                             \
 Method_##NAME##_##FIELD(ml_##NAME##Object *self, PyObject *ignored)\
 {                                                                             \
     return(Py_BuildValue(FORMAT,self->instance->FIELD));                      \
-}                                                                             
-    
+}
+
 #define GETFIELDARRAY(NAME,FIELD,FORMAT)                                           \
 static PyObject *                                                             \
 Method_##NAME##_##FIELD(ml_##NAME##Object *self, PyObject *ignored)\
 {                                                                             \
     return(specific_##NAME##_##FIELD(self->instance));                      \
-}  
+}
 
 #define INITARRAYFIELD(FIELD,FORMAT,SRCFORMAT,DSTFORMAT)                         \
     if (FIELD)                                                                \
@@ -253,10 +254,10 @@ arm_matrix_instance_##EXT *EXT##MatrixFromNumpy(PyObject *o)                   \
                                                                              \
 }
 
-MATRIXFROMNUMPY(f32,float32_t,double,NPY_DOUBLE);
-MATRIXFROMNUMPY(f64,float64_t,double,NPY_DOUBLE);
-MATRIXFROMNUMPY(q31,q31_t,int32_t,NPY_INT32);
-MATRIXFROMNUMPY(q15,q15_t,int16_t,NPY_INT16);
+MATRIXFROMNUMPY( f32, float32_t, double, NPY_DOUBLE );
+MATRIXFROMNUMPY( f64, float64_t, double, NPY_DOUBLE );
+MATRIXFROMNUMPY( q31, q31_t, int32_t, NPY_INT32 );
+MATRIXFROMNUMPY( q15, q15_t, int16_t, NPY_INT16 );
 
 #define CREATEMATRIX(EXT,TYP)                                        \
 arm_matrix_instance_##EXT *create##EXT##Matrix(uint32_t r,uint32_t c)\
@@ -270,10 +271,10 @@ arm_matrix_instance_##EXT *create##EXT##Matrix(uint32_t r,uint32_t c)\
     return(s);                                                       \
 }
 
-CREATEMATRIX(f32,float32_t);
-CREATEMATRIX(f64,float64_t);
-CREATEMATRIX(q31,q31_t);
-CREATEMATRIX(q15,q15_t);
+CREATEMATRIX( f32, float32_t );
+CREATEMATRIX( f64, float64_t );
+CREATEMATRIX( q31, q31_t );
+CREATEMATRIX( q15, q15_t );
 
 #define NUMPYARRAYFROMMATRIX(EXT,NUMPYTYPE_FROMC)                                  \
 PyObject *NumpyArrayFrom##EXT##Matrix(arm_matrix_instance_##EXT *mat)              \
@@ -286,33 +287,36 @@ PyObject *NumpyArrayFrom##EXT##Matrix(arm_matrix_instance_##EXT *mat)           
     return(OBJ);                                                                   \
 }
 
-NUMPYARRAYFROMMATRIX(f32,NPY_FLOAT);
-NUMPYARRAYFROMMATRIX(f64,NPY_DOUBLE);
-NUMPYARRAYFROMMATRIX(q31,NPY_INT32);
-NUMPYARRAYFROMMATRIX(q15,NPY_INT16);
+NUMPYARRAYFROMMATRIX( f32, NPY_FLOAT );
+NUMPYARRAYFROMMATRIX( f64, NPY_DOUBLE );
+NUMPYARRAYFROMMATRIX( q31, NPY_INT32 );
+NUMPYARRAYFROMMATRIX( q15, NPY_INT16 );
 
 //#include "specific.h"
 #include "cmsismodule.h"
 
 #if 0
-static PyObject *cmsisml_test(PyObject *obj, PyObject *args)
+static PyObject *cmsisml_test( PyObject *obj, PyObject *args )
 {
-    ml_arm_svm_linear_instance_f32Object *self=NULL;
-    PyObject *svm, *vector=NULL;
+    ml_arm_svm_linear_instance_f32Object *self = NULL;
+    PyObject *svm, *vector = NULL;
 
-    if (!PyArg_ParseTuple(args, "OO", &svm,&vector))
-        return NULL;
-
-    self=(ml_arm_svm_linear_instance_f32Object*)svm;
-    if (self)
+    if( !PyArg_ParseTuple( args, "OO", &svm, &vector ) )
     {
-        if (self->instance)
+        return NULL;
+    }
+
+    self = ( ml_arm_svm_linear_instance_f32Object * )svm;
+
+    if( self )
+    {
+        if( self->instance )
         {
             int result;
-            float32_t *input=NULL;
-            GETCARRAY(vector,input,NPY_DOUBLE,double,float32_t);
-            
-            arm_svm_linear_predict_f32(self->instance,input,&result);
+            float32_t *input = NULL;
+            GETCARRAY( vector, input, NPY_DOUBLE, double, float32_t );
+
+            arm_svm_linear_predict_f32( self->instance, input, &result );
             /*
             printf("Dual\n");
             for(int i = 0 ; i < self->instance->nbOfSupportVectors ; i++)
@@ -336,73 +340,82 @@ static PyObject *cmsisml_test(PyObject *obj, PyObject *args)
                 printf("%d\n",self->instance->classes[i]);
             }
             printf("Intercept %f\n",self->instance->intercept);
-*/
-            PyMem_Free(input);
-            return(Py_BuildValue("i",result));
+            */
+            PyMem_Free( input );
+            return( Py_BuildValue( "i", result ) );
         }
     }
-    return(Py_BuildValue("i",-1));
+
+    return( Py_BuildValue( "i", -1 ) );
 }
 #endif
 
 #ifdef IS_PY3K
-static int cmsisml_traverse(PyObject *m, visitproc visit, void *arg) {
-    Py_VISIT(GETSTATE(m)->error);
+static int cmsisml_traverse( PyObject *m, visitproc visit, void *arg )
+{
+    Py_VISIT( GETSTATE( m )->error );
     return 0;
 }
 
-static int cmsisml_clear(PyObject *m) {
-    Py_CLEAR(GETSTATE(m)->error);
+static int cmsisml_clear( PyObject *m )
+{
+    Py_CLEAR( GETSTATE( m )->error );
     return 0;
 }
 
 
-static struct PyModuleDef moduledef = {
-        PyModuleDef_HEAD_INIT,
-        MODNAME,
-        NULL,
-        sizeof(struct module_state),
-        CMSISMLMethods,
-        NULL,
-        cmsisml_traverse,
-        cmsisml_clear,
-        NULL
+static struct PyModuleDef moduledef =
+{
+    PyModuleDef_HEAD_INIT,
+    MODNAME,
+    NULL,
+    sizeof( struct module_state ),
+    CMSISMLMethods,
+    NULL,
+    cmsisml_traverse,
+    cmsisml_clear,
+    NULL
 };
 
 #define INITERROR return NULL
 
 PyMODINIT_FUNC
-CAT(PyInit_,MODINITNAME)(void)
+CAT( PyInit_, MODINITNAME )( void )
 
 
 #else
 #define INITERROR return
 
-void CAT(init,MODINITNAME)(void)
+void CAT( init, MODINITNAME )( void )
 #endif
 {
     import_array();
 
-  #ifdef IS_PY3K
-    PyObject *module = PyModule_Create(&moduledef);
-  #else
-    PyObject *module = Py_InitModule(MODNAME, CMSISMLMethods);
-  #endif
+#ifdef IS_PY3K
+    PyObject *module = PyModule_Create( &moduledef );
+#else
+    PyObject *module = Py_InitModule( MODNAME, CMSISMLMethods );
+#endif
 
-  if (module == NULL)
-      INITERROR;
-  struct module_state *st = GETSTATE(module);
-  
-  st->error = PyErr_NewException(MODNAME".Error", NULL, NULL);
-  if (st->error == NULL) {
-      Py_DECREF(module);
-      INITERROR;
-  }
+    if( module == NULL )
+    {
+        INITERROR;
+    }
+
+    struct module_state *st = GETSTATE( module );
+
+    st->error = PyErr_NewException( MODNAME".Error", NULL, NULL );
+
+    if( st->error == NULL )
+    {
+        Py_DECREF( module );
+        INITERROR;
+    }
 
 
-  typeRegistration(module);
+    typeRegistration( module );
 
-  #ifdef IS_PY3K
+#ifdef IS_PY3K
     return module;
-  #endif
+#endif
 }

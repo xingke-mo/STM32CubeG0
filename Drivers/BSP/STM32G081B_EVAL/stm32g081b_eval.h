@@ -332,13 +332,13 @@ typedef enum
 #define EVAL_I2C1_FORCE_RESET()          __HAL_RCC_I2C1_FORCE_RESET()
 #define EVAL_I2C1_RELEASE_RESET()        __HAL_RCC_I2C1_RELEASE_RESET()
 
-#define EVAL_I2C1_SCL_PIN                GPIO_PIN_6		/* PB.6 */
-#define EVAL_I2C1_SDA_PIN                GPIO_PIN_7		/* PB.7 */
+#define EVAL_I2C1_SCL_PIN                GPIO_PIN_6     /* PB.6 */
+#define EVAL_I2C1_SDA_PIN                GPIO_PIN_7     /* PB.7 */
 
-#define EVAL_I2C1_GPIO_PORT		 GPIOB			/* GPIOB */
-#define EVAL_I2C1_GPIO_CLK_ENABLE()    	 __HAL_RCC_GPIOB_CLK_ENABLE()
+#define EVAL_I2C1_GPIO_PORT      GPIOB          /* GPIOB */
+#define EVAL_I2C1_GPIO_CLK_ENABLE()      __HAL_RCC_GPIOB_CLK_ENABLE()
 #define EVAL_I2C1_GPIO_CLK_DISABLE()     __HAL_RCC_GPIOB_CLK_DISABLE()
-#define EVAL_I2C1_SCL_SDA_AF		 GPIO_AF6_I2C1
+#define EVAL_I2C1_SCL_SDA_AF         GPIO_AF6_I2C1
 
 /* Definition for I2C2 Pins */
 #define EVAL_I2C2                       I2C2
@@ -347,11 +347,11 @@ typedef enum
 #define EVAL_I2C2_FORCE_RESET()         __HAL_RCC_I2C2_FORCE_RESET()
 #define EVAL_I2C2_RELEASE_RESET()       __HAL_RCC_I2C2_RELEASE_RESET()
 
-#define EVAL_I2C2_SCL_PIN               GPIO_PIN_13		/* PB.13 */
-#define EVAL_I2C2_SDA_PIN               GPIO_PIN_14		/* PB.14 */
+#define EVAL_I2C2_SCL_PIN               GPIO_PIN_13     /* PB.13 */
+#define EVAL_I2C2_SDA_PIN               GPIO_PIN_14     /* PB.14 */
 
-#define EVAL_I2C2_GPIO_PORT           	GPIOB                   /* GPIOB */
-#define EVAL_I2C2_GPIO_CLK_ENABLE()    	__HAL_RCC_GPIOB_CLK_ENABLE()
+#define EVAL_I2C2_GPIO_PORT             GPIOB                   /* GPIOB */
+#define EVAL_I2C2_GPIO_CLK_ENABLE()     __HAL_RCC_GPIOB_CLK_ENABLE()
 #define EVAL_I2C2_GPIO_CLK_DISABLE()    __HAL_RCC_GPIOB_CLK_DISABLE()
 #define EVAL_I2C2_AF                    GPIO_AF6_I2C2
 
@@ -535,26 +535,26 @@ typedef enum
 /** @defgroup STM32G081B_EVAL_Exported_Functions Exported Functions
   * @{
   */
-uint32_t                BSP_GetVersion(void);
+uint32_t                BSP_GetVersion( void );
 #if defined(_GUI_INTERFACE)
-const uint8_t*          BSP_GetHWBoardVersionName(void);
-const uint8_t*          BSP_GetPDTypeName(void);
+const uint8_t          *BSP_GetHWBoardVersionName( void );
+const uint8_t          *BSP_GetPDTypeName( void );
 #endif /* _GUI_INTERFACE */
-void                    BSP_LED_Init(Led_TypeDef Led);
-void                    BSP_LED_DeInit(Led_TypeDef Led);
-void                    BSP_LED_On(Led_TypeDef Led);
-void                    BSP_LED_Off(Led_TypeDef Led);
-void                    BSP_LED_Toggle(Led_TypeDef Led);
-void                    BSP_PB_Init(Button_TypeDef Button, ButtonMode_TypeDef Button_Mode);
-uint32_t                BSP_PB_GetState(Button_TypeDef Button);
-uint8_t                 BSP_JOY_Init(JOYMode_TypeDef Joy_Mode);
-void                    BSP_JOY_DeInit(void);
-JOYState_TypeDef        BSP_JOY_GetState(void);
+void                    BSP_LED_Init( Led_TypeDef Led );
+void                    BSP_LED_DeInit( Led_TypeDef Led );
+void                    BSP_LED_On( Led_TypeDef Led );
+void                    BSP_LED_Off( Led_TypeDef Led );
+void                    BSP_LED_Toggle( Led_TypeDef Led );
+void                    BSP_PB_Init( Button_TypeDef Button, ButtonMode_TypeDef Button_Mode );
+uint32_t                BSP_PB_GetState( Button_TypeDef Button );
+uint8_t                 BSP_JOY_Init( JOYMode_TypeDef Joy_Mode );
+void                    BSP_JOY_DeInit( void );
+JOYState_TypeDef        BSP_JOY_GetState( void );
 #if defined(HAL_UART_MODULE_ENABLED)
-void                    BSP_COM_Init(COM_TypeDef COM, UART_HandleTypeDef* huart);
+void                    BSP_COM_Init( COM_TypeDef COM, UART_HandleTypeDef *huart );
 #endif /* HAL_UART_MODULE_ENABLED */
 #if defined(HAL_ADC_MODULE_ENABLED)
-uint8_t BSP_DB_GetId(DBId_TypeDef *pDaughterBoardId);
+uint8_t BSP_DB_GetId( DBId_TypeDef *pDaughterBoardId );
 #endif /* HAL_ADC_MODULE_ENABLED */
 /**
   * @}

@@ -9,11 +9,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -39,25 +39,25 @@
 /* Private variables ---------------------------------------------------------*/
 static const uint32_t aSRC_Const_Buffer[BUFFER_SIZE] =
 {
-  0x01020304, 0x05060708, 0x090A0B0C, 0x0D0E0F10,
-  0x11121314, 0x15161718, 0x191A1B1C, 0x1D1E1F20,
-  0x21222324, 0x25262728, 0x292A2B2C, 0x2D2E2F30,
-  0x31323334, 0x35363738, 0x393A3B3C, 0x3D3E3F40,
-  0x41424344, 0x45464748, 0x494A4B4C, 0x4D4E4F50,
-  0x51525354, 0x55565758, 0x595A5B5C, 0x5D5E5F60,
-  0x61626364, 0x65666768, 0x696A6B6C, 0x6D6E6F70,
-  0x71727374, 0x75767778, 0x797A7B7C, 0x7D7E7F80
+    0x01020304, 0x05060708, 0x090A0B0C, 0x0D0E0F10,
+    0x11121314, 0x15161718, 0x191A1B1C, 0x1D1E1F20,
+    0x21222324, 0x25262728, 0x292A2B2C, 0x2D2E2F30,
+    0x31323334, 0x35363738, 0x393A3B3C, 0x3D3E3F40,
+    0x41424344, 0x45464748, 0x494A4B4C, 0x4D4E4F50,
+    0x51525354, 0x55565758, 0x595A5B5C, 0x5D5E5F60,
+    0x61626364, 0x65666768, 0x696A6B6C, 0x6D6E6F70,
+    0x71727374, 0x75767778, 0x797A7B7C, 0x7D7E7F80
 };
 
 static uint32_t aDST_Buffer[BUFFER_SIZE];
 
 /* Private function prototypes -----------------------------------------------*/
-void     SystemClock_Config(void);
-void     Configure_DMA(void);
-uint8_t  Buffercmp(uint32_t* pBuffer1, uint32_t* pBuffer2, uint32_t BufferLength);
-void     LED_Init(void);
-void     LED_On(void);
-void     LED_Blinking(uint32_t Period);
+void     SystemClock_Config( void );
+void     Configure_DMA( void );
+uint8_t  Buffercmp( uint32_t *pBuffer1, uint32_t *pBuffer2, uint32_t BufferLength );
+void     LED_Init( void );
+void     LED_On( void );
+void     LED_Blinking( uint32_t Period );
 /* Private functions ---------------------------------------------------------*/
 
 /**
@@ -65,30 +65,30 @@ void     LED_Blinking(uint32_t Period);
   * @param  None
   * @retval None
   */
-int main(void)
+int main( void )
 {
-  /* Configure the system clock to 16 MHz */
-  SystemClock_Config();
+    /* Configure the system clock to 16 MHz */
+    SystemClock_Config();
 
-  /* Initialize LED4 */
-  LED_Init();
+    /* Initialize LED4 */
+    LED_Init();
 
-  /* Configure DMA1 Channel 1                                    */
-  /* Enable DMA1 clock                                           */
-  /* Configure the DMA functional parameters :                  */
-  /*        - Transfer memory word to memory word in normal mode */
-  /*        - Memory and Periph increment mode                   */
-  /* Configure NVIC for DMA transfer complete/error interrupts   */
-  Configure_DMA();
+    /* Configure DMA1 Channel 1                                    */
+    /* Enable DMA1 clock                                           */
+    /* Configure the DMA functional parameters :                  */
+    /*        - Transfer memory word to memory word in normal mode */
+    /*        - Memory and Periph increment mode                   */
+    /* Configure NVIC for DMA transfer complete/error interrupts   */
+    Configure_DMA();
 
-  /* Start the DMA transfer Flash to Memory */
-  LL_DMA_EnableChannel(DMA1, LL_DMA_CHANNEL_1);
-  
-  /* Infinite loop */
-  while (1)
-  {
-    /* Transfer completion and comparison is done on interrupt callback directly */
-  }
+    /* Start the DMA transfer Flash to Memory */
+    LL_DMA_EnableChannel( DMA1, LL_DMA_CHANNEL_1 );
+
+    /* Infinite loop */
+    while( 1 )
+    {
+        /* Transfer completion and comparison is done on interrupt callback directly */
+    }
 }
 
 /**
@@ -104,24 +104,24 @@ int main(void)
   * @param   None
   * @retval  None
   */
-void Configure_DMA(void)
+void Configure_DMA( void )
 {
-  /* (1) Enable the clock of DMA1 */
-  LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_DMA1);
+    /* (1) Enable the clock of DMA1 */
+    LL_AHB1_GRP1_EnableClock( LL_AHB1_GRP1_PERIPH_DMA1 );
 
-  /* (2) Configure the DMA functional parameters */
-  /* Configuration of the DMA parameters can be done using unitary functions or using the specific configure function */ 
-  /* Unitary Functions */
+    /* (2) Configure the DMA functional parameters */
+    /* Configuration of the DMA parameters can be done using unitary functions or using the specific configure function */
+    /* Unitary Functions */
 
-  LL_DMA_SetDataTransferDirection(DMA1, LL_DMA_CHANNEL_1, LL_DMA_DIRECTION_MEMORY_TO_MEMORY);
-  LL_DMA_SetChannelPriorityLevel(DMA1, LL_DMA_CHANNEL_1, LL_DMA_PRIORITY_HIGH);
-  LL_DMA_SetMode(DMA1, LL_DMA_CHANNEL_1, LL_DMA_MODE_NORMAL);
-  LL_DMA_SetPeriphIncMode(DMA1, LL_DMA_CHANNEL_1, LL_DMA_PERIPH_INCREMENT);
-  LL_DMA_SetMemoryIncMode(DMA1, LL_DMA_CHANNEL_1, LL_DMA_MEMORY_INCREMENT);
-  LL_DMA_SetPeriphSize(DMA1, LL_DMA_CHANNEL_1, LL_DMA_PDATAALIGN_WORD);
-  LL_DMA_SetMemorySize(DMA1, LL_DMA_CHANNEL_1, LL_DMA_MDATAALIGN_WORD);
-  
-  /* Configure Function */
+    LL_DMA_SetDataTransferDirection( DMA1, LL_DMA_CHANNEL_1, LL_DMA_DIRECTION_MEMORY_TO_MEMORY );
+    LL_DMA_SetChannelPriorityLevel( DMA1, LL_DMA_CHANNEL_1, LL_DMA_PRIORITY_HIGH );
+    LL_DMA_SetMode( DMA1, LL_DMA_CHANNEL_1, LL_DMA_MODE_NORMAL );
+    LL_DMA_SetPeriphIncMode( DMA1, LL_DMA_CHANNEL_1, LL_DMA_PERIPH_INCREMENT );
+    LL_DMA_SetMemoryIncMode( DMA1, LL_DMA_CHANNEL_1, LL_DMA_MEMORY_INCREMENT );
+    LL_DMA_SetPeriphSize( DMA1, LL_DMA_CHANNEL_1, LL_DMA_PDATAALIGN_WORD );
+    LL_DMA_SetMemorySize( DMA1, LL_DMA_CHANNEL_1, LL_DMA_MDATAALIGN_WORD );
+
+    /* Configure Function */
 //  LL_DMA_ConfigTransfer(DMA1, LL_DMA_CHANNEL_1, LL_DMA_DIRECTION_MEMORY_TO_MEMORY |
 //                                                LL_DMA_PRIORITY_HIGH              |
 //                                                LL_DMA_MODE_NORMAL                |
@@ -129,19 +129,19 @@ void Configure_DMA(void)
 //                                                LL_DMA_MEMORY_INCREMENT           |
 //                                                LL_DMA_PDATAALIGN_WORD            |
 //                                                LL_DMA_MDATAALIGN_WORD);
-    
-  LL_DMA_SetDataLength(DMA1, LL_DMA_CHANNEL_1, BUFFER_SIZE);
-  LL_DMA_ConfigAddresses(DMA1, LL_DMA_CHANNEL_1, (uint32_t)&aSRC_Const_Buffer, (uint32_t)&aDST_Buffer, LL_DMA_GetDataTransferDirection(DMA1, LL_DMA_CHANNEL_1));
 
-  /* Configure the peripheral request */
-  /* Reset Value is LL_DMA_REQUEST_0  */
+    LL_DMA_SetDataLength( DMA1, LL_DMA_CHANNEL_1, BUFFER_SIZE );
+    LL_DMA_ConfigAddresses( DMA1, LL_DMA_CHANNEL_1, ( uint32_t )&aSRC_Const_Buffer, ( uint32_t )&aDST_Buffer, LL_DMA_GetDataTransferDirection( DMA1, LL_DMA_CHANNEL_1 ) );
+
+    /* Configure the peripheral request */
+    /* Reset Value is LL_DMA_REQUEST_0  */
 //  LL_DMA_SetPeriphRequest(DMA1, LL_DMA_CHANNEL_1, LL_DMA_REQUEST_0);
 
-  /* (3) Configure NVIC for DMA transfer complete/error interrupts */
-  LL_DMA_EnableIT_TC(DMA1, LL_DMA_CHANNEL_1);
-  LL_DMA_EnableIT_TE(DMA1, LL_DMA_CHANNEL_1);
-  NVIC_SetPriority(DMA1_Channel1_IRQn, 0);
-  NVIC_EnableIRQ(DMA1_Channel1_IRQn);
+    /* (3) Configure NVIC for DMA transfer complete/error interrupts */
+    LL_DMA_EnableIT_TC( DMA1, LL_DMA_CHANNEL_1 );
+    LL_DMA_EnableIT_TE( DMA1, LL_DMA_CHANNEL_1 );
+    NVIC_SetPriority( DMA1_Channel1_IRQn, 0 );
+    NVIC_EnableIRQ( DMA1_Channel1_IRQn );
 }
 
 /**
@@ -151,20 +151,20 @@ void Configure_DMA(void)
   * @retval 0: pBuffer identical to pBuffer1
   *         1: pBuffer differs from pBuffer1
   */
-uint8_t Buffercmp(uint32_t* pBuffer1, uint32_t* pBuffer2, uint32_t BufferLength)
+uint8_t Buffercmp( uint32_t *pBuffer1, uint32_t *pBuffer2, uint32_t BufferLength )
 {
-  while (BufferLength--)
-  {
-    if (*pBuffer1 != *pBuffer2)
+    while( BufferLength-- )
     {
-      return 1;
+        if( *pBuffer1 != *pBuffer2 )
+        {
+            return 1;
+        }
+
+        pBuffer1++;
+        pBuffer2++;
     }
 
-    pBuffer1++;
-    pBuffer2++;
-  }
-
-  return 0;
+    return 0;
 }
 
 /**
@@ -172,19 +172,19 @@ uint8_t Buffercmp(uint32_t* pBuffer1, uint32_t* pBuffer2, uint32_t BufferLength)
   * @param  None
   * @retval None
   */
-void LED_Init(void)
+void LED_Init( void )
 {
-  /* Enable the LED4 Clock */
-  LED4_GPIO_CLK_ENABLE();
+    /* Enable the LED4 Clock */
+    LED4_GPIO_CLK_ENABLE();
 
-  /* Configure IO in output push-pull mode to drive external LED4 */
-  LL_GPIO_SetPinMode(LED4_GPIO_PORT, LED4_PIN, LL_GPIO_MODE_OUTPUT);
-  /* Reset value is LL_GPIO_OUTPUT_PUSHPULL */
-  //LL_GPIO_SetPinOutputType(LED4_GPIO_PORT, LED4_PIN, LL_GPIO_OUTPUT_PUSHPULL);
-  /* Reset value is LL_GPIO_SPEED_FREQ_LOW */
-  //LL_GPIO_SetPinSpeed(LED4_GPIO_PORT, LED4_PIN, LL_GPIO_SPEED_FREQ_LOW);
-  /* Reset value is LL_GPIO_PULL_NO */
-  //LL_GPIO_SetPinPull(LED4_GPIO_PORT, LED4_PIN, LL_GPIO_PULL_NO);
+    /* Configure IO in output push-pull mode to drive external LED4 */
+    LL_GPIO_SetPinMode( LED4_GPIO_PORT, LED4_PIN, LL_GPIO_MODE_OUTPUT );
+    /* Reset value is LL_GPIO_OUTPUT_PUSHPULL */
+    //LL_GPIO_SetPinOutputType(LED4_GPIO_PORT, LED4_PIN, LL_GPIO_OUTPUT_PUSHPULL);
+    /* Reset value is LL_GPIO_SPEED_FREQ_LOW */
+    //LL_GPIO_SetPinSpeed(LED4_GPIO_PORT, LED4_PIN, LL_GPIO_SPEED_FREQ_LOW);
+    /* Reset value is LL_GPIO_PULL_NO */
+    //LL_GPIO_SetPinPull(LED4_GPIO_PORT, LED4_PIN, LL_GPIO_PULL_NO);
 }
 
 /**
@@ -192,10 +192,10 @@ void LED_Init(void)
   * @param  None
   * @retval None
   */
-void LED_On(void)
+void LED_On( void )
 {
-  /* Turn LED4 on */
-  LL_GPIO_SetOutputPin(LED4_GPIO_PORT, LED4_PIN);
+    /* Turn LED4 on */
+    LL_GPIO_SetOutputPin( LED4_GPIO_PORT, LED4_PIN );
 }
 
 /**
@@ -207,17 +207,17 @@ void LED_On(void)
   *     @arg LED_BLINK_ERROR : Error specific Blinking
   * @retval None
   */
-void LED_Blinking(uint32_t Period)
+void LED_Blinking( uint32_t Period )
 {
-  /* Turn LED4 on */
-  LL_GPIO_SetOutputPin(LED4_GPIO_PORT, LED4_PIN);
-  
-  /* Toggle IO in an infinite loop */
-  while (1)
-  {
-    LL_GPIO_TogglePin(LED4_GPIO_PORT, LED4_PIN);  
-    LL_mDelay(Period);
-  }
+    /* Turn LED4 on */
+    LL_GPIO_SetOutputPin( LED4_GPIO_PORT, LED4_PIN );
+
+    /* Toggle IO in an infinite loop */
+    while( 1 )
+    {
+        LL_GPIO_TogglePin( LED4_GPIO_PORT, LED4_PIN );
+        LL_mDelay( Period );
+    }
 }
 
 /**
@@ -228,38 +228,40 @@ void LED_Blinking(uint32_t Period)
   *            HCLK(Hz)                       = 16000000
   *            AHB Prescaler                  = 1
   *            APB1 Prescaler                 = 1
-  *            HSI clock division factor      = 1  
+  *            HSI clock division factor      = 1
   *            HSI Frequency(Hz)              = 16000000
   *            Flash Latency(WS)              = 0
   * @param  None
   * @retval None
   */
-void SystemClock_Config(void)
+void SystemClock_Config( void )
 {
-  LL_FLASH_SetLatency(LL_FLASH_LATENCY_0);
-  /* Set AHB prescaler*/
-  LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
+    LL_FLASH_SetLatency( LL_FLASH_LATENCY_0 );
+    /* Set AHB prescaler*/
+    LL_RCC_SetAHBPrescaler( LL_RCC_SYSCLK_DIV_1 );
 
-  /* Set APB1 prescaler*/
-  LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
+    /* Set APB1 prescaler*/
+    LL_RCC_SetAPB1Prescaler( LL_RCC_APB1_DIV_1 );
 
-  /* HSI configuration and activation */
-  LL_RCC_SetHSIDiv(LL_RCC_HSI_DIV_1);
-  LL_RCC_HSI_Enable();
-  while(LL_RCC_HSI_IsReady() != 1)
-  {
-  }
+    /* HSI configuration and activation */
+    LL_RCC_SetHSIDiv( LL_RCC_HSI_DIV_1 );
+    LL_RCC_HSI_Enable();
 
-  LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_HSI);
-  while(LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_HSI)
-  {
-  }
+    while( LL_RCC_HSI_IsReady() != 1 )
+    {
+    }
 
-  /* Set systick to 1ms in using frequency set to 16MHz */
-  LL_Init1msTick(16000000);
+    LL_RCC_SetSysClkSource( LL_RCC_SYS_CLKSOURCE_HSI );
 
-  /* Update CMSIS variable (which can be updated also through SystemCoreClockUpdate function) */
-  LL_SetSystemCoreClock(16000000);
+    while( LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_HSI )
+    {
+    }
+
+    /* Set systick to 1ms in using frequency set to 16MHz */
+    LL_Init1msTick( 16000000 );
+
+    /* Update CMSIS variable (which can be updated also through SystemCoreClockUpdate function) */
+    LL_SetSystemCoreClock( 16000000 );
 }
 
 /******************************************************************************/
@@ -273,16 +275,16 @@ void SystemClock_Config(void)
   */
 void TransferComplete()
 {
-  /* DMA transfer completed */
-  /* Verify the data transferred */
-  if (Buffercmp((uint32_t*)aSRC_Const_Buffer, (uint32_t*)aDST_Buffer, BUFFER_SIZE) == 1)
-  {
-    /* DMA data transferred not consistency */
-    LED_Blinking(LED_BLINK_ERROR);
-  }
-  
-  /* DMA data transferred consistency */
-  LED_On();
+    /* DMA transfer completed */
+    /* Verify the data transferred */
+    if( Buffercmp( ( uint32_t * )aSRC_Const_Buffer, ( uint32_t * )aDST_Buffer, BUFFER_SIZE ) == 1 )
+    {
+        /* DMA data transferred not consistency */
+        LED_Blinking( LED_BLINK_ERROR );
+    }
+
+    /* DMA data transferred consistency */
+    LED_On();
 }
 
 /**
@@ -293,8 +295,8 @@ void TransferComplete()
   */
 void TransferError()
 {
-  /* Error detected during DMA transfer */
-  LED_Blinking(LED_BLINK_ERROR);
+    /* Error detected during DMA transfer */
+    LED_Blinking( LED_BLINK_ERROR );
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -306,15 +308,15 @@ void TransferError()
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(char *file, uint32_t line)
+void assert_failed( char *file, uint32_t line )
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {
-  }
+    /* Infinite loop */
+    while( 1 )
+    {
+    }
 }
 #endif
 

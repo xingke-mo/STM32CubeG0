@@ -74,7 +74,7 @@ static LCD_DrvTypeDef  *lcd_drv;
 /** @defgroup STM32G071B_DISCOVERY_LCD_Private_Functions Private Functions
   * @{
   */
-static void LCD_DrawChar(uint16_t Column, uint16_t Page, const uint8_t *pChar);
+static void LCD_DrawChar( uint16_t Column, uint16_t Page, const uint8_t *pChar );
 /**
   * @}
   */
@@ -87,61 +87,61 @@ static void LCD_DrawChar(uint16_t Column, uint16_t Page, const uint8_t *pChar);
   * @brief  Initializes the LCD.
   * @retval LCD state
   */
-uint8_t BSP_LCD_Init(void)
+uint8_t BSP_LCD_Init( void )
 {
-  uint8_t ret = LCD_ERROR;
+    uint8_t ret = LCD_ERROR;
 
-  lcd_drv = &ssd1315_drv;
-  ret = LCD_OK;
+    lcd_drv = &ssd1315_drv;
+    ret = LCD_OK;
 
-  if(ret != LCD_ERROR)
-  {
-    /* LCD Init */
-    lcd_drv->Init();
+    if( ret != LCD_ERROR )
+    {
+        /* LCD Init */
+        lcd_drv->Init();
 
-    /* Initialize the font */
-    BSP_LCD_SetFont(&LCD_DEFAULT_FONT);
-    BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
-    BSP_LCD_SetBackColor(LCD_COLOR_BLACK);
-  }
+        /* Initialize the font */
+        BSP_LCD_SetFont( &LCD_DEFAULT_FONT );
+        BSP_LCD_SetTextColor( LCD_COLOR_WHITE );
+        BSP_LCD_SetBackColor( LCD_COLOR_BLACK );
+    }
 
-  return ret;
+    return ret;
 }
 
 /**
   * @brief  Gets the LCD X size.
   * @retval Used LCD X size
   */
-uint32_t BSP_LCD_GetXSize(void)
+uint32_t BSP_LCD_GetXSize( void )
 {
-  return(lcd_drv->GetLcdPixelWidth());
+    return( lcd_drv->GetLcdPixelWidth() );
 }
 
 /**
   * @brief  Gets the LCD Y size.
   * @retval Used LCD Y size
   */
-uint32_t BSP_LCD_GetYSize(void)
+uint32_t BSP_LCD_GetYSize( void )
 {
-  return(lcd_drv->GetLcdPixelHeight());
+    return( lcd_drv->GetLcdPixelHeight() );
 }
 
 /**
   * @brief  Gets the LCD text color.
   * @retval Used text color.
   */
-uint16_t BSP_LCD_GetTextColor(void)
+uint16_t BSP_LCD_GetTextColor( void )
 {
-  return DrawProp.TextColor;
+    return DrawProp.TextColor;
 }
 
 /**
   * @brief  Gets the LCD background color.
   * @retval Used background color
   */
-uint16_t BSP_LCD_GetBackColor(void)
+uint16_t BSP_LCD_GetBackColor( void )
 {
-  return DrawProp.BackColor;
+    return DrawProp.BackColor;
 }
 
 /**
@@ -149,9 +149,9 @@ uint16_t BSP_LCD_GetBackColor(void)
   * @param  Color Text color code RGB(5-6-5)
   * @retval None
   */
-void BSP_LCD_SetTextColor(uint16_t Color)
+void BSP_LCD_SetTextColor( uint16_t Color )
 {
-  DrawProp.TextColor = Color;
+    DrawProp.TextColor = Color;
 }
 
 /**
@@ -159,9 +159,9 @@ void BSP_LCD_SetTextColor(uint16_t Color)
   * @param  Color Background color code RGB(5-6-5)
   * @retval None
   */
-void BSP_LCD_SetBackColor(uint16_t Color)
+void BSP_LCD_SetBackColor( uint16_t Color )
 {
-  DrawProp.BackColor = Color;
+    DrawProp.BackColor = Color;
 }
 
 /**
@@ -169,18 +169,18 @@ void BSP_LCD_SetBackColor(uint16_t Color)
   * @param  pFonts Font to be used
   * @retval None
   */
-void BSP_LCD_SetFont(sFONT *pFonts)
+void BSP_LCD_SetFont( sFONT *pFonts )
 {
-  DrawProp.pFont = pFonts;
+    DrawProp.pFont = pFonts;
 }
 
 /**
   * @brief  Gets the LCD text font.
   * @retval Used font
   */
-sFONT *BSP_LCD_GetFont(void)
+sFONT *BSP_LCD_GetFont( void )
 {
-  return DrawProp.pFont;
+    return DrawProp.pFont;
 }
 
 /**
@@ -188,9 +188,9 @@ sFONT *BSP_LCD_GetFont(void)
   * @param  Color Color of the background
   * @retval None
   */
-void BSP_LCD_Clear(uint16_t Color)
+void BSP_LCD_Clear( uint16_t Color )
 {
-  ssd1315_Clear(Color);
+    ssd1315_Clear( Color );
 }
 
 /**
@@ -202,15 +202,15 @@ void BSP_LCD_Clear(uint16_t Color)
   *            @arg  0..29: if the Current fonts is Font8x8
   * @retval None
   */
-void BSP_LCD_ClearStringLine(uint16_t Line)
+void BSP_LCD_ClearStringLine( uint16_t Line )
 {
-  uint32_t colorbackup = DrawProp.TextColor;
-  DrawProp.TextColor = DrawProp.BackColor;
+    uint32_t colorbackup = DrawProp.TextColor;
+    DrawProp.TextColor = DrawProp.BackColor;
 
-  /* Draw a rectangle with background color */
-  BSP_LCD_FillRect(0, (Line * DrawProp.pFont->Height), BSP_LCD_GetXSize(), DrawProp.pFont->Height);
+    /* Draw a rectangle with background color */
+    BSP_LCD_FillRect( 0, ( Line * DrawProp.pFont->Height ), BSP_LCD_GetXSize(), DrawProp.pFont->Height );
 
-  DrawProp.TextColor = colorbackup;
+    DrawProp.TextColor = colorbackup;
 }
 
 /**
@@ -221,10 +221,10 @@ void BSP_LCD_ClearStringLine(uint16_t Line)
   *           This parameter must be a number between Min_Data = 0x20 and Max_Data = 0x7E
   * @retval None
   */
-void BSP_LCD_DisplayChar(uint16_t Xpos, uint16_t Ypos, uint8_t Ascii)
+void BSP_LCD_DisplayChar( uint16_t Xpos, uint16_t Ypos, uint8_t Ascii )
 {
-  LCD_DrawChar(Xpos, Ypos, &DrawProp.pFont->table[(Ascii-' ') *\
-    DrawProp.pFont->Height * ((DrawProp.pFont->Width + 7) / 8)]);
+    LCD_DrawChar( Xpos, Ypos, &DrawProp.pFont->table[( Ascii - ' ' ) *\
+                                  DrawProp.pFont->Height * ( ( DrawProp.pFont->Width + 7 ) / 8 )] );
 }
 
 /**
@@ -239,59 +239,65 @@ void BSP_LCD_DisplayChar(uint16_t Xpos, uint16_t Ypos, uint8_t Ascii)
   *            @arg  LEFT_MODE
   * @retval None
   */
-void BSP_LCD_DisplayStringAt(uint16_t Xpos, uint16_t Ypos, uint8_t *pText, Line_ModeTypdef Mode)
+void BSP_LCD_DisplayStringAt( uint16_t Xpos, uint16_t Ypos, uint8_t *pText, Line_ModeTypdef Mode )
 {
-  uint16_t refcolumn = 1, counter = 0;
-  uint32_t size = 0, ysize = 0;
-  uint8_t  *ptr = pText;
+    uint16_t refcolumn = 1, counter = 0;
+    uint32_t size = 0, ysize = 0;
+    uint8_t  *ptr = pText;
 
-  /* Get the text size */
-  while (*ptr++) size ++ ;
+    /* Get the text size */
+    while( *ptr++ )
+    {
+        size ++ ;
+    }
 
-  /* Characters number per line */
-  ysize = (BSP_LCD_GetXSize()/DrawProp.pFont->Width);
+    /* Characters number per line */
+    ysize = ( BSP_LCD_GetXSize() / DrawProp.pFont->Width );
 
-  switch (Mode)
-  {
-  case CENTER_MODE:
+    switch( Mode )
     {
-      refcolumn = Xpos + ((ysize - size)* DrawProp.pFont->Width) / 2;
-      break;
-    }
-  case LEFT_MODE:
-    {
-      refcolumn = Xpos;
-      break;
-    }
-  case RIGHT_MODE:
-    {
-      refcolumn = Xpos + ((ysize - size)*DrawProp.pFont->Width);
-      break;
-    }
-  default:
-    {
-      refcolumn = Xpos;
-      break;
-    }
-  }
-  
-  /* Check that the Start column is located in the screen */
-  if ((refcolumn < 1) || (refcolumn > 128))
-  {
-    refcolumn = 1;
-  }
+    case CENTER_MODE:
+        {
+            refcolumn = Xpos + ( ( ysize - size ) * DrawProp.pFont->Width ) / 2;
+            break;
+        }
 
-  /* Send the string character by character on lCD */
-  while ((*pText != 0) & (((BSP_LCD_GetXSize() - (counter*DrawProp.pFont->Width)) & 0xFFFF) >= DrawProp.pFont->Width))
-  {
-    /* Display one character on LCD */
-    BSP_LCD_DisplayChar(refcolumn, Ypos, *pText);
-    /* Decrement the column position by 16 */
-    refcolumn += DrawProp.pFont->Width;
-    /* Point on the next character */
-    pText++;
-    counter++;
-  }
+    case LEFT_MODE:
+        {
+            refcolumn = Xpos;
+            break;
+        }
+
+    case RIGHT_MODE:
+        {
+            refcolumn = Xpos + ( ( ysize - size ) * DrawProp.pFont->Width );
+            break;
+        }
+
+    default:
+        {
+            refcolumn = Xpos;
+            break;
+        }
+    }
+
+    /* Check that the Start column is located in the screen */
+    if( ( refcolumn < 1 ) || ( refcolumn > 128 ) )
+    {
+        refcolumn = 1;
+    }
+
+    /* Send the string character by character on lCD */
+    while( ( *pText != 0 ) & ( ( ( BSP_LCD_GetXSize() - ( counter * DrawProp.pFont->Width ) ) & 0xFFFF ) >= DrawProp.pFont->Width ) )
+    {
+        /* Display one character on LCD */
+        BSP_LCD_DisplayChar( refcolumn, Ypos, *pText );
+        /* Decrement the column position by 16 */
+        refcolumn += DrawProp.pFont->Width;
+        /* Point on the next character */
+        pText++;
+        counter++;
+    }
 }
 
 /**
@@ -304,46 +310,46 @@ void BSP_LCD_DisplayStringAt(uint16_t Xpos, uint16_t Ypos, uint8_t *pText, Line_
   * @param  pText Pointer to string to display on LCD
   * @retval None
   */
-void BSP_LCD_DisplayStringAtLine(uint16_t Line, uint8_t *pText)
+void BSP_LCD_DisplayStringAtLine( uint16_t Line, uint8_t *pText )
 {
-  BSP_LCD_DisplayStringAt(0, LINE(Line),pText, LEFT_MODE);
+    BSP_LCD_DisplayStringAt( 0, LINE( Line ), pText, LEFT_MODE );
 }
 
 /**
   * @brief  Scrolling LCD Line.
-  * @param  StartLine Start line for scrolling: 
+  * @param  StartLine Start line for scrolling:
             @arg  0..3
-  * @param  EndLine End line for scrolling: 
+  * @param  EndLine End line for scrolling:
             This must be larger or equal to StartLine
             @arg  0..3
-  * @param  Mode LCD_SCROLL_LEFT or LCD_SCROLL_RIGHT 
+  * @param  Mode LCD_SCROLL_LEFT or LCD_SCROLL_RIGHT
   * @retval None
   */
-void BSP_LCD_ScrollingSetup(uint16_t StartLine, uint16_t EndLine, uint16_t Mode)
+void BSP_LCD_ScrollingSetup( uint16_t StartLine, uint16_t EndLine, uint16_t Mode )
 {
-  uint16_t StartPage = StartLine*2;
-  uint16_t EndPage   = EndLine*2+1;
-    
-  ssd1315_ScrollingSetup(Mode, StartPage,  EndPage, SSD1315_SCROLL_FREQ_3FRAMES);
-  ssd1315_ScrollingStart();
+    uint16_t StartPage = StartLine * 2;
+    uint16_t EndPage   = EndLine * 2 + 1;
+
+    ssd1315_ScrollingSetup( Mode, StartPage,  EndPage, SSD1315_SCROLL_FREQ_3FRAMES );
+    ssd1315_ScrollingStart();
 }
 
 /**
   * @brief  Start LCD Scrolling.
   * @retval None
   */
-void BSP_LCD_ScrollingStart(void)
+void BSP_LCD_ScrollingStart( void )
 {
-  ssd1315_ScrollingStart();
+    ssd1315_ScrollingStart();
 }
 
 /**
   * @brief  Stop LCD Scrolling.
   * @retval None
   */
-void BSP_LCD_ScrollingStop(void)
+void BSP_LCD_ScrollingStop( void )
 {
-  ssd1315_ScrollingStop();
+    ssd1315_ScrollingStop();
 }
 
 /**
@@ -352,16 +358,16 @@ void BSP_LCD_ScrollingStop(void)
   * @param  Ypos Y position
   * @retval RGB pixel color
   */
-uint16_t BSP_LCD_ReadPixel(uint16_t Xpos, uint16_t Ypos)
+uint16_t BSP_LCD_ReadPixel( uint16_t Xpos, uint16_t Ypos )
 {
-  uint16_t ret = 0;
+    uint16_t ret = 0;
 
-  if(lcd_drv->ReadPixel != NULL)
-  {
-    ret = lcd_drv->ReadPixel(Xpos, Ypos);
-  }
+    if( lcd_drv->ReadPixel != NULL )
+    {
+        ret = lcd_drv->ReadPixel( Xpos, Ypos );
+    }
 
-  return ret;
+    return ret;
 }
 
 /**
@@ -371,21 +377,21 @@ uint16_t BSP_LCD_ReadPixel(uint16_t Xpos, uint16_t Ypos)
   * @param  Length Line length
   * @retval None
   */
-void BSP_LCD_DrawHLine(uint16_t Xpos, uint16_t Ypos, uint16_t Length)
+void BSP_LCD_DrawHLine( uint16_t Xpos, uint16_t Ypos, uint16_t Length )
 {
-  uint32_t index = 0;
+    uint32_t index = 0;
 
-  if(lcd_drv->DrawHLine != NULL)
-  {
-    lcd_drv->DrawHLine(DrawProp.TextColor,  Xpos, Ypos,Length);
-  }
-  else
-  {
-    for(index = 0; index < Length; index++)
+    if( lcd_drv->DrawHLine != NULL )
     {
-      BSP_LCD_DrawPixel( Xpos, (Ypos + index), DrawProp.TextColor);
+        lcd_drv->DrawHLine( DrawProp.TextColor,  Xpos, Ypos, Length );
     }
-  }
+    else
+    {
+        for( index = 0; index < Length; index++ )
+        {
+            BSP_LCD_DrawPixel( Xpos, ( Ypos + index ), DrawProp.TextColor );
+        }
+    }
 }
 
 /**
@@ -395,21 +401,21 @@ void BSP_LCD_DrawHLine(uint16_t Xpos, uint16_t Ypos, uint16_t Length)
   * @param  Length Line length
   * @retval None
   */
-void BSP_LCD_DrawVLine(uint16_t Xpos, uint16_t Ypos, uint16_t Length)
+void BSP_LCD_DrawVLine( uint16_t Xpos, uint16_t Ypos, uint16_t Length )
 {
-  uint32_t index = 0;
+    uint32_t index = 0;
 
-  if(lcd_drv->DrawVLine != NULL)
-  {
-    lcd_drv->DrawVLine(DrawProp.TextColor, Ypos, Xpos, Length);
-  }
-  else
-  {
-    for(index = 0; index < Length; index++)
+    if( lcd_drv->DrawVLine != NULL )
     {
-      BSP_LCD_DrawPixel(Ypos, Xpos + index, DrawProp.TextColor);
+        lcd_drv->DrawVLine( DrawProp.TextColor, Ypos, Xpos, Length );
     }
-  }
+    else
+    {
+        for( index = 0; index < Length; index++ )
+        {
+            BSP_LCD_DrawPixel( Ypos, Xpos + index, DrawProp.TextColor );
+        }
+    }
 }
 
 /**
@@ -420,71 +426,73 @@ void BSP_LCD_DrawVLine(uint16_t Xpos, uint16_t Ypos, uint16_t Length)
   * @param  Y2 Point 2 Y position
   * @retval None
   */
-void BSP_LCD_DrawLine(uint16_t X1, uint16_t Y1, uint16_t X2, uint16_t Y2)
+void BSP_LCD_DrawLine( uint16_t X1, uint16_t Y1, uint16_t X2, uint16_t Y2 )
 {
-  int16_t deltax = 0, deltay = 0, x = 0, y = 0, xinc1 = 0, xinc2 = 0,
-  yinc1 = 0, yinc2 = 0, den = 0, num = 0, numadd = 0, numpixels = 0,
-  curpixel = 0;
+    int16_t deltax = 0, deltay = 0, x = 0, y = 0, xinc1 = 0, xinc2 = 0,
+            yinc1 = 0, yinc2 = 0, den = 0, num = 0, numadd = 0, numpixels = 0,
+            curpixel = 0;
 
-  deltax = ABS(Y2 - Y1);        /* The difference between the x's */
-  deltay = ABS(X2 - X1);        /* The difference between the y's */
-  x = Y1;                       /* Start x off at the first pixel */
-  y = X1;                       /* Start y off at the first pixel */
+    deltax = ABS( Y2 - Y1 );      /* The difference between the x's */
+    deltay = ABS( X2 - X1 );      /* The difference between the y's */
+    x = Y1;                       /* Start x off at the first pixel */
+    y = X1;                       /* Start y off at the first pixel */
 
-  if (Y2 >= Y1)                 /* The x-values are increasing */
-  {
-    xinc1 = 1;
-    xinc2 = 1;
-  }
-  else                          /* The x-values are decreasing */
-  {
-    xinc1 = -1;
-    xinc2 = -1;
-  }
-
-  if (X2 >= X1)                 /* The y-values are increasing */
-  {
-    yinc1 = 1;
-    yinc2 = 1;
-  }
-  else                          /* The y-values are decreasing */
-  {
-    yinc1 = -1;
-    yinc2 = -1;
-  }
-
-  if (deltax >= deltay)         /* There is at least one x-value for every y-value */
-  {
-    xinc1 = 0;                  /* Don't change the x when numerator >= denominator */
-    yinc2 = 0;                  /* Don't change the y for every iteration */
-    den = deltax;
-    num = deltax / 2;
-    numadd = deltay;
-    numpixels = deltax;         /* There are more x-values than y-values */
-  }
-  else                          /* There is at least one y-value for every x-value */
-  {
-    xinc2 = 0;                  /* Don't change the x for every iteration */
-    yinc1 = 0;                  /* Don't change the y when numerator >= denominator */
-    den = deltay;
-    num = deltay / 2;
-    numadd = deltax;
-    numpixels = deltay;         /* There are more y-values than x-values */
-  }
-
-  for (curpixel = 0; curpixel <= numpixels; curpixel++)
-  {
-    BSP_LCD_DrawPixel(x, y, DrawProp.TextColor);  /* Draw the current pixel */
-    num += numadd;                            /* Increase the numerator by the top of the fraction */
-    if (num >= den)                           /* Check if numerator >= denominator */
+    if( Y2 >= Y1 )                /* The x-values are increasing */
     {
-      num -= den;                             /* Calculate the new numerator value */
-      x += xinc1;                             /* Change the x as appropriate */
-      y += yinc1;                             /* Change the y as appropriate */
+        xinc1 = 1;
+        xinc2 = 1;
     }
-    x += xinc2;                               /* Change the x as appropriate */
-    y += yinc2;                               /* Change the y as appropriate */
-  }
+    else                          /* The x-values are decreasing */
+    {
+        xinc1 = -1;
+        xinc2 = -1;
+    }
+
+    if( X2 >= X1 )                /* The y-values are increasing */
+    {
+        yinc1 = 1;
+        yinc2 = 1;
+    }
+    else                          /* The y-values are decreasing */
+    {
+        yinc1 = -1;
+        yinc2 = -1;
+    }
+
+    if( deltax >= deltay )        /* There is at least one x-value for every y-value */
+    {
+        xinc1 = 0;                  /* Don't change the x when numerator >= denominator */
+        yinc2 = 0;                  /* Don't change the y for every iteration */
+        den = deltax;
+        num = deltax / 2;
+        numadd = deltay;
+        numpixels = deltax;         /* There are more x-values than y-values */
+    }
+    else                          /* There is at least one y-value for every x-value */
+    {
+        xinc2 = 0;                  /* Don't change the x for every iteration */
+        yinc1 = 0;                  /* Don't change the y when numerator >= denominator */
+        den = deltay;
+        num = deltay / 2;
+        numadd = deltax;
+        numpixels = deltay;         /* There are more y-values than x-values */
+    }
+
+    for( curpixel = 0; curpixel <= numpixels; curpixel++ )
+    {
+        BSP_LCD_DrawPixel( x, y, DrawProp.TextColor ); /* Draw the current pixel */
+        num += numadd;                            /* Increase the numerator by the top of the fraction */
+
+        if( num >= den )                          /* Check if numerator >= denominator */
+        {
+            num -= den;                             /* Calculate the new numerator value */
+            x += xinc1;                             /* Change the x as appropriate */
+            y += yinc1;                             /* Change the y as appropriate */
+        }
+
+        x += xinc2;                               /* Change the x as appropriate */
+        y += yinc2;                               /* Change the y as appropriate */
+    }
 }
 
 /**
@@ -495,15 +503,15 @@ void BSP_LCD_DrawLine(uint16_t X1, uint16_t Y1, uint16_t X2, uint16_t Y2)
   * @param  Height Rectangle height
   * @retval None
   */
-void BSP_LCD_DrawRect(uint16_t Xpos, uint16_t Ypos, uint16_t Width, uint16_t Height)
+void BSP_LCD_DrawRect( uint16_t Xpos, uint16_t Ypos, uint16_t Width, uint16_t Height )
 {
-  /* Draw horizontal lines */
-  BSP_LCD_DrawHLine(Xpos, Ypos, Width);
-  BSP_LCD_DrawHLine(Xpos, (Ypos+ Height), Width);
+    /* Draw horizontal lines */
+    BSP_LCD_DrawHLine( Xpos, Ypos, Width );
+    BSP_LCD_DrawHLine( Xpos, ( Ypos + Height ), Width );
 
-  /* Draw vertical lines */
-  BSP_LCD_DrawVLine(Xpos, Ypos, Height);
-  BSP_LCD_DrawVLine((Xpos + Width), Ypos, Height);
+    /* Draw vertical lines */
+    BSP_LCD_DrawVLine( Xpos, Ypos, Height );
+    BSP_LCD_DrawVLine( ( Xpos + Width ), Ypos, Height );
 }
 
 /**
@@ -513,48 +521,49 @@ void BSP_LCD_DrawRect(uint16_t Xpos, uint16_t Ypos, uint16_t Width, uint16_t Hei
   * @param  Radius Circle radius
   * @retval None
   */
-void BSP_LCD_DrawCircle(uint16_t Xpos, uint16_t Ypos, uint16_t Radius)
+void BSP_LCD_DrawCircle( uint16_t Xpos, uint16_t Ypos, uint16_t Radius )
 {
-  int32_t  decision;       /* Decision Variable */
-  uint32_t  curx;   /* Current X Value */
-  uint32_t  cury;   /* Current Y Value */
+    int32_t  decision;       /* Decision Variable */
+    uint32_t  curx;   /* Current X Value */
+    uint32_t  cury;   /* Current Y Value */
 
-  decision = 3 - (Radius << 1);
-  curx = 0;
-  cury = Radius;
+    decision = 3 - ( Radius << 1 );
+    curx = 0;
+    cury = Radius;
 
-  while (curx <= cury)
-  {
-    BSP_LCD_DrawPixel((Ypos + curx), (Xpos - cury), DrawProp.TextColor);
-
-    BSP_LCD_DrawPixel((Ypos - curx), (Xpos - cury), DrawProp.TextColor);
-
-    BSP_LCD_DrawPixel((Ypos + cury), (Xpos - curx), DrawProp.TextColor);
-
-    BSP_LCD_DrawPixel((Ypos - cury), (Xpos - curx), DrawProp.TextColor);
-
-    BSP_LCD_DrawPixel((Ypos + curx), (Xpos + cury), DrawProp.TextColor);
-
-    BSP_LCD_DrawPixel((Ypos - curx), (Xpos + cury), DrawProp.TextColor);
-
-    BSP_LCD_DrawPixel((Ypos + cury), (Xpos + curx), DrawProp.TextColor);
-
-    BSP_LCD_DrawPixel((Ypos - cury), (Xpos + curx), DrawProp.TextColor);
-
-    /* Initialize the font */
-    BSP_LCD_SetFont(&LCD_DEFAULT_FONT);
-
-    if (decision < 0)
+    while( curx <= cury )
     {
-      decision += (curx << 2) + 6;
+        BSP_LCD_DrawPixel( ( Ypos + curx ), ( Xpos - cury ), DrawProp.TextColor );
+
+        BSP_LCD_DrawPixel( ( Ypos - curx ), ( Xpos - cury ), DrawProp.TextColor );
+
+        BSP_LCD_DrawPixel( ( Ypos + cury ), ( Xpos - curx ), DrawProp.TextColor );
+
+        BSP_LCD_DrawPixel( ( Ypos - cury ), ( Xpos - curx ), DrawProp.TextColor );
+
+        BSP_LCD_DrawPixel( ( Ypos + curx ), ( Xpos + cury ), DrawProp.TextColor );
+
+        BSP_LCD_DrawPixel( ( Ypos - curx ), ( Xpos + cury ), DrawProp.TextColor );
+
+        BSP_LCD_DrawPixel( ( Ypos + cury ), ( Xpos + curx ), DrawProp.TextColor );
+
+        BSP_LCD_DrawPixel( ( Ypos - cury ), ( Xpos + curx ), DrawProp.TextColor );
+
+        /* Initialize the font */
+        BSP_LCD_SetFont( &LCD_DEFAULT_FONT );
+
+        if( decision < 0 )
+        {
+            decision += ( curx << 2 ) + 6;
+        }
+        else
+        {
+            decision += ( ( curx - cury ) << 2 ) + 10;
+            cury--;
+        }
+
+        curx++;
     }
-    else
-    {
-      decision += ((curx - cury) << 2) + 10;
-      cury--;
-    }
-    curx++;
-  }
 }
 
 /**
@@ -563,24 +572,24 @@ void BSP_LCD_DrawCircle(uint16_t Xpos, uint16_t Ypos, uint16_t Radius)
   * @param  PointCount Number of points
   * @retval None
   */
-void BSP_LCD_DrawPolygon(pPoint pPoints, uint16_t PointCount)
+void BSP_LCD_DrawPolygon( pPoint pPoints, uint16_t PointCount )
 {
-  int16_t x = 0, y = 0;
+    int16_t x = 0, y = 0;
 
-  if(PointCount < 2)
-  {
-    return;
-  }
+    if( PointCount < 2 )
+    {
+        return;
+    }
 
-  BSP_LCD_DrawLine(pPoints->X, pPoints->Y, (pPoints+PointCount-1)->X, (pPoints+PointCount-1)->Y);
+    BSP_LCD_DrawLine( pPoints->X, pPoints->Y, ( pPoints + PointCount - 1 )->X, ( pPoints + PointCount - 1 )->Y );
 
-  while(--PointCount)
-  {
-    x = pPoints->X;
-    y = pPoints->Y;
-    pPoints++;
-    BSP_LCD_DrawLine(x, y, pPoints->X, pPoints->Y);
-  }
+    while( --PointCount )
+    {
+        x = pPoints->X;
+        y = pPoints->Y;
+        pPoints++;
+        BSP_LCD_DrawLine( x, y, pPoints->X, pPoints->Y );
+    }
 
 }
 
@@ -592,30 +601,40 @@ void BSP_LCD_DrawPolygon(pPoint pPoints, uint16_t PointCount)
   * @param  YRadius Ellipse Y radius
   * @retval None
   */
-void BSP_LCD_DrawEllipse(int Xpos, int Ypos, int XRadius, int YRadius)
+void BSP_LCD_DrawEllipse( int Xpos, int Ypos, int XRadius, int YRadius )
 {
-  int x = 0, y = -XRadius, err = 2-2*YRadius, e2;
-  float k = 0, rad1 = 0, rad2 = 0;
+    int x = 0, y = -XRadius, err = 2 - 2 * YRadius, e2;
+    float k = 0, rad1 = 0, rad2 = 0;
 
-  rad1 = YRadius;
-  rad2 = XRadius;
+    rad1 = YRadius;
+    rad2 = XRadius;
 
-  k = (float)(rad2/rad1);
+    k = ( float )( rad2 / rad1 );
 
-  do {
-    BSP_LCD_DrawPixel((Ypos-(uint16_t)(x/k)), (Xpos+y), DrawProp.TextColor);
-    BSP_LCD_DrawPixel((Ypos+(uint16_t)(x/k)), (Xpos+y), DrawProp.TextColor);
-    BSP_LCD_DrawPixel((Ypos+(uint16_t)(x/k)), (Xpos-y), DrawProp.TextColor);
-    BSP_LCD_DrawPixel((Ypos-(uint16_t)(x/k)), (Xpos-y), DrawProp.TextColor);
+    do
+    {
+        BSP_LCD_DrawPixel( ( Ypos - ( uint16_t )( x / k ) ), ( Xpos + y ), DrawProp.TextColor );
+        BSP_LCD_DrawPixel( ( Ypos + ( uint16_t )( x / k ) ), ( Xpos + y ), DrawProp.TextColor );
+        BSP_LCD_DrawPixel( ( Ypos + ( uint16_t )( x / k ) ), ( Xpos - y ), DrawProp.TextColor );
+        BSP_LCD_DrawPixel( ( Ypos - ( uint16_t )( x / k ) ), ( Xpos - y ), DrawProp.TextColor );
 
-    e2 = err;
-    if (e2 <= x) {
-      err += ++x*2+1;
-      if (-y == x && e2 <= y) e2 = 0;
-    }
-    if (e2 > y) err += ++y*2+1;
-  }
-  while (y <= 0);
+        e2 = err;
+
+        if( e2 <= x )
+        {
+            err += ++x * 2 + 1;
+
+            if( -y == x && e2 <= y )
+            {
+                e2 = 0;
+            }
+        }
+
+        if( e2 > y )
+        {
+            err += ++y * 2 + 1;
+        }
+    } while( y <= 0 );
 }
 
 /**
@@ -625,12 +644,12 @@ void BSP_LCD_DrawEllipse(int Xpos, int Ypos, int XRadius, int YRadius)
   * @param  pBmp Pointer to Bmp picture address in the internal Flash
   * @retval None
   */
-void BSP_LCD_DrawBitmap(uint16_t Xpos, uint16_t Ypos, uint8_t *pBmp)
+void BSP_LCD_DrawBitmap( uint16_t Xpos, uint16_t Ypos, uint8_t *pBmp )
 {
-  if(lcd_drv->DrawBitmap != NULL)
-  {
-    lcd_drv->DrawBitmap(Xpos, Ypos, pBmp);
-  }
+    if( lcd_drv->DrawBitmap != NULL )
+    {
+        lcd_drv->DrawBitmap( Xpos, Ypos, pBmp );
+    }
 }
 
 /**
@@ -641,14 +660,14 @@ void BSP_LCD_DrawBitmap(uint16_t Xpos, uint16_t Ypos, uint8_t *pBmp)
   * @param  Height Rectangle height
   * @retval None
   */
-void BSP_LCD_FillRect(uint16_t Xpos, uint16_t Ypos, uint16_t Width, uint16_t Height)
+void BSP_LCD_FillRect( uint16_t Xpos, uint16_t Ypos, uint16_t Width, uint16_t Height )
 {
-  BSP_LCD_SetTextColor(DrawProp.TextColor);
-  do
-  {
-    BSP_LCD_DrawHLine(Xpos, Ypos++, Width);
-  }
-  while(Height--);
+    BSP_LCD_SetTextColor( DrawProp.TextColor );
+
+    do
+    {
+        BSP_LCD_DrawHLine( Xpos, Ypos++, Width );
+    } while( Height-- );
 }
 
 /**
@@ -658,46 +677,48 @@ void BSP_LCD_FillRect(uint16_t Xpos, uint16_t Ypos, uint16_t Width, uint16_t Hei
   * @param  Radius Circle radius
   * @retval None
   */
-void BSP_LCD_FillCircle(uint16_t Xpos, uint16_t Ypos, uint16_t Radius)
+void BSP_LCD_FillCircle( uint16_t Xpos, uint16_t Ypos, uint16_t Radius )
 {
-  int32_t  decision; /* Decision Variable */
-  uint32_t  curx;    /* Current X Value */
-  uint32_t  cury;    /* Current Y Value */
+    int32_t  decision; /* Decision Variable */
+    uint32_t  curx;    /* Current X Value */
+    uint32_t  cury;    /* Current Y Value */
 
-  decision = 3 - (Radius << 1);
+    decision = 3 - ( Radius << 1 );
 
-  curx = 0;
-  cury = Radius;
+    curx = 0;
+    cury = Radius;
 
-  BSP_LCD_SetTextColor(DrawProp.TextColor);
+    BSP_LCD_SetTextColor( DrawProp.TextColor );
 
-  while (curx <= cury)
-  {
-    if(cury > 0)
+    while( curx <= cury )
     {
-      BSP_LCD_DrawVLine(Xpos + curx, Ypos - cury, 2*cury);
-      BSP_LCD_DrawVLine(Xpos - curx, Ypos - cury, 2*cury);
+        if( cury > 0 )
+        {
+            BSP_LCD_DrawVLine( Xpos + curx, Ypos - cury, 2 * cury );
+            BSP_LCD_DrawVLine( Xpos - curx, Ypos - cury, 2 * cury );
+        }
+
+        if( curx > 0 )
+        {
+            BSP_LCD_DrawVLine( Xpos - cury, Ypos - curx, 2 * curx );
+            BSP_LCD_DrawVLine( Xpos + cury, Ypos - curx, 2 * curx );
+        }
+
+        if( decision < 0 )
+        {
+            decision += ( curx << 2 ) + 6;
+        }
+        else
+        {
+            decision += ( ( curx - cury ) << 2 ) + 10;
+            cury--;
+        }
+
+        curx++;
     }
 
-    if(curx > 0)
-    {
-      BSP_LCD_DrawVLine(Xpos - cury, Ypos - curx, 2*curx);
-      BSP_LCD_DrawVLine(Xpos + cury, Ypos - curx, 2*curx);
-    }
-    if (decision < 0)
-    {
-      decision += (curx << 2) + 6;
-    }
-    else
-    {
-      decision += ((curx - cury) << 2) + 10;
-      cury--;
-    }
-    curx++;
-  }
-
-  BSP_LCD_SetTextColor(DrawProp.TextColor);
-  BSP_LCD_DrawCircle(Xpos, Ypos, Radius);
+    BSP_LCD_SetTextColor( DrawProp.TextColor );
+    BSP_LCD_DrawCircle( Xpos, Ypos, Radius );
 }
 
 /**
@@ -708,48 +729,56 @@ void BSP_LCD_FillCircle(uint16_t Xpos, uint16_t Ypos, uint16_t Radius)
   * @param  YRadius Ellipse Y radius
   * @retval None
   */
-void BSP_LCD_FillEllipse(int Xpos, int Ypos, int XRadius, int YRadius)
+void BSP_LCD_FillEllipse( int Xpos, int Ypos, int XRadius, int YRadius )
 {
-  int x = 0, y = -XRadius, err = 2-2*YRadius, e2;
-  float k = 0, rad1 = 0, rad2 = 0;
+    int x = 0, y = -XRadius, err = 2 - 2 * YRadius, e2;
+    float k = 0, rad1 = 0, rad2 = 0;
 
-  rad1 = YRadius;
-  rad2 = XRadius;
+    rad1 = YRadius;
+    rad2 = XRadius;
 
-  k = (float)(rad2/rad1);
+    k = ( float )( rad2 / rad1 );
 
-  do
-  {
-    BSP_LCD_DrawVLine((Xpos+y), (Ypos-(uint16_t)(x/k)), (2*(uint16_t)(x/k) + 1));
-    BSP_LCD_DrawVLine((Xpos-y), (Ypos-(uint16_t)(x/k)), (2*(uint16_t)(x/k) + 1));
-
-    e2 = err;
-    if (e2 <= x)
+    do
     {
-      err += ++x*2+1;
-      if (-y == x && e2 <= y) e2 = 0;
-    }
-    if (e2 > y) err += ++y*2+1;
-  }
-  while (y <= 0);
+        BSP_LCD_DrawVLine( ( Xpos + y ), ( Ypos - ( uint16_t )( x / k ) ), ( 2 * ( uint16_t )( x / k ) + 1 ) );
+        BSP_LCD_DrawVLine( ( Xpos - y ), ( Ypos - ( uint16_t )( x / k ) ), ( 2 * ( uint16_t )( x / k ) + 1 ) );
+
+        e2 = err;
+
+        if( e2 <= x )
+        {
+            err += ++x * 2 + 1;
+
+            if( -y == x && e2 <= y )
+            {
+                e2 = 0;
+            }
+        }
+
+        if( e2 > y )
+        {
+            err += ++y * 2 + 1;
+        }
+    } while( y <= 0 );
 }
 
 /**
   * @brief  Enables the display.
   * @retval None
   */
-void BSP_LCD_DisplayOn(void)
+void BSP_LCD_DisplayOn( void )
 {
-  lcd_drv->DisplayOn();
+    lcd_drv->DisplayOn();
 }
 
 /**
   * @brief  Disables the display.
   * @retval None
   */
-void BSP_LCD_DisplayOff(void)
+void BSP_LCD_DisplayOff( void )
 {
-  lcd_drv->DisplayOff();
+    lcd_drv->DisplayOff();
 }
 
 /**
@@ -759,21 +788,21 @@ void BSP_LCD_DisplayOff(void)
   * @param  RGBCode Pixel color in RGB mode (5-6-5)
   * @retval None
   */
-void BSP_LCD_DrawPixel(uint16_t Xpos, uint16_t Ypos, uint16_t RGBCode)
+void BSP_LCD_DrawPixel( uint16_t Xpos, uint16_t Ypos, uint16_t RGBCode )
 {
-  if(lcd_drv->WritePixel != NULL)
-  {
-    lcd_drv->WritePixel(Xpos, Ypos, RGBCode);
-  }
+    if( lcd_drv->WritePixel != NULL )
+    {
+        lcd_drv->WritePixel( Xpos, Ypos, RGBCode );
+    }
 }
 
 /**
   * @brief  Refresh LCD.
   * @retval None
   */
-void BSP_LCD_Refresh(void)
+void BSP_LCD_Refresh( void )
 {
-  ssd1315_Refresh();
+    ssd1315_Refresh();
 }
 
 /**
@@ -794,52 +823,53 @@ void BSP_LCD_Refresh(void)
   * @param  c Pointer to the character data
   * @retval None
   */
-static void LCD_DrawChar(uint16_t Xpos, uint16_t Ypos, const uint8_t *c)
+static void LCD_DrawChar( uint16_t Xpos, uint16_t Ypos, const uint8_t *c )
 {
-  uint32_t i = 0, j = 0;
-  uint16_t height = 0, width = 0;
-  uint8_t offset = 0;
-  uint8_t *pchar = NULL;
-  uint32_t line = 0;
+    uint32_t i = 0, j = 0;
+    uint16_t height = 0, width = 0;
+    uint8_t offset = 0;
+    uint8_t *pchar = NULL;
+    uint32_t line = 0;
 
-  height = DrawProp.pFont->Height;
-  width  = DrawProp.pFont->Width;
+    height = DrawProp.pFont->Height;
+    width  = DrawProp.pFont->Width;
 
-  offset =  8 *((width + 7)/8) -  width ;
+    offset =  8 * ( ( width + 7 ) / 8 ) -  width ;
 
-  for(i = 0; i < height; i++)
-  {
-    pchar = ((uint8_t *)c + (width + 7)/8 * i);
-
-    switch(((width + 7)/8))
+    for( i = 0; i < height; i++ )
     {
-    case 1:
-      line =  pchar[0];
-      break;
+        pchar = ( ( uint8_t * )c + ( width + 7 ) / 8 * i );
 
-    case 2:
-      line =  (pchar[0]<< 8) | pchar[1];
-      break;
-      
-    case 3:
-    default:
-      line =  (pchar[0]<< 16) | (pchar[1]<< 8) | pchar[2];
-      break;
-    }
+        switch( ( ( width + 7 ) / 8 ) )
+        {
+        case 1:
+            line =  pchar[0];
+            break;
 
-    for (j = 0; j < width; j++)
-    {
-      if(line & (1 << (width- j + offset- 1)))
-      {
-        BSP_LCD_DrawPixel((Xpos + j), Ypos, DrawProp.TextColor);
-      }
-      else
-      {
-        BSP_LCD_DrawPixel((Xpos + j), Ypos, DrawProp.BackColor);
-      }
+        case 2:
+            line = ( pchar[0] << 8 ) | pchar[1];
+            break;
+
+        case 3:
+        default:
+            line = ( pchar[0] << 16 ) | ( pchar[1] << 8 ) | pchar[2];
+            break;
+        }
+
+        for( j = 0; j < width; j++ )
+        {
+            if( line & ( 1 << ( width - j + offset - 1 ) ) )
+            {
+                BSP_LCD_DrawPixel( ( Xpos + j ), Ypos, DrawProp.TextColor );
+            }
+            else
+            {
+                BSP_LCD_DrawPixel( ( Xpos + j ), Ypos, DrawProp.BackColor );
+            }
+        }
+
+        Ypos++;
     }
-    Ypos++;
-  }
 }
 
 /**

@@ -51,23 +51,23 @@
   */
 typedef struct
 {
-  /**
-   * @brief  Reports that a message has been received on a specified port.
-   * @note   Received data are stored inside PortNum->pRxBuffPtr
-   *         function called in the interrupt context
-   * @param  PortNum The handle of the port
-   * @param  Type    The type of the message received @ref USBPD_SOPType_TypeDef
-   * @retval None
-   */
-  void (*USBPD_PHY_MessageReceived)(uint8_t PortNum, USBPD_SOPType_TypeDef Type);
+    /**
+     * @brief  Reports that a message has been received on a specified port.
+     * @note   Received data are stored inside PortNum->pRxBuffPtr
+     *         function called in the interrupt context
+     * @param  PortNum The handle of the port
+     * @param  Type    The type of the message received @ref USBPD_SOPType_TypeDef
+     * @retval None
+     */
+    void ( *USBPD_PHY_MessageReceived )( uint8_t PortNum, USBPD_SOPType_TypeDef Type );
 
-  uint32_t  SupportedSOP;        /*!<bit field SOP"Debug SOP'Debug SOP" SOP' SOP */
+    uint32_t  SupportedSOP;        /*!<bit field SOP"Debug SOP'Debug SOP" SOP' SOP */
 } PHY_HandleTypeDef;
 
 /**
   * @brief prototype definition shared in several callbacks
   */
-typedef void (*PHY_CB_t)(uint8_t PortNum, USBPD_SOPType_TypeDef Type); /*!<  Common callback definition */
+typedef void ( *PHY_CB_t )( uint8_t PortNum, USBPD_SOPType_TypeDef Type ); /*!<  Common callback definition */
 
 /**
   * @}
@@ -89,10 +89,10 @@ static PHY_HandleTypeDef PHY_Ports[USBPD_PORT_COUNT];
 /** @defgroup USBPD_DEVICE_PHY_Private_functions USBPD DEVICE PHY Private functions
   * @{
   */
-USBPD_StatusTypeDef         PHY_PortInit(uint8_t PortNum, const USBPD_PHY_Callbacks *cbs, uint8_t *pRxBuffer, uint32_t SupportedSOP);
-void                        PHY_ResetCompleted(uint8_t PortNum, USBPD_SOPType_TypeDef Type);
-void                        PHY_Rx_HardReset(uint8_t PortNum);
-void                        PHY_Rx_Completed(uint8_t PortNum, uint32_t MsgType);
+USBPD_StatusTypeDef         PHY_PortInit( uint8_t PortNum, const USBPD_PHY_Callbacks *cbs, uint8_t *pRxBuffer, uint32_t SupportedSOP );
+void                        PHY_ResetCompleted( uint8_t PortNum, USBPD_SOPType_TypeDef Type );
+void                        PHY_Rx_HardReset( uint8_t PortNum );
+void                        PHY_Rx_Completed( uint8_t PortNum, uint32_t MsgType );
 
 /**
   * @}
@@ -112,25 +112,25 @@ void                        PHY_Rx_Completed(uint8_t PortNum, uint32_t MsgType);
   * @param  SupportedSOP  bit field of the supported SOP
   * @retval status        @ref USBPD_OK
   */
-USBPD_StatusTypeDef USBPD_PHY_Init(uint8_t PortNum, const USBPD_PHY_Callbacks *pCallbacks, uint8_t *pRxBuffer, USBPD_PortPowerRole_TypeDef PowerRole, uint32_t SupportedSOP)
+USBPD_StatusTypeDef USBPD_PHY_Init( uint8_t PortNum, const USBPD_PHY_Callbacks *pCallbacks, uint8_t *pRxBuffer, USBPD_PortPowerRole_TypeDef PowerRole, uint32_t SupportedSOP )
 {
-  (void)PowerRole;
+    ( void )PowerRole;
 
-  /* set all callbacks */
-  Ports[PortNum].cbs.USBPD_HW_IF_TxCompleted            = pCallbacks->USBPD_PHY_TxCompleted;
-  Ports[PortNum].cbs.USBPD_HW_IF_BistCompleted          = pCallbacks->USBPD_PHY_BistCompleted;
-  Ports[PortNum].cbs.USBPD_HW_IF_RX_ResetIndication     = pCallbacks->USBPD_PHY_ResetIndication;
-  Ports[PortNum].cbs.USBPD_HW_IF_RX_Completed           = PHY_Rx_Completed;
-  Ports[PortNum].cbs.USBPD_HW_IF_TX_HardResetCompleted  = pCallbacks->USBPD_PHY_ResetCompleted;
-  Ports[PortNum].cbs.USBPD_HW_IF_TX_FRSReception        = pCallbacks->USBPD_PHY_FastRoleSwapReception;
-  /* Initialize the hardware for the port */
-  Ports[PortNum].ptr_RxBuff = pRxBuffer;
+    /* set all callbacks */
+    Ports[PortNum].cbs.USBPD_HW_IF_TxCompleted            = pCallbacks->USBPD_PHY_TxCompleted;
+    Ports[PortNum].cbs.USBPD_HW_IF_BistCompleted          = pCallbacks->USBPD_PHY_BistCompleted;
+    Ports[PortNum].cbs.USBPD_HW_IF_RX_ResetIndication     = pCallbacks->USBPD_PHY_ResetIndication;
+    Ports[PortNum].cbs.USBPD_HW_IF_RX_Completed           = PHY_Rx_Completed;
+    Ports[PortNum].cbs.USBPD_HW_IF_TX_HardResetCompleted  = pCallbacks->USBPD_PHY_ResetCompleted;
+    Ports[PortNum].cbs.USBPD_HW_IF_TX_FRSReception        = pCallbacks->USBPD_PHY_FastRoleSwapReception;
+    /* Initialize the hardware for the port */
+    Ports[PortNum].ptr_RxBuff = pRxBuffer;
 
-  /* Initialize port related functionalities inside this layer */
-  PHY_Ports[PortNum].SupportedSOP = SupportedSOP;
-  PHY_Ports[PortNum].USBPD_PHY_MessageReceived = pCallbacks->USBPD_PHY_MessageReceived;
+    /* Initialize port related functionalities inside this layer */
+    PHY_Ports[PortNum].SupportedSOP = SupportedSOP;
+    PHY_Ports[PortNum].USBPD_PHY_MessageReceived = pCallbacks->USBPD_PHY_MessageReceived;
 
-  return USBPD_OK;
+    return USBPD_OK;
 }
 
 /**
@@ -139,10 +139,10 @@ USBPD_StatusTypeDef USBPD_PHY_Init(uint8_t PortNum, const USBPD_PHY_Callbacks *p
   * @param  PortNum    Number of the port.
   * @retval retry counter value in us.
   */
-uint16_t USBPD_PHY_GetRetryTimerValue(uint8_t PortNum)
+uint16_t USBPD_PHY_GetRetryTimerValue( uint8_t PortNum )
 {
-  (void)PortNum;
-  return 905u;
+    ( void )PortNum;
+    return 905u;
 }
 
 /**
@@ -151,9 +151,9 @@ uint16_t USBPD_PHY_GetRetryTimerValue(uint8_t PortNum)
   * @param  PortNum    Number of the port.
   * @retval value in us.
   */
-uint16_t USBPD_PHY_GetMinGOODCRCTimerValue(uint8_t PortNum)
+uint16_t USBPD_PHY_GetMinGOODCRCTimerValue( uint8_t PortNum )
 {
-  return 30u;
+    return 30u;
 }
 
 /**
@@ -161,11 +161,11 @@ uint16_t USBPD_PHY_GetMinGOODCRCTimerValue(uint8_t PortNum)
   * @param  PortNum    Number of the port.
   * @retval None
   */
-void USBPD_PHY_Reset(uint8_t PortNum)
+void USBPD_PHY_Reset( uint8_t PortNum )
 {
-  (void)PortNum;
-  /* reset PHY layer   */
-  /* reset HW_IF layer */
+    ( void )PortNum;
+    /* reset PHY layer   */
+    /* reset HW_IF layer */
 }
 
 /**
@@ -174,10 +174,10 @@ void USBPD_PHY_Reset(uint8_t PortNum)
   * @param  Type      Type of reset (hard or cable reset) @ref USBPD_SOPTYPE_HARD_RESET or @ref USBPD_SOPTYPE_CABLE_RESET
   * @retval status    @ref USBPD_OK
   */
-USBPD_StatusTypeDef USBPD_PHY_ResetRequest(uint8_t PortNum, USBPD_SOPType_TypeDef Type)
+USBPD_StatusTypeDef USBPD_PHY_ResetRequest( uint8_t PortNum, USBPD_SOPType_TypeDef Type )
 {
-  /* Send the requested reset */
-  return USBPD_PHY_SendMessage(PortNum, Type, NULL, 0);
+    /* Send the requested reset */
+    return USBPD_PHY_SendMessage( PortNum, Type, NULL, 0 );
 }
 
 /**
@@ -188,10 +188,10 @@ USBPD_StatusTypeDef USBPD_PHY_ResetRequest(uint8_t PortNum, USBPD_SOPType_TypeDe
   * @param  Size      Size of the buffer (bytes)
   * @retval status    @ref USBPD_OK
   */
-USBPD_StatusTypeDef USBPD_PHY_SendMessage(uint8_t PortNum, USBPD_SOPType_TypeDef Type, uint8_t *pBuffer, uint16_t Size)
+USBPD_StatusTypeDef USBPD_PHY_SendMessage( uint8_t PortNum, USBPD_SOPType_TypeDef Type, uint8_t *pBuffer, uint16_t Size )
 {
-  /* Trace to track message */
-  return USBPD_HW_IF_SendBuffer(PortNum, Type, pBuffer,  Size);
+    /* Trace to track message */
+    return USBPD_HW_IF_SendBuffer( PortNum, Type, pBuffer,  Size );
 }
 
 /**
@@ -199,11 +199,11 @@ USBPD_StatusTypeDef USBPD_PHY_SendMessage(uint8_t PortNum, USBPD_SOPType_TypeDef
   * @param  PortNum   Number of the port
   * @retval status    @ref USBPD_OK
   */
-USBPD_StatusTypeDef USBPD_PHY_Send_BIST_Pattern(uint8_t PortNum)
+USBPD_StatusTypeDef USBPD_PHY_Send_BIST_Pattern( uint8_t PortNum )
 {
-  /* Call the low-level function (HW_IF) to accomplish the BIST Carrier Mode Transmission */
-  USBPD_HW_IF_Send_BIST_Pattern(PortNum);
-  return USBPD_OK;
+    /* Call the low-level function (HW_IF) to accomplish the BIST Carrier Mode Transmission */
+    USBPD_HW_IF_Send_BIST_Pattern( PortNum );
+    return USBPD_OK;
 }
 
 /**
@@ -212,13 +212,14 @@ USBPD_StatusTypeDef USBPD_PHY_Send_BIST_Pattern(uint8_t PortNum)
   * @param  mode    SOP BIST MODE 2
   * @retval USBPD   status
   */
-USBPD_StatusTypeDef USBPD_PHY_ExitTransmit(uint8_t PortNum, USBPD_SOPType_TypeDef mode)
+USBPD_StatusTypeDef USBPD_PHY_ExitTransmit( uint8_t PortNum, USBPD_SOPType_TypeDef mode )
 {
-  if (USBPD_SOPTYPE_BIST_MODE_2 == mode)
-  {
-    USBPD_HW_IF_StopBISTMode2(PortNum);
-  }
-  return USBPD_OK;
+    if( USBPD_SOPTYPE_BIST_MODE_2 == mode )
+    {
+        USBPD_HW_IF_StopBISTMode2( PortNum );
+    }
+
+    return USBPD_OK;
 }
 
 /**
@@ -227,9 +228,9 @@ USBPD_StatusTypeDef USBPD_PHY_ExitTransmit(uint8_t PortNum, USBPD_SOPType_TypeDe
   * @param  PortNum  Number of the port
   * @retval None
   */
-void USBPD_PHY_SetResistor_SinkTxNG(uint8_t PortNum)
+void USBPD_PHY_SetResistor_SinkTxNG( uint8_t PortNum )
 {
-  USBPD_HW_IF_SetResistor_SinkTxNG(PortNum);
+    USBPD_HW_IF_SetResistor_SinkTxNG( PortNum );
 }
 
 /**
@@ -238,9 +239,9 @@ void USBPD_PHY_SetResistor_SinkTxNG(uint8_t PortNum)
   * @param  PortNum  Number of the port.
   * @retval none.
   */
-void USBPD_PHY_SetResistor_SinkTxOK(uint8_t PortNum)
+void USBPD_PHY_SetResistor_SinkTxOK( uint8_t PortNum )
 {
-  USBPD_HW_IF_SetResistor_SinkTxOK(PortNum);
+    USBPD_HW_IF_SetResistor_SinkTxOK( PortNum );
 }
 
 /**
@@ -249,9 +250,9 @@ void USBPD_PHY_SetResistor_SinkTxOK(uint8_t PortNum)
   * @param  SOPSupported  List of the supported SOP
   * @retval None.
   */
-void USBPD_PHY_SOPSupported(uint8_t PortNum, uint32_t SOPSupported)
+void USBPD_PHY_SOPSupported( uint8_t PortNum, uint32_t SOPSupported )
 {
-  PHY_Ports[PortNum].SupportedSOP = SOPSupported;
+    PHY_Ports[PortNum].SupportedSOP = SOPSupported;
 }
 
 /**
@@ -260,9 +261,9 @@ void USBPD_PHY_SOPSupported(uint8_t PortNum, uint32_t SOPSupported)
   * @param  PortNum  Number of the port.
   * @retval USBPD_TRUE or USBPD_FALSE
   */
-uint8_t USBPD_PHY_IsResistor_SinkTxOk(uint8_t PortNum)
+uint8_t USBPD_PHY_IsResistor_SinkTxOk( uint8_t PortNum )
 {
-  return USBPD_HW_IF_IsResistor_SinkTxOk(PortNum);
+    return USBPD_HW_IF_IsResistor_SinkTxOk( PortNum );
 }
 
 /**
@@ -270,9 +271,9 @@ uint8_t USBPD_PHY_IsResistor_SinkTxOk(uint8_t PortNum)
  * @param  PortNum  Number of the port.
  * @retval None.
   */
-void USBPD_PHY_FastRoleSwapSignalling(uint8_t PortNum)
+void USBPD_PHY_FastRoleSwapSignalling( uint8_t PortNum )
 {
-  USBPD_HW_IF_FastRoleSwapSignalling(PortNum);
+    USBPD_HW_IF_FastRoleSwapSignalling( PortNum );
 }
 
 /**
@@ -280,9 +281,9 @@ void USBPD_PHY_FastRoleSwapSignalling(uint8_t PortNum)
   * @param  PortNum    Number of the port.
   * @retval None
   */
-void USBPD_PHY_EnableRX(uint8_t PortNum)
+void USBPD_PHY_EnableRX( uint8_t PortNum )
 {
-  USBPD_HW_IF_EnableRX(PortNum);
+    USBPD_HW_IF_EnableRX( PortNum );
 }
 
 /**
@@ -290,9 +291,9 @@ void USBPD_PHY_EnableRX(uint8_t PortNum)
   * @param  PortNum    Number of the port.
   * @retval None
   */
-void USBPD_PHY_DisableRX(uint8_t PortNum)
+void USBPD_PHY_DisableRX( uint8_t PortNum )
 {
-  USBPD_HW_IF_DisableRX(PortNum);
+    USBPD_HW_IF_DisableRX( PortNum );
 }
 
 /**
@@ -310,62 +311,67 @@ void USBPD_PHY_DisableRX(uint8_t PortNum)
   * @param  MsgType   SOP Message Type
   * @retval None.
   */
-void PHY_Rx_Completed(uint8_t PortNum, uint32_t MsgType)
+void PHY_Rx_Completed( uint8_t PortNum, uint32_t MsgType )
 {
-  const USBPD_SOPType_TypeDef tab_sop_value[] = { USBPD_SOPTYPE_SOP,              USBPD_SOPTYPE_SOP1, USBPD_SOPTYPE_SOP2,
-                                                  USBPD_SOPTYPE_SOP1_DEBUG, USBPD_SOPTYPE_SOP2_DEBUG, USBPD_SOPTYPE_CABLE_RESET
-                                                };
-  USBPD_SOPType_TypeDef _msgtype;
+    const USBPD_SOPType_TypeDef tab_sop_value[] = { USBPD_SOPTYPE_SOP,              USBPD_SOPTYPE_SOP1, USBPD_SOPTYPE_SOP2,
+                                                    USBPD_SOPTYPE_SOP1_DEBUG, USBPD_SOPTYPE_SOP2_DEBUG, USBPD_SOPTYPE_CABLE_RESET
+                                                  };
+    USBPD_SOPType_TypeDef _msgtype;
 
-  _msgtype = tab_sop_value[MsgType];
+    _msgtype = tab_sop_value[MsgType];
 
-  /* check if the message must be forwarded to usbpd stack */
-  switch (_msgtype)
-  {
+    /* check if the message must be forwarded to usbpd stack */
+    switch( _msgtype )
+    {
     case USBPD_SOPTYPE_CABLE_RESET :
-      if (0x1Eu == (PHY_Ports[PortNum].SupportedSOP & 0x1Eu))
-      {
-        /* nothing to do the message will be discarded and the port partner retry the send */
-        Ports[PortNum].cbs.USBPD_HW_IF_RX_ResetIndication(PortNum, USBPD_SOPTYPE_CABLE_RESET);
-      }
-      break;
+        if( 0x1Eu == ( PHY_Ports[PortNum].SupportedSOP & 0x1Eu ) )
+        {
+            /* nothing to do the message will be discarded and the port partner retry the send */
+            Ports[PortNum].cbs.USBPD_HW_IF_RX_ResetIndication( PortNum, USBPD_SOPTYPE_CABLE_RESET );
+        }
+
+        break;
+
     case USBPD_SOPTYPE_SOP :
     case USBPD_SOPTYPE_SOP1 :
     case USBPD_SOPTYPE_SOP2 :
     case USBPD_SOPTYPE_SOP1_DEBUG :
     case USBPD_SOPTYPE_SOP2_DEBUG :
-      if (!((uint8_t)(0x1u << _msgtype) != (PHY_Ports[PortNum].SupportedSOP & (uint8_t)(0x1u << _msgtype))))
-      {
-         PHY_Ports[PortNum].USBPD_PHY_MessageReceived(PortNum, _msgtype);
-      }
-#if defined(DEBUG_NOTFWD)
-      else
-      {
-        typedef union
+        if( !( ( uint8_t )( 0x1u << _msgtype ) != ( PHY_Ports[PortNum].SupportedSOP & ( uint8_t )( 0x1u << _msgtype ) ) ) )
         {
-          uint16_t d16;
-          struct
-          {
-            uint16_t MessageType            :5;   /*!< Message Header's message Type                      */
-            uint16_t PortDataRole           :1;   /*!< Message Header's Port Data Role                    */
-            uint16_t SpecificationRevision  :2;   /*!< Message Header's Spec Revision                     */
-            uint16_t PortPowerRole_CablePlug:1;   /*!< Message Header's Port Power Role/Cable Plug field  */
-            uint16_t MessageID              :3;   /*!< Message Header's message ID                        */
-            uint16_t NumberOfDataObjects    :3;   /*!< Message Header's Number of data object             */
-            uint16_t Extended               :1;   /*!< Reserved                                           */
-          }
-          b;
-        } USBPD_MsgHeader_TypeDef;
+            PHY_Ports[PortNum].USBPD_PHY_MessageReceived( PortNum, _msgtype );
+        }
 
-        USBPD_MsgHeader_TypeDef header_rx;
-        header_rx.d16 = LE16(Ports[PortNum].ptr_RxBuff);
-        USBPD_TRACE_Add( USBPD_TRACE_PHY_NOTFRWD,PortNum, _msgtype, Ports[PortNum].ptr_RxBuff, 2u + (header_rx.b.NumberOfDataObjects * 4u));
-      }
+#if defined(DEBUG_NOTFWD)
+        else
+        {
+            typedef union
+            {
+                uint16_t d16;
+                struct
+                {
+                    uint16_t MessageType            : 5;  /*!< Message Header's message Type                      */
+                    uint16_t PortDataRole           : 1;  /*!< Message Header's Port Data Role                    */
+                    uint16_t SpecificationRevision  : 2;  /*!< Message Header's Spec Revision                     */
+                    uint16_t PortPowerRole_CablePlug: 1;  /*!< Message Header's Port Power Role/Cable Plug field  */
+                    uint16_t MessageID              : 3;  /*!< Message Header's message ID                        */
+                    uint16_t NumberOfDataObjects    : 3;  /*!< Message Header's Number of data object             */
+                    uint16_t Extended               : 1;  /*!< Reserved                                           */
+                }
+                b;
+            } USBPD_MsgHeader_TypeDef;
+
+            USBPD_MsgHeader_TypeDef header_rx;
+            header_rx.d16 = LE16( Ports[PortNum].ptr_RxBuff );
+            USBPD_TRACE_Add( USBPD_TRACE_PHY_NOTFRWD, PortNum, _msgtype, Ports[PortNum].ptr_RxBuff, 2u + ( header_rx.b.NumberOfDataObjects * 4u ) );
+        }
+
 #endif
-      break;
+        break;
+
     default :
-      break;
-  }
+        break;
+    }
 }
 
 /**

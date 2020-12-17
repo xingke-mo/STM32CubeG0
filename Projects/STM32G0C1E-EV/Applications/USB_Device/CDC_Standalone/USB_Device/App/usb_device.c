@@ -36,7 +36,7 @@
 __IO uint32_t remotewakeupon = 0;
 uint8_t HID_Buffer[4];
 extern PCD_HandleTypeDef hpcd_USB_FS;
-extern void Error_Handler(void);
+extern void Error_Handler( void );
 
 /* USER CODE END PV */
 
@@ -67,27 +67,35 @@ extern USBD_DescriptorsTypeDef CDC_Desc;
   * Init USB device Library, add supported class and start the library
   * @retval None
   */
-void MX_USB_Device_Init(void)
+void MX_USB_Device_Init( void )
 {
-  /* USER CODE BEGIN USB_Device_Init_PreTreatment */
-  /* USER CODE END USB_Device_Init_PreTreatment */
+    /* USER CODE BEGIN USB_Device_Init_PreTreatment */
+    /* USER CODE END USB_Device_Init_PreTreatment */
 
-  /* Init Device Library, add supported class and start the library. */
-  if (USBD_Init(&hUsbDeviceFS, &CDC_Desc, 0) != USBD_OK) {
-    Error_Handler();
-  }
-  if (USBD_RegisterClass(&hUsbDeviceFS, &USBD_CDC) != USBD_OK) {
-    Error_Handler();
-  }
-  if (USBD_CDC_RegisterInterface(&hUsbDeviceFS, &USBD_Interface_fops_FS) != USBD_OK) {
-    Error_Handler();
-  }
-  if (USBD_Start(&hUsbDeviceFS) != USBD_OK) {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USB_Device_Init_PostTreatment */
+    /* Init Device Library, add supported class and start the library. */
+    if( USBD_Init( &hUsbDeviceFS, &CDC_Desc, 0 ) != USBD_OK )
+    {
+        Error_Handler();
+    }
 
-  /* USER CODE END USB_Device_Init_PostTreatment */
+    if( USBD_RegisterClass( &hUsbDeviceFS, &USBD_CDC ) != USBD_OK )
+    {
+        Error_Handler();
+    }
+
+    if( USBD_CDC_RegisterInterface( &hUsbDeviceFS, &USBD_Interface_fops_FS ) != USBD_OK )
+    {
+        Error_Handler();
+    }
+
+    if( USBD_Start( &hUsbDeviceFS ) != USBD_OK )
+    {
+        Error_Handler();
+    }
+
+    /* USER CODE BEGIN USB_Device_Init_PostTreatment */
+
+    /* USER CODE END USB_Device_Init_PostTreatment */
 }
 
 /**

@@ -1,4 +1,4 @@
-/** 
+/**
   ******************************************************************************
   * @file    Examples_LL/I2C/I2C_OneBoard_Communication_IT/Src/stm32g0xx_it.c
   * @author  MCD Application Team
@@ -8,11 +8,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -47,7 +47,7 @@
   * @param  None
   * @retval None
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
 }
 
@@ -56,12 +56,12 @@ void NMI_Handler(void)
   * @param  None
   * @retval None
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Hard Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 
@@ -70,7 +70,7 @@ void HardFault_Handler(void)
   * @param  None
   * @retval None
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
 }
 
@@ -80,7 +80,7 @@ void SVC_Handler(void)
   * @param  None
   * @retval None
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
 }
 
@@ -89,7 +89,7 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
 }
 
@@ -105,16 +105,16 @@ void SysTick_Handler(void)
   * @param  None
   * @retval None
   */
-void USER_BUTTON_IRQHANDLER(void)
+void USER_BUTTON_IRQHANDLER( void )
 {
-  /* Manage Flags */
-  if(LL_EXTI_IsActiveFallingFlag_0_31(USER_BUTTON_EXTI_LINE) != RESET)
-  {
-    LL_EXTI_ClearFallingFlag_0_31(USER_BUTTON_EXTI_LINE);
+    /* Manage Flags */
+    if( LL_EXTI_IsActiveFallingFlag_0_31( USER_BUTTON_EXTI_LINE ) != RESET )
+    {
+        LL_EXTI_ClearFallingFlag_0_31( USER_BUTTON_EXTI_LINE );
 
-    /* Manage code in main.c.*/
-    UserButton_Callback(); 
-  }
+        /* Manage code in main.c.*/
+        UserButton_Callback();
+    }
 }
 
 /**
@@ -122,78 +122,78 @@ void USER_BUTTON_IRQHANDLER(void)
   * Param   None
   * Retval  None
   */
-void I2C1_IRQHandler(void)
+void I2C1_IRQHandler( void )
 {
-  /* Check ADDR flag value in ISR register */
-  if(LL_I2C_IsActiveFlag_ADDR(I2C1))
-  {
-    /* Verify the Address Match with the OWN Slave address */
-    if(LL_I2C_GetAddressMatchCode(I2C1) == SLAVE_OWN_ADDRESS)
+    /* Check ADDR flag value in ISR register */
+    if( LL_I2C_IsActiveFlag_ADDR( I2C1 ) )
     {
-      /* Verify the transfer direction, a read direction, Slave enters transmitter mode */
-      if(LL_I2C_GetTransferDirection(I2C1) == LL_I2C_DIRECTION_READ)
-      {
-        /* Clear ADDR flag value in ISR register */
-        LL_I2C_ClearFlag_ADDR(I2C1);
+        /* Verify the Address Match with the OWN Slave address */
+        if( LL_I2C_GetAddressMatchCode( I2C1 ) == SLAVE_OWN_ADDRESS )
+        {
+            /* Verify the transfer direction, a read direction, Slave enters transmitter mode */
+            if( LL_I2C_GetTransferDirection( I2C1 ) == LL_I2C_DIRECTION_READ )
+            {
+                /* Clear ADDR flag value in ISR register */
+                LL_I2C_ClearFlag_ADDR( I2C1 );
 
-        /* Enable Transmit Interrupt */
-        LL_I2C_EnableIT_TX(I2C1);
-      }
-      else
-      {
-        /* Clear ADDR flag value in ISR register */
-        LL_I2C_ClearFlag_ADDR(I2C1);
+                /* Enable Transmit Interrupt */
+                LL_I2C_EnableIT_TX( I2C1 );
+            }
+            else
+            {
+                /* Clear ADDR flag value in ISR register */
+                LL_I2C_ClearFlag_ADDR( I2C1 );
 
-        /* Call Error function */
-        Error_Callback();
-      }
+                /* Call Error function */
+                Error_Callback();
+            }
+        }
+        else
+        {
+            /* Clear ADDR flag value in ISR register */
+            LL_I2C_ClearFlag_ADDR( I2C1 );
+
+            /* Call Error function */
+            Error_Callback();
+        }
+    }
+    /* Check NACK flag value in ISR register */
+    else if( LL_I2C_IsActiveFlag_NACK( I2C1 ) )
+    {
+        /* End of Transfer */
+        LL_I2C_ClearFlag_NACK( I2C1 );
+    }
+    /* Check TXIS flag value in ISR register */
+    else if( LL_I2C_IsActiveFlag_TXIS( I2C1 ) )
+    {
+        /* Call function Slave Ready to Transmit Callback */
+        Slave_Ready_To_Transmit_Callback();
+    }
+    /* Check STOP flag value in ISR register */
+    else if( LL_I2C_IsActiveFlag_STOP( I2C1 ) )
+    {
+        /* Clear STOP flag value in ISR register */
+        LL_I2C_ClearFlag_STOP( I2C1 );
+
+        /* Check TXE flag value in ISR register */
+        if( !LL_I2C_IsActiveFlag_TXE( I2C1 ) )
+        {
+            /* Flush the TXDR register */
+            LL_I2C_ClearFlag_TXE( I2C1 );
+        }
+    }
+    /* Check TXE flag value in ISR register */
+    else if( !LL_I2C_IsActiveFlag_TXE( I2C1 ) )
+    {
+        /* Do nothing */
+        /* This Flag will be set by hardware when the TXDR register is empty */
+        /* If needed, use LL_I2C_ClearFlag_TXE() interface to flush the TXDR register  */
     }
     else
     {
-      /* Clear ADDR flag value in ISR register */
-      LL_I2C_ClearFlag_ADDR(I2C1);
-        
-      /* Call Error function */
-      Error_Callback();
+        /* Call Error function */
+        Error_Callback();
     }
-  }
-  /* Check NACK flag value in ISR register */
-  else if(LL_I2C_IsActiveFlag_NACK(I2C1))
-  {
-    /* End of Transfer */
-    LL_I2C_ClearFlag_NACK(I2C1);
-  }
-  /* Check TXIS flag value in ISR register */
-  else if(LL_I2C_IsActiveFlag_TXIS(I2C1))
-  {
-    /* Call function Slave Ready to Transmit Callback */
-    Slave_Ready_To_Transmit_Callback();
-  }
-  /* Check STOP flag value in ISR register */
-  else if(LL_I2C_IsActiveFlag_STOP(I2C1))
-  {
-    /* Clear STOP flag value in ISR register */
-    LL_I2C_ClearFlag_STOP(I2C1);
-    
-    /* Check TXE flag value in ISR register */
-    if(!LL_I2C_IsActiveFlag_TXE(I2C1))
-    {
-      /* Flush the TXDR register */
-      LL_I2C_ClearFlag_TXE(I2C1);
-    }
-  }
-  /* Check TXE flag value in ISR register */
-  else if(!LL_I2C_IsActiveFlag_TXE(I2C1))
-  {
-    /* Do nothing */
-    /* This Flag will be set by hardware when the TXDR register is empty */
-    /* If needed, use LL_I2C_ClearFlag_TXE() interface to flush the TXDR register  */
-  }
-  else
-  {
-    /* Call Error function */
-    Error_Callback();
-  }
 }
 
 /**
@@ -201,28 +201,28 @@ void I2C1_IRQHandler(void)
   * Param   None
   * Retval  None
   */
-void I2C2_IRQHandler(void)
+void I2C2_IRQHandler( void )
 {
-  /* Check RXNE flag value in ISR register */
-  if(LL_I2C_IsActiveFlag_RXNE(I2C2))
-  {
-    /* Call function Master Reception Callback */
-    Master_Reception_Callback();
-  }
-  /* Check STOP flag value in ISR register */
-  else if(LL_I2C_IsActiveFlag_STOP(I2C2))
-  {
-    /* End of Transfer */
-    LL_I2C_ClearFlag_STOP(I2C2);
+    /* Check RXNE flag value in ISR register */
+    if( LL_I2C_IsActiveFlag_RXNE( I2C2 ) )
+    {
+        /* Call function Master Reception Callback */
+        Master_Reception_Callback();
+    }
+    /* Check STOP flag value in ISR register */
+    else if( LL_I2C_IsActiveFlag_STOP( I2C2 ) )
+    {
+        /* End of Transfer */
+        LL_I2C_ClearFlag_STOP( I2C2 );
 
-    /* Call function Master Complete Callback */
-    Master_Complete_Callback();
-  }
-  else
-  {
-    /* Call Error function */
-    Error_Callback();
-  }
+        /* Call function Master Complete Callback */
+        Master_Complete_Callback();
+    }
+    else
+    {
+        /* Call Error function */
+        Error_Callback();
+    }
 }
 
 /**

@@ -23,15 +23,15 @@
 
 /* Includes ------------------------------------------------------------------*/
 /* Exported types ------------------------------------------------------------*/
-typedef void (*Function_Pointer)(void);
-typedef void (Send_BusyByte_Func)(void);
+typedef void ( *Function_Pointer )( void );
+typedef void ( Send_BusyByte_Func )( void );
 
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void Common_SetMsp(uint32_t TopOfMainStack);
-void Common_EnableIrq(void);
-void Common_DisableIrq(void);
+void Common_SetMsp( uint32_t TopOfMainStack );
+void Common_EnableIrq( void );
+void Common_DisableIrq( void );
 
 #endif /* COMMON_INTERFACE_H */
 

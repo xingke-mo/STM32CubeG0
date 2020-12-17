@@ -61,24 +61,24 @@
 /**
   * Initializes the Global MSP.
   */
-void HAL_MspInit(void)
+void HAL_MspInit( void )
 {
-  /* USER CODE BEGIN MspInit 0 */
+    /* USER CODE BEGIN MspInit 0 */
 
-  /* USER CODE END MspInit 0 */
+    /* USER CODE END MspInit 0 */
 
-  __HAL_RCC_SYSCFG_CLK_ENABLE();
-  __HAL_RCC_PWR_CLK_ENABLE();
+    __HAL_RCC_SYSCFG_CLK_ENABLE();
+    __HAL_RCC_PWR_CLK_ENABLE();
 
-  /* System interrupt init*/
+    /* System interrupt init*/
 
-  /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
-  */
-  HAL_SYSCFG_StrobeDBattpinsConfig(SYSCFG_CFGR1_UCPD1_STROBE | SYSCFG_CFGR1_UCPD2_STROBE);
+    /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
+    */
+    HAL_SYSCFG_StrobeDBattpinsConfig( SYSCFG_CFGR1_UCPD1_STROBE | SYSCFG_CFGR1_UCPD2_STROBE );
 
-  /* USER CODE BEGIN MspInit 1 */
+    /* USER CODE BEGIN MspInit 1 */
 
-  /* USER CODE END MspInit 1 */
+    /* USER CODE END MspInit 1 */
 }
 
 /**
@@ -87,19 +87,19 @@ void HAL_MspInit(void)
 * @param hrng: RNG handle pointer
 * @retval None
 */
-void HAL_RNG_MspInit(RNG_HandleTypeDef* hrng)
+void HAL_RNG_MspInit( RNG_HandleTypeDef *hrng )
 {
-  if(hrng->Instance==RNG)
-  {
-  /* USER CODE BEGIN RNG_MspInit 0 */
+    if( hrng->Instance == RNG )
+    {
+        /* USER CODE BEGIN RNG_MspInit 0 */
 
-  /* USER CODE END RNG_MspInit 0 */
-    /* Peripheral clock enable */
-    __HAL_RCC_RNG_CLK_ENABLE();
-  /* USER CODE BEGIN RNG_MspInit 1 */
+        /* USER CODE END RNG_MspInit 0 */
+        /* Peripheral clock enable */
+        __HAL_RCC_RNG_CLK_ENABLE();
+        /* USER CODE BEGIN RNG_MspInit 1 */
 
-  /* USER CODE END RNG_MspInit 1 */
-  }
+        /* USER CODE END RNG_MspInit 1 */
+    }
 
 }
 
@@ -109,25 +109,25 @@ void HAL_RNG_MspInit(RNG_HandleTypeDef* hrng)
 * @param hrng: RNG handle pointer
 * @retval None
 */
-void HAL_RNG_MspDeInit(RNG_HandleTypeDef* hrng)
+void HAL_RNG_MspDeInit( RNG_HandleTypeDef *hrng )
 {
-  if(hrng->Instance==RNG)
-  {
-  /* USER CODE BEGIN RNG_MspDeInit 0 */
+    if( hrng->Instance == RNG )
+    {
+        /* USER CODE BEGIN RNG_MspDeInit 0 */
 
-  /* USER CODE END RNG_MspDeInit 0 */
-    /* Peripheral clock disable */
-    __HAL_RCC_RNG_CLK_DISABLE();
-  /* USER CODE BEGIN RNG_MspDeInit 1 */
+        /* USER CODE END RNG_MspDeInit 0 */
+        /* Peripheral clock disable */
+        __HAL_RCC_RNG_CLK_DISABLE();
+        /* USER CODE BEGIN RNG_MspDeInit 1 */
 
-    /* Enable RNG reset state */
-    __HAL_RCC_RNG_FORCE_RESET();
+        /* Enable RNG reset state */
+        __HAL_RCC_RNG_FORCE_RESET();
 
-    /* Release RNG from reset state */
-    __HAL_RCC_RNG_RELEASE_RESET();
+        /* Release RNG from reset state */
+        __HAL_RCC_RNG_RELEASE_RESET();
 
-  /* USER CODE END RNG_MspDeInit 1 */
-  }
+        /* USER CODE END RNG_MspDeInit 1 */
+    }
 
 }
 

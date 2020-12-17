@@ -64,13 +64,13 @@ extern "C" {
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void Error_Handler(void);
+void Error_Handler( void );
 
 /* USER CODE BEGIN EFP */
-void UserButton_Callback(void);
-void USART_TXEmpty_Callback(void);
-void USART_CharTransmitComplete_Callback(void);
-void Error_Callback(void);
+void UserButton_Callback( void );
+void USART_TXEmpty_Callback( void );
+void USART_CharTransmitComplete_Callback( void );
+void Error_Callback( void );
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

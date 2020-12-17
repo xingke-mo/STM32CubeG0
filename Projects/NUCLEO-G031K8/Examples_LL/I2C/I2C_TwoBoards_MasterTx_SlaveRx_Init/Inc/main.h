@@ -81,14 +81,14 @@ extern "C" {
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void Error_Handler(void);
+void Error_Handler( void );
 
 /* USER CODE BEGIN EFP */
 /* IRQ Handler treatment functions */
 #ifndef SLAVE_BOARD
-void UserButton_Callback(void);
+void UserButton_Callback( void );
 #endif /* MASTER_BOARD */
-void Error_Callback(void);
+void Error_Callback( void );
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

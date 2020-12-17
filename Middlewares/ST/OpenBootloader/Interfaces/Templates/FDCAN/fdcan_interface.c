@@ -39,11 +39,11 @@ uint8_t TxData[FDCAN_RAM_BUFFER_SIZE];
 uint8_t RxData[FDCAN_RAM_BUFFER_SIZE];
 
 /* Private function prototypes -----------------------------------------------*/
-static void OPENBL_FDCAN_Init(void);
+static void OPENBL_FDCAN_Init( void );
 
 /* Private functions ---------------------------------------------------------*/
 
-static void OPENBL_FDCAN_Init(void)
+static void OPENBL_FDCAN_Init( void )
 {
 }
 
@@ -53,7 +53,7 @@ static void OPENBL_FDCAN_Init(void)
  * @brief  This function is used to configure FDCAN pins and then initialize the used FDCAN instance.
  * @retval None.
  */
-void OPENBL_FDCAN_Configuration(void)
+void OPENBL_FDCAN_Configuration( void )
 {
 }
 
@@ -61,37 +61,37 @@ void OPENBL_FDCAN_Configuration(void)
  * @brief  This function is used to detect if there is any activity on FDCAN protocol.
  * @retval None.
  */
-uint8_t OPENBL_FDCAN_ProtocolDetection(void)
+uint8_t OPENBL_FDCAN_ProtocolDetection( void )
 {
-  uint8_t detected;
-  return detected;
+    uint8_t detected;
+    return detected;
 }
 
 /**
  * @brief  This function is used to get the command opcode from the host.
  * @retval Returns the command.
  */
-uint8_t OPENBL_FDCAN_GetCommandOpcode(void)
+uint8_t OPENBL_FDCAN_GetCommandOpcode( void )
 {
-  uint8_t command_opc = 0x0;
-  return command_opc;
+    uint8_t command_opc = 0x0;
+    return command_opc;
 }
 
 /**
   * @brief  This function is used to read one byte from FDCAN pipe.
   * @retval Returns the read byte.
   */
-uint8_t OPENBL_FDCAN_ReadByte(void)
+uint8_t OPENBL_FDCAN_ReadByte( void )
 {
-  uint8_t byte = 0x0;
-  return byte;
+    uint8_t byte = 0x0;
+    return byte;
 }
 
 /**
   * @brief  This function is used to read bytes from FDCAN pipe.
   * @retval Returns the read byte.
   */
-void OPENBL_FDCAN_ReadBytes(uint8_t *Buffer, uint32_t BufferSize)
+void OPENBL_FDCAN_ReadBytes( uint8_t *Buffer, uint32_t BufferSize )
 {
 }
 
@@ -100,7 +100,7 @@ void OPENBL_FDCAN_ReadBytes(uint8_t *Buffer, uint32_t BufferSize)
   * @param  Byte The byte to be sent.
   * @retval None.
   */
-void OPENBL_FDCAN_SendByte(uint8_t Byte)
+void OPENBL_FDCAN_SendByte( uint8_t Byte )
 {
 }
 
@@ -110,7 +110,7 @@ void OPENBL_FDCAN_SendByte(uint8_t Byte)
   * @param  BufferSize The size of the data buffer to be sent.
   * @retval None.
   */
-void OPENBL_FDCAN_SendBytes(uint8_t *Buffer, uint32_t BufferSize)
+void OPENBL_FDCAN_SendBytes( uint8_t *Buffer, uint32_t BufferSize )
 {
 }
 

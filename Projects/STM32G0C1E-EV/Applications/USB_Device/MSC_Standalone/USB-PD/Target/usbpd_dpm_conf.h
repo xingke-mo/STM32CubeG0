@@ -21,7 +21,7 @@
 #define __USBPD_DPM_CONF_H_
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -43,9 +43,9 @@
 
 USBPD_SettingsTypeDef DPM_Settings[USBPD_PORT_COUNT] =
 {
-  {
-    .PE_DefaultRole = USBPD_PORTPOWERROLE_SNK,  /* Default port role                                       */
-  }
+    {
+        .PE_DefaultRole = USBPD_PORTPOWERROLE_SNK,  /* Default port role                                       */
+    }
 };
 /* USER CODE END Variable */
 

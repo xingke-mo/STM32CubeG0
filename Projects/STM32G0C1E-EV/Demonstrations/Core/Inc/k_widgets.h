@@ -12,14 +12,14 @@
   *                               www.st.com/SLA0044
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef _K_WIDGETS_H
 #define _K_WIDGETS_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -27,23 +27,24 @@
 
 /* Exported types ------------------------------------------------------------*/
 /* Progress Bar descriptor */
-typedef struct {
-  uint16_t textColor;
-  uint16_t backgroungColor;
-  uint16_t xpos;
-  uint16_t ypos;
-  uint16_t width;
-  uint16_t height;  
+typedef struct
+{
+    uint16_t textColor;
+    uint16_t backgroungColor;
+    uint16_t xpos;
+    uint16_t ypos;
+    uint16_t width;
+    uint16_t height;
 } kWidgetsProgressBar_t;
 
 /* Exported constants --------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void * kWidgets_ProgressBarCreate(kWidgetsProgressBar_t * pProgressBar, uint32_t MaxValue);
-void kWidgets_ProgressBarDestroy(void * hwidgetProgressBar);
-void kWidgets_ProgressBarUpdate(void * hwidgetProgressBar, uint32_t Progress);
-void kWidgets_ProgressBarReset(void * hwidgetProgressBar);
+void *kWidgets_ProgressBarCreate( kWidgetsProgressBar_t *pProgressBar, uint32_t MaxValue );
+void kWidgets_ProgressBarDestroy( void *hwidgetProgressBar );
+void kWidgets_ProgressBarUpdate( void *hwidgetProgressBar, uint32_t Progress );
+void kWidgets_ProgressBarReset( void *hwidgetProgressBar );
 
 #ifdef __cplusplus
 }

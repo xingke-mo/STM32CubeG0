@@ -64,50 +64,50 @@ extern "C" {
   */
 typedef  struct  _BB_DescHeader
 {
-  uint8_t  bLength;
-  uint8_t  bDescriptorType;
-  uint8_t  bDevCapabilityType;
+    uint8_t  bLength;
+    uint8_t  bDescriptorType;
+    uint8_t  bDevCapabilityType;
 }
 USBD_BB_DescHeader_t;
 
 typedef struct
 {
-  uint16_t wSVID;
-  uint8_t  bAlternateMode;
-  uint8_t  iAlternateModeString;
+    uint16_t wSVID;
+    uint8_t  bAlternateMode;
+    uint8_t  iAlternateModeString;
 } USBD_BB_AltModeTypeDef;
 
 typedef struct
 {
-  uint8_t   bLength;
-  uint8_t   bDescriptorType;
-  uint8_t   bDevCapabilityType;
-  uint8_t   bIndex;
-  uint32_t  dwAlternateModeVdo;
+    uint8_t   bLength;
+    uint8_t   bDescriptorType;
+    uint8_t   bDevCapabilityType;
+    uint8_t   bIndex;
+    uint32_t  dwAlternateModeVdo;
 } USBD_BB_AltModeCapDescTypeDef;
 
 typedef  struct
 {
-  uint8_t   bLength;
-  uint8_t   bDescriptorType;
-  uint8_t   bDevCapabilityType;
-  uint8_t   iAddtionalInfoURL;
-  uint8_t   bNbrOfAltModes;
-  uint8_t   bPreferredAltMode;
-  uint16_t  VconnPwr;
-  uint8_t   bmConfigured[32];
-  uint16_t  bcdVersion;
-  uint8_t   bAdditionalFailureInfo;
-  uint8_t   bReserved;
-  USBD_BB_AltModeTypeDef  wSVID[USB_BB_MAX_NUM_ALT_MODE];
+    uint8_t   bLength;
+    uint8_t   bDescriptorType;
+    uint8_t   bDevCapabilityType;
+    uint8_t   iAddtionalInfoURL;
+    uint8_t   bNbrOfAltModes;
+    uint8_t   bPreferredAltMode;
+    uint16_t  VconnPwr;
+    uint8_t   bmConfigured[32];
+    uint16_t  bcdVersion;
+    uint8_t   bAdditionalFailureInfo;
+    uint8_t   bReserved;
+    USBD_BB_AltModeTypeDef  wSVID[USB_BB_MAX_NUM_ALT_MODE];
 } USBD_BosBBCapDescTypedef;
 
 typedef enum
 {
-  UNSPECIFIED_ERROR = 0,
-  CONFIGURATION_NOT_ATTEMPTED,
-  CONFIGURATION_UNSUCCESSFUL,
-  CONFIGURATION_SUCCESSFUL,
+    UNSPECIFIED_ERROR = 0,
+    CONFIGURATION_NOT_ATTEMPTED,
+    CONFIGURATION_UNSUCCESSFUL,
+    CONFIGURATION_SUCCESSFUL,
 } BB_AltModeState;
 
 /**
@@ -139,8 +139,8 @@ extern USBD_ClassTypeDef  USBD_BB;
   */
 
 #if (USBD_CLASS_BOS_ENABLED == 1)
-void *USBD_BB_GetCapDesc(USBD_HandleTypeDef *pdev, uint8_t *buf);
-void *USBD_BB_GetAltModeDesc(USBD_HandleTypeDef *pdev, uint8_t *buf, uint8_t idx);
+void *USBD_BB_GetCapDesc( USBD_HandleTypeDef *pdev, uint8_t *buf );
+void *USBD_BB_GetAltModeDesc( USBD_HandleTypeDef *pdev, uint8_t *buf, uint8_t idx );
 #endif
 
 /**

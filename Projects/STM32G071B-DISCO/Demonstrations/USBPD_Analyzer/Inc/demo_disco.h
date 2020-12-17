@@ -22,7 +22,7 @@
 #define __DEMO_APPLICATION_H_
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -37,9 +37,10 @@
   */
 
 /* Exported typedef ----------------------------------------------------------*/
-typedef enum {
-  MODE_SPY,
-  MODE_STANDALONE,
+typedef enum
+{
+    MODE_SPY,
+    MODE_STANDALONE,
 } DEMO_MODE;
 
 /* Exported define -----------------------------------------------------------*/
@@ -64,22 +65,23 @@ typedef enum {
  */
 #define USBPD_USER_THREAD_COUNT    0
 /* Exported constants --------------------------------------------------------*/
-typedef enum{
-     DEMO_OK,
-     DEMO_ERROR
+typedef enum
+{
+    DEMO_OK,
+    DEMO_ERROR
 } DEMO_ErrorCode;
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions --------------------------------------------------------*/
 
-DEMO_ErrorCode  DEMO_InitBSP(void);
-DEMO_ErrorCode  DEMO_InitTask(DEMO_MODE mode);
-void            DEMO_SPY_Handler(void);
-uint8_t         DEMO_IsSpyMode(void);
-void            DEMO_PostCADMessage(uint8_t PortNum, USBPD_CAD_EVENT State, CCxPin_TypeDef Cc);
-void            DEMO_PostNotificationMessage(uint8_t PortNum, USBPD_NotifyEventValue_TypeDef EventVal);
-void            DEMO_PostMMIMessage(uint32_t EventVal);
+DEMO_ErrorCode  DEMO_InitBSP( void );
+DEMO_ErrorCode  DEMO_InitTask( DEMO_MODE mode );
+void            DEMO_SPY_Handler( void );
+uint8_t         DEMO_IsSpyMode( void );
+void            DEMO_PostCADMessage( uint8_t PortNum, USBPD_CAD_EVENT State, CCxPin_TypeDef Cc );
+void            DEMO_PostNotificationMessage( uint8_t PortNum, USBPD_NotifyEventValue_TypeDef EventVal );
+void            DEMO_PostMMIMessage( uint32_t EventVal );
 
 /**
   * @}

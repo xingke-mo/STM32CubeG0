@@ -6,11 +6,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -22,7 +22,7 @@
 #define STM32G0xx_HAL_PWR_EX_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -48,13 +48,13 @@
   */
 typedef struct
 {
-  uint32_t PVMType;   /*!< PVMType: Specifies which voltage is monitored and against which threshold.
+    uint32_t PVMType;   /*!< PVMType: Specifies which voltage is monitored and against which threshold.
                            This parameter can be a value of @ref PWREx_PVM_Type.
                            @arg @ref PWR_PVM_USB Peripheral Voltage Monitoring USB enable */
 
-  uint32_t Mode;      /*!< Mode: Specifies the operating mode for the selected pins.
+    uint32_t Mode;      /*!< Mode: Specifies the operating mode for the selected pins.
                            This parameter can be a value of @ref PWREx_PVM_Mode. */
-}PWR_PVMTypeDef;
+} PWR_PVMTypeDef;
 #endif
 
 #if defined(PWR_PVD_SUPPORT)
@@ -63,13 +63,13 @@ typedef struct
   */
 typedef struct
 {
-  uint32_t PVDLevel;    /*!< PVDLevel: Specifies the PVD detection level.
+    uint32_t PVDLevel;    /*!< PVDLevel: Specifies the PVD detection level.
                               This parameter can be a value or a combination of
                               @ref PWR_PVD_detection_level. */
 
-  uint32_t Mode;        /*!< Mode: Specifies the operating mode for the selected pins.
+    uint32_t Mode;        /*!< Mode: Specifies the operating mode for the selected pins.
                               This parameter can be a value of @ref PWR_PVD_Mode. */
-}PWR_PVDTypeDef;
+} PWR_PVDTypeDef;
 #endif
 
 /**
@@ -561,60 +561,60 @@ typedef struct
   */
 
 /* Peripheral Control functions  **********************************************/
-void              HAL_PWREx_EnableBatteryCharging(uint32_t ResistorSelection);
-void              HAL_PWREx_DisableBatteryCharging(void);
+void              HAL_PWREx_EnableBatteryCharging( uint32_t ResistorSelection );
+void              HAL_PWREx_DisableBatteryCharging( void );
 #if defined(PWR_CR3_ENB_ULP)
-void              HAL_PWREx_EnablePORMonitorSampling(void);
-void              HAL_PWREx_DisablePORMonitorSampling(void);
+void              HAL_PWREx_EnablePORMonitorSampling( void );
+void              HAL_PWREx_DisablePORMonitorSampling( void );
 #endif
-void              HAL_PWREx_EnableInternalWakeUpLine(void);
-void              HAL_PWREx_DisableInternalWakeUpLine(void);
-HAL_StatusTypeDef HAL_PWREx_EnableGPIOPullUp(uint32_t GPIO, uint32_t GPIONumber);
-HAL_StatusTypeDef HAL_PWREx_DisableGPIOPullUp(uint32_t GPIO, uint32_t GPIONumber);
-HAL_StatusTypeDef HAL_PWREx_EnableGPIOPullDown(uint32_t GPIO, uint32_t GPIONumber);
-HAL_StatusTypeDef HAL_PWREx_DisableGPIOPullDown(uint32_t GPIO, uint32_t GPIONumber);
-void              HAL_PWREx_EnablePullUpPullDownConfig(void);
-void              HAL_PWREx_DisablePullUpPullDownConfig(void);
+void              HAL_PWREx_EnableInternalWakeUpLine( void );
+void              HAL_PWREx_DisableInternalWakeUpLine( void );
+HAL_StatusTypeDef HAL_PWREx_EnableGPIOPullUp( uint32_t GPIO, uint32_t GPIONumber );
+HAL_StatusTypeDef HAL_PWREx_DisableGPIOPullUp( uint32_t GPIO, uint32_t GPIONumber );
+HAL_StatusTypeDef HAL_PWREx_EnableGPIOPullDown( uint32_t GPIO, uint32_t GPIONumber );
+HAL_StatusTypeDef HAL_PWREx_DisableGPIOPullDown( uint32_t GPIO, uint32_t GPIONumber );
+void              HAL_PWREx_EnablePullUpPullDownConfig( void );
+void              HAL_PWREx_DisablePullUpPullDownConfig( void );
 #if defined(PWR_CR3_RRS)
-void              HAL_PWREx_EnableSRAMRetention(void);
-void              HAL_PWREx_DisableSRAMRetention(void);
+void              HAL_PWREx_EnableSRAMRetention( void );
+void              HAL_PWREx_DisableSRAMRetention( void );
 #endif
-void              HAL_PWREx_EnableFlashPowerDown(uint32_t PowerMode);
-void              HAL_PWREx_DisableFlashPowerDown(uint32_t PowerMode);
-uint32_t          HAL_PWREx_GetVoltageRange(void);
-HAL_StatusTypeDef HAL_PWREx_ControlVoltageScaling(uint32_t VoltageScaling);
+void              HAL_PWREx_EnableFlashPowerDown( uint32_t PowerMode );
+void              HAL_PWREx_DisableFlashPowerDown( uint32_t PowerMode );
+uint32_t          HAL_PWREx_GetVoltageRange( void );
+HAL_StatusTypeDef HAL_PWREx_ControlVoltageScaling( uint32_t VoltageScaling );
 #if defined(PWR_PVD_SUPPORT)
 /* Power voltage detection configuration functions ****************************/
-HAL_StatusTypeDef HAL_PWREx_ConfigPVD(PWR_PVDTypeDef *sConfigPVD);
-void              HAL_PWREx_EnablePVD(void);
-void              HAL_PWREx_DisablePVD(void);
+HAL_StatusTypeDef HAL_PWREx_ConfigPVD( PWR_PVDTypeDef *sConfigPVD );
+void              HAL_PWREx_EnablePVD( void );
+void              HAL_PWREx_DisablePVD( void );
 #endif
 #if defined(PWR_PVM_SUPPORT)
 /* Power voltage monitoring configuration functions ***************************/
-void HAL_PWREx_EnableVddIO2(void);
-void HAL_PWREx_DisableVddIO2(void);
-void HAL_PWREx_EnableVddUSB(void);
-void HAL_PWREx_DisableVddUSB(void);
-void HAL_PWREx_EnablePVMUSB(void);
-void HAL_PWREx_DisablePVMUSB(void);
-HAL_StatusTypeDef HAL_PWREx_ConfigPVM(PWR_PVMTypeDef *sConfigPVM);
+void HAL_PWREx_EnableVddIO2( void );
+void HAL_PWREx_DisableVddIO2( void );
+void HAL_PWREx_EnableVddUSB( void );
+void HAL_PWREx_DisableVddUSB( void );
+void HAL_PWREx_EnablePVMUSB( void );
+void HAL_PWREx_DisablePVMUSB( void );
+HAL_StatusTypeDef HAL_PWREx_ConfigPVM( PWR_PVMTypeDef *sConfigPVM );
 #endif
 
 /* Low Power modes configuration functions ************************************/
-void              HAL_PWREx_EnableLowPowerRunMode(void);
-HAL_StatusTypeDef HAL_PWREx_DisableLowPowerRunMode(void);
+void              HAL_PWREx_EnableLowPowerRunMode( void );
+HAL_StatusTypeDef HAL_PWREx_DisableLowPowerRunMode( void );
 #if defined(PWR_SHDW_SUPPORT)
-void              HAL_PWREx_EnterSHUTDOWNMode(void);
+void              HAL_PWREx_EnterSHUTDOWNMode( void );
 #endif
 
 #if defined(PWR_PVD_SUPPORT) && defined(PWR_PVM_SUPPORT)
-void              HAL_PWREx_PVD_PVM_IRQHandler(void);
-void              HAL_PWREx_PVD_PVM_Rising_Callback(void);
-void              HAL_PWREx_PVD_PVM_Falling_Callback(void);
+void              HAL_PWREx_PVD_PVM_IRQHandler( void );
+void              HAL_PWREx_PVD_PVM_Rising_Callback( void );
+void              HAL_PWREx_PVD_PVM_Falling_Callback( void );
 #elif defined(PWR_PVD_SUPPORT)
-void              HAL_PWREx_PVD_IRQHandler(void);
-void              HAL_PWREx_PVD_Rising_Callback(void);
-void              HAL_PWREx_PVD_Falling_Callback(void);
+void              HAL_PWREx_PVD_IRQHandler( void );
+void              HAL_PWREx_PVD_Rising_Callback( void );
+void              HAL_PWREx_PVD_Falling_Callback( void );
 #endif
 
 /**

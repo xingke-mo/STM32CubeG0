@@ -34,7 +34,7 @@
   * @param  TopOfMainStack  Main Stack Pointer value to set.
   * @retval None.
   */
-void Common_SetMsp(uint32_t TopOfMainStack)
+void Common_SetMsp( uint32_t TopOfMainStack )
 {
 }
 
@@ -42,7 +42,7 @@ void Common_SetMsp(uint32_t TopOfMainStack)
   * @brief  Enable IRQ Interrupts.
   * @retval None.
   */
-void Common_EnableIrq(void)
+void Common_EnableIrq( void )
 {
 }
 
@@ -50,7 +50,7 @@ void Common_EnableIrq(void)
   * @brief  Disable IRQ Interrupts.
   * @retval None.
   */
-void Common_DisableIrq(void)
+void Common_DisableIrq( void )
 {
 }
 

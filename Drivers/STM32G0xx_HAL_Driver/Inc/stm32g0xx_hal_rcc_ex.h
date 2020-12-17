@@ -47,79 +47,79 @@ extern "C" {
   */
 typedef struct
 {
-  uint32_t PeriphClockSelection;   /*!< The Extended Clock to be configured.
+    uint32_t PeriphClockSelection;   /*!< The Extended Clock to be configured.
                                         This parameter can be a value of @ref RCCEx_Periph_Clock_Selection */
 
-  uint32_t Usart1ClockSelection;   /*!< Specifies USART1 clock source.
+    uint32_t Usart1ClockSelection;   /*!< Specifies USART1 clock source.
                                         This parameter can be a value of @ref RCCEx_USART1_Clock_Source */
 #if defined(RCC_CCIPR_USART2SEL)
-  uint32_t Usart2ClockSelection;   /*!< Specifies USART2 clock source.
+    uint32_t Usart2ClockSelection;   /*!< Specifies USART2 clock source.
                                         This parameter can be a value of @ref RCCEx_USART2_Clock_Source */
 #endif /* RCC_CCIPR_USART2SEL */
 
 #if defined(RCC_CCIPR_USART3SEL)
-  uint32_t Usart3ClockSelection;   /*!< Specifies USART3 clock source.
+    uint32_t Usart3ClockSelection;   /*!< Specifies USART3 clock source.
                                         This parameter can be a value of @ref RCCEx_USART3_Clock_Source */
 #endif /* RCC_CCIPR_USART3SEL */
 
 #if defined(LPUART1)
-  uint32_t Lpuart1ClockSelection;  /*!< Specifies LPUART1 clock source
+    uint32_t Lpuart1ClockSelection;  /*!< Specifies LPUART1 clock source
                                         This parameter can be a value of @ref RCCEx_LPUART1_Clock_Source */
 #endif /* LPUART1 */
 
 #if defined(LPUART2)
-  uint32_t Lpuart2ClockSelection;  /*!< Specifies LPUART2 clock source
+    uint32_t Lpuart2ClockSelection;  /*!< Specifies LPUART2 clock source
                                         This parameter can be a value of @ref RCCEx_LPUART2_Clock_Source */
 #endif /* LPUART2 */
 
-  uint32_t I2c1ClockSelection;     /*!< Specifies I2C1 clock source
+    uint32_t I2c1ClockSelection;     /*!< Specifies I2C1 clock source
                                         This parameter can be a value of @ref RCCEx_I2C1_Clock_Source */
 
 #if defined(RCC_CCIPR_I2C2SEL)
-  uint32_t I2c2ClockSelection;     /*!< Specifies I2C2 clock source
+    uint32_t I2c2ClockSelection;     /*!< Specifies I2C2 clock source
                                         This parameter can be a value of @ref RCCEx_I2C2_Clock_Source */
 #endif /* RCC_CCIPR_I2C2SEL */
 
-  uint32_t I2s1ClockSelection;     /*!< Specifies I2S1 clock source
+    uint32_t I2s1ClockSelection;     /*!< Specifies I2S1 clock source
                                         This parameter can be a value of @ref RCCEx_I2S1_Clock_Source */
 #if defined(RCC_CCIPR2_I2S2SEL)
-  uint32_t I2s2ClockSelection;     /*!< Specifies I2S2 clock source
+    uint32_t I2s2ClockSelection;     /*!< Specifies I2S2 clock source
                                         This parameter can be a value of @ref RCCEx_I2S2_Clock_Source */
 #endif /* RCC_CCIPR2_I2S2SEL */
 #if defined(RCC_CCIPR_LPTIM1SEL)
-  uint32_t Lptim1ClockSelection;   /*!< Specifies LPTIM1 clock source
+    uint32_t Lptim1ClockSelection;   /*!< Specifies LPTIM1 clock source
                                         This parameter can be a value of @ref RCCEx_LPTIM1_Clock_Source */
 #endif /* RCC_CCIPR_LPTIM1SEL */
 #if defined(RCC_CCIPR_LPTIM2SEL)
-  uint32_t Lptim2ClockSelection;   /*!< Specifies LPTIM2 clock source
+    uint32_t Lptim2ClockSelection;   /*!< Specifies LPTIM2 clock source
                                         This parameter can be a value of @ref RCCEx_LPTIM2_Clock_Source */
 #endif /* RCC_CCIPR_LPTIM2SEL */
 #if defined(RNG)
-  uint32_t RngClockSelection;      /*!< Specifies RNG clock source
+    uint32_t RngClockSelection;      /*!< Specifies RNG clock source
                                         This parameter can be a value of @ref RCCEx_RNG_Clock_Source */
 #endif /* RNG */
-  uint32_t AdcClockSelection;      /*!< Specifies ADC interface clock source
+    uint32_t AdcClockSelection;      /*!< Specifies ADC interface clock source
                                         This parameter can be a value of @ref RCCEx_ADC_Clock_Source */
 #if defined(CEC)
-  uint32_t CecClockSelection;      /*!< Specifies CEC Clock clock source
+    uint32_t CecClockSelection;      /*!< Specifies CEC Clock clock source
                                         This parameter can be a value of @ref RCCEx_CEC_Clock_Source */
 #endif /* CEC */
 #if defined(RCC_CCIPR_TIM1SEL)
-  uint32_t Tim1ClockSelection;     /*!< Specifies TIM1 Clock clock source
+    uint32_t Tim1ClockSelection;     /*!< Specifies TIM1 Clock clock source
                                          This parameter can be a value of @ref RCCEx_TIM1_Clock_Source */
 #endif /* RCC_CCIPR_TIM1SEL */
 #if defined(RCC_CCIPR_TIM15SEL)
-  uint32_t Tim15ClockSelection;    /*!< Specifies TIM15 Clock clock source
+    uint32_t Tim15ClockSelection;    /*!< Specifies TIM15 Clock clock source
                                          This parameter can be a value of @ref RCCEx_TIM15_Clock_Source */
 #endif /* RCC_CCIPR_TIM15SEL */
-  uint32_t RTCClockSelection;      /*!< Specifies RTC clock source.
+    uint32_t RTCClockSelection;      /*!< Specifies RTC clock source.
                                         This parameter can be a value of @ref RCC_RTC_Clock_Source */
 #if defined(RCC_CCIPR2_USBSEL)
-  uint32_t UsbClockSelection;      /*!< Specifies USB Clock clock source
+    uint32_t UsbClockSelection;      /*!< Specifies USB Clock clock source
                                         This parameter can be a value of @ref RCCEx_USB_Clock_Source */
 #endif /* RCC_CCIPR2_USBSEL */
 #if defined(FDCAN1) || defined(FDCAN2)
-  uint32_t FdcanClockSelection;    /*!< Specifies FDCAN Clock clock source
+    uint32_t FdcanClockSelection;    /*!< Specifies FDCAN Clock clock source
                                         This parameter can be a value of @ref RCCEx_FDCAN_Clock_Source */
 #endif /* FDCAN1 || FDCAN2 */
 } RCC_PeriphCLKInitTypeDef;
@@ -131,23 +131,23 @@ typedef struct
   */
 typedef struct
 {
-  uint32_t Prescaler;             /*!< Specifies the division factor of the SYNC signal.
+    uint32_t Prescaler;             /*!< Specifies the division factor of the SYNC signal.
                                        This parameter can be a value of @ref RCCEx_CRS_SynchroDivider */
 
-  uint32_t Source;                /*!< Specifies the SYNC signal source.
+    uint32_t Source;                /*!< Specifies the SYNC signal source.
                                        This parameter can be a value of @ref RCCEx_CRS_SynchroSource */
 
-  uint32_t Polarity;              /*!< Specifies the input polarity for the SYNC signal source.
+    uint32_t Polarity;              /*!< Specifies the input polarity for the SYNC signal source.
                                        This parameter can be a value of @ref RCCEx_CRS_SynchroPolarity */
 
-  uint32_t ReloadValue;           /*!< Specifies the value to be loaded in the frequency error counter with each SYNC event.
+    uint32_t ReloadValue;           /*!< Specifies the value to be loaded in the frequency error counter with each SYNC event.
                                        It can be calculated in using macro __HAL_RCC_CRS_RELOADVALUE_CALCULATE(__FTARGET__, __FSYNC__)
                                        This parameter must be a number between 0 and 0xFFFF or a value of @ref RCCEx_CRS_ReloadValueDefault .*/
 
-  uint32_t ErrorLimitValue;       /*!< Specifies the value to be used to evaluate the captured frequency error value.
+    uint32_t ErrorLimitValue;       /*!< Specifies the value to be used to evaluate the captured frequency error value.
                                        This parameter must be a number between 0 and 0xFF or a value of @ref RCCEx_CRS_ErrorLimitDefault */
 
-  uint32_t HSI48CalibrationValue; /*!< Specifies a user-programmable trimming value to the HSI48 oscillator.
+    uint32_t HSI48CalibrationValue; /*!< Specifies a user-programmable trimming value to the HSI48 oscillator.
                                        This parameter must be a number between 0 and 0x7F or a value of @ref RCCEx_CRS_HSI48CalibrationDefault */
 
 } RCC_CRSInitTypeDef;
@@ -157,17 +157,17 @@ typedef struct
   */
 typedef struct
 {
-  uint32_t ReloadValue;           /*!< Specifies the value loaded in the Counter reload value.
+    uint32_t ReloadValue;           /*!< Specifies the value loaded in the Counter reload value.
                                        This parameter must be a number between 0 and 0xFFFF */
 
-  uint32_t HSI48CalibrationValue; /*!< Specifies value loaded in HSI48 oscillator smooth trimming.
+    uint32_t HSI48CalibrationValue; /*!< Specifies value loaded in HSI48 oscillator smooth trimming.
                                        This parameter must be a number between 0 and 0x7F */
 
-  uint32_t FreqErrorCapture;      /*!< Specifies the value loaded in the .FECAP, the frequency error counter
+    uint32_t FreqErrorCapture;      /*!< Specifies the value loaded in the .FECAP, the frequency error counter
                                        value latched in the time of the last SYNC event.
                                        This parameter must be a number between 0 and 0xFFFF */
 
-  uint32_t FreqErrorDirection;    /*!< Specifies the value loaded in the .FEDIR, the counting direction of the
+    uint32_t FreqErrorDirection;    /*!< Specifies the value loaded in the .FEDIR, the counting direction of the
                                        frequency error counter latched in the time of the last SYNC event.
                                        It shows whether the actual frequency is below or above the target.
                                        This parameter must be a value of @ref RCCEx_CRS_FreqErrorDirection*/
@@ -1192,9 +1192,9 @@ typedef struct
   * @{
   */
 
-HAL_StatusTypeDef HAL_RCCEx_PeriphCLKConfig(RCC_PeriphCLKInitTypeDef  *PeriphClkInit);
-void              HAL_RCCEx_GetPeriphCLKConfig(RCC_PeriphCLKInitTypeDef  *PeriphClkInit);
-uint32_t          HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk);
+HAL_StatusTypeDef HAL_RCCEx_PeriphCLKConfig( RCC_PeriphCLKInitTypeDef  *PeriphClkInit );
+void              HAL_RCCEx_GetPeriphCLKConfig( RCC_PeriphCLKInitTypeDef  *PeriphClkInit );
+uint32_t          HAL_RCCEx_GetPeriphCLKFreq( uint32_t PeriphClk );
 
 /**
   * @}
@@ -1204,8 +1204,8 @@ uint32_t          HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk);
   * @{
   */
 
-void              HAL_RCCEx_EnableLSCO(uint32_t LSCOSource);
-void              HAL_RCCEx_DisableLSCO(void);
+void              HAL_RCCEx_EnableLSCO( uint32_t LSCOSource );
+void              HAL_RCCEx_DisableLSCO( void );
 
 /**
   * @}
@@ -1217,15 +1217,15 @@ void              HAL_RCCEx_DisableLSCO(void);
   * @{
   */
 
-void              HAL_RCCEx_CRSConfig(RCC_CRSInitTypeDef *pInit);
-void              HAL_RCCEx_CRSSoftwareSynchronizationGenerate(void);
-void              HAL_RCCEx_CRSGetSynchronizationInfo(RCC_CRSSynchroInfoTypeDef *pSynchroInfo);
-uint32_t          HAL_RCCEx_CRSWaitSynchronization(uint32_t Timeout);
-void              HAL_RCCEx_CRS_IRQHandler(void);
-void              HAL_RCCEx_CRS_SyncOkCallback(void);
-void              HAL_RCCEx_CRS_SyncWarnCallback(void);
-void              HAL_RCCEx_CRS_ExpectedSyncCallback(void);
-void              HAL_RCCEx_CRS_ErrorCallback(uint32_t Error);
+void              HAL_RCCEx_CRSConfig( RCC_CRSInitTypeDef *pInit );
+void              HAL_RCCEx_CRSSoftwareSynchronizationGenerate( void );
+void              HAL_RCCEx_CRSGetSynchronizationInfo( RCC_CRSSynchroInfoTypeDef *pSynchroInfo );
+uint32_t          HAL_RCCEx_CRSWaitSynchronization( uint32_t Timeout );
+void              HAL_RCCEx_CRS_IRQHandler( void );
+void              HAL_RCCEx_CRS_SyncOkCallback( void );
+void              HAL_RCCEx_CRS_SyncWarnCallback( void );
+void              HAL_RCCEx_CRS_ExpectedSyncCallback( void );
+void              HAL_RCCEx_CRS_ErrorCallback( uint32_t Error );
 
 /**
   * @}
@@ -1401,7 +1401,7 @@ void              HAL_RCCEx_CRS_ErrorCallback(uint32_t Error);
                 (((__SELECTION__) & RCC_PERIPHCLK_RTC)     == RCC_PERIPHCLK_RTC)     || \
                 (((__SELECTION__) & RCC_PERIPHCLK_TIM1)    == RCC_PERIPHCLK_TIM1))
 
-#elif defined(STM32G030xx) || defined(STM32G050xx) 
+#elif defined(STM32G030xx) || defined(STM32G050xx)
 
 #define IS_RCC_PERIPHCLOCK(__SELECTION__)  \
                ((((__SELECTION__) & RCC_PERIPHCLK_USART1)  == RCC_PERIPHCLK_USART1)  || \

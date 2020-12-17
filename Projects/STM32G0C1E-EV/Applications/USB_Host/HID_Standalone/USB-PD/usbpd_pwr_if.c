@@ -106,12 +106,12 @@
   * @param  PortNum Port number
   * @retval USBPD status
   */
-USBPD_StatusTypeDef USBPD_PWR_IF_VBUSEnable(uint8_t PortNum)
+USBPD_StatusTypeDef USBPD_PWR_IF_VBUSEnable( uint8_t PortNum )
 {
-/* USER CODE BEGIN USBPD_PWR_IF_VBUSEnable */
-  USBPD_StatusTypeDef _status = (USBPD_StatusTypeDef)HW_IF_PWR_Enable(PortNum, USBPD_ENABLE, CCNONE, USBPD_FALSE, USBPD_PORTPOWERROLE_SRC);
-  return _status;
-/* USER CODE END USBPD_PWR_IF_VBUSEnable */
+    /* USER CODE BEGIN USBPD_PWR_IF_VBUSEnable */
+    USBPD_StatusTypeDef _status = ( USBPD_StatusTypeDef )HW_IF_PWR_Enable( PortNum, USBPD_ENABLE, CCNONE, USBPD_FALSE, USBPD_PORTPOWERROLE_SRC );
+    return _status;
+    /* USER CODE END USBPD_PWR_IF_VBUSEnable */
 }
 
 /**
@@ -119,12 +119,12 @@ USBPD_StatusTypeDef USBPD_PWR_IF_VBUSEnable(uint8_t PortNum)
   * @param  PortNum Port number
   * @retval USBPD status
   */
-USBPD_StatusTypeDef USBPD_PWR_IF_VBUSDisable(uint8_t PortNum)
+USBPD_StatusTypeDef USBPD_PWR_IF_VBUSDisable( uint8_t PortNum )
 {
-/* USER CODE BEGIN USBPD_PWR_IF_VBUSDisable */
-  USBPD_StatusTypeDef _status = (USBPD_StatusTypeDef)HW_IF_PWR_Enable(PortNum, USBPD_DISABLE, CCNONE, USBPD_FALSE, USBPD_PORTPOWERROLE_SRC);
-  return _status;
-/* USER CODE END USBPD_PWR_IF_VBUSDisable */
+    /* USER CODE BEGIN USBPD_PWR_IF_VBUSDisable */
+    USBPD_StatusTypeDef _status = ( USBPD_StatusTypeDef )HW_IF_PWR_Enable( PortNum, USBPD_DISABLE, CCNONE, USBPD_FALSE, USBPD_PORTPOWERROLE_SRC );
+    return _status;
+    /* USER CODE END USBPD_PWR_IF_VBUSDisable */
 }
 
 
@@ -134,28 +134,44 @@ USBPD_StatusTypeDef USBPD_PWR_IF_VBUSDisable(uint8_t PortNum)
   * @param PowerTypeStatus  Power type status based on @ref USBPD_VBUSPOWER_STATUS
   * @retval UBBPD_TRUE or USBPD_FALSE
   */
-uint8_t USBPD_PWR_IF_GetVBUSStatus(uint8_t PortNum, USBPD_VBUSPOWER_STATUS PowerTypeStatus)
+uint8_t USBPD_PWR_IF_GetVBUSStatus( uint8_t PortNum, USBPD_VBUSPOWER_STATUS PowerTypeStatus )
 {
-/* USER CODE BEGIN USBPD_PWR_IF_GetVBUSStatus */
-  uint8_t _status = USBPD_FALSE;
-  uint32_t _vbus = HW_IF_PWR_GetVoltage(PortNum);
+    /* USER CODE BEGIN USBPD_PWR_IF_GetVBUSStatus */
+    uint8_t _status = USBPD_FALSE;
+    uint32_t _vbus = HW_IF_PWR_GetVoltage( PortNum );
 
-  switch(PowerTypeStatus)
-  {
-  case USBPD_PWR_BELOWVSAFE0V :
-    if (_vbus < USBPD_PWR_LOW_VBUS_THRESHOLD) _status = USBPD_TRUE;
-    break;
-  case USBPD_PWR_VSAFE5V :
-    if (_vbus >= USBPD_PWR_HIGH_VBUS_THRESHOLD) _status = USBPD_TRUE;
-    break;
-  case USBPD_PWR_SNKDETACH:
-    if (_vbus < USBPD_PWR_HIGH_VBUS_THRESHOLD) _status = USBPD_TRUE;
-    break;
-  default :
-    break;
-  }
-  return _status;
-/* USER CODE END USBPD_PWR_IF_GetVBUSStatus */
+    switch( PowerTypeStatus )
+    {
+    case USBPD_PWR_BELOWVSAFE0V :
+        if( _vbus < USBPD_PWR_LOW_VBUS_THRESHOLD )
+        {
+            _status = USBPD_TRUE;
+        }
+
+        break;
+
+    case USBPD_PWR_VSAFE5V :
+        if( _vbus >= USBPD_PWR_HIGH_VBUS_THRESHOLD )
+        {
+            _status = USBPD_TRUE;
+        }
+
+        break;
+
+    case USBPD_PWR_SNKDETACH:
+        if( _vbus < USBPD_PWR_HIGH_VBUS_THRESHOLD )
+        {
+            _status = USBPD_TRUE;
+        }
+
+        break;
+
+    default :
+        break;
+    }
+
+    return _status;
+    /* USER CODE END USBPD_PWR_IF_GetVBUSStatus */
 }
 
 /**
@@ -163,10 +179,10 @@ uint8_t USBPD_PWR_IF_GetVBUSStatus(uint8_t PortNum, USBPD_VBUSPOWER_STATUS Power
   * @param PortNum Port number
   * @retval None
   */
-void USBPD_PWR_IF_UpdateVbusThreshold(uint8_t PortNum)
+void USBPD_PWR_IF_UpdateVbusThreshold( uint8_t PortNum )
 {
-/* USER CODE BEGIN USBPD_PWR_IF_UpdateVbusThreshold */
-/* USER CODE END USBPD_PWR_IF_UpdateVbusThreshold */
+    /* USER CODE BEGIN USBPD_PWR_IF_UpdateVbusThreshold */
+    /* USER CODE END USBPD_PWR_IF_UpdateVbusThreshold */
 }
 
 /**
@@ -174,10 +190,10 @@ void USBPD_PWR_IF_UpdateVbusThreshold(uint8_t PortNum)
   * @param PortNum Port number
   * @retval None
   */
-void USBPD_PWR_IF_ResetVbusThreshold(uint8_t PortNum)
+void USBPD_PWR_IF_ResetVbusThreshold( uint8_t PortNum )
 {
-/* USER CODE BEGIN USBPD_PWR_IF_ResetVbusThreshold */
-/* USER CODE END USBPD_PWR_IF_ResetVbusThreshold */
+    /* USER CODE BEGIN USBPD_PWR_IF_ResetVbusThreshold */
+    /* USER CODE END USBPD_PWR_IF_ResetVbusThreshold */
 }
 
 /**

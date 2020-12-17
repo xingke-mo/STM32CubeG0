@@ -29,38 +29,38 @@
 /* Exported types ------------------------------------------------------------*/
 typedef struct
 {
-  void (*Init)(void);
-  void (*DeInit)(void);
-  uint8_t (*Detection)(void);
-  uint8_t (*GetCommandOpcode)(void);
-  void (*SendByte)(uint8_t Byte);
+    void ( *Init )( void );
+    void ( *DeInit )( void );
+    uint8_t ( *Detection )( void );
+    uint8_t ( *GetCommandOpcode )( void );
+    void ( *SendByte )( uint8_t Byte );
 } OPENBL_OpsTypeDef;
 
 typedef struct
 {
-  void (*GetCommand)(void);
-  void (*GetVersion)(void);
-  void (*GetID)(void);
-  void (*ReadMemory)(void);
-  void (*WriteMemory)(void);
-  void (*Go)(void);
-  void (*ReadoutProtect)(void);
-  void (*ReadoutUnprotect)(void);
-  void (*EraseMemory)(void);
-  void (*WriteProtect)(void);
-  void (*WriteUnprotect)(void);
-  void (*NsWriteMemory)(void);
-  void (*NsEraseMemory)(void);
-  void (*NsWriteProtect)(void);
-  void (*NsWriteUnprotect)(void);
-  void (*NsReadoutProtect)(void);
-  void (*NsReadoutUnprotect)(void);
+    void ( *GetCommand )( void );
+    void ( *GetVersion )( void );
+    void ( *GetID )( void );
+    void ( *ReadMemory )( void );
+    void ( *WriteMemory )( void );
+    void ( *Go )( void );
+    void ( *ReadoutProtect )( void );
+    void ( *ReadoutUnprotect )( void );
+    void ( *EraseMemory )( void );
+    void ( *WriteProtect )( void );
+    void ( *WriteUnprotect )( void );
+    void ( *NsWriteMemory )( void );
+    void ( *NsEraseMemory )( void );
+    void ( *NsWriteProtect )( void );
+    void ( *NsWriteUnprotect )( void );
+    void ( *NsReadoutProtect )( void );
+    void ( *NsReadoutUnprotect )( void );
 } OPENBL_CommandsTypeDef;
 
 typedef struct
 {
-  OPENBL_OpsTypeDef *p_Ops;
-  OPENBL_CommandsTypeDef *p_Cmd;
+    OPENBL_OpsTypeDef *p_Ops;
+    OPENBL_CommandsTypeDef *p_Cmd;
 } OPENBL_HandleTypeDef;
 
 /* Exported constants --------------------------------------------------------*/
@@ -92,11 +92,11 @@ typedef struct
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions --------------------------------------------------------*/
-void OPENBL_Init(void);
-void OPENBL_DeInit(void);
-uint32_t OPENBL_InterfaceDetection(void);
-void OPENBL_CommandProcess(void);
-ErrorStatus OPENBL_RegisterInterface(OPENBL_HandleTypeDef *Interface);
+void OPENBL_Init( void );
+void OPENBL_DeInit( void );
+uint32_t OPENBL_InterfaceDetection( void );
+void OPENBL_CommandProcess( void );
+ErrorStatus OPENBL_RegisterInterface( OPENBL_HandleTypeDef *Interface );
 
 #endif /* OPENBL_CORE_H */
 

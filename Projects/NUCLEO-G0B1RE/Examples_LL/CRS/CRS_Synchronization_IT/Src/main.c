@@ -61,25 +61,25 @@ __IO uint32_t CRSSyncStatus = CRS_STATUS_INIT;
 
 /* Variable used for Timeout management */
 #if (USE_TIMEOUT == 1)
-uint32_t Timeout = 0;
+    uint32_t Timeout = 0;
 #endif /* USE_TIMEOUT */
 
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
-void SystemClock_Config(void);
-static void MX_GPIO_Init(void);
+void SystemClock_Config( void );
+static void MX_GPIO_Init( void );
 /* USER CODE BEGIN PFP */
 
 
-void     Enable_Sync_Reference_Clock(void);
-void     Enable_CRS_Clocks(void);
-void     Configure_CRS(uint32_t SyncSource);
-void     MCO_ConfigGPIO(void);
-void     LED_On(void);
-void     LED_Off(void);
-void     LED_Blinking(uint32_t Period);
-void     WaitForUserButtonPress(void);
+void     Enable_Sync_Reference_Clock( void );
+void     Enable_CRS_Clocks( void );
+void     Configure_CRS( uint32_t SyncSource );
+void     MCO_ConfigGPIO( void );
+void     LED_On( void );
+void     LED_Off( void );
+void     LED_Blinking( uint32_t Period );
+void     WaitForUserButtonPress( void );
 
 /* USER CODE END PFP */
 
@@ -92,184 +92,190 @@ void     WaitForUserButtonPress(void);
   * @brief  The application entry point.
   * @retval int
   */
-int main(void)
+int main( void )
 {
-  /* USER CODE BEGIN 1 */
+    /* USER CODE BEGIN 1 */
 
-  uint32_t felim = 0;
+    uint32_t felim = 0;
 
-  /* USER CODE END 1 */
+    /* USER CODE END 1 */
 
-  /* MCU Configuration--------------------------------------------------------*/
+    /* MCU Configuration--------------------------------------------------------*/
 
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
 
-  LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SYSCFG);
-  LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_PWR);
+    LL_APB2_GRP1_EnableClock( LL_APB2_GRP1_PERIPH_SYSCFG );
+    LL_APB1_GRP1_EnableClock( LL_APB1_GRP1_PERIPH_PWR );
 
-  /* System interrupt init*/
+    /* System interrupt init*/
 
-  /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
-  */
-  LL_SYSCFG_DisableDBATT(LL_SYSCFG_UCPD1_STROBE | LL_SYSCFG_UCPD2_STROBE);
+    /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
+    */
+    LL_SYSCFG_DisableDBATT( LL_SYSCFG_UCPD1_STROBE | LL_SYSCFG_UCPD2_STROBE );
 
-  /* USER CODE BEGIN Init */
+    /* USER CODE BEGIN Init */
 
-  /* USER CODE END Init */
+    /* USER CODE END Init */
 
-  /* Configure the system clock */
-  SystemClock_Config();
+    /* Configure the system clock */
+    SystemClock_Config();
 
-  /* USER CODE BEGIN SysInit */
+    /* USER CODE BEGIN SysInit */
 
-  /* USER CODE END SysInit */
+    /* USER CODE END SysInit */
 
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  /* USER CODE BEGIN 2 */
+    /* Initialize all configured peripherals */
+    MX_GPIO_Init();
+    /* USER CODE BEGIN 2 */
 
-  /* Enable the reference clock used for synchronization (LSE) */
-  Enable_Sync_Reference_Clock();
+    /* Enable the reference clock used for synchronization (LSE) */
+    Enable_Sync_Reference_Clock();
 
-  /* Enable HSI48 and CRS */
-  Enable_CRS_Clocks();
+    /* Enable HSI48 and CRS */
+    Enable_CRS_Clocks();
 
-  /* For monitoring output HSI48 MCO pin(PA8) */
-  MCO_ConfigGPIO();
+    /* For monitoring output HSI48 MCO pin(PA8) */
+    MCO_ConfigGPIO();
 
-  /* Wait for User push-button press to start transfer */
-  WaitForUserButtonPress();
+    /* Wait for User push-button press to start transfer */
+    WaitForUserButtonPress();
 
-  /* Configure CRS with LSE parameters                                */
-  /* but set the source to external via GPIO (which is not connected) */
-  Configure_CRS(LL_CRS_SYNC_SOURCE_GPIO);
+    /* Configure CRS with LSE parameters                                */
+    /* but set the source to external via GPIO (which is not connected) */
+    Configure_CRS( LL_CRS_SYNC_SOURCE_GPIO );
 
-  /* Simulate a SYNC EVENT which will raise a SYNC_MISS EVENT */
-  /* because no external sync clock is connected to GPIO      */
-  LL_CRS_GenerateEvent_SWSYNC();
-  /* USER CODE END 2 */
+    /* Simulate a SYNC EVENT which will raise a SYNC_MISS EVENT */
+    /* because no external sync clock is connected to GPIO      */
+    LL_CRS_GenerateEvent_SWSYNC();
+    /* USER CODE END 2 */
 
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-    switch (CRSSyncStatus)
+    /* Infinite loop */
+    /* USER CODE BEGIN WHILE */
+    while( 1 )
     {
-      case CRS_STATUS_SYNCOK:
-        /* Power on LED4 */
-        LED_On();
-        /* For visual comfort on LED2 apply delay */
-        LL_mDelay(500);
-        /* Enable CRS SYNCWARN interrupt (in case it goes out of sync) */
-        LL_CRS_EnableIT_SYNCWARN();
-        break;
-
-      case CRS_STATUS_SYNCMISS:
-        /* Power off LED4 */
-        LED_Off();
-        /* Perform a new configuration to LSE when SYNC MISS is detected. */
-        /* For visual comfort on LED4 apply delay before new configuration */
-        LL_mDelay(1000);
-
-        /* Change source to LSE and restart synchronization if necessary */
-        if (LL_CRS_GetSyncSignalSource() != LL_CRS_SYNC_SOURCE_LSE)
+        switch( CRSSyncStatus )
         {
-          /* CRS configuration can be changed only if frequency error is disabled */
-          LL_CRS_DisableFreqErrorCounter();
+        case CRS_STATUS_SYNCOK:
+            /* Power on LED4 */
+            LED_On();
+            /* For visual comfort on LED2 apply delay */
+            LL_mDelay( 500 );
+            /* Enable CRS SYNCWARN interrupt (in case it goes out of sync) */
+            LL_CRS_EnableIT_SYNCWARN();
+            break;
 
-          /* Change CRS SYNC signal source to LSE */
-          LL_CRS_SetSyncSignalSource(LL_CRS_SYNC_SOURCE_LSE);
+        case CRS_STATUS_SYNCMISS:
+            /* Power off LED4 */
+            LED_Off();
+            /* Perform a new configuration to LSE when SYNC MISS is detected. */
+            /* For visual comfort on LED4 apply delay before new configuration */
+            LL_mDelay( 1000 );
 
-          /* Enable Frequency error counter */
-          LL_CRS_EnableFreqErrorCounter();
+            /* Change source to LSE and restart synchronization if necessary */
+            if( LL_CRS_GetSyncSignalSource() != LL_CRS_SYNC_SOURCE_LSE )
+            {
+                /* CRS configuration can be changed only if frequency error is disabled */
+                LL_CRS_DisableFreqErrorCounter();
+
+                /* Change CRS SYNC signal source to LSE */
+                LL_CRS_SetSyncSignalSource( LL_CRS_SYNC_SOURCE_LSE );
+
+                /* Enable Frequency error counter */
+                LL_CRS_EnableFreqErrorCounter();
+            }
+            else
+            {
+                /* Enable CRS SYNCOK interrupt */
+                LL_CRS_EnableIT_SYNCOK();
+            }
+
+            break;
+
+        case CRS_STATUS_SYNCWARN:
+            /* Toggle LED4 when SYNC WARN is detected. */
+            LED_On();
+            LL_mDelay( 100 );
+            LED_Off();
+            LL_mDelay( 100 );
+            LED_On();
+            LL_mDelay( 100 );
+            LED_Off();
+            LL_mDelay( 100 );
+            LED_On();
+            LL_mDelay( 100 );
+            LED_Off();
+            LL_mDelay( 100 );
+            /* Increase tolerance (FELIM value) until no more warning */
+            LL_CRS_DisableFreqErrorCounter();
+            felim = LL_CRS_GetFreqErrorLimit();
+            LL_CRS_SetFreqErrorLimit( felim + 1 );
+            LL_CRS_EnableFreqErrorCounter();
+            /* Enable CRS SYNCWARN interrupt (to allow resync) */
+            LL_CRS_EnableIT_SYNCWARN();
+            /* Enable CRS SYNCOK interrupt (if it was in SYNCOK but then in WARN again) */
+            LL_CRS_EnableIT_SYNCOK();
+            break;
+
+        case CRS_STATUS_SYNCERR:
+            /* Power off LED4 */
+            LED_Off();
+            break;
+
+        default:
+            break;
         }
-        else
-        {
-          /* Enable CRS SYNCOK interrupt */
-          LL_CRS_EnableIT_SYNCOK();
-        }
-        break;
 
-      case CRS_STATUS_SYNCWARN:
-        /* Toggle LED4 when SYNC WARN is detected. */
-        LED_On();
-        LL_mDelay(100);
-        LED_Off();
-        LL_mDelay(100);
-        LED_On();
-        LL_mDelay(100);
-        LED_Off();
-        LL_mDelay(100);
-        LED_On();
-        LL_mDelay(100);
-        LED_Off();
-        LL_mDelay(100);
-        /* Increase tolerance (FELIM value) until no more warning */
-        LL_CRS_DisableFreqErrorCounter();
-        felim = LL_CRS_GetFreqErrorLimit();
-        LL_CRS_SetFreqErrorLimit(felim + 1);
-        LL_CRS_EnableFreqErrorCounter();
-        /* Enable CRS SYNCWARN interrupt (to allow resync) */
-        LL_CRS_EnableIT_SYNCWARN();
-        /* Enable CRS SYNCOK interrupt (if it was in SYNCOK but then in WARN again) */
-        LL_CRS_EnableIT_SYNCOK();
-        break;
+        /* USER CODE END WHILE */
 
-      case CRS_STATUS_SYNCERR:
-        /* Power off LED4 */
-        LED_Off();
-        break;
-
-      default:
-        break;
+        /* USER CODE BEGIN 3 */
     }
 
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
-  }
-  /* USER CODE END 3 */
+    /* USER CODE END 3 */
 }
 
 /**
   * @brief System Clock Configuration
   * @retval None
   */
-void SystemClock_Config(void)
+void SystemClock_Config( void )
 {
-  LL_FLASH_SetLatency(LL_FLASH_LATENCY_2);
-  while(LL_FLASH_GetLatency() != LL_FLASH_LATENCY_2)
-  {
-  }
+    LL_FLASH_SetLatency( LL_FLASH_LATENCY_2 );
 
-  /* HSI configuration and activation */
-  LL_RCC_HSI_Enable();
-  while(LL_RCC_HSI_IsReady() != 1)
-  {
-  }
+    while( LL_FLASH_GetLatency() != LL_FLASH_LATENCY_2 )
+    {
+    }
 
-  /* Main PLL configuration and activation */
-  LL_RCC_PLL_ConfigDomain_SYS(LL_RCC_PLLSOURCE_HSI, LL_RCC_PLLM_DIV_1, 8, LL_RCC_PLLR_DIV_2);
-  LL_RCC_PLL_Enable();
-  LL_RCC_PLL_EnableDomain_SYS();
-  while(LL_RCC_PLL_IsReady() != 1)
-  {
-  }
+    /* HSI configuration and activation */
+    LL_RCC_HSI_Enable();
 
-  /* Set AHB prescaler*/
-  LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
+    while( LL_RCC_HSI_IsReady() != 1 )
+    {
+    }
 
-  /* Sysclk activation on the main PLL */
-  LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_PLL);
-  while(LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_PLL)
-  {
-  }
+    /* Main PLL configuration and activation */
+    LL_RCC_PLL_ConfigDomain_SYS( LL_RCC_PLLSOURCE_HSI, LL_RCC_PLLM_DIV_1, 8, LL_RCC_PLLR_DIV_2 );
+    LL_RCC_PLL_Enable();
+    LL_RCC_PLL_EnableDomain_SYS();
 
-  /* Set APB1 prescaler*/
-  LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
-  LL_Init1msTick(64000000);
-  /* Update CMSIS variable (which can be updated also through SystemCoreClockUpdate function) */
-  LL_SetSystemCoreClock(64000000);
+    while( LL_RCC_PLL_IsReady() != 1 )
+    {
+    }
+
+    /* Set AHB prescaler*/
+    LL_RCC_SetAHBPrescaler( LL_RCC_SYSCLK_DIV_1 );
+
+    /* Sysclk activation on the main PLL */
+    LL_RCC_SetSysClkSource( LL_RCC_SYS_CLKSOURCE_PLL );
+
+    while( LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_PLL )
+    {
+    }
+
+    /* Set APB1 prescaler*/
+    LL_RCC_SetAPB1Prescaler( LL_RCC_APB1_DIV_1 );
+    LL_Init1msTick( 64000000 );
+    /* Update CMSIS variable (which can be updated also through SystemCoreClockUpdate function) */
+    LL_SetSystemCoreClock( 64000000 );
 }
 
 /**
@@ -277,45 +283,45 @@ void SystemClock_Config(void)
   * @param None
   * @retval None
   */
-static void MX_GPIO_Init(void)
+static void MX_GPIO_Init( void )
 {
-  LL_EXTI_InitTypeDef EXTI_InitStruct = {0};
-  LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
+    LL_EXTI_InitTypeDef EXTI_InitStruct = {0};
+    LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
 
-  /* GPIO Ports Clock Enable */
-  LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOC);
-  LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOA);
+    /* GPIO Ports Clock Enable */
+    LL_IOP_GRP1_EnableClock( LL_IOP_GRP1_PERIPH_GPIOC );
+    LL_IOP_GRP1_EnableClock( LL_IOP_GRP1_PERIPH_GPIOA );
 
-  /**/
-  LL_GPIO_ResetOutputPin(LED4_GPIO_Port, LED4_Pin);
+    /**/
+    LL_GPIO_ResetOutputPin( LED4_GPIO_Port, LED4_Pin );
 
-  /**/
-  LL_EXTI_SetEXTISource(LL_EXTI_CONFIG_PORTC, LL_EXTI_CONFIG_LINE13);
+    /**/
+    LL_EXTI_SetEXTISource( LL_EXTI_CONFIG_PORTC, LL_EXTI_CONFIG_LINE13 );
 
-  /**/
-  EXTI_InitStruct.Line_0_31 = LL_EXTI_LINE_13;
-  EXTI_InitStruct.LineCommand = ENABLE;
-  EXTI_InitStruct.Mode = LL_EXTI_MODE_IT;
-  EXTI_InitStruct.Trigger = LL_EXTI_TRIGGER_FALLING;
-  LL_EXTI_Init(&EXTI_InitStruct);
+    /**/
+    EXTI_InitStruct.Line_0_31 = LL_EXTI_LINE_13;
+    EXTI_InitStruct.LineCommand = ENABLE;
+    EXTI_InitStruct.Mode = LL_EXTI_MODE_IT;
+    EXTI_InitStruct.Trigger = LL_EXTI_TRIGGER_FALLING;
+    LL_EXTI_Init( &EXTI_InitStruct );
 
-  /**/
-  LL_GPIO_SetPinPull(USER_BUTTON_GPIO_Port, USER_BUTTON_Pin, LL_GPIO_PULL_NO);
+    /**/
+    LL_GPIO_SetPinPull( USER_BUTTON_GPIO_Port, USER_BUTTON_Pin, LL_GPIO_PULL_NO );
 
-  /**/
-  LL_GPIO_SetPinMode(USER_BUTTON_GPIO_Port, USER_BUTTON_Pin, LL_GPIO_MODE_INPUT);
+    /**/
+    LL_GPIO_SetPinMode( USER_BUTTON_GPIO_Port, USER_BUTTON_Pin, LL_GPIO_MODE_INPUT );
 
-  /**/
-  GPIO_InitStruct.Pin = LED4_Pin;
-  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  LL_GPIO_Init(LED4_GPIO_Port, &GPIO_InitStruct);
+    /**/
+    GPIO_InitStruct.Pin = LED4_Pin;
+    GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+    GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+    GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+    GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+    LL_GPIO_Init( LED4_GPIO_Port, &GPIO_InitStruct );
 
-  /* EXTI interrupt init*/
-  NVIC_SetPriority(EXTI4_15_IRQn, 0);
-  NVIC_EnableIRQ(EXTI4_15_IRQn);
+    /* EXTI interrupt init*/
+    NVIC_SetPriority( EXTI4_15_IRQn, 0 );
+    NVIC_EnableIRQ( EXTI4_15_IRQn );
 
 }
 
@@ -326,36 +332,40 @@ static void MX_GPIO_Init(void)
   * @param  None
   * @retval None
   */
-void Enable_Sync_Reference_Clock(void)
+void Enable_Sync_Reference_Clock( void )
 {
-  /* To enable LSE, before it is necessary to:
-     - Reset the Back up Domain */
-  LL_PWR_EnableBkUpAccess();
+    /* To enable LSE, before it is necessary to:
+       - Reset the Back up Domain */
+    LL_PWR_EnableBkUpAccess();
 
-  /* Enable LSE only if disabled.*/
-  if (LL_RCC_LSE_IsReady() == 0)
-  {
-    LL_RCC_ForceBackupDomainReset();
-    LL_RCC_ReleaseBackupDomainReset();
-    LL_RCC_LSE_Enable();
-#if (USE_TIMEOUT == 1)
-    Timeout = LSE_TIMEOUT_VALUE;
-#endif /* USE_TIMEOUT */
-    while (LL_RCC_LSE_IsReady() != 1)
+    /* Enable LSE only if disabled.*/
+    if( LL_RCC_LSE_IsReady() == 0 )
     {
+        LL_RCC_ForceBackupDomainReset();
+        LL_RCC_ReleaseBackupDomainReset();
+        LL_RCC_LSE_Enable();
 #if (USE_TIMEOUT == 1)
-      if (LL_SYSTICK_IsActiveCounterFlag())
-      {
-        Timeout --;
-      }
-      if (Timeout == 0)
-      {
-        /* LSE activation error */
-        LED_Blinking(LED_BLINK_ERROR);
-      }
+        Timeout = LSE_TIMEOUT_VALUE;
 #endif /* USE_TIMEOUT */
+
+        while( LL_RCC_LSE_IsReady() != 1 )
+        {
+#if (USE_TIMEOUT == 1)
+
+            if( LL_SYSTICK_IsActiveCounterFlag() )
+            {
+                Timeout --;
+            }
+
+            if( Timeout == 0 )
+            {
+                /* LSE activation error */
+                LED_Blinking( LED_BLINK_ERROR );
+            }
+
+#endif /* USE_TIMEOUT */
+        }
     }
-  }
 }
 
 /**
@@ -363,36 +373,40 @@ void Enable_Sync_Reference_Clock(void)
   * @param  None
   * @retval None
   */
-void Enable_CRS_Clocks(void)
+void Enable_CRS_Clocks( void )
 {
-  /* CRS initialization (enable HSI48 oscillator and enable CRS clock) */
+    /* CRS initialization (enable HSI48 oscillator and enable CRS clock) */
 
-  /* Enable CRS clock*/
-  LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_CRS);
+    /* Enable CRS clock*/
+    LL_APB1_GRP1_EnableClock( LL_APB1_GRP1_PERIPH_CRS );
 
 
-  /* Enable HSI48 only if disabled.*/
-  if (LL_RCC_HSI48_IsReady() == 0)
-  {
-    LL_RCC_HSI48_Enable();
-#if (USE_TIMEOUT == 1)
-    Timeout = LSE_TIMEOUT_VALUE;
-#endif /* USE_TIMEOUT */
-    while (LL_RCC_HSI48_IsReady() != 1)
+    /* Enable HSI48 only if disabled.*/
+    if( LL_RCC_HSI48_IsReady() == 0 )
     {
+        LL_RCC_HSI48_Enable();
 #if (USE_TIMEOUT == 1)
-      if (LL_SYSTICK_IsActiveCounterFlag())
-      {
-        Timeout --;
-      }
-      if (Timeout == 0)
-      {
-        /* HSI48 activation error */
-        LED_Blinking(LED_BLINK_ERROR);
-      }
+        Timeout = LSE_TIMEOUT_VALUE;
 #endif /* USE_TIMEOUT */
+
+        while( LL_RCC_HSI48_IsReady() != 1 )
+        {
+#if (USE_TIMEOUT == 1)
+
+            if( LL_SYSTICK_IsActiveCounterFlag() )
+            {
+                Timeout --;
+            }
+
+            if( Timeout == 0 )
+            {
+                /* HSI48 activation error */
+                LED_Blinking( LED_BLINK_ERROR );
+            }
+
+#endif /* USE_TIMEOUT */
+        }
     }
-  }
 }
 
 /**
@@ -400,37 +414,37 @@ void Enable_CRS_Clocks(void)
   * @param  None
   * @retval None
   */
-void Configure_CRS(uint32_t SyncSource)
+void Configure_CRS( uint32_t SyncSource )
 {
-  /* Enable and set CRS interrupt*/
-  NVIC_SetPriority(RCC_CRS_IRQn, 0x03);
-  NVIC_EnableIRQ(RCC_CRS_IRQn);
+    /* Enable and set CRS interrupt*/
+    NVIC_SetPriority( RCC_CRS_IRQn, 0x03 );
+    NVIC_EnableIRQ( RCC_CRS_IRQn );
 
-  /* HSI48 Synchronization:
-     - HSI trimming value set to 0x00 to see the automatic calibration performed by CRS
-     - Reload value calculated like this F(LSE)=32.768kHz then Reload=(f(Target)/f(LSE))-1= 0x5B7
-     - Felim value calculated like this FELIM = (fTARGET / fSYNC) * STEP[%] / 100% / 2 with STEP=0.14% then FELIM = 2
-  */
-  LL_CRS_ConfigSynchronization(0x00,
-                               2,
-                               __LL_CRS_CALC_CALCULATE_RELOADVALUE(HSI48_VALUE, LSE_VALUE),
-                               LL_CRS_SYNC_DIV_1 | SyncSource | LL_CRS_SYNC_POLARITY_FALLING
-                              );
+    /* HSI48 Synchronization:
+       - HSI trimming value set to 0x00 to see the automatic calibration performed by CRS
+       - Reload value calculated like this F(LSE)=32.768kHz then Reload=(f(Target)/f(LSE))-1= 0x5B7
+       - Felim value calculated like this FELIM = (fTARGET / fSYNC) * STEP[%] / 100% / 2 with STEP=0.14% then FELIM = 2
+    */
+    LL_CRS_ConfigSynchronization( 0x00,
+                                  2,
+                                  __LL_CRS_CALC_CALCULATE_RELOADVALUE( HSI48_VALUE, LSE_VALUE ),
+                                  LL_CRS_SYNC_DIV_1 | SyncSource | LL_CRS_SYNC_POLARITY_FALLING
+                                );
 
-  /* Enable Automatic trimming */
-  LL_CRS_EnableAutoTrimming();
+    /* Enable Automatic trimming */
+    LL_CRS_EnableAutoTrimming();
 
-  /* Enable Frequency error counter */
-  LL_CRS_EnableFreqErrorCounter();
+    /* Enable Frequency error counter */
+    LL_CRS_EnableFreqErrorCounter();
 
-  /* Enable CRS interrupts */
-  /* Each interruption can be enabled independently in using following functions:
-  - LL_CRS_EnableIT_SYNCOK();
-  - LL_CRS_EnableIT_SYNCWARN();
-  - LL_CRS_EnableIT_ERR();
-  - LL_CRS_EnableIT_ESYNC();
-  */
-  LL_CRS_WriteReg(CRS, CR, LL_CRS_ReadReg(CRS, CR) | LL_CRS_CR_SYNCOKIE | LL_CRS_CR_SYNCWARNIE | LL_CRS_CR_ERRIE | LL_CRS_CR_ESYNCIE);
+    /* Enable CRS interrupts */
+    /* Each interruption can be enabled independently in using following functions:
+    - LL_CRS_EnableIT_SYNCOK();
+    - LL_CRS_EnableIT_SYNCWARN();
+    - LL_CRS_EnableIT_ERR();
+    - LL_CRS_EnableIT_ESYNC();
+    */
+    LL_CRS_WriteReg( CRS, CR, LL_CRS_ReadReg( CRS, CR ) | LL_CRS_CR_SYNCOKIE | LL_CRS_CR_SYNCWARNIE | LL_CRS_CR_ERRIE | LL_CRS_CR_ESYNCIE );
 }
 
 /**
@@ -438,20 +452,20 @@ void Configure_CRS(uint32_t SyncSource)
   * @param  None
   * @retval None
   */
-void MCO_ConfigGPIO(void)
+void MCO_ConfigGPIO( void )
 {
-  /* MCO Clock Enable */
-  LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOA);
+    /* MCO Clock Enable */
+    LL_IOP_GRP1_EnableClock( LL_IOP_GRP1_PERIPH_GPIOA );
 
-  /* Configure the MCO pin in alternate function mode */
-  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_8, LL_GPIO_MODE_ALTERNATE);
-  LL_GPIO_SetPinOutputType(GPIOA, LL_GPIO_PIN_8, LL_GPIO_OUTPUT_PUSHPULL);
-  LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_8, LL_GPIO_SPEED_FREQ_HIGH);
-  LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_8, LL_GPIO_PULL_NO);
-  LL_GPIO_SetAFPin_8_15(GPIOA, LL_GPIO_PIN_8, LL_GPIO_AF_0);
+    /* Configure the MCO pin in alternate function mode */
+    LL_GPIO_SetPinMode( GPIOA, LL_GPIO_PIN_8, LL_GPIO_MODE_ALTERNATE );
+    LL_GPIO_SetPinOutputType( GPIOA, LL_GPIO_PIN_8, LL_GPIO_OUTPUT_PUSHPULL );
+    LL_GPIO_SetPinSpeed( GPIOA, LL_GPIO_PIN_8, LL_GPIO_SPEED_FREQ_HIGH );
+    LL_GPIO_SetPinPull( GPIOA, LL_GPIO_PIN_8, LL_GPIO_PULL_NO );
+    LL_GPIO_SetAFPin_8_15( GPIOA, LL_GPIO_PIN_8, LL_GPIO_AF_0 );
 
-  /* Select MCO clock source and prescaler */
-  LL_RCC_ConfigMCO(LL_RCC_MCO1SOURCE_HSI48, LL_RCC_MCO1_DIV_1);
+    /* Select MCO clock source and prescaler */
+    LL_RCC_ConfigMCO( LL_RCC_MCO1SOURCE_HSI48, LL_RCC_MCO1_DIV_1 );
 }
 
 /**
@@ -459,10 +473,10 @@ void MCO_ConfigGPIO(void)
   * @param  None
   * @retval None
   */
-void LED_On(void)
+void LED_On( void )
 {
-  /* Turn LED4 on */
-  LL_GPIO_SetOutputPin(LED4_GPIO_Port, LED4_Pin);
+    /* Turn LED4 on */
+    LL_GPIO_SetOutputPin( LED4_GPIO_Port, LED4_Pin );
 
 }
 
@@ -471,10 +485,10 @@ void LED_On(void)
   * @param  None
   * @retval None
   */
-void LED_Off(void)
+void LED_Off( void )
 {
-  /* Turn LED4 off */
-  LL_GPIO_ResetOutputPin(LED4_GPIO_Port, LED4_Pin);
+    /* Turn LED4 off */
+    LL_GPIO_ResetOutputPin( LED4_GPIO_Port, LED4_Pin );
 }
 
 /**
@@ -486,14 +500,14 @@ void LED_Off(void)
   *     @arg LED_BLINK_ERROR : Error specific Blinking
   * @retval None
   */
-void LED_Blinking(uint32_t Period)
+void LED_Blinking( uint32_t Period )
 {
-  /* Toggle IO in an infinite loop */
-  while (1)
-  {
-    LL_GPIO_TogglePin(LED4_GPIO_Port, LED4_Pin);
-    LL_mDelay(Period);
-  }
+    /* Toggle IO in an infinite loop */
+    while( 1 )
+    {
+        LL_GPIO_TogglePin( LED4_GPIO_Port, LED4_Pin );
+        LL_mDelay( Period );
+    }
 }
 
 /**
@@ -502,15 +516,16 @@ void LED_Blinking(uint32_t Period)
   * @retval None
   */
 /*  */
-void WaitForUserButtonPress(void)
+void WaitForUserButtonPress( void )
 {
-  while (ubButtonPress == 0)
-  {
-    LL_GPIO_TogglePin(LED4_GPIO_Port, LED4_Pin);
-    LL_mDelay(LED_BLINK_FAST);
-  }
-  /* Ensure that LED4 is turned Off */
-  LED_Off();
+    while( ubButtonPress == 0 )
+    {
+        LL_GPIO_TogglePin( LED4_GPIO_Port, LED4_Pin );
+        LL_mDelay( LED_BLINK_FAST );
+    }
+
+    /* Ensure that LED4 is turned Off */
+    LED_Off();
 }
 
 
@@ -522,10 +537,10 @@ void WaitForUserButtonPress(void)
   * @param  None
   * @retval None
   */
-void UserButton_Callback(void)
+void UserButton_Callback( void )
 {
-  /* Update User push-button variable : to be checked in waiting loop in main program */
-  ubButtonPress = 1;
+    /* Update User push-button variable : to be checked in waiting loop in main program */
+    ubButtonPress = 1;
 }
 
 /**
@@ -533,56 +548,56 @@ void UserButton_Callback(void)
   * @param  none
   * @retval none
   */
-void CRS_Handler_Callback(void)
+void CRS_Handler_Callback( void )
 {
-  /* Check CRS SYNCOK flag  */
-  if (LL_CRS_IsActiveFlag_SYNCOK() && LL_CRS_IsEnabledIT_SYNCOK())
-  {
-    CRSSyncStatus = CRS_STATUS_SYNCOK;
+    /* Check CRS SYNCOK flag  */
+    if( LL_CRS_IsActiveFlag_SYNCOK() && LL_CRS_IsEnabledIT_SYNCOK() )
+    {
+        CRSSyncStatus = CRS_STATUS_SYNCOK;
 
-    /* Disable CRS SYNCOK interrupt since synchronization succeeded */
-    LL_CRS_DisableIT_SYNCOK();
+        /* Disable CRS SYNCOK interrupt since synchronization succeeded */
+        LL_CRS_DisableIT_SYNCOK();
 
-    /* Clear CRS SYNC event OK bit */
-    LL_CRS_ClearFlag_SYNCOK();
-  }
+        /* Clear CRS SYNC event OK bit */
+        LL_CRS_ClearFlag_SYNCOK();
+    }
 
-  /* Check CRS SYNCWARN flag  */
-  if (LL_CRS_IsActiveFlag_SYNCWARN() && LL_CRS_IsEnabledIT_SYNCWARN())
-  {
-    CRSSyncStatus = CRS_STATUS_SYNCWARN;
+    /* Check CRS SYNCWARN flag  */
+    if( LL_CRS_IsActiveFlag_SYNCWARN() && LL_CRS_IsEnabledIT_SYNCWARN() )
+    {
+        CRSSyncStatus = CRS_STATUS_SYNCWARN;
 
-    /* Disable temporary CRS SYNCWARN interrupt to let the main loop to be execute */
-    LL_CRS_DisableIT_SYNCWARN();
+        /* Disable temporary CRS SYNCWARN interrupt to let the main loop to be execute */
+        LL_CRS_DisableIT_SYNCWARN();
 
-    /* Clear CRS SYNCWARN bit */
-    LL_CRS_ClearFlag_SYNCWARN();
-  }
+        /* Clear CRS SYNCWARN bit */
+        LL_CRS_ClearFlag_SYNCWARN();
+    }
 
-  /* Check CRS SYNCERR flag  */
-  if (LL_CRS_IsActiveFlag_SYNCERR() && LL_CRS_IsEnabledIT_ERR())
-  {
-    CRSSyncStatus = CRS_STATUS_SYNCERR;
+    /* Check CRS SYNCERR flag  */
+    if( LL_CRS_IsActiveFlag_SYNCERR() && LL_CRS_IsEnabledIT_ERR() )
+    {
+        CRSSyncStatus = CRS_STATUS_SYNCERR;
 
-    /* Clear CRS Error bit */
-    LL_CRS_ClearFlag_ERR();
-  }
+        /* Clear CRS Error bit */
+        LL_CRS_ClearFlag_ERR();
+    }
 
-  /* Check CRS SYNC Missed flag  */
-  if (LL_CRS_IsActiveFlag_SYNCMISS() && LL_CRS_IsEnabledIT_ERR())
-  {
-    CRSSyncStatus = CRS_STATUS_SYNCMISS;
+    /* Check CRS SYNC Missed flag  */
+    if( LL_CRS_IsActiveFlag_SYNCMISS() && LL_CRS_IsEnabledIT_ERR() )
+    {
+        CRSSyncStatus = CRS_STATUS_SYNCMISS;
 
-    /* Clear CRS SYNC Missed bit */
-    LL_CRS_ClearFlag_ERR();
-  }
+        /* Clear CRS SYNC Missed bit */
+        LL_CRS_ClearFlag_ERR();
+    }
 
-  /* Check CRS Expected SYNC flag  */
-  if (LL_CRS_IsActiveFlag_ESYNC() && LL_CRS_IsEnabledIT_ESYNC())
-  {
-    /* frequency error counter reached a zero value */
-    LL_CRS_ClearFlag_ESYNC();
-  }
+    /* Check CRS Expected SYNC flag  */
+    if( LL_CRS_IsActiveFlag_ESYNC() && LL_CRS_IsEnabledIT_ESYNC() )
+    {
+        /* frequency error counter reached a zero value */
+        LL_CRS_ClearFlag_ESYNC();
+    }
 }
 
 
@@ -592,12 +607,12 @@ void CRS_Handler_Callback(void)
   * @brief  This function is executed in case of error occurrence.
   * @retval None
   */
-void Error_Handler(void)
+void Error_Handler( void )
 {
-  /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
+    /* USER CODE BEGIN Error_Handler_Debug */
+    /* User can add his own implementation to report the HAL error return state */
 
-  /* USER CODE END Error_Handler_Debug */
+    /* USER CODE END Error_Handler_Debug */
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -608,17 +623,18 @@ void Error_Handler(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t *file, uint32_t line)
+void assert_failed( uint8_t *file, uint32_t line )
 {
-  /* USER CODE BEGIN 6 */
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d", file, line) */
+    /* USER CODE BEGIN 6 */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {
-  }
-  /* USER CODE END 6 */
+    /* Infinite loop */
+    while( 1 )
+    {
+    }
+
+    /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
 

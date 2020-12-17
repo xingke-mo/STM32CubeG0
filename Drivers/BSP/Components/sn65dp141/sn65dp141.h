@@ -22,7 +22,7 @@
 #define SN65DP141_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -204,138 +204,158 @@
   * @{
   */
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t RESERVED  :2;
-    uint8_t EQ_MODE   :1;
-    uint8_t SYNC_ALL  :1;
-    uint8_t SYNC_23   :1;
-    uint8_t SYNC_01   :1;
-    uint8_t PWRDOWN   :1;
-    uint8_t SW_GPIO   :1;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t RESERVED  : 2;
+        uint8_t EQ_MODE   : 1;
+        uint8_t SYNC_ALL  : 1;
+        uint8_t SYNC_23   : 1;
+        uint8_t SYNC_01   : 1;
+        uint8_t PWRDOWN   : 1;
+        uint8_t SW_GPIO   : 1;
+    };
 } SN65DP141_GeneralTypeDef;
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t LN_EN_CH0  :1;
-    uint8_t LN_EN_CH1  :1;
-    uint8_t LN_EN_CH2  :1;
-    uint8_t LN_EN_CH3  :1;
-    uint8_t RESERVED   :4;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t LN_EN_CH0  : 1;
+        uint8_t LN_EN_CH1  : 1;
+        uint8_t LN_EN_CH2  : 1;
+        uint8_t LN_EN_CH3  : 1;
+        uint8_t RESERVED   : 4;
+    };
 } SN65DP141_ChannelEnableTypeDef;
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t RX_GAIN_0     :1;
-    uint8_t RX_GAIN_1     :1;
-    uint8_t EQ_DC_GAIN    :1;
-    uint8_t TX_GAIN       :1;
-    uint8_t EQ_Setting_0  :1;
-    uint8_t EQ_Setting_1  :1;
-    uint8_t EQ_Setting_2  :1;
-    uint8_t RESERVED      :1;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t RX_GAIN_0     : 1;
+        uint8_t RX_GAIN_1     : 1;
+        uint8_t EQ_DC_GAIN    : 1;
+        uint8_t TX_GAIN       : 1;
+        uint8_t EQ_Setting_0  : 1;
+        uint8_t EQ_Setting_1  : 1;
+        uint8_t EQ_Setting_2  : 1;
+        uint8_t RESERVED      : 1;
+    };
 } SN65DP141_Channel0CtrlTypeDef;
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t RSVDRV_EN :1;
-    uint8_t EQ_EN     :1;
-    uint8_t DRV_PEAK  :1;
-    uint8_t RESERVED  :5;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t RSVDRV_EN : 1;
+        uint8_t EQ_EN     : 1;
+        uint8_t DRV_PEAK  : 1;
+        uint8_t RESERVED  : 5;
+    };
 } SN65DP141_Channel0EnableTypeDef;
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t RX_GAIN_0     :1;
-    uint8_t RX_GAIN_1     :1;
-    uint8_t EQ_DC_GAIN    :1;
-    uint8_t TX_GAIN       :1;
-    uint8_t EQ_Setting_0  :1;
-    uint8_t EQ_Setting_1  :1;
-    uint8_t EQ_Setting_2  :1;
-    uint8_t RESERVED      :1;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t RX_GAIN_0     : 1;
+        uint8_t RX_GAIN_1     : 1;
+        uint8_t EQ_DC_GAIN    : 1;
+        uint8_t TX_GAIN       : 1;
+        uint8_t EQ_Setting_0  : 1;
+        uint8_t EQ_Setting_1  : 1;
+        uint8_t EQ_Setting_2  : 1;
+        uint8_t RESERVED      : 1;
+    };
 } SN65DP141_Channel1CtrlTypeDef;
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t RSVDRV_EN :1;
-    uint8_t EQ_EN     :1;
-    uint8_t DRV_PEAK  :1;
-    uint8_t RESERVED  :5;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t RSVDRV_EN : 1;
+        uint8_t EQ_EN     : 1;
+        uint8_t DRV_PEAK  : 1;
+        uint8_t RESERVED  : 5;
+    };
 } SN65DP141_Channel1EnableTypeDef;
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t RX_GAIN_0     :1;
-    uint8_t RX_GAIN_1     :1;
-    uint8_t EQ_DC_GAIN    :1;
-    uint8_t TX_GAIN       :1;
-    uint8_t EQ_Setting_0  :1;
-    uint8_t EQ_Setting_1  :1;
-    uint8_t EQ_Setting_2  :1;
-    uint8_t RESERVED      :1;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t RX_GAIN_0     : 1;
+        uint8_t RX_GAIN_1     : 1;
+        uint8_t EQ_DC_GAIN    : 1;
+        uint8_t TX_GAIN       : 1;
+        uint8_t EQ_Setting_0  : 1;
+        uint8_t EQ_Setting_1  : 1;
+        uint8_t EQ_Setting_2  : 1;
+        uint8_t RESERVED      : 1;
+    };
 } SN65DP141_Channel2CtrlTypeDef;
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t RSVDRV_EN :1;
-    uint8_t EQ_EN     :1;
-    uint8_t DRV_PEAK  :1;
-    uint8_t RESERVED  :5;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t RSVDRV_EN : 1;
+        uint8_t EQ_EN     : 1;
+        uint8_t DRV_PEAK  : 1;
+        uint8_t RESERVED  : 5;
+    };
 } SN65DP141_Channel2EnableTypeDef;
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t RX_GAIN_0     :1;
-    uint8_t RX_GAIN_1     :1;
-    uint8_t EQ_DC_GAIN    :1;
-    uint8_t TX_GAIN       :1;
-    uint8_t EQ_Setting_0  :1;
-    uint8_t EQ_Setting_1  :1;
-    uint8_t EQ_Setting_2  :1;
-    uint8_t RESERVED      :1;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t RX_GAIN_0     : 1;
+        uint8_t RX_GAIN_1     : 1;
+        uint8_t EQ_DC_GAIN    : 1;
+        uint8_t TX_GAIN       : 1;
+        uint8_t EQ_Setting_0  : 1;
+        uint8_t EQ_Setting_1  : 1;
+        uint8_t EQ_Setting_2  : 1;
+        uint8_t RESERVED      : 1;
+    };
 } SN65DP141_Channel3CtrlTypeDef;
 
-typedef union {
-  uint8_t Register;
-  struct {
-    uint8_t RSVDRV_EN :1;
-    uint8_t EQ_EN     :1;
-    uint8_t DRV_PEAK  :1;
-    uint8_t RESERVED  :5;
-  };
+typedef union
+{
+    uint8_t Register;
+    struct
+    {
+        uint8_t RSVDRV_EN : 1;
+        uint8_t EQ_EN     : 1;
+        uint8_t DRV_PEAK  : 1;
+        uint8_t RESERVED  : 5;
+    };
 } SN65DP141_Channel3EnableTypeDef;
 
 typedef struct
 {
-  SN65DP141_GeneralTypeDef        General;        /*!< 0x00 (General Device Settings) */
-  SN65DP141_ChannelEnableTypeDef  ChannelEnable;  /*!< 0x01 (Channel Enable) */
-  SN65DP141_Channel0CtrlTypeDef   Channel0Ctrl;   /*!< 0x02 (Channel 0 Control Settings) */
-  SN65DP141_Channel0EnableTypeDef Channel0Enable; /*!< 0x03 (Channel 0 Enable Settings) */
-  SN65DP141_Channel1CtrlTypeDef   Channel1Ctrl;   /*!< 0x05 (Channel 1 Control Settings) */
-  SN65DP141_Channel1EnableTypeDef Channel1Enable; /*!< 0x06 (Channel 1 Enable Settings) */
-  SN65DP141_Channel2CtrlTypeDef   Channel2Ctrl;   /*!< 0x08 (Channel 2 Control Settings) */
-  SN65DP141_Channel2EnableTypeDef Channel2Enable; /*!< 0x09 (Channel 2 Enable Settings) */
-  SN65DP141_Channel3CtrlTypeDef   Channel3Ctrl;   /*!< 0x0B (Channel 3 Control Settings) */
-  SN65DP141_Channel3EnableTypeDef Channel3Enable; /*!< 0x0C (Channel 3 Enable Settings) */
+    SN65DP141_GeneralTypeDef        General;        /*!< 0x00 (General Device Settings) */
+    SN65DP141_ChannelEnableTypeDef  ChannelEnable;  /*!< 0x01 (Channel Enable) */
+    SN65DP141_Channel0CtrlTypeDef   Channel0Ctrl;   /*!< 0x02 (Channel 0 Control Settings) */
+    SN65DP141_Channel0EnableTypeDef Channel0Enable; /*!< 0x03 (Channel 0 Enable Settings) */
+    SN65DP141_Channel1CtrlTypeDef   Channel1Ctrl;   /*!< 0x05 (Channel 1 Control Settings) */
+    SN65DP141_Channel1EnableTypeDef Channel1Enable; /*!< 0x06 (Channel 1 Enable Settings) */
+    SN65DP141_Channel2CtrlTypeDef   Channel2Ctrl;   /*!< 0x08 (Channel 2 Control Settings) */
+    SN65DP141_Channel2EnableTypeDef Channel2Enable; /*!< 0x09 (Channel 2 Enable Settings) */
+    SN65DP141_Channel3CtrlTypeDef   Channel3Ctrl;   /*!< 0x0B (Channel 3 Control Settings) */
+    SN65DP141_Channel3EnableTypeDef Channel3Enable; /*!< 0x0C (Channel 3 Enable Settings) */
 } SN65DP141_RegistersTypeDef;
 /**
   * @}
@@ -345,20 +365,20 @@ typedef struct
 /** @defgroup SN65DP141_Exported_Functions
   * @{
   */
-uint32_t sn65dp141_Init(uint16_t Address);
-void     sn65dp141_DeInit(uint16_t Address);
-uint32_t sn65dp141_PowerOn(uint16_t Address);
-uint32_t sn65dp141_PowerOff(uint16_t Address);
-uint32_t sn65dp141_SetEQGain(uint16_t Address, DPREDRIVER_ChannelId_t ChannelId, uint8_t EQGain);
-uint32_t sn65dp141_EnableChannel(uint16_t Address, DPREDRIVER_ChannelId_t ChannelId);
-uint32_t sn65dp141_DisableChannel(uint16_t Address, DPREDRIVER_ChannelId_t ChannelId);
+uint32_t sn65dp141_Init( uint16_t Address );
+void     sn65dp141_DeInit( uint16_t Address );
+uint32_t sn65dp141_PowerOn( uint16_t Address );
+uint32_t sn65dp141_PowerOff( uint16_t Address );
+uint32_t sn65dp141_SetEQGain( uint16_t Address, DPREDRIVER_ChannelId_t ChannelId, uint8_t EQGain );
+uint32_t sn65dp141_EnableChannel( uint16_t Address, DPREDRIVER_ChannelId_t ChannelId );
+uint32_t sn65dp141_DisableChannel( uint16_t Address, DPREDRIVER_ChannelId_t ChannelId );
 
 /* MUX IO functions */
-uint8_t   MUX_IO_Init(void);
-void      MUX_IO_DeInit(void);
-uint8_t   MUX_IO_Write(uint16_t Addr, uint16_t Reg, uint8_t Data);
-uint8_t   MUX_IO_Read(uint16_t Addr, uint16_t Reg, uint8_t *pData);
-uint32_t  MUX_IO_IsDeviceReady(uint16_t DevAddress, uint32_t Trials);
+uint8_t   MUX_IO_Init( void );
+void      MUX_IO_DeInit( void );
+uint8_t   MUX_IO_Write( uint16_t Addr, uint16_t Reg, uint8_t Data );
+uint8_t   MUX_IO_Read( uint16_t Addr, uint16_t Reg, uint8_t *pData );
+uint32_t  MUX_IO_IsDeviceReady( uint16_t DevAddress, uint32_t Trials );
 
 /**
   * @}
@@ -386,7 +406,7 @@ extern DPREDRIVER_Drv_t sn65dp141_drv;
   */
 
 #ifdef __cplusplus
- }
+}
 #endif
 
 #endif /* SN65DP141_H */

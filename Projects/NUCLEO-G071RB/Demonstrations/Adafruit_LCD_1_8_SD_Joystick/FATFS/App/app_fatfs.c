@@ -57,7 +57,7 @@ FILINFO MyFileInfo;
 DIR MyDirectory;
 FIL MyFile;
 UINT BytesWritten, BytesRead;
-extern char* pDirectoryFiles[MAX_BMP_FILES];
+extern char *pDirectoryFiles[MAX_BMP_FILES];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -70,40 +70,42 @@ extern char* pDirectoryFiles[MAX_BMP_FILES];
   * @param  None
   * @retval Initialization result
   */
-int32_t MX_FATFS_Init(void)
+int32_t MX_FATFS_Init( void )
 {
-  /*## FatFS: Link the disk I/O driver(s)  ###########################*/
-  if (FATFS_LinkDriver(&SD_Driver, SDPath) != 0)
-  /* USER CODE BEGIN FATFS_Init */
-  {
-    return APP_ERROR;
-  }
-  else
-  {
-	/* Initialize the SD mounted on adafruit 1.8" TFT shield */
-    if(BSP_SD_Init() != MSD_OK)
+    /*## FatFS: Link the disk I/O driver(s)  ###########################*/
+    if( FATFS_LinkDriver( &SD_Driver, SDPath ) != 0 )
+        /* USER CODE BEGIN FATFS_Init */
     {
-      TFT_DisplayErrorMessage(BSP_SD_INIT_FAILED);
-	  return APP_ERROR;
-    }  
-    
-    /* Check the mounted device */
-    if(f_mount(&SDFatFs, (TCHAR const*)"/", 0) != FR_OK)
-    {
-      TFT_DisplayErrorMessage(FATFS_NOT_MOUNTED);
-	  return APP_ERROR;
-    }  
+        return APP_ERROR;
+    }
     else
     {
-      /* Initialize the Directory Files pointers (heap) */
-      for (counter = 0; counter < MAX_BMP_FILES; counter++)
-      {
-        pDirectoryFiles[counter] = malloc(11); 
-      }
+        /* Initialize the SD mounted on adafruit 1.8" TFT shield */
+        if( BSP_SD_Init() != MSD_OK )
+        {
+            TFT_DisplayErrorMessage( BSP_SD_INIT_FAILED );
+            return APP_ERROR;
+        }
+
+        /* Check the mounted device */
+        if( f_mount( &SDFatFs, ( TCHAR const * )"/", 0 ) != FR_OK )
+        {
+            TFT_DisplayErrorMessage( FATFS_NOT_MOUNTED );
+            return APP_ERROR;
+        }
+        else
+        {
+            /* Initialize the Directory Files pointers (heap) */
+            for( counter = 0; counter < MAX_BMP_FILES; counter++ )
+            {
+                pDirectoryFiles[counter] = malloc( 11 );
+            }
+        }
+
+        return APP_OK;
     }
-    return APP_OK;
-  }
-  /* USER CODE END FATFS_Init */
+
+    /* USER CODE END FATFS_Init */
 }
 
 /**
@@ -111,11 +113,11 @@ int32_t MX_FATFS_Init(void)
   * @param  None
   * @retval Process result
   */
-int32_t MX_FATFS_Process(void)
+int32_t MX_FATFS_Process( void )
 {
-  /* USER CODE BEGIN FATFS_Process */
-  return APP_OK;
-  /* USER CODE END FATFS_Process */
+    /* USER CODE BEGIN FATFS_Process */
+    return APP_OK;
+    /* USER CODE END FATFS_Process */
 }
 
 /**
@@ -123,11 +125,11 @@ int32_t MX_FATFS_Process(void)
   * @param  None
   * @retval Time in DWORD
   */
-DWORD get_fattime(void)
+DWORD get_fattime( void )
 {
-  /* USER CODE BEGIN get_fattime */
-  return 0;
-  /* USER CODE END get_fattime */
+    /* USER CODE BEGIN get_fattime */
+    return 0;
+    /* USER CODE END get_fattime */
 }
 
 /* Private user code ---------------------------------------------------------*/
@@ -140,96 +142,96 @@ DWORD get_fattime(void)
   * @param  FileLen: the File length
   * @retval err: Error status (0=> success, 1=> fail)
   */
-uint32_t Storage_OpenReadFile(uint8_t Xpoz, uint16_t Ypoz, const char *BmpName)
+uint32_t Storage_OpenReadFile( uint8_t Xpoz, uint16_t Ypoz, const char *BmpName )
 {
-  uint32_t size = 0;
-  FIL bmpfile;
-  uint32_t nbline;
-  BmpHeader* pbmpheader = (BmpHeader*)aBuffer;
-  
-  /* Close a bmp file */
-  f_open(&bmpfile, BmpName, FA_READ);
-  
-  /* Read the constant part of the header from the file and store it at the top of aBuffer*/
-  f_read(&bmpfile, &aBuffer, BITMAP_HEADER_SIZE, &BytesRead);
-  
-  /* Get the size of the data stored inside the file */
-  size = pbmpheader->fsize - pbmpheader->offset;
-  
-  /* Start reading at the top of the file */
-  f_lseek(&bmpfile, 0);
-  
-  /* Read the entire header from the file and store it at the top of aBuffer */
-  f_read(&bmpfile, &aBuffer, pbmpheader->offset, &BytesRead);
-  
-  /* Compute the number of entire lines which can be stored inside the buffer */
-  nbline = (BITMAP_BUFFER_SIZE - pbmpheader->offset + BITMAP_HEADER_SIZE)/(pbmpheader->w * 2);
-  
-  /* As long as the entire bitmap file as not been displayed */
-  do
-  {
-    uint32_t nbbytetoread;
-    
-    /* Get the number of bytes which can be stored inside the buffer */
-    nbbytetoread = MIN(size,nbline*pbmpheader->w*2);
-  
-    /* Adapt the total size of the bitmap, stored inside the header, to this chunk */
-    pbmpheader->fsize = pbmpheader->offset + nbbytetoread;
-  
-    /* Adapt the number of line, stored inside the header, to this chunk */
-    pbmpheader->h = nbbytetoread/(pbmpheader->w*2);
-    
-    /* Start reading at the end of the file */
-    f_lseek(&bmpfile, pbmpheader->offset + size - nbbytetoread);
-    
-    /* Store this chunk (or the entire part if possible) of the file inside a buffer */
-    f_read(&bmpfile, aBuffer + pbmpheader->offset, nbbytetoread, &BytesRead);
-  
-    /* Draw the bitmap */
-    BSP_LCD_DrawBitmap(Xpoz, Ypoz, aBuffer);    
-      
-    /* Update the remaining number of bytes to read */
-    size -= nbbytetoread;
-    
-    /* Change the display position of the next bitmap */
-    Ypoz += nbline;
-      
-  }while (size > 0);
-  
-  /* Close the bmp file */
-  f_close(&bmpfile);
-  
-  return 0;
-}      
+    uint32_t size = 0;
+    FIL bmpfile;
+    uint32_t nbline;
+    BmpHeader *pbmpheader = ( BmpHeader * )aBuffer;
+
+    /* Close a bmp file */
+    f_open( &bmpfile, BmpName, FA_READ );
+
+    /* Read the constant part of the header from the file and store it at the top of aBuffer*/
+    f_read( &bmpfile, &aBuffer, BITMAP_HEADER_SIZE, &BytesRead );
+
+    /* Get the size of the data stored inside the file */
+    size = pbmpheader->fsize - pbmpheader->offset;
+
+    /* Start reading at the top of the file */
+    f_lseek( &bmpfile, 0 );
+
+    /* Read the entire header from the file and store it at the top of aBuffer */
+    f_read( &bmpfile, &aBuffer, pbmpheader->offset, &BytesRead );
+
+    /* Compute the number of entire lines which can be stored inside the buffer */
+    nbline = ( BITMAP_BUFFER_SIZE - pbmpheader->offset + BITMAP_HEADER_SIZE ) / ( pbmpheader->w * 2 );
+
+    /* As long as the entire bitmap file as not been displayed */
+    do
+    {
+        uint32_t nbbytetoread;
+
+        /* Get the number of bytes which can be stored inside the buffer */
+        nbbytetoread = MIN( size, nbline * pbmpheader->w * 2 );
+
+        /* Adapt the total size of the bitmap, stored inside the header, to this chunk */
+        pbmpheader->fsize = pbmpheader->offset + nbbytetoread;
+
+        /* Adapt the number of line, stored inside the header, to this chunk */
+        pbmpheader->h = nbbytetoread / ( pbmpheader->w * 2 );
+
+        /* Start reading at the end of the file */
+        f_lseek( &bmpfile, pbmpheader->offset + size - nbbytetoread );
+
+        /* Store this chunk (or the entire part if possible) of the file inside a buffer */
+        f_read( &bmpfile, aBuffer + pbmpheader->offset, nbbytetoread, &BytesRead );
+
+        /* Draw the bitmap */
+        BSP_LCD_DrawBitmap( Xpoz, Ypoz, aBuffer );
+
+        /* Update the remaining number of bytes to read */
+        size -= nbbytetoread;
+
+        /* Change the display position of the next bitmap */
+        Ypoz += nbline;
+
+    } while( size > 0 );
+
+    /* Close the bmp file */
+    f_close( &bmpfile );
+
+    return 0;
+}
 
 /**
-  * @brief  Copy file BmpName1 to BmpName2 
+  * @brief  Copy file BmpName1 to BmpName2
   * @param  BmpName1: the source file name
   * @param  BmpName2: the destination file name
   * @retval err: Error status (0=> success, 1=> fail)
   */
-uint32_t Storage_CopyFile(const char* BmpName1, const char* BmpName2)
+uint32_t Storage_CopyFile( const char *BmpName1, const char *BmpName2 )
 {
-  uint32_t index = 0;
-  FIL file1, file2;
-  
-  /* Open an Existent BMP file system */
-  f_open(&file1, BmpName1, FA_READ);
-  /* Create a new BMP file system */
-  f_open(&file2, BmpName2, FA_CREATE_ALWAYS | FA_WRITE);
-  
-  do 
-  {
-    f_read(&file1, aBuffer, _MAX_SS, &BytesRead);
-    f_write(&file2, aBuffer, _MAX_SS, &BytesWritten);  
-    index+= _MAX_SS;
-    
-  } while(index < f_size(&file1));
-  
-  f_close(&file1);
-  f_close(&file2);
-  
-  return 1;
+    uint32_t index = 0;
+    FIL file1, file2;
+
+    /* Open an Existent BMP file system */
+    f_open( &file1, BmpName1, FA_READ );
+    /* Create a new BMP file system */
+    f_open( &file2, BmpName2, FA_CREATE_ALWAYS | FA_WRITE );
+
+    do
+    {
+        f_read( &file1, aBuffer, _MAX_SS, &BytesRead );
+        f_write( &file2, aBuffer, _MAX_SS, &BytesWritten );
+        index += _MAX_SS;
+
+    } while( index < f_size( &file1 ) );
+
+    f_close( &file1 );
+    f_close( &file2 );
+
+    return 1;
 }
 
 /**
@@ -240,16 +242,17 @@ uint32_t Storage_CopyFile(const char* BmpName1, const char* BmpName2)
   * @param  FileLen: File length
   * @retval err: Error status (0=> success, 1=> fail)
   */
-uint32_t Storage_CheckBitmapFile(const char* BmpName, uint32_t *FileLen)
+uint32_t Storage_CheckBitmapFile( const char *BmpName, uint32_t *FileLen )
 {
-  uint32_t err = 0;
- 
-  if(f_open(&MyFile, BmpName, FA_READ) != FR_OK)
-  {
-    err = 1;
-  }
-  f_close(&MyFile);  
-  return err;
+    uint32_t err = 0;
+
+    if( f_open( &MyFile, BmpName, FA_READ ) != FR_OK )
+    {
+        err = 1;
+    }
+
+    f_close( &MyFile );
+    return err;
 }
 
 /**
@@ -258,36 +261,37 @@ uint32_t Storage_CheckBitmapFile(const char* BmpName, uint32_t *FileLen)
   * @param  Files: Buffer to contain read files
   * @retval The number of the found files
   */
-uint32_t Storage_GetDirectoryBitmapFiles(const char* DirName, char* Files[])
+uint32_t Storage_GetDirectoryBitmapFiles( const char *DirName, char *Files[] )
 {
-  FRESULT res;
-  uint32_t index = 0;
+    FRESULT res;
+    uint32_t index = 0;
 
-  /* Start to search for wave files */
-  res = f_findfirst(&MyDirectory, &MyFileInfo, DirName, "*.bmp");
-  
-  /* Repeat while an item is found */
-  while (MyFileInfo.fname[0])
-  {
-    if(res == FR_OK)
+    /* Start to search for wave files */
+    res = f_findfirst( &MyDirectory, &MyFileInfo, DirName, "*.bmp" );
+
+    /* Repeat while an item is found */
+    while( MyFileInfo.fname[0] )
     {
-      if(index < MAX_BMP_FILES)
-      {
-        sprintf (Files[index++], "%s", MyFileInfo.fname);
-      }
-      /* Search for next item */
-      res = f_findnext(&MyDirectory, &MyFileInfo);
+        if( res == FR_OK )
+        {
+            if( index < MAX_BMP_FILES )
+            {
+                sprintf( Files[index++], "%s", MyFileInfo.fname );
+            }
+
+            /* Search for next item */
+            res = f_findnext( &MyDirectory, &MyFileInfo );
+        }
+        else
+        {
+            index = 0;
+            break;
+        }
     }
-    else
-    {
-      index = 0;
-      break;
-    }
-  }
-  
-  f_closedir(&MyDirectory);
-  
-  return index;
+
+    f_closedir( &MyDirectory );
+
+    return index;
 }
 
 /**
@@ -297,22 +301,22 @@ uint32_t Storage_GetDirectoryBitmapFiles(const char* DirName, char* Files[])
   * @retval  0: pBuffer1 identical to pBuffer2
   *          1: pBuffer1 differs from pBuffer2
   */
-uint8_t Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint16_t BufferLength)
+uint8_t Buffercmp( uint8_t *pBuffer1, uint8_t *pBuffer2, uint16_t BufferLength )
 {
-  uint8_t ret = 1;
-  
-  while (BufferLength--)
-  {
-    if(*pBuffer1 != *pBuffer2)
+    uint8_t ret = 1;
+
+    while( BufferLength-- )
     {
-      ret = 0;
+        if( *pBuffer1 != *pBuffer2 )
+        {
+            ret = 0;
+        }
+
+        pBuffer1++;
+        pBuffer2++;
     }
-    
-    pBuffer1++;
-    pBuffer2++;
-  }
-  
-  return ret;
+
+    return ret;
 }
 
 /* USER CODE END Application */

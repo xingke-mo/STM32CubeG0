@@ -279,10 +279,10 @@ extern "C" {
   */
 
 /* Peripheral Control functions ***********************************************/
-void              HAL_SMARTCARDEx_BlockLength_Config(SMARTCARD_HandleTypeDef *hsmartcard, uint8_t BlockLength);
-void              HAL_SMARTCARDEx_TimeOut_Config(SMARTCARD_HandleTypeDef *hsmartcard, uint32_t TimeOutValue);
-HAL_StatusTypeDef HAL_SMARTCARDEx_EnableReceiverTimeOut(SMARTCARD_HandleTypeDef *hsmartcard);
-HAL_StatusTypeDef HAL_SMARTCARDEx_DisableReceiverTimeOut(SMARTCARD_HandleTypeDef *hsmartcard);
+void              HAL_SMARTCARDEx_BlockLength_Config( SMARTCARD_HandleTypeDef *hsmartcard, uint8_t BlockLength );
+void              HAL_SMARTCARDEx_TimeOut_Config( SMARTCARD_HandleTypeDef *hsmartcard, uint32_t TimeOutValue );
+HAL_StatusTypeDef HAL_SMARTCARDEx_EnableReceiverTimeOut( SMARTCARD_HandleTypeDef *hsmartcard );
+HAL_StatusTypeDef HAL_SMARTCARDEx_DisableReceiverTimeOut( SMARTCARD_HandleTypeDef *hsmartcard );
 
 /**
   * @}
@@ -294,8 +294,8 @@ HAL_StatusTypeDef HAL_SMARTCARDEx_DisableReceiverTimeOut(SMARTCARD_HandleTypeDef
   */
 
 /* IO operation functions *****************************************************/
-void HAL_SMARTCARDEx_RxFifoFullCallback(SMARTCARD_HandleTypeDef *hsmartcard);
-void HAL_SMARTCARDEx_TxFifoEmptyCallback(SMARTCARD_HandleTypeDef *hsmartcard);
+void HAL_SMARTCARDEx_RxFifoFullCallback( SMARTCARD_HandleTypeDef *hsmartcard );
+void HAL_SMARTCARDEx_TxFifoEmptyCallback( SMARTCARD_HandleTypeDef *hsmartcard );
 
 /**
   * @}
@@ -306,10 +306,10 @@ void HAL_SMARTCARDEx_TxFifoEmptyCallback(SMARTCARD_HandleTypeDef *hsmartcard);
   */
 
 /* Peripheral Control functions ***********************************************/
-HAL_StatusTypeDef HAL_SMARTCARDEx_EnableFifoMode(SMARTCARD_HandleTypeDef *hsmartcard);
-HAL_StatusTypeDef HAL_SMARTCARDEx_DisableFifoMode(SMARTCARD_HandleTypeDef *hsmartcard);
-HAL_StatusTypeDef HAL_SMARTCARDEx_SetTxFifoThreshold(SMARTCARD_HandleTypeDef *hsmartcard, uint32_t Threshold);
-HAL_StatusTypeDef HAL_SMARTCARDEx_SetRxFifoThreshold(SMARTCARD_HandleTypeDef *hsmartcard, uint32_t Threshold);
+HAL_StatusTypeDef HAL_SMARTCARDEx_EnableFifoMode( SMARTCARD_HandleTypeDef *hsmartcard );
+HAL_StatusTypeDef HAL_SMARTCARDEx_DisableFifoMode( SMARTCARD_HandleTypeDef *hsmartcard );
+HAL_StatusTypeDef HAL_SMARTCARDEx_SetTxFifoThreshold( SMARTCARD_HandleTypeDef *hsmartcard, uint32_t Threshold );
+HAL_StatusTypeDef HAL_SMARTCARDEx_SetRxFifoThreshold( SMARTCARD_HandleTypeDef *hsmartcard, uint32_t Threshold );
 
 /**
   * @}

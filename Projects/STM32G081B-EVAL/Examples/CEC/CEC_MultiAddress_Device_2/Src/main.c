@@ -1,18 +1,18 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file    CEC/CEC_MultiAddress_Device_2/Src/main.c 
+  * @file    CEC/CEC_MultiAddress_Device_2/Src/main.c
   * @author  MCD Application Team
-  * @brief   This example describes how to configure and use the CEC through 
+  * @brief   This example describes how to configure and use the CEC through
   *          the STM32G0xx HAL API.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -47,22 +47,22 @@ CEC_HandleTypeDef hcec;
 
 uint8_t Tab_Rx[16];
 /* USER CODE BEGIN PV */
-uint8_t  Tab_Tx[CEC_MAX_PAYLOAD-1]; /* Transmitted data buffer. 
+uint8_t  Tab_Tx[CEC_MAX_PAYLOAD - 1]; /* Transmitted data buffer.
                                      * header is not included in Tab_Tx.
-                                     *  Max size = 15 bytes.                                   
+                                     *  Max size = 15 bytes.
                                      *  one opcode followed by up to 14 operands.
                                      *  When payload size = 0, only the header is sent
-                                     *  (ping operation) */                                   
+                                     *  (ping operation) */
 uint8_t ReceivedFrame       = 0x0;  /* Set when a reception occurs */
-uint16_t NbOfReceivedBytes  = 0x0;  /* Number of received bytes in addition to the header. 
-                                     * when a ping message has been received (header 
+uint16_t NbOfReceivedBytes  = 0x0;  /* Number of received bytes in addition to the header.
+                                     * when a ping message has been received (header
                                      * only), NbOfReceivedBytes = 0 */
 uint8_t StartSending        = 0x0;  /* Set when a transmission is triggered by the user */
-uint32_t TxSize             = 0x0;  /* Number of bytes to transmit in addition to the header. 
+uint32_t TxSize             = 0x0;  /* Number of bytes to transmit in addition to the header.
                                      * In case of ping operation (only the header sent),
                                      * TxSize = 0 */
 uint8_t InitiatorAddress1   = 0x0;  /* Transmitter logical address 1 */
-uint8_t InitiatorAddress2   = 0x0;  /* Transmitter logical address 2 (if applicable) */ 
+uint8_t InitiatorAddress2   = 0x0;  /* Transmitter logical address 2 (if applicable) */
 uint8_t MyFollowerAddress1  = 0x0;  /* Destination logical address 1 */
 uint8_t MyFollowerAddress2  = 0x0;  /* Destination logical address 2 (if applicable) */
 uint8_t DestinationAddress  = 0x0;  /* Destination logical address, set on the
@@ -72,11 +72,11 @@ __IO uint8_t TxStatus = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
-void SystemClock_Config(void);
-static void MX_GPIO_Init(void);
-static void MX_HDMI_CEC_Init(void);
+void SystemClock_Config( void );
+static void MX_GPIO_Init( void );
+static void MX_HDMI_CEC_Init( void );
 /* USER CODE BEGIN PFP */
-static void CEC_FlushRxBuffer(void);
+static void CEC_FlushRxBuffer( void );
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -88,178 +88,185 @@ static void CEC_FlushRxBuffer(void);
   * @brief  The application entry point.
   * @retval int
   */
-int main(void)
+int main( void )
 {
-  /* USER CODE BEGIN 1 */
+    /* USER CODE BEGIN 1 */
 
-  /* USER CODE END 1 */
+    /* USER CODE END 1 */
 
-  /* MCU Configuration--------------------------------------------------------*/
+    /* MCU Configuration--------------------------------------------------------*/
 
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+    HAL_Init();
 
-  /* USER CODE BEGIN Init */
+    /* USER CODE BEGIN Init */
 
-  /* USER CODE END Init */
+    /* USER CODE END Init */
 
-  /* Configure the system clock */
-  SystemClock_Config();
+    /* Configure the system clock */
+    SystemClock_Config();
 
-  /* USER CODE BEGIN SysInit */
+    /* USER CODE BEGIN SysInit */
 
-  /* USER CODE END SysInit */
+    /* USER CODE END SysInit */
 
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  MX_HDMI_CEC_Init();
-  /* USER CODE BEGIN 2 */
+    /* Initialize all configured peripherals */
+    MX_GPIO_Init();
+    MX_HDMI_CEC_Init();
+    /* USER CODE BEGIN 2 */
 
-  /* -1- Initialize LEDs mounted on EVAL board */
-  /* Configure LED1, LED2, LED3 and LED4 */
-  BSP_LED_Init(LED1);
-  BSP_LED_Init(LED2);
-  BSP_LED_Init(LED3);
-  BSP_LED_Init(LED4);
+    /* -1- Initialize LEDs mounted on EVAL board */
+    /* Configure LED1, LED2, LED3 and LED4 */
+    BSP_LED_Init( LED1 );
+    BSP_LED_Init( LED2 );
+    BSP_LED_Init( LED3 );
+    BSP_LED_Init( LED4 );
 
-  /* -2- Configure Tamper push-button in Interrupt mode */
-  /* button-triggered interruptions initialization */
-  BSP_PB_Init(BUTTON_TAMPER,BUTTON_MODE_EXTI);
-  
-  /* -3- Configure Joystick Selection push-button in Interrupt mode */
-  BSP_JOY_Init(JOY_MODE_EXTI);
+    /* -2- Configure Tamper push-button in Interrupt mode */
+    /* button-triggered interruptions initialization */
+    BSP_PB_Init( BUTTON_TAMPER, BUTTON_MODE_EXTI );
 
-  /* CEC device initialization */
-  
-  /* Device 2: 
-   * two different logical addresses ... */
-  InitiatorAddress1 = DEVICE_ADDRESS_2;
-  InitiatorAddress2 = DEVICE_ADDRESS_3;  
-  /* ... and a single follower address */
-  MyFollowerAddress1 = DEVICE_ADDRESS_1;
+    /* -3- Configure Joystick Selection push-button in Interrupt mode */
+    BSP_JOY_Init( JOY_MODE_EXTI );
 
-  /* -4- CEC transfer general variables initialization */
-  ReceivedFrame = 0;
-  StartSending = 0;
-  NbOfReceivedBytes = 0;
-  CEC_FlushRxBuffer();
-  /* USER CODE END 2 */
+    /* CEC device initialization */
 
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-    /* if no reception has occurred and no error has been detected,
-     transmit a message if the user has pushed a button */
-    while( (StartSending == 1) && (ReceivedFrame == 0))
-    { 
-      HAL_CEC_Transmit_IT(&hcec,InitiatorAddress1 ,DestinationAddress, (uint8_t *)&Tab_Tx, TxSize);
-      /* loop until TX ends or TX error reported */
-      while (TxStatus != 1);
-      StartSending = 0;
-      TxStatus = 0;
-    }  
-    
-    /* if a frame has been received */
-    if (ReceivedFrame == 1)
-    { 
-      /* Test on the Destination Logical Address
-       * (code applicable whatever the device):
-       * if Receiver has address 0x01 */ 
-      if ((Tab_Rx[0]&0x0F) == 0x01) 
-      {
-        /* Turn on LED1 */
-        BSP_LED_On(LED1);
-        /* Turn on LED4 */
-        BSP_LED_On(LED4);
-        /* Turn off LED3 */
-        BSP_LED_Off(LED3);
-        }
-      /* if Receiver has address 0x03 */ 
-      else if ((Tab_Rx[0]&0x0F) == 0x03) 
+    /* Device 2:
+     * two different logical addresses ... */
+    InitiatorAddress1 = DEVICE_ADDRESS_2;
+    InitiatorAddress2 = DEVICE_ADDRESS_3;
+    /* ... and a single follower address */
+    MyFollowerAddress1 = DEVICE_ADDRESS_1;
+
+    /* -4- CEC transfer general variables initialization */
+    ReceivedFrame = 0;
+    StartSending = 0;
+    NbOfReceivedBytes = 0;
+    CEC_FlushRxBuffer();
+    /* USER CODE END 2 */
+
+    /* Infinite loop */
+    /* USER CODE BEGIN WHILE */
+    while( 1 )
+    {
+        /* if no reception has occurred and no error has been detected,
+         transmit a message if the user has pushed a button */
+        while( ( StartSending == 1 ) && ( ReceivedFrame == 0 ) )
         {
-        /* Turn on LED1 */
-        BSP_LED_On(LED1);
-        /* Turn off LED4 */
-        BSP_LED_Off(LED4);
-        /* Turn off LED3 */
-        BSP_LED_Off(LED3);
+            HAL_CEC_Transmit_IT( &hcec, InitiatorAddress1, DestinationAddress, ( uint8_t * )&Tab_Tx, TxSize );
+
+            /* loop until TX ends or TX error reported */
+            while( TxStatus != 1 );
+
+            StartSending = 0;
+            TxStatus = 0;
         }
-      /* if Receiver has address 0x05 */
-      else if ((Tab_Rx[0]&0x0F) == 0x05) 
-      {
-        /* Turn on LED4 */
-        BSP_LED_On(LED4);
-        /* Turn off LED1 */
-        BSP_LED_Off(LED1);
-         /* Turn off LED3 */
-        BSP_LED_Off(LED3);
-      }
-      /* if Broadcast message */
-      else if ((Tab_Rx[0]&0x0F) == 0x0F) 
-      {
-        /* Turn off all LEDs */
-        BSP_LED_Off(LED1);
-        BSP_LED_Off(LED2);
-        BSP_LED_Off(LED3);
-        BSP_LED_Off(LED4);        
-      }
-      ReceivedFrame = 0;
-      CEC_FlushRxBuffer();
-    }
-    else if (ReceivedFrame == 2) /* means CEC error detected */
-    { 
-      /* Turn on LED3 */
-      BSP_LED_On(LED3);
-      ReceivedFrame = 0;
-    }
-    /* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */
+        /* if a frame has been received */
+        if( ReceivedFrame == 1 )
+        {
+            /* Test on the Destination Logical Address
+             * (code applicable whatever the device):
+             * if Receiver has address 0x01 */
+            if( ( Tab_Rx[0] & 0x0F ) == 0x01 )
+            {
+                /* Turn on LED1 */
+                BSP_LED_On( LED1 );
+                /* Turn on LED4 */
+                BSP_LED_On( LED4 );
+                /* Turn off LED3 */
+                BSP_LED_Off( LED3 );
+            }
+            /* if Receiver has address 0x03 */
+            else if( ( Tab_Rx[0] & 0x0F ) == 0x03 )
+            {
+                /* Turn on LED1 */
+                BSP_LED_On( LED1 );
+                /* Turn off LED4 */
+                BSP_LED_Off( LED4 );
+                /* Turn off LED3 */
+                BSP_LED_Off( LED3 );
+            }
+            /* if Receiver has address 0x05 */
+            else if( ( Tab_Rx[0] & 0x0F ) == 0x05 )
+            {
+                /* Turn on LED4 */
+                BSP_LED_On( LED4 );
+                /* Turn off LED1 */
+                BSP_LED_Off( LED1 );
+                /* Turn off LED3 */
+                BSP_LED_Off( LED3 );
+            }
+            /* if Broadcast message */
+            else if( ( Tab_Rx[0] & 0x0F ) == 0x0F )
+            {
+                /* Turn off all LEDs */
+                BSP_LED_Off( LED1 );
+                BSP_LED_Off( LED2 );
+                BSP_LED_Off( LED3 );
+                BSP_LED_Off( LED4 );
+            }
 
-  }
-  /* USER CODE END 3 */
+            ReceivedFrame = 0;
+            CEC_FlushRxBuffer();
+        }
+        else if( ReceivedFrame == 2 ) /* means CEC error detected */
+        {
+            /* Turn on LED3 */
+            BSP_LED_On( LED3 );
+            ReceivedFrame = 0;
+        }
+
+        /* USER CODE END WHILE */
+
+        /* USER CODE BEGIN 3 */
+
+    }
+
+    /* USER CODE END 3 */
 }
 
 /**
   * @brief System Clock Configuration
   * @retval None
   */
-void SystemClock_Config(void)
+void SystemClock_Config( void )
 {
-  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
-  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+    RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+    RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
-  /** Initializes the RCC Oscillators according to the specified parameters
-  * in the RCC_OscInitTypeDef structure.
-  */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-  RCC_OscInitStruct.HSIDiv = RCC_HSI_DIV1;
-  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLM = RCC_PLLM_DIV4;
-  RCC_OscInitStruct.PLL.PLLN = 70;
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV10;
-  RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV5;
-  RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV5;
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /** Initializes the CPU, AHB and APB buses clocks
-  */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+    /** Initializes the RCC Oscillators according to the specified parameters
+    * in the RCC_OscInitTypeDef structure.
+    */
+    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+    RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+    RCC_OscInitStruct.HSIDiv = RCC_HSI_DIV1;
+    RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+    RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+    RCC_OscInitStruct.PLL.PLLM = RCC_PLLM_DIV4;
+    RCC_OscInitStruct.PLL.PLLN = 70;
+    RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV10;
+    RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV5;
+    RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV5;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
-  {
-    Error_Handler();
-  }
+    if( HAL_RCC_OscConfig( &RCC_OscInitStruct ) != HAL_OK )
+    {
+        Error_Handler();
+    }
+
+    /** Initializes the CPU, AHB and APB buses clocks
+    */
+    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
+                                  | RCC_CLOCKTYPE_PCLK1;
+    RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+    RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+
+    if( HAL_RCC_ClockConfig( &RCC_ClkInitStruct, FLASH_LATENCY_2 ) != HAL_OK )
+    {
+        Error_Handler();
+    }
 }
 
 /**
@@ -267,34 +274,36 @@ void SystemClock_Config(void)
   * @param None
   * @retval None
   */
-static void MX_HDMI_CEC_Init(void)
+static void MX_HDMI_CEC_Init( void )
 {
 
-  /* USER CODE BEGIN HDMI_CEC_Init 0 */
+    /* USER CODE BEGIN HDMI_CEC_Init 0 */
 
-  /* USER CODE END HDMI_CEC_Init 0 */
+    /* USER CODE END HDMI_CEC_Init 0 */
 
-  /* USER CODE BEGIN HDMI_CEC_Init 1 */
+    /* USER CODE BEGIN HDMI_CEC_Init 1 */
 
-  /* USER CODE END HDMI_CEC_Init 1 */
-  hcec.Instance = CEC;
-  hcec.Init.SignalFreeTime = CEC_DEFAULT_SFT;
-  hcec.Init.Tolerance = CEC_STANDARD_TOLERANCE;
-  hcec.Init.BRERxStop = CEC_NO_RX_STOP_ON_BRE;
-  hcec.Init.BREErrorBitGen = CEC_BRE_ERRORBIT_NO_GENERATION;
-  hcec.Init.LBPEErrorBitGen = CEC_LBPE_ERRORBIT_NO_GENERATION;
-  hcec.Init.BroadcastMsgNoErrorBitGen = CEC_BROADCASTERROR_NO_ERRORBIT_GENERATION;
-  hcec.Init.SignalFreeTimeOption = CEC_SFT_START_ON_TXSOM;
-  hcec.Init.ListenMode = CEC_REDUCED_LISTENING_MODE;
-  hcec.Init.OwnAddress = CEC_OWN_ADDRESS_3|CEC_OWN_ADDRESS_5;
-  hcec.Init.RxBuffer = Tab_Rx;
-  if (HAL_CEC_Init(&hcec) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN HDMI_CEC_Init 2 */
+    /* USER CODE END HDMI_CEC_Init 1 */
+    hcec.Instance = CEC;
+    hcec.Init.SignalFreeTime = CEC_DEFAULT_SFT;
+    hcec.Init.Tolerance = CEC_STANDARD_TOLERANCE;
+    hcec.Init.BRERxStop = CEC_NO_RX_STOP_ON_BRE;
+    hcec.Init.BREErrorBitGen = CEC_BRE_ERRORBIT_NO_GENERATION;
+    hcec.Init.LBPEErrorBitGen = CEC_LBPE_ERRORBIT_NO_GENERATION;
+    hcec.Init.BroadcastMsgNoErrorBitGen = CEC_BROADCASTERROR_NO_ERRORBIT_GENERATION;
+    hcec.Init.SignalFreeTimeOption = CEC_SFT_START_ON_TXSOM;
+    hcec.Init.ListenMode = CEC_REDUCED_LISTENING_MODE;
+    hcec.Init.OwnAddress = CEC_OWN_ADDRESS_3 | CEC_OWN_ADDRESS_5;
+    hcec.Init.RxBuffer = Tab_Rx;
 
-  /* USER CODE END HDMI_CEC_Init 2 */
+    if( HAL_CEC_Init( &hcec ) != HAL_OK )
+    {
+        Error_Handler();
+    }
+
+    /* USER CODE BEGIN HDMI_CEC_Init 2 */
+
+    /* USER CODE END HDMI_CEC_Init 2 */
 
 }
 
@@ -303,11 +312,11 @@ static void MX_HDMI_CEC_Init(void)
   * @param None
   * @retval None
   */
-static void MX_GPIO_Init(void)
+static void MX_GPIO_Init( void )
 {
 
-  /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOB_CLK_ENABLE();
+    /* GPIO Ports Clock Enable */
+    __HAL_RCC_GPIOB_CLK_ENABLE();
 
 }
 
@@ -317,9 +326,9 @@ static void MX_GPIO_Init(void)
   * @param hcec: CEC handle
   * @retval None
   */
-void HAL_CEC_TxCpltCallback(CEC_HandleTypeDef *hcec)
+void HAL_CEC_TxCpltCallback( CEC_HandleTypeDef *hcec )
 {
-  TxStatus = 1;
+    TxStatus = 1;
 }
 
 
@@ -328,9 +337,9 @@ void HAL_CEC_TxCpltCallback(CEC_HandleTypeDef *hcec)
   * @param hcec: CEC handle
   * @retval None
   */
-void HAL_CEC_RxCpltCallback(CEC_HandleTypeDef *hcec, uint32_t RxFrameSize)
+void HAL_CEC_RxCpltCallback( CEC_HandleTypeDef *hcec, uint32_t RxFrameSize )
 {
-  ReceivedFrame = 1;
+    ReceivedFrame = 1;
 }
 
 /**
@@ -338,9 +347,9 @@ void HAL_CEC_RxCpltCallback(CEC_HandleTypeDef *hcec, uint32_t RxFrameSize)
   * @param hcec: CEC handle
   * @retval None
   */
-void HAL_CEC_ErrorCallback(CEC_HandleTypeDef *hcec)
+void HAL_CEC_ErrorCallback( CEC_HandleTypeDef *hcec )
 {
-  ReceivedFrame = 2;
+    ReceivedFrame = 2;
 }
 
 /**
@@ -348,14 +357,14 @@ void HAL_CEC_ErrorCallback(CEC_HandleTypeDef *hcec)
   * @param  None
   * @retval None
   */
-static void CEC_FlushRxBuffer(void)
+static void CEC_FlushRxBuffer( void )
 {
-  uint32_t cpt;
-  
-  for (cpt = CEC_MAX_PAYLOAD; cpt > 0; cpt--)
-  {
-    Tab_Rx[cpt-1] = 0;
-  }
+    uint32_t cpt;
+
+    for( cpt = CEC_MAX_PAYLOAD; cpt > 0; cpt-- )
+    {
+        Tab_Rx[cpt - 1] = 0;
+    }
 }
 
 /**
@@ -363,18 +372,18 @@ static void CEC_FlushRxBuffer(void)
   * @param GPIO_Pin: Specifies the pins connected EXTI line
   * @retval None
   */
-void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
+void HAL_GPIO_EXTI_Falling_Callback( uint16_t GPIO_Pin )
 {
 
-  if(GPIO_Pin == TAMPER_BUTTON_PIN)
-  {
-    /* Toggle GREEN LED1 */
-    BSP_LED_Toggle(LED1);
+    if( GPIO_Pin == TAMPER_BUTTON_PIN )
+    {
+        /* Toggle GREEN LED1 */
+        BSP_LED_Toggle( LED1 );
 
-    DestinationAddress = MyFollowerAddress1;
-    TxSize    = 0x0; /* no payload, ping only */
-    StartSending = 1;
-  }
+        DestinationAddress = MyFollowerAddress1;
+        TxSize    = 0x0; /* no payload, ping only */
+        StartSending = 1;
+    }
 }
 
 /**
@@ -382,41 +391,43 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
   * @param GPIO_Pin: Specifies the pins connected EXTI line
   * @retval None
   */
-void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
+void HAL_GPIO_EXTI_Rising_Callback( uint16_t GPIO_Pin )
 {
-  if(GPIO_Pin == DOWN_JOY_PIN)
-  {
-    /* Toggle BLUE LED4 */
-    BSP_LED_Toggle(LED4);
-    
-    DestinationAddress = MyFollowerAddress1; 
-    TxSize    = 0x0; /* no payload, ping only */
-    StartSending = 1;
-  }
-  if(GPIO_Pin == SEL_JOY_PIN)
-  {
-    /* Toggle ORANGE LED2 */
-    BSP_LED_Toggle(LED2);
-    
-    DestinationAddress = 0xF;  /* broadcast message indicator */
-    TxSize    = 0x0;           /* no payload, ping only */
-    StartSending = 1;
-  }
-} 
+    if( GPIO_Pin == DOWN_JOY_PIN )
+    {
+        /* Toggle BLUE LED4 */
+        BSP_LED_Toggle( LED4 );
+
+        DestinationAddress = MyFollowerAddress1;
+        TxSize    = 0x0; /* no payload, ping only */
+        StartSending = 1;
+    }
+
+    if( GPIO_Pin == SEL_JOY_PIN )
+    {
+        /* Toggle ORANGE LED2 */
+        BSP_LED_Toggle( LED2 );
+
+        DestinationAddress = 0xF;  /* broadcast message indicator */
+        TxSize    = 0x0;           /* no payload, ping only */
+        StartSending = 1;
+    }
+}
 /* USER CODE END 4 */
 
 /**
   * @brief  This function is executed in case of error occurrence.
   * @retval None
   */
-void Error_Handler(void)
+void Error_Handler( void )
 {
-  /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
-  while(1) 
-  {
-  }
-  /* USER CODE END Error_Handler_Debug */
+    /* USER CODE BEGIN Error_Handler_Debug */
+    /* User can add his own implementation to report the HAL error return state */
+    while( 1 )
+    {
+    }
+
+    /* USER CODE END Error_Handler_Debug */
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -427,12 +438,12 @@ void Error_Handler(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t *file, uint32_t line)
+void assert_failed( uint8_t *file, uint32_t line )
 {
-  /* USER CODE BEGIN 6 */
-  /* User can add his own implementation to report the file name and line number,
-    ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-  /* USER CODE END 6 */
+    /* USER CODE BEGIN 6 */
+    /* User can add his own implementation to report the file name and line number,
+      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
 

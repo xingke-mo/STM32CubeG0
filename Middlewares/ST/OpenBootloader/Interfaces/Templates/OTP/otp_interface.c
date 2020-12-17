@@ -29,22 +29,22 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
-static void OPENBL_OTP_ProgramDoubleWord(uint32_t Address, uint64_t Data);
+static void OPENBL_OTP_ProgramDoubleWord( uint32_t Address, uint64_t Data );
 
 /* Exported variables --------------------------------------------------------*/
 OPENBL_MemoryTypeDef OTP_Descriptor =
 {
-  OTP_START_ADDRESS,
-  OTP_END_ADDRESS,
-  (1024),
-  OTP_AREA,
-  OPENBL_OTP_Read,
-  OPENBL_OTP_Write,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL
+    OTP_START_ADDRESS,
+    OTP_END_ADDRESS,
+    ( 1024 ),
+    OTP_AREA,
+    OPENBL_OTP_Read,
+    OPENBL_OTP_Write,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
 };
 
 /* Exported functions --------------------------------------------------------*/
@@ -54,9 +54,9 @@ OPENBL_MemoryTypeDef OTP_Descriptor =
   * @param  Address The address to be read.
   * @retval Returns the read value.
   */
-uint8_t OPENBL_OTP_Read(uint32_t Address)
+uint8_t OPENBL_OTP_Read( uint32_t Address )
 {
-  return (*(uint8_t *)(Address));
+    return ( *( uint8_t * )( Address ) );
 }
 
 /**
@@ -66,7 +66,7 @@ uint8_t OPENBL_OTP_Read(uint32_t Address)
   * @param  DataLength The length of the data to be written.
   * @retval None.
   */
-void OPENBL_OTP_Write(uint32_t Address, uint8_t *Data, uint32_t DataLength)
+void OPENBL_OTP_Write( uint32_t Address, uint8_t *Data, uint32_t DataLength )
 {
 }
 
@@ -78,7 +78,7 @@ void OPENBL_OTP_Write(uint32_t Address, uint8_t *Data, uint32_t DataLength)
   * @param  Data specifies the data to be programmed.
   * @retval None.
   */
-static void OPENBL_OTP_ProgramDoubleWord(uint32_t Address, uint64_t Data)
+static void OPENBL_OTP_ProgramDoubleWord( uint32_t Address, uint64_t Data )
 {
 }
 

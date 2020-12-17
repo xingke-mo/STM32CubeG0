@@ -23,16 +23,17 @@
 #include "usbpd_gui_memmap.h"
 #include "gui_api.h"
 #if defined(_VDM)
-#include "usbpd_vdm_user.h"
+    #include "usbpd_vdm_user.h"
 #endif /* _VDM */
 #include "string.h"
 
 /* Private typedef -----------------------------------------------------------*/
-typedef enum {
-  GUI_OK,
-  GUI_ERASE_ERROR,
-  GUI_WRITE_ERROR,
-  GUI_ERROR
+typedef enum
+{
+    GUI_OK,
+    GUI_ERASE_ERROR,
+    GUI_WRITE_ERROR,
+    GUI_ERROR
 } GUI_StatusTypeDef;
 
 /* Variable containing ADC conversions results */
@@ -43,13 +44,13 @@ typedef enum {
   * @brief  Load User settings from FLASH if GUI saving area is not empty (0xFFFFFFFF)
   * @retval GUI status state (GUI_OK: USER Settings from GUI saving area else from original FW)
   */
-GUI_StatusTypeDef     BSP_GUI_LoadDataFromFlash(void);
+GUI_StatusTypeDef     BSP_GUI_LoadDataFromFlash( void );
 
 /**
   * @brief  Save User settings in GUI saving area
   * @retval GUI status state
   */
-GUI_StatusTypeDef     BSP_GUI_SaveDataInFlash(void);
+GUI_StatusTypeDef     BSP_GUI_SaveDataInFlash( void );
 
 #endif /* BSP_GUI_H */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -27,37 +27,37 @@
 /* Exported types ------------------------------------------------------------*/
 typedef struct
 {
-  uint32_t StartAddress;
-  uint32_t EndAddress;
-  uint32_t Size;
-  uint32_t Type;
-  uint8_t (*Read)(uint32_t Address);
-  void (*Write)(uint32_t Address, uint8_t *Data, uint32_t DataLength);
-  void (*SetReadoutProtect)(uint32_t State);
-  ErrorStatus(*SetWriteProtect)(FunctionalState State, uint8_t *Buffer, uint32_t Length);
-  void (*JumpToAddress)(uint32_t Address);
-  ErrorStatus(*MassErase)(uint8_t *p_Data, uint32_t DataLength);
-  ErrorStatus(*Erase)(uint8_t *p_Data, uint32_t DataLength);
+    uint32_t StartAddress;
+    uint32_t EndAddress;
+    uint32_t Size;
+    uint32_t Type;
+    uint8_t ( *Read )( uint32_t Address );
+    void ( *Write )( uint32_t Address, uint8_t *Data, uint32_t DataLength );
+    void ( *SetReadoutProtect )( uint32_t State );
+    ErrorStatus( *SetWriteProtect )( FunctionalState State, uint8_t *Buffer, uint32_t Length );
+    void ( *JumpToAddress )( uint32_t Address );
+    ErrorStatus( *MassErase )( uint8_t *p_Data, uint32_t DataLength );
+    ErrorStatus( *Erase )( uint8_t *p_Data, uint32_t DataLength );
 } OPENBL_MemoryTypeDef;
 
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void OPENBL_MEM_JumpToAddress(uint32_t Address);
-void OPENBL_MEM_OptionBytesLaunch(void);
-void OPENBL_MEM_SetReadOutProtection(FunctionalState State);
-void OPENBL_MEM_Write(uint32_t Address, uint8_t *Data, uint32_t DataLength);
+void OPENBL_MEM_JumpToAddress( uint32_t Address );
+void OPENBL_MEM_OptionBytesLaunch( void );
+void OPENBL_MEM_SetReadOutProtection( FunctionalState State );
+void OPENBL_MEM_Write( uint32_t Address, uint8_t *Data, uint32_t DataLength );
 
-uint8_t OPENBL_MEM_Read(uint32_t Address, uint32_t MemoryIndex);
-uint32_t OPENBL_MEM_GetAddressArea(uint32_t Address);
-uint32_t OPENBL_MEM_GetMemoryIndex(uint32_t Address);
+uint8_t OPENBL_MEM_Read( uint32_t Address, uint32_t MemoryIndex );
+uint32_t OPENBL_MEM_GetAddressArea( uint32_t Address );
+uint32_t OPENBL_MEM_GetMemoryIndex( uint32_t Address );
 
-FlagStatus OPENBL_MEM_GetReadOutProtectionStatus(void);
+FlagStatus OPENBL_MEM_GetReadOutProtectionStatus( void );
 
-ErrorStatus OPENBL_MEM_Erase(uint32_t Address, uint8_t *p_Data, uint32_t DataLength);
-ErrorStatus OPENBL_MEM_MassErase(uint32_t Address, uint8_t *p_Data, uint32_t DataLength);
-ErrorStatus OPENBL_MEM_RegisterMemory(OPENBL_MemoryTypeDef *Memory);
-ErrorStatus OPENBL_MEM_SetWriteProtection(FunctionalState State, uint32_t Address, uint8_t *Buffer, uint32_t Length);
+ErrorStatus OPENBL_MEM_Erase( uint32_t Address, uint8_t *p_Data, uint32_t DataLength );
+ErrorStatus OPENBL_MEM_MassErase( uint32_t Address, uint8_t *p_Data, uint32_t DataLength );
+ErrorStatus OPENBL_MEM_RegisterMemory( OPENBL_MemoryTypeDef *Memory );
+ErrorStatus OPENBL_MEM_SetWriteProtection( FunctionalState State, uint32_t Address, uint8_t *Buffer, uint32_t Length );
 
 #endif /* OPENBL_MEM_H */
 

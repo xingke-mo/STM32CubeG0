@@ -30,13 +30,14 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-typedef enum {
-  APPLICATION_IDLE = 0,
-  APPLICATION_INIT,
-  APPLICATION_RUNNING,
-  APPLICATION_SD_UNPLUGGED,
-  APPLICATION_SD_PLUGGED,
-}FS_FileOperationsTypeDef;
+typedef enum
+{
+    APPLICATION_IDLE = 0,
+    APPLICATION_INIT,
+    APPLICATION_RUNNING,
+    APPLICATION_SD_UNPLUGGED,
+    APPLICATION_SD_PLUGGED,
+} FS_FileOperationsTypeDef;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -60,7 +61,7 @@ uint8_t workBuffer[_MAX_SS];
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN PFP */
-static int32_t FS_FileOperations(void);
+static int32_t FS_FileOperations( void );
 /* USER CODE END PFP */
 
 /**
@@ -68,20 +69,21 @@ static int32_t FS_FileOperations(void);
   * @param  None
   * @retval Initialization result
   */
-int32_t MX_FATFS_Init(void)
+int32_t MX_FATFS_Init( void )
 {
-  /*## FatFS: Link the disk I/O driver(s)  ###########################*/
-  if (FATFS_LinkDriver(&SD_Driver, SDPath) != 0)
-  /* USER CODE BEGIN FATFS_Init */
-  {
-    return APP_ERROR;
-  }
-  else
-  {
-    Appli_state = APPLICATION_INIT;
-    return APP_OK;
-  }
-  /* USER CODE END FATFS_Init */
+    /*## FatFS: Link the disk I/O driver(s)  ###########################*/
+    if( FATFS_LinkDriver( &SD_Driver, SDPath ) != 0 )
+        /* USER CODE BEGIN FATFS_Init */
+    {
+        return APP_ERROR;
+    }
+    else
+    {
+        Appli_state = APPLICATION_INIT;
+        return APP_OK;
+    }
+
+    /* USER CODE END FATFS_Init */
 }
 
 /**
@@ -89,73 +91,78 @@ int32_t MX_FATFS_Init(void)
   * @param  None
   * @retval Process result
   */
-int32_t MX_FATFS_Process(void)
+int32_t MX_FATFS_Process( void )
 {
-  /* USER CODE BEGIN FATFS_Process */
-  int32_t process_res = APP_OK;
-  /* Mass Storage Application State Machine */
-  switch(Appli_state)
-  {
-  case APPLICATION_INIT:
-    if(BSP_SD_IsDetected() != SD_NOT_PRESENT)
+    /* USER CODE BEGIN FATFS_Process */
+    int32_t process_res = APP_OK;
+
+    /* Mass Storage Application State Machine */
+    switch( Appli_state )
     {
+    case APPLICATION_INIT:
+        if( BSP_SD_IsDetected() != SD_NOT_PRESENT )
+        {
 #if FATFS_MKFS_ALLOWED
-      FRESULT res;
+            FRESULT res;
 
-      res = f_mkfs(SDPath, FM_ANY, 0, workBuffer, sizeof(workBuffer));
+            res = f_mkfs( SDPath, FM_ANY, 0, workBuffer, sizeof( workBuffer ) );
 
-      if (res != FR_OK)
-      {
-        process_res = APP_ERROR;
-      }
-      else
-      {
-        process_res = APP_INIT;
-        Appli_state = APPLICATION_RUNNING;
-      }
+            if( res != FR_OK )
+            {
+                process_res = APP_ERROR;
+            }
+            else
+            {
+                process_res = APP_INIT;
+                Appli_state = APPLICATION_RUNNING;
+            }
+
 #else
-      process_res = APP_INIT;
-      Appli_state = APPLICATION_RUNNING;
+            process_res = APP_INIT;
+            Appli_state = APPLICATION_RUNNING;
 #endif
+        }
+        else
+        {
+            Appli_state = APPLICATION_SD_UNPLUGGED;
+
+        }
+
+        break;
+
+    case APPLICATION_RUNNING:
+        process_res = FS_FileOperations();
+        Appli_state = APPLICATION_IDLE;
+        break;
+
+    case APPLICATION_SD_UNPLUGGED:
+        process_res = APP_SD_UNPLUGGED;
+        break;
+
+    case APPLICATION_SD_PLUGGED:
+        BSP_SD_Init();
+        Appli_state = APPLICATION_RUNNING;
+        process_res = APP_SD_PLUGGED;
+        break;
+
+    case APPLICATION_IDLE:
+    default:
+        break;
     }
-    else
-    {
-    Appli_state = APPLICATION_SD_UNPLUGGED;
 
-    }
-
-    break;
-  case APPLICATION_RUNNING:
-    process_res = FS_FileOperations();
-    Appli_state = APPLICATION_IDLE;
-    break;
-
-  case APPLICATION_SD_UNPLUGGED:
-    process_res = APP_SD_UNPLUGGED;
-    break;
-  case APPLICATION_SD_PLUGGED:
-    BSP_SD_Init();
-    Appli_state = APPLICATION_RUNNING;
-    process_res = APP_SD_PLUGGED;
-    break;
-
-  case APPLICATION_IDLE:
-  default:
-    break;
-  }
-  return process_res;
-  /* USER CODE END FATFS_Process */
+    return process_res;
+    /* USER CODE END FATFS_Process */
 }
 /**
   * @brief  Gets Time from RTC (generated when FS_NORTC==0; see ff.c)
   * @param  None
   * @retval Time in DWORD
   */
-DWORD get_fattime(void)
+DWORD get_fattime( void )
 {
-  /* USER CODE BEGIN get_fattime */
-  return 0;
-  /* USER CODE END get_fattime */
+    /* USER CODE BEGIN get_fattime */
+    return 0;
+    /* USER CODE END get_fattime */
 }
 
 /* Private user code ---------------------------------------------------------*/
@@ -164,51 +171,52 @@ DWORD get_fattime(void)
   * @brief File system : file operation
   * @retval File operation result
   */
-static int32_t FS_FileOperations(void)
+static int32_t FS_FileOperations( void )
 {
-  FRESULT res; /* FatFs function common result code */
-  uint32_t byteswritten, bytesread; /* File write/read counts */
-  uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
-  uint8_t rtext[100]; /* File read buffer */
+    FRESULT res; /* FatFs function common result code */
+    uint32_t byteswritten, bytesread; /* File write/read counts */
+    uint8_t wtext[] = "This is STM32 working with FatFs and uSD diskio driver"; /* File write buffer */
+    uint8_t rtext[100]; /* File read buffer */
 
-  /* Register the file system object to the FatFs module */
-  if(f_mount(&SDFatFs, (TCHAR const*)SDPath, 0) == FR_OK)
-  {
-    /* Create and Open a new text file object with write access */
-    if(f_open(&SDFile, "STM32.TXT", FA_CREATE_ALWAYS | FA_WRITE) == FR_OK)
+    /* Register the file system object to the FatFs module */
+    if( f_mount( &SDFatFs, ( TCHAR const * )SDPath, 0 ) == FR_OK )
     {
-      /* Write data to the text file */
-      res = f_write(&SDFile, wtext, sizeof(wtext), (void *)&byteswritten);
-
-      if((byteswritten > 0) && (res == FR_OK))
-      {
-        /* Close the open text file */
-        f_close(&SDFile);
-
-        /* Open the text file object with read access */
-        if(f_open(&SDFile, "STM32.TXT", FA_READ) == FR_OK)
+        /* Create and Open a new text file object with write access */
+        if( f_open( &SDFile, "STM32.TXT", FA_CREATE_ALWAYS | FA_WRITE ) == FR_OK )
         {
-          /* Read data from the text file */
-          res = f_read(&SDFile, rtext, sizeof(rtext), (void *)&bytesread);
+            /* Write data to the text file */
+            res = f_write( &SDFile, wtext, sizeof( wtext ), ( void * )&byteswritten );
 
-          if((bytesread > 0) && (res == FR_OK))
-          {
-            /* Close the open text file */
-            f_close(&SDFile);
-
-            /* Compare read data with the expected data */
-            if((bytesread == byteswritten))
+            if( ( byteswritten > 0 ) && ( res == FR_OK ) )
             {
-              /* Success of the demo: no error occurrence */
-              return 0;
+                /* Close the open text file */
+                f_close( &SDFile );
+
+                /* Open the text file object with read access */
+                if( f_open( &SDFile, "STM32.TXT", FA_READ ) == FR_OK )
+                {
+                    /* Read data from the text file */
+                    res = f_read( &SDFile, rtext, sizeof( rtext ), ( void * )&bytesread );
+
+                    if( ( bytesread > 0 ) && ( res == FR_OK ) )
+                    {
+                        /* Close the open text file */
+                        f_close( &SDFile );
+
+                        /* Compare read data with the expected data */
+                        if( ( bytesread == byteswritten ) )
+                        {
+                            /* Success of the demo: no error occurrence */
+                            return 0;
+                        }
+                    }
+                }
             }
-          }
         }
-      }
     }
-  }
-  /* Error */
-  return -1;
+
+    /* Error */
+    return -1;
 }
 
 /**
@@ -216,15 +224,15 @@ static int32_t FS_FileOperations(void)
   * @param GPIO_Pin: Specifies the pins connected EXTI line
   * @retval None
   */
-void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
+void HAL_GPIO_EXTI_Falling_Callback( uint16_t GPIO_Pin )
 {
-  if(GPIO_Pin == SD_DETECT_PIN)
-  {
-    if(BSP_SD_IsDetected() != SD_NOT_PRESENT)
+    if( GPIO_Pin == SD_DETECT_PIN )
     {
-      Appli_state = APPLICATION_RUNNING;
+        if( BSP_SD_IsDetected() != SD_NOT_PRESENT )
+        {
+            Appli_state = APPLICATION_RUNNING;
+        }
     }
-  }
 }
 
 /**
@@ -232,16 +240,16 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
   * @param GPIO_Pin: Specifies the pins connected EXTI line
   * @retval None
   */
-void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
+void HAL_GPIO_EXTI_Rising_Callback( uint16_t GPIO_Pin )
 {
-  if(GPIO_Pin == SD_DETECT_PIN)
-  {
-    if(BSP_SD_IsDetected() == SD_NOT_PRESENT)
+    if( GPIO_Pin == SD_DETECT_PIN )
     {
-      Appli_state = APPLICATION_SD_UNPLUGGED;
-      f_mount(NULL, (TCHAR const*)"", 0);
+        if( BSP_SD_IsDetected() == SD_NOT_PRESENT )
+        {
+            Appli_state = APPLICATION_SD_UNPLUGGED;
+            f_mount( NULL, ( TCHAR const * )"", 0 );
+        }
     }
-  }
 }
 /* USER CODE END Application */
 

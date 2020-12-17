@@ -39,51 +39,52 @@
   * @param  msg_bc : title backgroun color.
   * @retval None
   */
-void kWindow_Popup(char *title, uint16_t title_tc, uint16_t title_bc ,char *Msg, uint16_t msg_tc, uint16_t msg_bc )
+void kWindow_Popup( char *title, uint16_t title_tc, uint16_t title_bc, char *Msg, uint16_t msg_tc, uint16_t msg_bc )
 {
-  uint8_t substring[25];
-  uint8_t lineindex;
-  uint16_t index,subindex;
-  
-  /* Clear the LCD Screen */
-  BSP_LCD_Clear(title_bc);
-  BSP_LCD_SetBackColor(title_bc);
-  BSP_LCD_SetTextColor(title_tc);
-  
-  /* Set the Back Color */
-  BSP_LCD_SetFont(&LCD_DEFAULT_FONT);
-  BSP_LCD_SetTextColor(title_tc);  
-  BSP_LCD_DisplayStringAt(0, 0, (uint8_t *)title, CENTER_MODE);
+    uint8_t substring[25];
+    uint8_t lineindex;
+    uint16_t index, subindex;
 
-  /* Prepare the msg area */
-  BSP_LCD_SetBackColor(msg_bc);
-  BSP_LCD_SetTextColor(msg_bc);
-  BSP_LCD_FillRect(0, LCD_DEFAULT_FONT.Height, BSP_LCD_GetXSize(), BSP_LCD_GetYSize() - LCD_DEFAULT_FONT.Height);
-  BSP_LCD_SetTextColor(msg_tc);
-  
-  lineindex = subindex = index = 0;
-  do
-  {
-    substring[subindex]=Msg[index];
-    if((Msg[index] == '\n') || (Msg[subindex] == '\0'))
+    /* Clear the LCD Screen */
+    BSP_LCD_Clear( title_bc );
+    BSP_LCD_SetBackColor( title_bc );
+    BSP_LCD_SetTextColor( title_tc );
+
+    /* Set the Back Color */
+    BSP_LCD_SetFont( &LCD_DEFAULT_FONT );
+    BSP_LCD_SetTextColor( title_tc );
+    BSP_LCD_DisplayStringAt( 0, 0, ( uint8_t * )title, CENTER_MODE );
+
+    /* Prepare the msg area */
+    BSP_LCD_SetBackColor( msg_bc );
+    BSP_LCD_SetTextColor( msg_bc );
+    BSP_LCD_FillRect( 0, LCD_DEFAULT_FONT.Height, BSP_LCD_GetXSize(), BSP_LCD_GetYSize() - LCD_DEFAULT_FONT.Height );
+    BSP_LCD_SetTextColor( msg_tc );
+
+    lineindex = subindex = index = 0;
+
+    do
     {
-      substring[subindex] = '\0';
-      BSP_LCD_DisplayStringAt(0, (2+lineindex) * LCD_DEFAULT_FONT.Height, substring, CENTER_MODE);
-      lineindex++;
-      subindex = 0;
-    }
-    else
-    {
-      subindex++;
-    }
-    
-    if(Msg[index] != '\0')
-    {
-      index++;
-    }
-  }
-  while(Msg[index] != '\0');
-  
+        substring[subindex] = Msg[index];
+
+        if( ( Msg[index] == '\n' ) || ( Msg[subindex] == '\0' ) )
+        {
+            substring[subindex] = '\0';
+            BSP_LCD_DisplayStringAt( 0, ( 2 + lineindex ) * LCD_DEFAULT_FONT.Height, substring, CENTER_MODE );
+            lineindex++;
+            subindex = 0;
+        }
+        else
+        {
+            subindex++;
+        }
+
+        if( Msg[index] != '\0' )
+        {
+            index++;
+        }
+    } while( Msg[index] != '\0' );
+
 }
 
 /**
@@ -91,9 +92,9 @@ void kWindow_Popup(char *title, uint16_t title_tc, uint16_t title_bc ,char *Msg,
   * @param  Msg to display a message, \n is used for multiple line.
   * @retval None
   */
-void kWindow_Error(char *msg)
+void kWindow_Error( char *msg )
 {
-  kWindow_Popup("Error popup",LCD_COLOR_BLACK,LCD_COLOR_RED,msg,LCD_COLOR_BLACK,LCD_COLOR_RED);
+    kWindow_Popup( "Error popup", LCD_COLOR_BLACK, LCD_COLOR_RED, msg, LCD_COLOR_BLACK, LCD_COLOR_RED );
 }
 
 

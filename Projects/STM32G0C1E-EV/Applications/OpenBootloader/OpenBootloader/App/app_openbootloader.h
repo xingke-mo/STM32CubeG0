@@ -28,9 +28,9 @@
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void OpenBootloader_Init(void);
-void OpenBootloader_DeInit(void);
-void OpenBootloader_ProtocolDetection(void);
+void OpenBootloader_Init( void );
+void OpenBootloader_DeInit( void );
+void OpenBootloader_ProtocolDetection( void );
 
 /* External variables --------------------------------------------------------*/
 extern OPENBL_MemoryTypeDef FLASH_Descriptor;

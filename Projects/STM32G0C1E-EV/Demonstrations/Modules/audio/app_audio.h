@@ -18,9 +18,9 @@
   */
 #undef GLOBAL
 #ifdef __APP_AUDIO_C
-#define GLOBAL
+    #define GLOBAL
 #else
-#define GLOBAL extern
+    #define GLOBAL extern
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -32,17 +32,17 @@
 /* WAV header structure */
 typedef struct
 {
-  char       RIFF[4];          /* 0 */ 
-  uint32_t   ChunkSize;        /* 4 */
-  char       WAVE[4];          /* 8 */
-  char       fmt[4];           /* 12 */
-  uint32_t   SubChunk1Size;    /* 16*/  
-  uint16_t   AudioFormat;      /* 20 */ 
-  uint16_t   NbrChannels;      /* 22 */   
-  uint32_t   SampleRate;       /* 24 */
-  uint32_t   ByteRate;         /* 28 */
-  uint16_t   BlockAlign;       /* 32 */  
-  uint16_t   BitPerSample;     /* 34 */  
+    char       RIFF[4];          /* 0 */
+    uint32_t   ChunkSize;        /* 4 */
+    char       WAVE[4];          /* 8 */
+    char       fmt[4];           /* 12 */
+    uint32_t   SubChunk1Size;    /* 16*/
+    uint16_t   AudioFormat;      /* 20 */
+    uint16_t   NbrChannels;      /* 22 */
+    uint32_t   SampleRate;       /* 24 */
+    uint32_t   ByteRate;         /* 28 */
+    uint16_t   BlockAlign;       /* 32 */
+    uint16_t   BitPerSample;     /* 34 */
 } WAV_HeaderTypeDef;
 
 /* Exported constants --------------------------------------------------------*/
@@ -75,16 +75,16 @@ GLOBAL uint32_t Buffer1[];
 GLOBAL uint32_t Buffer2[];
 
 /* Active audio buffer  */
-GLOBAL __IO uint32_t * BufferSelect;
+GLOBAL __IO uint32_t *BufferSelect;
 
 /* DMA transfer complete flag */
 GLOBAL __IO uint8_t DMATxComplete;
 
 /* Progress bar handle */
-GLOBAL void * hProgressBar;
+GLOBAL void *hProgressBar;
 
 /* Exported functions --------------------------------------------------------*/
-GLOBAL void AppAudio_TIM_MspInit(TIM_HandleTypeDef *htim);
-GLOBAL void AppAudio_TIM_MspDeInit(TIM_HandleTypeDef *htim);
+GLOBAL void AppAudio_TIM_MspInit( TIM_HandleTypeDef *htim );
+GLOBAL void AppAudio_TIM_MspDeInit( TIM_HandleTypeDef *htim );
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

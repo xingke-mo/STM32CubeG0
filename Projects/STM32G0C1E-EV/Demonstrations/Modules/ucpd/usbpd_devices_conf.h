@@ -21,7 +21,7 @@
 #define USBPD_DEVICE_CONF_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -34,7 +34,7 @@
 #include "stm32g0xx_ll_ucpd.h"
 #include "stm32g0xx_ll_rcc.h"
 #include "stm32g0xx_ll_tim.h"
-#include "usbpd_pwr_if.h"   
+#include "usbpd_pwr_if.h"
 #include "stm32g0c1e_eval.h"
 #include "stm32g0c1e_eval_lcd.h"
 #include "stm32g0c1e_eval_mux.h"
@@ -142,7 +142,7 @@
 #define TIMX_CHANNEL4_GETFLAG          LL_TIM_IsActiveFlag_CC4
 
 #ifdef __cplusplus
- }
+}
 #endif
 
 #endif /* USBPD_DEVICE_CONF_H */

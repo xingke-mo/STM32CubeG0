@@ -148,7 +148,7 @@ extern "C" {
 #define IS_RCC_MCO(__MCOX__) ((__MCOX__) == RCC_MCO1)
 #endif /* RCC_MCO2_SUPPORT */
 
-#if defined(STM32G0C1xx) || defined(STM32G0B1xx) 
+#if defined(STM32G0C1xx) || defined(STM32G0B1xx)
 #define IS_RCC_MCO1SOURCE(__SOURCE__) (((__SOURCE__) == RCC_MCO1SOURCE_NOCLOCK) || \
                                        ((__SOURCE__) == RCC_MCO1SOURCE_SYSCLK)  || \
                                        ((__SOURCE__) == RCC_MCO1SOURCE_HSI)   || \
@@ -252,29 +252,29 @@ extern "C" {
   */
 typedef struct
 {
-  uint32_t PLLState;   /*!< The new state of the PLL.
+    uint32_t PLLState;   /*!< The new state of the PLL.
                             This parameter can be a value of @ref RCC_PLL_Config                      */
 
-  uint32_t PLLSource;  /*!< RCC_PLLSource: PLL entry clock source.
+    uint32_t PLLSource;  /*!< RCC_PLLSource: PLL entry clock source.
                             This parameter must be a value of @ref RCC_PLL_Clock_Source               */
 
-  uint32_t PLLM;       /*!< PLLM: Division factor for PLL VCO input clock.
+    uint32_t PLLM;       /*!< PLLM: Division factor for PLL VCO input clock.
                             This parameter must be a value of @ref RCC_PLLM_Clock_Divider                  */
 
-  uint32_t PLLN;       /*!< PLLN: Multiplication factor for PLL VCO output clock.
+    uint32_t PLLN;       /*!< PLLN: Multiplication factor for PLL VCO output clock.
                             This parameter must be a number between Min_Data = 8 and Max_Data = 86    */
 
-  uint32_t PLLP;       /*!< PLLP: PLL Division factor.
+    uint32_t PLLP;       /*!< PLLP: PLL Division factor.
                             User have to set the PLLQ parameter correctly to not exceed max frequency 64MHZ.
                             This parameter must be a value of @ref RCC_PLLP_Clock_Divider             */
 
 #if defined(RCC_PLLQ_SUPPORT)
-  uint32_t PLLQ;       /*!< PLLQ: PLL Division factor.
+    uint32_t PLLQ;       /*!< PLLQ: PLL Division factor.
                             User have to set the PLLQ parameter correctly to not exceed max frequency 64MHZ.
                             This parameter must be a value of @ref RCC_PLLQ_Clock_Divider             */
 #endif /* RCC_PLLQ_SUPPORT */
 
-  uint32_t PLLR;       /*!< PLLR: PLL Division for the main system clock.
+    uint32_t PLLR;       /*!< PLLR: PLL Division for the main system clock.
                             User have to set the PLLR parameter correctly to not exceed max frequency 64MHZ.
                             This parameter must be a value of @ref RCC_PLLR_Clock_Divider             */
 
@@ -285,34 +285,34 @@ typedef struct
   */
 typedef struct
 {
-  uint32_t OscillatorType;       /*!< The oscillators to be configured.
+    uint32_t OscillatorType;       /*!< The oscillators to be configured.
                                       This parameter can be a value of @ref RCC_Oscillator_Type                   */
 
-  uint32_t HSEState;             /*!< The new state of the HSE.
+    uint32_t HSEState;             /*!< The new state of the HSE.
                                       This parameter can be a value of @ref RCC_HSE_Config                        */
 
-  uint32_t LSEState;             /*!< The new state of the LSE.
+    uint32_t LSEState;             /*!< The new state of the LSE.
                                       This parameter can be a value of @ref RCC_LSE_Config                        */
 
-  uint32_t HSIState;             /*!< The new state of the HSI.
+    uint32_t HSIState;             /*!< The new state of the HSI.
                                       This parameter can be a value of @ref RCC_HSI_Config                        */
 
-  uint32_t HSIDiv;               /*!< The division factor of the HSI16.
+    uint32_t HSIDiv;               /*!< The division factor of the HSI16.
                                       This parameter can be a value of @ref RCC_HSI_Div                           */
 
-  uint32_t HSICalibrationValue;  /*!< The calibration trimming value (default is RCC_HSICALIBRATION_DEFAULT).
+    uint32_t HSICalibrationValue;  /*!< The calibration trimming value (default is RCC_HSICALIBRATION_DEFAULT).
                                       This parameter must be a number between Min_Data = 0x00 and Max_Data = 0x7F */
 
-  uint32_t LSIState;             /*!< The new state of the LSI.
+    uint32_t LSIState;             /*!< The new state of the LSI.
                                       This parameter can be a value of @ref RCC_LSI_Config                        */
 
 #if defined(RCC_HSI48_SUPPORT)
-  uint32_t HSI48State;             /*!< The new state of the HSI48 (only applicable to STM32G0C1xx/STM32G0B1xx/STM32G0B0xx devices).
+    uint32_t HSI48State;             /*!< The new state of the HSI48 (only applicable to STM32G0C1xx/STM32G0B1xx/STM32G0B0xx devices).
                                         This parameter can be a value of @ref RCC_HSI48_Config */
 
 #endif /* RCC_HSI48_SUPPORT */
 
-  RCC_PLLInitTypeDef PLL;        /*!< Main PLL structure parameters                                               */
+    RCC_PLLInitTypeDef PLL;        /*!< Main PLL structure parameters                                               */
 
 } RCC_OscInitTypeDef;
 
@@ -321,16 +321,16 @@ typedef struct
   */
 typedef struct
 {
-  uint32_t ClockType;             /*!< The clock to be configured.
+    uint32_t ClockType;             /*!< The clock to be configured.
                                        This parameter can be a combination of @ref RCC_System_Clock_Type      */
 
-  uint32_t SYSCLKSource;          /*!< The clock source used as system clock (SYSCLK).
+    uint32_t SYSCLKSource;          /*!< The clock source used as system clock (SYSCLK).
                                        This parameter can be a value of @ref RCC_System_Clock_Source    */
 
-  uint32_t AHBCLKDivider;         /*!< The AHB clock (HCLK) divider. This clock is derived from the system clock (SYSCLK).
+    uint32_t AHBCLKDivider;         /*!< The AHB clock (HCLK) divider. This clock is derived from the system clock (SYSCLK).
                                        This parameter can be a value of @ref RCC_AHB_Clock_Source       */
 
-  uint32_t APB1CLKDivider;        /*!< The APB1 clock (PCLK1) divider. This clock is derived from the AHB clock (HCLK).
+    uint32_t APB1CLKDivider;        /*!< The APB1 clock (PCLK1) divider. This clock is derived from the AHB clock (HCLK).
                                        This parameter can be a value of @ref RCC_APB1_Clock_Source */
 
 
@@ -696,7 +696,7 @@ typedef struct
 #define RCC_MCO2SOURCE_PLLPCLK         RCC_CFGR_MCO2SEL_3                       /*!< PLLPCLK selection as MCO2 source */
 #define RCC_MCO2SOURCE_PLLQCLK         (RCC_CFGR_MCO2SEL_3|RCC_CFGR_MCO2SEL_0)  /*!< PLLQCLK selection as MCO2 source */
 #define RCC_MCO2SOURCE_RTCCLK          (RCC_CFGR_MCO2SEL_3|RCC_CFGR_MCO2SEL_1)  /*!< RTCCLK selection as MCO2 source */
-#define RCC_MCO2SOURCE_RTC_WKUP        (RCC_CFGR_MCO2SEL_3|RCC_CFGR_MCO2SEL_1|RCC_CFGR_MCO2SEL_0) /*!< RTC_Wakeup selection as MCO2 source */    
+#define RCC_MCO2SOURCE_RTC_WKUP        (RCC_CFGR_MCO2SEL_3|RCC_CFGR_MCO2SEL_1|RCC_CFGR_MCO2SEL_0) /*!< RTC_Wakeup selection as MCO2 source */
 /**
   * @}
   */
@@ -2585,7 +2585,7 @@ typedef struct
                                                 CLEAR_BIT(RCC->BDCR, RCC_BDCR_LSEBYP); \
                                               }                                        \
                                             } while(0U)
-                                           
+
 #if defined(RCC_HSI48_SUPPORT)
 /** @brief  Macros to enable or disable the Internal High Speed 48MHz oscillator (HSI48).
   * @note   The HSI48 is stopped by hardware when entering STOP and STANDBY modes.
@@ -2866,7 +2866,7 @@ typedef struct
   *            @arg @ref RCC_MCO1SOURCE_PLLPCLK PLLP output clock selected as MCO source
   *            @arg @ref RCC_MCO1SOURCE_PLLQCLK PLLQ output clock selected as MCO source
   *            @arg @ref RCC_MCO1SOURCE_RTCCLK RTC clock selected as MCO source
-  *            @arg @ref RCC_MCO1SOURCE_RTC_WKUP RTC_WKUP clock selected as MCO source  
+  *            @arg @ref RCC_MCO1SOURCE_RTC_WKUP RTC_WKUP clock selected as MCO source
   @if STM32G0C1xx
   *            @arg @ref RCC_MCO1SOURCE_HSI48  HSI48 clock selected as MCO source for devices with HSI48
   @endif
@@ -3058,9 +3058,9 @@ typedef struct
   */
 
 /* Initialization and de-initialization functions  ******************************/
-HAL_StatusTypeDef HAL_RCC_DeInit(void);
-HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef *RCC_OscInitStruct);
-HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef *RCC_ClkInitStruct, uint32_t FLatency);
+HAL_StatusTypeDef HAL_RCC_DeInit( void );
+HAL_StatusTypeDef HAL_RCC_OscConfig( RCC_OscInitTypeDef *RCC_OscInitStruct );
+HAL_StatusTypeDef HAL_RCC_ClockConfig( RCC_ClkInitTypeDef *RCC_ClkInitStruct, uint32_t FLatency );
 
 /**
   * @}
@@ -3071,20 +3071,20 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef *RCC_ClkInitStruct, uin
   */
 
 /* Peripheral Control functions  ************************************************/
-void              HAL_RCC_MCOConfig(uint32_t RCC_MCOx, uint32_t RCC_MCOSource, uint32_t RCC_MCODiv);
-void              HAL_RCC_EnableCSS(void);
-void              HAL_RCC_EnableLSECSS(void);
-void              HAL_RCC_DisableLSECSS(void);
-uint32_t          HAL_RCC_GetSysClockFreq(void);
-uint32_t          HAL_RCC_GetHCLKFreq(void);
-uint32_t          HAL_RCC_GetPCLK1Freq(void);
-void              HAL_RCC_GetOscConfig(RCC_OscInitTypeDef *RCC_OscInitStruct);
-void              HAL_RCC_GetClockConfig(RCC_ClkInitTypeDef *RCC_ClkInitStruct, uint32_t *pFLatency);
+void              HAL_RCC_MCOConfig( uint32_t RCC_MCOx, uint32_t RCC_MCOSource, uint32_t RCC_MCODiv );
+void              HAL_RCC_EnableCSS( void );
+void              HAL_RCC_EnableLSECSS( void );
+void              HAL_RCC_DisableLSECSS( void );
+uint32_t          HAL_RCC_GetSysClockFreq( void );
+uint32_t          HAL_RCC_GetHCLKFreq( void );
+uint32_t          HAL_RCC_GetPCLK1Freq( void );
+void              HAL_RCC_GetOscConfig( RCC_OscInitTypeDef *RCC_OscInitStruct );
+void              HAL_RCC_GetClockConfig( RCC_ClkInitTypeDef *RCC_ClkInitStruct, uint32_t *pFLatency );
 /* LSE & HSE CSS NMI IRQ handler */
-void              HAL_RCC_NMI_IRQHandler(void);
+void              HAL_RCC_NMI_IRQHandler( void );
 /* User Callbacks in non blocking mode (IT mode) */
-void              HAL_RCC_CSSCallback(void);
-void              HAL_RCC_LSECSSCallback(void);
+void              HAL_RCC_CSSCallback( void );
+void              HAL_RCC_LSECSSCallback( void );
 
 /**
   * @}

@@ -6,11 +6,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -24,9 +24,9 @@
 #include "stm32g0xx_ll_rcc.h"
 
 #ifdef  USE_FULL_ASSERT
-#include "stm32_assert.h"
+    #include "stm32_assert.h"
 #else
-#define assert_param(expr) ((void)0U)
+    #define assert_param(expr) ((void)0U)
 #endif
 
 /** @addtogroup STM32G0xx_LL_Driver
@@ -77,43 +77,44 @@
   *          - SUCCESS: ucpd registers are de-initialized
   *          - ERROR: ucpd registers are not de-initialized
   */
-ErrorStatus LL_UCPD_DeInit(UCPD_TypeDef *UCPDx)
+ErrorStatus LL_UCPD_DeInit( UCPD_TypeDef *UCPDx )
 {
-  ErrorStatus status = ERROR;
+    ErrorStatus status = ERROR;
 
-  /* Check the parameters */
-  assert_param(IS_UCPD_ALL_INSTANCE(UCPDx));
-  
-  LL_UCPD_Disable(UCPDx);
+    /* Check the parameters */
+    assert_param( IS_UCPD_ALL_INSTANCE( UCPDx ) );
 
-  if (UCPD1 == UCPDx)
-  {
-    /* Force reset of ucpd clock */
-    LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_UCPD1);
+    LL_UCPD_Disable( UCPDx );
 
-    /* Release reset of ucpd clock */
-    LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_UCPD1);
+    if( UCPD1 == UCPDx )
+    {
+        /* Force reset of ucpd clock */
+        LL_APB1_GRP1_ForceReset( LL_APB1_GRP1_PERIPH_UCPD1 );
 
-    /* Disable ucpd clock */
-    LL_APB1_GRP1_DisableClock(LL_APB1_GRP1_PERIPH_UCPD1);
+        /* Release reset of ucpd clock */
+        LL_APB1_GRP1_ReleaseReset( LL_APB1_GRP1_PERIPH_UCPD1 );
 
-    status = SUCCESS;
-  }
-  if (UCPD2 == UCPDx)
-  {
-    /* Force reset of ucpd clock */
-    LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_UCPD2);
+        /* Disable ucpd clock */
+        LL_APB1_GRP1_DisableClock( LL_APB1_GRP1_PERIPH_UCPD1 );
 
-    /* Release reset of ucpd clock */
-    LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_UCPD2);
+        status = SUCCESS;
+    }
 
-    /* Disable ucpd clock */
-    LL_APB1_GRP1_DisableClock(LL_APB1_GRP1_PERIPH_UCPD2);
+    if( UCPD2 == UCPDx )
+    {
+        /* Force reset of ucpd clock */
+        LL_APB1_GRP1_ForceReset( LL_APB1_GRP1_PERIPH_UCPD2 );
 
-    status = SUCCESS;
-  }
+        /* Release reset of ucpd clock */
+        LL_APB1_GRP1_ReleaseReset( LL_APB1_GRP1_PERIPH_UCPD2 );
 
-  return status;
+        /* Disable ucpd clock */
+        LL_APB1_GRP1_DisableClock( LL_APB1_GRP1_PERIPH_UCPD2 );
+
+        status = SUCCESS;
+    }
+
+    return status;
 }
 
 /**
@@ -125,30 +126,30 @@ ErrorStatus LL_UCPD_DeInit(UCPD_TypeDef *UCPDx)
   *         the configuration information for the UCPD peripheral.
   * @retval An ErrorStatus enumeration value. (Return always SUCCESS)
   */
-ErrorStatus LL_UCPD_Init(UCPD_TypeDef *UCPDx, LL_UCPD_InitTypeDef *UCPD_InitStruct)
+ErrorStatus LL_UCPD_Init( UCPD_TypeDef *UCPDx, LL_UCPD_InitTypeDef *UCPD_InitStruct )
 {
-  /* Check the ucpd Instance UCPDx*/
-  assert_param(IS_UCPD_ALL_INSTANCE(UCPDx));
+    /* Check the ucpd Instance UCPDx*/
+    assert_param( IS_UCPD_ALL_INSTANCE( UCPDx ) );
 
-  if(UCPD1 == UCPDx)
-  {
-    LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_UCPD1);
-  }
+    if( UCPD1 == UCPDx )
+    {
+        LL_APB1_GRP1_EnableClock( LL_APB1_GRP1_PERIPH_UCPD1 );
+    }
 
-  if(UCPD2 == UCPDx)
-  {
-    LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_UCPD2);
-  }
+    if( UCPD2 == UCPDx )
+    {
+        LL_APB1_GRP1_EnableClock( LL_APB1_GRP1_PERIPH_UCPD2 );
+    }
 
-  LL_UCPD_Disable(UCPDx);
+    LL_UCPD_Disable( UCPDx );
 
-  /*---------------------------- UCPDx CFG1 Configuration ------------------------*/
-  MODIFY_REG(UCPDx->CFG1,
-             UCPD_CFG1_PSC_UCPDCLK | UCPD_CFG1_TRANSWIN | UCPD_CFG1_IFRGAP | UCPD_CFG1_HBITCLKDIV,
-             UCPD_InitStruct->psc_ucpdclk | (UCPD_InitStruct->transwin  << UCPD_CFG1_TRANSWIN_Pos) |
-             (UCPD_InitStruct->IfrGap << UCPD_CFG1_IFRGAP_Pos) | UCPD_InitStruct->HbitClockDiv);
+    /*---------------------------- UCPDx CFG1 Configuration ------------------------*/
+    MODIFY_REG( UCPDx->CFG1,
+                UCPD_CFG1_PSC_UCPDCLK | UCPD_CFG1_TRANSWIN | UCPD_CFG1_IFRGAP | UCPD_CFG1_HBITCLKDIV,
+                UCPD_InitStruct->psc_ucpdclk | ( UCPD_InitStruct->transwin  << UCPD_CFG1_TRANSWIN_Pos ) |
+                ( UCPD_InitStruct->IfrGap << UCPD_CFG1_IFRGAP_Pos ) | UCPD_InitStruct->HbitClockDiv );
 
-  return SUCCESS;
+    return SUCCESS;
 }
 
 /**
@@ -157,13 +158,13 @@ ErrorStatus LL_UCPD_Init(UCPD_TypeDef *UCPDx, LL_UCPD_InitTypeDef *UCPD_InitStru
   *         whose fields will be set to default values.
   * @retval None
   */
-void LL_UCPD_StructInit(LL_UCPD_InitTypeDef *UCPD_InitStruct)
+void LL_UCPD_StructInit( LL_UCPD_InitTypeDef *UCPD_InitStruct )
 {
-  /* Set UCPD_InitStruct fields to default values */
-  UCPD_InitStruct->psc_ucpdclk  = LL_UCPD_PSC_DIV2;
-  UCPD_InitStruct->transwin     = 0x7;   /* Divide by 8                     */
-  UCPD_InitStruct->IfrGap       = 0x10;  /* Divide by 17                    */
-  UCPD_InitStruct->HbitClockDiv = 0x0D;  /* Divide by 14 to produce HBITCLK */
+    /* Set UCPD_InitStruct fields to default values */
+    UCPD_InitStruct->psc_ucpdclk  = LL_UCPD_PSC_DIV2;
+    UCPD_InitStruct->transwin     = 0x7;   /* Divide by 8                     */
+    UCPD_InitStruct->IfrGap       = 0x10;  /* Divide by 17                    */
+    UCPD_InitStruct->HbitClockDiv = 0x0D;  /* Divide by 14 to produce HBITCLK */
 }
 
 /**

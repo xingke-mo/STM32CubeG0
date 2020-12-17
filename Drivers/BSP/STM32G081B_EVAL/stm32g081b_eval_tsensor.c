@@ -75,13 +75,13 @@ __IO uint16_t  TSENSORAddress = 0;
   * @brief  Initializes peripherals used by the I2C Temperature Sensor driver.
   * @retval TSENSOR status
   */
-uint32_t BSP_TSENSOR_Init(void)
+uint32_t BSP_TSENSOR_Init( void )
 {
     uint8_t ret = TSENSOR_ERROR;
     TSENSOR_InitTypeDef STLM75_InitStructure;
 
     /* Temperature Sensor Initialization */
-    if(Stlm75Drv.IsReady(TSENSOR_I2C_ADDRESS_A01, TSENSOR_MAX_TRIALS) == HAL_OK)
+    if( Stlm75Drv.IsReady( TSENSOR_I2C_ADDRESS_A01, TSENSOR_MAX_TRIALS ) == HAL_OK )
     {
         /* Initialize the temperature sensor driver structure */
         TSENSORAddress = TSENSOR_I2C_ADDRESS_A01;
@@ -91,7 +91,7 @@ uint32_t BSP_TSENSOR_Init(void)
     }
     else
     {
-        if(Stlm75Drv.IsReady(TSENSOR_I2C_ADDRESS_A02, TSENSOR_MAX_TRIALS) == HAL_OK)
+        if( Stlm75Drv.IsReady( TSENSOR_I2C_ADDRESS_A02, TSENSOR_MAX_TRIALS ) == HAL_OK )
         {
             /* Initialize the temperature sensor driver structure */
             TSENSORAddress = TSENSOR_I2C_ADDRESS_A02;
@@ -105,7 +105,7 @@ uint32_t BSP_TSENSOR_Init(void)
         }
     }
 
-    if (ret == TSENSOR_OK)
+    if( ret == TSENSOR_OK )
     {
         /* Configure Temperature Sensor : Conversion 9 bits in continuous mode */
         /* Alert outside range Limit Temperature 12° <-> 24°c */
@@ -115,7 +115,7 @@ uint32_t BSP_TSENSOR_Init(void)
         STLM75_InitStructure.TemperatureLimitLow   = 12;
 
         /* TSENSOR Init */
-        tsensor_drv->Init(TSENSORAddress, &STLM75_InitStructure);
+        tsensor_drv->Init( TSENSORAddress, &STLM75_InitStructure );
 
         ret = TSENSOR_OK;
     }
@@ -127,18 +127,18 @@ uint32_t BSP_TSENSOR_Init(void)
   * @brief  Returns the Temperature Sensor status.
   * @retval The Temperature Sensor status.
   */
-uint8_t BSP_TSENSOR_ReadStatus(void)
+uint8_t BSP_TSENSOR_ReadStatus( void )
 {
-    return (tsensor_drv->ReadStatus(TSENSORAddress));
+    return ( tsensor_drv->ReadStatus( TSENSORAddress ) );
 }
 
 /**
   * @brief  Read Temperature register of STLM75.
   * @retval STLM75 measured temperature value.
   */
-float BSP_TSENSOR_ReadTemp(void)
+float BSP_TSENSOR_ReadTemp( void )
 {
-    return tsensor_drv->ReadTemp(TSENSORAddress);
+    return tsensor_drv->ReadTemp( TSENSORAddress );
 
 }
 

@@ -61,24 +61,24 @@
 /**
   * Initializes the Global MSP.
   */
-void HAL_MspInit(void)
+void HAL_MspInit( void )
 {
-  /* USER CODE BEGIN MspInit 0 */
+    /* USER CODE BEGIN MspInit 0 */
 
-  /* USER CODE END MspInit 0 */
+    /* USER CODE END MspInit 0 */
 
-  __HAL_RCC_SYSCFG_CLK_ENABLE();
-  __HAL_RCC_PWR_CLK_ENABLE();
+    __HAL_RCC_SYSCFG_CLK_ENABLE();
+    __HAL_RCC_PWR_CLK_ENABLE();
 
-  /* System interrupt init*/
+    /* System interrupt init*/
 
-  /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
-  */
-  HAL_SYSCFG_StrobeDBattpinsConfig(SYSCFG_CFGR1_UCPD1_STROBE | SYSCFG_CFGR1_UCPD2_STROBE);
+    /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
+    */
+    HAL_SYSCFG_StrobeDBattpinsConfig( SYSCFG_CFGR1_UCPD1_STROBE | SYSCFG_CFGR1_UCPD2_STROBE );
 
-  /* USER CODE BEGIN MspInit 1 */
+    /* USER CODE BEGIN MspInit 1 */
 
-  /* USER CODE END MspInit 1 */
+    /* USER CODE END MspInit 1 */
 }
 
 /**
@@ -87,20 +87,20 @@ void HAL_MspInit(void)
 * @param hcryp: CRYP handle pointer
 * @retval None
 */
-void HAL_CRYP_MspInit(CRYP_HandleTypeDef* hcryp)
+void HAL_CRYP_MspInit( CRYP_HandleTypeDef *hcryp )
 {
-  if(hcryp->Instance==AES)
-  {
-  /* USER CODE BEGIN AES_MspInit 0 */
+    if( hcryp->Instance == AES )
+    {
+        /* USER CODE BEGIN AES_MspInit 0 */
 
-  /* USER CODE END AES_MspInit 0 */
-    /* Peripheral clock enable */
-    __HAL_RCC_AES_CLK_ENABLE();
-  /* USER CODE BEGIN AES_MspInit 1 */
-  HAL_NVIC_SetPriority(AES_RNG_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(AES_RNG_IRQn);
-  /* USER CODE END AES_MspInit 1 */
-  }
+        /* USER CODE END AES_MspInit 0 */
+        /* Peripheral clock enable */
+        __HAL_RCC_AES_CLK_ENABLE();
+        /* USER CODE BEGIN AES_MspInit 1 */
+        HAL_NVIC_SetPriority( AES_RNG_IRQn, 0, 0 );
+        HAL_NVIC_EnableIRQ( AES_RNG_IRQn );
+        /* USER CODE END AES_MspInit 1 */
+    }
 
 }
 
@@ -110,20 +110,20 @@ void HAL_CRYP_MspInit(CRYP_HandleTypeDef* hcryp)
 * @param hcryp: CRYP handle pointer
 * @retval None
 */
-void HAL_CRYP_MspDeInit(CRYP_HandleTypeDef* hcryp)
+void HAL_CRYP_MspDeInit( CRYP_HandleTypeDef *hcryp )
 {
-  if(hcryp->Instance==AES)
-  {
-  /* USER CODE BEGIN AES_MspDeInit 0 */
+    if( hcryp->Instance == AES )
+    {
+        /* USER CODE BEGIN AES_MspDeInit 0 */
 
-  /* USER CODE END AES_MspDeInit 0 */
-    /* Peripheral clock disable */
-    __HAL_RCC_AES_CLK_DISABLE();
-  /* USER CODE BEGIN AES_MspDeInit 1 */
-  /* Disable CRYP Interrupt */
-    HAL_NVIC_DisableIRQ(AES_RNG_IRQn);
-  /* USER CODE END AES_MspDeInit 1 */
-  }
+        /* USER CODE END AES_MspDeInit 0 */
+        /* Peripheral clock disable */
+        __HAL_RCC_AES_CLK_DISABLE();
+        /* USER CODE BEGIN AES_MspDeInit 1 */
+        /* Disable CRYP Interrupt */
+        HAL_NVIC_DisableIRQ( AES_RNG_IRQn );
+        /* USER CODE END AES_MspDeInit 1 */
+    }
 
 }
 

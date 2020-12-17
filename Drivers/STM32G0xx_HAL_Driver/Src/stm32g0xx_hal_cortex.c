@@ -65,11 +65,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -129,11 +129,11 @@
   *         no subpriority supported in Cortex M0+ based products.
   * @retval None
   */
-void HAL_NVIC_SetPriority(IRQn_Type IRQn, uint32_t PreemptPriority, uint32_t SubPriority)
+void HAL_NVIC_SetPriority( IRQn_Type IRQn, uint32_t PreemptPriority, uint32_t SubPriority )
 {
-  /* Check the parameters */
-  assert_param(IS_NVIC_PREEMPTION_PRIORITY(PreemptPriority));
-  NVIC_SetPriority(IRQn,PreemptPriority);
+    /* Check the parameters */
+    assert_param( IS_NVIC_PREEMPTION_PRIORITY( PreemptPriority ) );
+    NVIC_SetPriority( IRQn, PreemptPriority );
 }
 
 /**
@@ -143,13 +143,13 @@ void HAL_NVIC_SetPriority(IRQn_Type IRQn, uint32_t PreemptPriority, uint32_t Sub
   *         (For the complete STM32 Devices IRQ Channels list, please refer to the appropriate CMSIS device file (stm32g0xxxx.h))
   * @retval None
   */
-void HAL_NVIC_EnableIRQ(IRQn_Type IRQn)
+void HAL_NVIC_EnableIRQ( IRQn_Type IRQn )
 {
-  /* Check the parameters */
-  assert_param(IS_NVIC_DEVICE_IRQ(IRQn));
+    /* Check the parameters */
+    assert_param( IS_NVIC_DEVICE_IRQ( IRQn ) );
 
-  /* Enable interrupt */
-  NVIC_EnableIRQ(IRQn);
+    /* Enable interrupt */
+    NVIC_EnableIRQ( IRQn );
 }
 
 /**
@@ -159,23 +159,23 @@ void HAL_NVIC_EnableIRQ(IRQn_Type IRQn)
   *         (For the complete STM32 Devices IRQ Channels list, please refer to the appropriate CMSIS device file (stm32g0xxxx.h))
   * @retval None
   */
-void HAL_NVIC_DisableIRQ(IRQn_Type IRQn)
+void HAL_NVIC_DisableIRQ( IRQn_Type IRQn )
 {
-  /* Check the parameters */
-  assert_param(IS_NVIC_DEVICE_IRQ(IRQn));
+    /* Check the parameters */
+    assert_param( IS_NVIC_DEVICE_IRQ( IRQn ) );
 
-  /* Disable interrupt */
-  NVIC_DisableIRQ(IRQn);
+    /* Disable interrupt */
+    NVIC_DisableIRQ( IRQn );
 }
 
 /**
   * @brief  Initiate a system reset request to reset the MCU.
   * @retval None
   */
-void HAL_NVIC_SystemReset(void)
+void HAL_NVIC_SystemReset( void )
 {
-  /* System Reset */
-  NVIC_SystemReset();
+    /* System Reset */
+    NVIC_SystemReset();
 }
 
 /**
@@ -185,9 +185,9 @@ void HAL_NVIC_SystemReset(void)
   * @retval status:  - 0  Function succeeded.
   *                  - 1  Function failed.
   */
-uint32_t HAL_SYSTICK_Config(uint32_t TicksNumb)
+uint32_t HAL_SYSTICK_Config( uint32_t TicksNumb )
 {
-  return SysTick_Config(TicksNumb);
+    return SysTick_Config( TicksNumb );
 }
 /**
   * @}
@@ -216,10 +216,10 @@ uint32_t HAL_SYSTICK_Config(uint32_t TicksNumb)
   *         (For the complete STM32 Devices IRQ Channels list, please refer to the appropriate CMSIS device file (stm32g0xxxx.h))
   * @retval None
   */
-uint32_t HAL_NVIC_GetPriority(IRQn_Type IRQn)
+uint32_t HAL_NVIC_GetPriority( IRQn_Type IRQn )
 {
-  /* Get priority for Cortex-M system or device specific interrupts */
-  return NVIC_GetPriority(IRQn);
+    /* Get priority for Cortex-M system or device specific interrupts */
+    return NVIC_GetPriority( IRQn );
 }
 
 /**
@@ -229,13 +229,13 @@ uint32_t HAL_NVIC_GetPriority(IRQn_Type IRQn)
   *         (For the complete STM32 Devices IRQ Channels list, please refer to the appropriate CMSIS device file (stm32g0xxxx.h))
   * @retval None
   */
-void HAL_NVIC_SetPendingIRQ(IRQn_Type IRQn)
+void HAL_NVIC_SetPendingIRQ( IRQn_Type IRQn )
 {
-  /* Check the parameters */
-  assert_param(IS_NVIC_DEVICE_IRQ(IRQn));
+    /* Check the parameters */
+    assert_param( IS_NVIC_DEVICE_IRQ( IRQn ) );
 
-  /* Set interrupt pending */
-  NVIC_SetPendingIRQ(IRQn);
+    /* Set interrupt pending */
+    NVIC_SetPendingIRQ( IRQn );
 }
 
 /**
@@ -247,13 +247,13 @@ void HAL_NVIC_SetPendingIRQ(IRQn_Type IRQn)
   * @retval status: - 0  Interrupt status is not pending.
   *                 - 1  Interrupt status is pending.
   */
-uint32_t HAL_NVIC_GetPendingIRQ(IRQn_Type IRQn)
+uint32_t HAL_NVIC_GetPendingIRQ( IRQn_Type IRQn )
 {
-  /* Check the parameters */
-  assert_param(IS_NVIC_DEVICE_IRQ(IRQn));
+    /* Check the parameters */
+    assert_param( IS_NVIC_DEVICE_IRQ( IRQn ) );
 
-  /* Return 1 if pending else 0 */
-  return NVIC_GetPendingIRQ(IRQn);
+    /* Return 1 if pending else 0 */
+    return NVIC_GetPendingIRQ( IRQn );
 }
 
 /**
@@ -263,13 +263,13 @@ uint32_t HAL_NVIC_GetPendingIRQ(IRQn_Type IRQn)
   *         (For the complete STM32 Devices IRQ Channels list, please refer to the appropriate CMSIS device file (stm32g0xxxx.h))
   * @retval None
   */
-void HAL_NVIC_ClearPendingIRQ(IRQn_Type IRQn)
+void HAL_NVIC_ClearPendingIRQ( IRQn_Type IRQn )
 {
-  /* Check the parameters */
-  assert_param(IS_NVIC_DEVICE_IRQ(IRQn));
+    /* Check the parameters */
+    assert_param( IS_NVIC_DEVICE_IRQ( IRQn ) );
 
-  /* Clear pending interrupt */
-  NVIC_ClearPendingIRQ(IRQn);
+    /* Clear pending interrupt */
+    NVIC_ClearPendingIRQ( IRQn );
 }
 
 /**
@@ -280,38 +280,39 @@ void HAL_NVIC_ClearPendingIRQ(IRQn_Type IRQn)
   *             @arg SYSTICK_CLKSOURCE_HCLK: AHB clock selected as SysTick clock source.
   * @retval None
   */
-void HAL_SYSTICK_CLKSourceConfig(uint32_t CLKSource)
+void HAL_SYSTICK_CLKSourceConfig( uint32_t CLKSource )
 {
-  /* Check the parameters */
-  assert_param(IS_SYSTICK_CLK_SOURCE(CLKSource));
-  if (CLKSource == SYSTICK_CLKSOURCE_HCLK)
-  {
-    SysTick->CTRL |= SYSTICK_CLKSOURCE_HCLK;
-  }
-  else
-  {
-    SysTick->CTRL &= ~SYSTICK_CLKSOURCE_HCLK;
-  }
+    /* Check the parameters */
+    assert_param( IS_SYSTICK_CLK_SOURCE( CLKSource ) );
+
+    if( CLKSource == SYSTICK_CLKSOURCE_HCLK )
+    {
+        SysTick->CTRL |= SYSTICK_CLKSOURCE_HCLK;
+    }
+    else
+    {
+        SysTick->CTRL &= ~SYSTICK_CLKSOURCE_HCLK;
+    }
 }
 
 /**
   * @brief  Handle SYSTICK interrupt request.
   * @retval None
   */
-void HAL_SYSTICK_IRQHandler(void)
+void HAL_SYSTICK_IRQHandler( void )
 {
-  HAL_SYSTICK_Callback();
+    HAL_SYSTICK_Callback();
 }
 
 /**
   * @brief  SYSTICK callback.
   * @retval None
   */
-__weak void HAL_SYSTICK_Callback(void)
+__weak void HAL_SYSTICK_Callback( void )
 {
-  /* NOTE : This function should not be modified, when the callback is needed,
-            the HAL_SYSTICK_Callback could be implemented in the user file
-   */
+    /* NOTE : This function should not be modified, when the callback is needed,
+              the HAL_SYSTICK_Callback could be implemented in the user file
+     */
 }
 
 #if (__MPU_PRESENT == 1U)
@@ -326,14 +327,14 @@ __weak void HAL_SYSTICK_Callback(void)
   *            @arg MPU_HFNMI_PRIVDEF
   * @retval None
   */
-void HAL_MPU_Enable(uint32_t MPU_Control)
+void HAL_MPU_Enable( uint32_t MPU_Control )
 {
-  /* Enable the MPU */
-  MPU->CTRL = (MPU_Control | MPU_CTRL_ENABLE_Msk);
+    /* Enable the MPU */
+    MPU->CTRL = ( MPU_Control | MPU_CTRL_ENABLE_Msk );
 
-  /* Ensure MPU setting take effects */
-  __DSB();
-  __ISB();
+    /* Ensure MPU setting take effects */
+    __DSB();
+    __ISB();
 }
 
 
@@ -341,13 +342,13 @@ void HAL_MPU_Enable(uint32_t MPU_Control)
   * @brief  Disable the MPU.
   * @retval None
   */
-void HAL_MPU_Disable(void)
+void HAL_MPU_Disable( void )
 {
-  /* Make sure outstanding transfers are done */
-  __DMB();
+    /* Make sure outstanding transfers are done */
+    __DMB();
 
-  /* Disable the MPU and clear the control register*/
-  MPU->CTRL  = 0;
+    /* Disable the MPU and clear the control register*/
+    MPU->CTRL  = 0;
 }
 
 
@@ -357,43 +358,43 @@ void HAL_MPU_Disable(void)
   *                the initialization and configuration information.
   * @retval None
   */
-void HAL_MPU_ConfigRegion(MPU_Region_InitTypeDef *MPU_Init)
+void HAL_MPU_ConfigRegion( MPU_Region_InitTypeDef *MPU_Init )
 {
-  /* Check the parameters */
-  assert_param(IS_MPU_REGION_NUMBER(MPU_Init->Number));
-  assert_param(IS_MPU_REGION_ENABLE(MPU_Init->Enable));
-
-  /* Set the Region number */
-  MPU->RNR = MPU_Init->Number;
-
-  if ((MPU_Init->Enable) != 0U)
-  {
     /* Check the parameters */
-    assert_param(IS_MPU_INSTRUCTION_ACCESS(MPU_Init->DisableExec));
-    assert_param(IS_MPU_REGION_PERMISSION_ATTRIBUTE(MPU_Init->AccessPermission));
-    assert_param(IS_MPU_TEX_LEVEL(MPU_Init->TypeExtField));
-    assert_param(IS_MPU_ACCESS_SHAREABLE(MPU_Init->IsShareable));
-    assert_param(IS_MPU_ACCESS_CACHEABLE(MPU_Init->IsCacheable));
-    assert_param(IS_MPU_ACCESS_BUFFERABLE(MPU_Init->IsBufferable));
-    assert_param(IS_MPU_SUB_REGION_DISABLE(MPU_Init->SubRegionDisable));
-    assert_param(IS_MPU_REGION_SIZE(MPU_Init->Size));
+    assert_param( IS_MPU_REGION_NUMBER( MPU_Init->Number ) );
+    assert_param( IS_MPU_REGION_ENABLE( MPU_Init->Enable ) );
 
-    MPU->RBAR = MPU_Init->BaseAddress;
-    MPU->RASR = ((uint32_t)MPU_Init->DisableExec             << MPU_RASR_XN_Pos)   |
-                ((uint32_t)MPU_Init->AccessPermission        << MPU_RASR_AP_Pos)   |
-                ((uint32_t)MPU_Init->TypeExtField            << MPU_RASR_TEX_Pos)  |
-                ((uint32_t)MPU_Init->IsShareable             << MPU_RASR_S_Pos)    |
-                ((uint32_t)MPU_Init->IsCacheable             << MPU_RASR_C_Pos)    |
-                ((uint32_t)MPU_Init->IsBufferable            << MPU_RASR_B_Pos)    |
-                ((uint32_t)MPU_Init->SubRegionDisable        << MPU_RASR_SRD_Pos)  |
-                ((uint32_t)MPU_Init->Size                    << MPU_RASR_SIZE_Pos) |
-                ((uint32_t)MPU_Init->Enable                  << MPU_RASR_ENABLE_Pos);
-  }
-  else
-  {
-    MPU->RBAR = 0x00U;
-    MPU->RASR = 0x00U;
-  }
+    /* Set the Region number */
+    MPU->RNR = MPU_Init->Number;
+
+    if( ( MPU_Init->Enable ) != 0U )
+    {
+        /* Check the parameters */
+        assert_param( IS_MPU_INSTRUCTION_ACCESS( MPU_Init->DisableExec ) );
+        assert_param( IS_MPU_REGION_PERMISSION_ATTRIBUTE( MPU_Init->AccessPermission ) );
+        assert_param( IS_MPU_TEX_LEVEL( MPU_Init->TypeExtField ) );
+        assert_param( IS_MPU_ACCESS_SHAREABLE( MPU_Init->IsShareable ) );
+        assert_param( IS_MPU_ACCESS_CACHEABLE( MPU_Init->IsCacheable ) );
+        assert_param( IS_MPU_ACCESS_BUFFERABLE( MPU_Init->IsBufferable ) );
+        assert_param( IS_MPU_SUB_REGION_DISABLE( MPU_Init->SubRegionDisable ) );
+        assert_param( IS_MPU_REGION_SIZE( MPU_Init->Size ) );
+
+        MPU->RBAR = MPU_Init->BaseAddress;
+        MPU->RASR = ( ( uint32_t )MPU_Init->DisableExec             << MPU_RASR_XN_Pos )   |
+                    ( ( uint32_t )MPU_Init->AccessPermission        << MPU_RASR_AP_Pos )   |
+                    ( ( uint32_t )MPU_Init->TypeExtField            << MPU_RASR_TEX_Pos )  |
+                    ( ( uint32_t )MPU_Init->IsShareable             << MPU_RASR_S_Pos )    |
+                    ( ( uint32_t )MPU_Init->IsCacheable             << MPU_RASR_C_Pos )    |
+                    ( ( uint32_t )MPU_Init->IsBufferable            << MPU_RASR_B_Pos )    |
+                    ( ( uint32_t )MPU_Init->SubRegionDisable        << MPU_RASR_SRD_Pos )  |
+                    ( ( uint32_t )MPU_Init->Size                    << MPU_RASR_SIZE_Pos ) |
+                    ( ( uint32_t )MPU_Init->Enable                  << MPU_RASR_ENABLE_Pos );
+    }
+    else
+    {
+        MPU->RBAR = 0x00U;
+        MPU->RASR = 0x00U;
+    }
 }
 #endif /* __MPU_PRESENT */
 

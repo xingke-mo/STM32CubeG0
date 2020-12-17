@@ -213,64 +213,64 @@ extern "C" {
 
 typedef struct _USBD_CDC_RNDIS_Itf
 {
-  int8_t (* Init)(void);
-  int8_t (* DeInit)(void);
-  int8_t (* Control)(uint8_t cmd, uint8_t *pbuf, uint16_t length);
-  int8_t (* Receive)(uint8_t *Buf, uint32_t *Len);
-  int8_t (* TransmitCplt)(uint8_t *Buf, uint32_t *Len, uint8_t epnum);
-  int8_t (* Process)(USBD_HandleTypeDef *pdev);
-  uint8_t *pStrDesc;
+    int8_t ( * Init )( void );
+    int8_t ( * DeInit )( void );
+    int8_t ( * Control )( uint8_t cmd, uint8_t *pbuf, uint16_t length );
+    int8_t ( * Receive )( uint8_t *Buf, uint32_t *Len );
+    int8_t ( * TransmitCplt )( uint8_t *Buf, uint32_t *Len, uint8_t epnum );
+    int8_t ( * Process )( USBD_HandleTypeDef *pdev );
+    uint8_t *pStrDesc;
 } USBD_CDC_RNDIS_ItfTypeDef;
 
 /* CDC_RNDIS State values */
 typedef enum
 {
-  CDC_RNDIS_STATE_UNINITIALIZED    = 0,
-  CDC_RNDIS_STATE_BUS_INITIALIZED  = 1,
-  CDC_RNDIS_STATE_INITIALIZED      = 2,
-  CDC_RNDIS_STATE_DATA_INITIALIZED = 3
+    CDC_RNDIS_STATE_UNINITIALIZED    = 0,
+    CDC_RNDIS_STATE_BUS_INITIALIZED  = 1,
+    CDC_RNDIS_STATE_INITIALIZED      = 2,
+    CDC_RNDIS_STATE_DATA_INITIALIZED = 3
 } USBD_CDC_RNDIS_StateTypeDef;
 
 typedef struct
 {
-  uint8_t   bmRequest;
-  uint8_t   bRequest;
-  uint16_t  wValue;
-  uint16_t  wIndex;
-  uint16_t  wLength;
-  uint8_t   data[8];
+    uint8_t   bmRequest;
+    uint8_t   bRequest;
+    uint16_t  wValue;
+    uint16_t  wIndex;
+    uint16_t  wLength;
+    uint8_t   data[8];
 } USBD_CDC_RNDIS_NotifTypeDef;
 
 typedef struct
 {
-  uint32_t        data[2000 / 4]; /* Force 32bits alignment */
-  uint8_t         CmdOpCode;
-  uint8_t         CmdLength;
-  uint8_t         ResponseRdy;     /* Indicates if the Device Response to an CDC_RNDIS msg is ready */
-  uint8_t         Reserved1;       /* Reserved Byte to force 4 bytes alignment of following fields */
-  uint8_t         *RxBuffer;
-  uint8_t         *TxBuffer;
-  uint32_t        RxLength;
-  uint32_t        TxLength;
+    uint32_t        data[2000 / 4]; /* Force 32bits alignment */
+    uint8_t         CmdOpCode;
+    uint8_t         CmdLength;
+    uint8_t         ResponseRdy;     /* Indicates if the Device Response to an CDC_RNDIS msg is ready */
+    uint8_t         Reserved1;       /* Reserved Byte to force 4 bytes alignment of following fields */
+    uint8_t         *RxBuffer;
+    uint8_t         *TxBuffer;
+    uint32_t        RxLength;
+    uint32_t        TxLength;
 
-  USBD_CDC_RNDIS_NotifTypeDef     Req;
-  USBD_CDC_RNDIS_StateTypeDef     State;
+    USBD_CDC_RNDIS_NotifTypeDef     Req;
+    USBD_CDC_RNDIS_StateTypeDef     State;
 
-  __IO uint32_t   TxState;
-  __IO uint32_t   RxState;
+    __IO uint32_t   TxState;
+    __IO uint32_t   RxState;
 
-  __IO uint32_t   MaxPcktLen;
-  __IO uint32_t   LinkStatus;
-  __IO uint32_t   NotificationStatus;
-  __IO uint32_t   PacketFilter;
+    __IO uint32_t   MaxPcktLen;
+    __IO uint32_t   LinkStatus;
+    __IO uint32_t   NotificationStatus;
+    __IO uint32_t   PacketFilter;
 } USBD_CDC_RNDIS_HandleTypeDef;
 
 
 typedef enum
 {
-  NETWORK_CONNECTION = 0x00,
-  RESPONSE_AVAILABLE = 0x01,
-  CONNECTION_SPEED_CHANGE = 0x2A
+    NETWORK_CONNECTION = 0x00,
+    RESPONSE_AVAILABLE = 0x01,
+    CONNECTION_SPEED_CHANGE = 0x2A
 } USBD_CDC_RNDIS_NotifCodeTypeDef;
 
 
@@ -279,62 +279,62 @@ typedef enum
 /* Type define for a CDC_RNDIS Initialize command message */
 typedef struct
 {
-  uint32_t MsgType;
-  uint32_t MsgLength;
-  uint32_t ReqId;
-  uint32_t MajorVersion;
-  uint32_t MinorVersion;
-  uint32_t MaxTransferSize;
+    uint32_t MsgType;
+    uint32_t MsgLength;
+    uint32_t ReqId;
+    uint32_t MajorVersion;
+    uint32_t MinorVersion;
+    uint32_t MaxTransferSize;
 } USBD_CDC_RNDIS_InitMsgTypeDef;
 
 /* Type define for a CDC_RNDIS Halt Message */
 typedef struct
 {
-  uint32_t MsgType;
-  uint32_t MsgLength;
-  uint32_t ReqId;
+    uint32_t MsgType;
+    uint32_t MsgLength;
+    uint32_t ReqId;
 } USBD_CDC_RNDIS_HaltMsgTypeDef;
 
 /* Type define for a CDC_RNDIS Query command message */
 typedef struct
 {
-  uint32_t MsgType;
-  uint32_t MsgLength;
-  uint32_t RequestId;
-  uint32_t Oid;
-  uint32_t InfoBufLength;
-  uint32_t InfoBufOffset;
-  uint32_t DeviceVcHandle;
-  uint32_t InfoBuf[CDC_RNDIS_MAX_INFO_BUFF_SZ];
+    uint32_t MsgType;
+    uint32_t MsgLength;
+    uint32_t RequestId;
+    uint32_t Oid;
+    uint32_t InfoBufLength;
+    uint32_t InfoBufOffset;
+    uint32_t DeviceVcHandle;
+    uint32_t InfoBuf[CDC_RNDIS_MAX_INFO_BUFF_SZ];
 } USBD_CDC_RNDIS_QueryMsgTypeDef;
 
 /* Type define for a CDC_RNDIS Set command message */
 typedef struct
 {
-  uint32_t MsgType;
-  uint32_t MsgLength;
-  uint32_t ReqId;
-  uint32_t Oid;
-  uint32_t InfoBufLength;
-  uint32_t InfoBufOffset;
-  uint32_t DeviceVcHandle;
-  uint32_t InfoBuf[CDC_RNDIS_MAX_INFO_BUFF_SZ];
+    uint32_t MsgType;
+    uint32_t MsgLength;
+    uint32_t ReqId;
+    uint32_t Oid;
+    uint32_t InfoBufLength;
+    uint32_t InfoBufOffset;
+    uint32_t DeviceVcHandle;
+    uint32_t InfoBuf[CDC_RNDIS_MAX_INFO_BUFF_SZ];
 } USBD_CDC_RNDIS_SetMsgTypeDef;
 
 /* Type define for a CDC_RNDIS Reset message */
 typedef struct
 {
-  uint32_t MsgType;
-  uint32_t MsgLength;
-  uint32_t Reserved;
+    uint32_t MsgType;
+    uint32_t MsgLength;
+    uint32_t Reserved;
 } USBD_CDC_RNDIS_ResetMsgTypeDef;
 
 /* Type define for a CDC_RNDIS Keepalive command message */
 typedef struct
 {
-  uint32_t MsgType;
-  uint32_t MsgLength;
-  uint32_t ReqId;
+    uint32_t MsgType;
+    uint32_t MsgLength;
+    uint32_t ReqId;
 } USBD_CDC_RNDIS_KpAliveMsgTypeDef;
 
 
@@ -343,69 +343,69 @@ typedef struct
 /* Type define for a CDC_RNDIS Initialize complete response message */
 typedef struct
 {
-  uint32_t MsgType;
-  uint32_t MsgLength;
-  uint32_t ReqId;
-  uint32_t Status;
-  uint32_t MajorVersion;
-  uint32_t MinorVersion;
-  uint32_t DeviceFlags;
-  uint32_t Medium;
-  uint32_t MaxPacketsPerTransfer;
-  uint32_t MaxTransferSize;
-  uint32_t PacketAlignmentFactor;
-  uint32_t AFListOffset;
-  uint32_t AFListSize;
+    uint32_t MsgType;
+    uint32_t MsgLength;
+    uint32_t ReqId;
+    uint32_t Status;
+    uint32_t MajorVersion;
+    uint32_t MinorVersion;
+    uint32_t DeviceFlags;
+    uint32_t Medium;
+    uint32_t MaxPacketsPerTransfer;
+    uint32_t MaxTransferSize;
+    uint32_t PacketAlignmentFactor;
+    uint32_t AFListOffset;
+    uint32_t AFListSize;
 } USBD_CDC_RNDIS_InitCpltMsgTypeDef;
 
 /* Type define for a CDC_RNDIS Query complete response message */
 typedef struct
 {
-  uint32_t MsgType;
-  uint32_t MsgLength;
-  uint32_t ReqId;
-  uint32_t Status;
-  uint32_t InfoBufLength;
-  uint32_t InfoBufOffset;
-  uint32_t InfoBuf[CDC_RNDIS_MAX_INFO_BUFF_SZ];
+    uint32_t MsgType;
+    uint32_t MsgLength;
+    uint32_t ReqId;
+    uint32_t Status;
+    uint32_t InfoBufLength;
+    uint32_t InfoBufOffset;
+    uint32_t InfoBuf[CDC_RNDIS_MAX_INFO_BUFF_SZ];
 } USBD_CDC_RNDIS_QueryCpltMsgTypeDef;
 
 /* Type define for a CDC_RNDIS Set complete response message */
 typedef struct
 {
-  uint32_t MsgType;
-  uint32_t MsgLength;
-  uint32_t ReqId;
-  uint32_t Status;
+    uint32_t MsgType;
+    uint32_t MsgLength;
+    uint32_t ReqId;
+    uint32_t Status;
 } USBD_CDC_RNDIS_SetCpltMsgTypeDef;
 
 /* Type define for a CDC_RNDIS Reset complete message */
 typedef struct
 {
-  uint32_t MsgType;
-  uint32_t MsgLength;
-  uint32_t Status;
-  uint32_t AddrReset;
+    uint32_t MsgType;
+    uint32_t MsgLength;
+    uint32_t Status;
+    uint32_t AddrReset;
 } USBD_CDC_RNDIS_ResetCpltMsgTypeDef;
 
 /* Type define for CDC_RNDIS struct to indicate a change
    in the status of the device */
 typedef struct
 {
-  uint32_t MsgType;
-  uint32_t MsgLength;
-  uint32_t Status;
-  uint32_t StsBufLength;
-  uint32_t StsBufOffset;
+    uint32_t MsgType;
+    uint32_t MsgLength;
+    uint32_t Status;
+    uint32_t StsBufLength;
+    uint32_t StsBufOffset;
 } USBD_CDC_RNDIS_StsChangeMsgTypeDef;
 
 /* Type define for a CDC_RNDIS Keepalive complete message */
 typedef struct
 {
-  uint32_t MsgType;
-  uint32_t MsgLength;
-  uint32_t ReqId;
-  uint32_t Status;
+    uint32_t MsgType;
+    uint32_t MsgLength;
+    uint32_t ReqId;
+    uint32_t Status;
 } USBD_CDC_RNDIS_KpAliveCpltMsgTypeDef;
 
 
@@ -415,17 +415,17 @@ typedef struct
    Ethernet packets sent to and from the adapter */
 typedef struct
 {
-  uint32_t MsgType;
-  uint32_t MsgLength;
-  uint32_t DataOffset;
-  uint32_t DataLength;
-  uint32_t OOBDataOffset;
-  uint32_t OOBDataLength;
-  uint32_t NumOOBDataElements;
-  uint32_t PerPacketInfoOffset;
-  uint32_t PerPacketInfoLength;
-  uint32_t VcHandle;
-  uint32_t Reserved;
+    uint32_t MsgType;
+    uint32_t MsgLength;
+    uint32_t DataOffset;
+    uint32_t DataLength;
+    uint32_t OOBDataOffset;
+    uint32_t OOBDataLength;
+    uint32_t NumOOBDataElements;
+    uint32_t PerPacketInfoOffset;
+    uint32_t PerPacketInfoLength;
+    uint32_t VcHandle;
+    uint32_t Reserved;
 } USBD_CDC_RNDIS_PacketMsgTypeDef;
 
 /* Miscellaneous types used for parsing ---------------------*/
@@ -433,45 +433,45 @@ typedef struct
 /* The common part for all CDC_RNDIS messages Complete response */
 typedef struct
 {
-  uint32_t MsgType;
-  uint32_t MsgLength;
-  uint32_t ReqId;
-  uint32_t Status;
+    uint32_t MsgType;
+    uint32_t MsgLength;
+    uint32_t ReqId;
+    uint32_t Status;
 } USBD_CDC_RNDIS_CommonCpltMsgTypeDef;
 
 /* Type define for a single parameter structure */
 typedef struct
 {
-  uint32_t ParamNameOffset;
-  uint32_t ParamNameLength;
-  uint32_t ParamType;
-  uint32_t ParamValueOffset;
-  uint32_t ParamValueLength;
+    uint32_t ParamNameOffset;
+    uint32_t ParamNameLength;
+    uint32_t ParamType;
+    uint32_t ParamValueOffset;
+    uint32_t ParamValueLength;
 } USBD_CDC_RNDIS_ParamStructTypeDef;
 
 
 /* Type define of a single CDC_RNDIS OOB data record */
 typedef struct
 {
-  uint32_t Size;
-  uint32_t Type;
-  uint32_t ClassInfoType;
-  uint32_t OOBData[sizeof(uint32_t)];
+    uint32_t Size;
+    uint32_t Type;
+    uint32_t ClassInfoType;
+    uint32_t OOBData[sizeof( uint32_t )];
 } USBD_CDC_RNDIS_OOBPacketTypeDef;
 
 /* Type define for notification structure */
 typedef struct
 {
-  uint32_t notification;
-  uint32_t reserved;
+    uint32_t notification;
+    uint32_t reserved;
 } USBD_CDC_RNDIS_NotifStructTypeDef;
 
 /* This structure will be used to store the type, the size and ID for any
    received message from the control endpoint */
 typedef struct
 {
-  uint32_t MsgType;
-  uint32_t MsgLength;
+    uint32_t MsgType;
+    uint32_t MsgLength;
 } USBD_CDC_RNDIS_CtrlMsgTypeDef;
 
 
@@ -496,19 +496,19 @@ extern USBD_ClassTypeDef USBD_CDC_RNDIS;
 /** @defgroup USB_CORE_Exported_Functions
   * @{
   */
-uint8_t USBD_CDC_RNDIS_SetRxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff);
-uint8_t USBD_CDC_RNDIS_ReceivePacket(USBD_HandleTypeDef *pdev);
-uint8_t USBD_CDC_RNDIS_TransmitPacket(USBD_HandleTypeDef *pdev);
+uint8_t USBD_CDC_RNDIS_SetRxBuffer( USBD_HandleTypeDef *pdev, uint8_t *pbuff );
+uint8_t USBD_CDC_RNDIS_ReceivePacket( USBD_HandleTypeDef *pdev );
+uint8_t USBD_CDC_RNDIS_TransmitPacket( USBD_HandleTypeDef *pdev );
 
-uint8_t USBD_CDC_RNDIS_RegisterInterface(USBD_HandleTypeDef *pdev,
-                                         USBD_CDC_RNDIS_ItfTypeDef *fops);
+uint8_t USBD_CDC_RNDIS_RegisterInterface( USBD_HandleTypeDef *pdev,
+        USBD_CDC_RNDIS_ItfTypeDef *fops );
 
-uint8_t USBD_CDC_RNDIS_SetTxBuffer(USBD_HandleTypeDef *pdev,
-                                   uint8_t *pbuff, uint32_t length);
+uint8_t USBD_CDC_RNDIS_SetTxBuffer( USBD_HandleTypeDef *pdev,
+                                    uint8_t *pbuff, uint32_t length );
 
-uint8_t USBD_CDC_RNDIS_SendNotification(USBD_HandleTypeDef *pdev,
-                                        USBD_CDC_RNDIS_NotifCodeTypeDef Notif,
-                                        uint16_t bVal, uint8_t *pData);
+uint8_t USBD_CDC_RNDIS_SendNotification( USBD_HandleTypeDef *pdev,
+        USBD_CDC_RNDIS_NotifCodeTypeDef Notif,
+        uint16_t bVal, uint8_t *pData );
 /**
   * @}
   */

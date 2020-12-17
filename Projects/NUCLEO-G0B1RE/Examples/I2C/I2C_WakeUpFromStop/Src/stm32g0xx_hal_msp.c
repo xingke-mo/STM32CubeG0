@@ -7,11 +7,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -32,7 +32,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN Define */
- 
+
 /* USER CODE END Define */
 
 /* Private macro -------------------------------------------------------------*/
@@ -61,24 +61,24 @@
 /**
   * Initializes the Global MSP.
   */
-void HAL_MspInit(void)
+void HAL_MspInit( void )
 {
-  /* USER CODE BEGIN MspInit 0 */
+    /* USER CODE BEGIN MspInit 0 */
 
-  /* USER CODE END MspInit 0 */
+    /* USER CODE END MspInit 0 */
 
-  __HAL_RCC_SYSCFG_CLK_ENABLE();
-  __HAL_RCC_PWR_CLK_ENABLE();
+    __HAL_RCC_SYSCFG_CLK_ENABLE();
+    __HAL_RCC_PWR_CLK_ENABLE();
 
-  /* System interrupt init*/
+    /* System interrupt init*/
 
-  /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
-  */
-  HAL_SYSCFG_StrobeDBattpinsConfig(SYSCFG_CFGR1_UCPD1_STROBE | SYSCFG_CFGR1_UCPD2_STROBE);
+    /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
+    */
+    HAL_SYSCFG_StrobeDBattpinsConfig( SYSCFG_CFGR1_UCPD1_STROBE | SYSCFG_CFGR1_UCPD2_STROBE );
 
-  /* USER CODE BEGIN MspInit 1 */
+    /* USER CODE BEGIN MspInit 1 */
 
-  /* USER CODE END MspInit 1 */
+    /* USER CODE END MspInit 1 */
 }
 
 /**
@@ -87,35 +87,36 @@ void HAL_MspInit(void)
 * @param hi2c: I2C handle pointer
 * @retval None
 */
-void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
+void HAL_I2C_MspInit( I2C_HandleTypeDef *hi2c )
 {
-  GPIO_InitTypeDef GPIO_InitStruct = {0};
-  if(hi2c->Instance==I2C1)
-  {
-  /* USER CODE BEGIN I2C1_MspInit 0 */
-  /* USER CODE END I2C1_MspInit 0 */
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
 
-    __HAL_RCC_GPIOA_CLK_ENABLE();
-    /**I2C1 GPIO Configuration
-    PA9     ------> I2C1_SCL
-    PA10     ------> I2C1_SDA
-    */
-    GPIO_InitStruct.Pin = GPIO_PIN_9|GPIO_PIN_10;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
-    GPIO_InitStruct.Pull = GPIO_PULLUP;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-    GPIO_InitStruct.Alternate = GPIO_AF6_I2C1;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+    if( hi2c->Instance == I2C1 )
+    {
+        /* USER CODE BEGIN I2C1_MspInit 0 */
+        /* USER CODE END I2C1_MspInit 0 */
 
-    /* Peripheral clock enable */
-    __HAL_RCC_I2C1_CLK_ENABLE();
-    /* I2C1 interrupt Init */
-    HAL_NVIC_SetPriority(I2C1_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(I2C1_IRQn);
-  /* USER CODE BEGIN I2C1_MspInit 1 */
+        __HAL_RCC_GPIOA_CLK_ENABLE();
+        /**I2C1 GPIO Configuration
+        PA9     ------> I2C1_SCL
+        PA10     ------> I2C1_SDA
+        */
+        GPIO_InitStruct.Pin = GPIO_PIN_9 | GPIO_PIN_10;
+        GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+        GPIO_InitStruct.Pull = GPIO_PULLUP;
+        GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+        GPIO_InitStruct.Alternate = GPIO_AF6_I2C1;
+        HAL_GPIO_Init( GPIOA, &GPIO_InitStruct );
 
-  /* USER CODE END I2C1_MspInit 1 */
-  }
+        /* Peripheral clock enable */
+        __HAL_RCC_I2C1_CLK_ENABLE();
+        /* I2C1 interrupt Init */
+        HAL_NVIC_SetPriority( I2C1_IRQn, 0, 0 );
+        HAL_NVIC_EnableIRQ( I2C1_IRQn );
+        /* USER CODE BEGIN I2C1_MspInit 1 */
+
+        /* USER CODE END I2C1_MspInit 1 */
+    }
 
 }
 
@@ -125,30 +126,30 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
 * @param hi2c: I2C handle pointer
 * @retval None
 */
-void HAL_I2C_MspDeInit(I2C_HandleTypeDef* hi2c)
+void HAL_I2C_MspDeInit( I2C_HandleTypeDef *hi2c )
 {
-  if(hi2c->Instance==I2C1)
-  {
-  /* USER CODE BEGIN I2C1_MspDeInit 0 */
+    if( hi2c->Instance == I2C1 )
+    {
+        /* USER CODE BEGIN I2C1_MspDeInit 0 */
 
-  /* USER CODE END I2C1_MspDeInit 0 */
-    /* Peripheral clock disable */
-    __HAL_RCC_I2C1_CLK_DISABLE();
+        /* USER CODE END I2C1_MspDeInit 0 */
+        /* Peripheral clock disable */
+        __HAL_RCC_I2C1_CLK_DISABLE();
 
-    /**I2C1 GPIO Configuration
-    PA9     ------> I2C1_SCL
-    PA10     ------> I2C1_SDA
-    */
-    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_9);
+        /**I2C1 GPIO Configuration
+        PA9     ------> I2C1_SCL
+        PA10     ------> I2C1_SDA
+        */
+        HAL_GPIO_DeInit( GPIOA, GPIO_PIN_9 );
 
-    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_10);
+        HAL_GPIO_DeInit( GPIOA, GPIO_PIN_10 );
 
-    /* I2C1 interrupt DeInit */
-    HAL_NVIC_DisableIRQ(I2C1_IRQn);
-  /* USER CODE BEGIN I2C1_MspDeInit 1 */
+        /* I2C1 interrupt DeInit */
+        HAL_NVIC_DisableIRQ( I2C1_IRQn );
+        /* USER CODE BEGIN I2C1_MspDeInit 1 */
 
-  /* USER CODE END I2C1_MspDeInit 1 */
-  }
+        /* USER CODE END I2C1_MspDeInit 1 */
+    }
 
 }
 

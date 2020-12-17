@@ -49,47 +49,47 @@ static OPENBL_HandleTypeDef IWDG_Handle;
 
 static OPENBL_OpsTypeDef USART_Ops =
 {
-  OPENBL_USART_Configuration,
-  NULL,
-  OPENBL_USART_ProtocolDetection,
-  OPENBL_USART_GetCommandOpcode,
-  OPENBL_USART_SendByte
+    OPENBL_USART_Configuration,
+    NULL,
+    OPENBL_USART_ProtocolDetection,
+    OPENBL_USART_GetCommandOpcode,
+    OPENBL_USART_SendByte
 };
 
 static OPENBL_OpsTypeDef FDCAN_Ops =
 {
-  OPENBL_FDCAN_Configuration,
-  NULL,
-  OPENBL_FDCAN_ProtocolDetection,
-  OPENBL_FDCAN_GetCommandOpcode,
-  OPENBL_FDCAN_SendByte
+    OPENBL_FDCAN_Configuration,
+    NULL,
+    OPENBL_FDCAN_ProtocolDetection,
+    OPENBL_FDCAN_GetCommandOpcode,
+    OPENBL_FDCAN_SendByte
 };
 
 static OPENBL_OpsTypeDef I2C_Ops =
 {
-  OPENBL_I2C_Configuration,
-  NULL,
-  OPENBL_I2C_ProtocolDetection,
-  OPENBL_I2C_GetCommandOpcode,
-  OPENBL_I2C_SendAcknowledgeByte
+    OPENBL_I2C_Configuration,
+    NULL,
+    OPENBL_I2C_ProtocolDetection,
+    OPENBL_I2C_GetCommandOpcode,
+    OPENBL_I2C_SendAcknowledgeByte
 };
 
 static OPENBL_OpsTypeDef USB_Ops =
 {
-  OPENBL_USB_Configuration,
-  NULL,
-  OPENBL_USB_ProtocolDetection,
-  NULL,
-  NULL
+    OPENBL_USB_Configuration,
+    NULL,
+    OPENBL_USB_ProtocolDetection,
+    NULL,
+    NULL
 };
 
 static OPENBL_OpsTypeDef IWDG_Ops =
 {
-  OPENBL_IWDG_Configuration,
-  NULL,
-  NULL,
-  NULL,
-  NULL
+    OPENBL_IWDG_Configuration,
+    NULL,
+    NULL,
+    NULL,
+    NULL
 };
 
 /* Private function prototypes -----------------------------------------------*/
@@ -100,48 +100,48 @@ static OPENBL_OpsTypeDef IWDG_Ops =
   * @param  None.
   * @retval None.
   */
-void OpenBootloader_Init(void)
+void OpenBootloader_Init( void )
 {
-  /* Register USART interfaces */
-  USART_Handle.p_Ops = &USART_Ops;
-  USART_Handle.p_Cmd = OPENBL_USART_GetCommandsList();
+    /* Register USART interfaces */
+    USART_Handle.p_Ops = &USART_Ops;
+    USART_Handle.p_Cmd = OPENBL_USART_GetCommandsList();
 
-  OPENBL_RegisterInterface(&USART_Handle);
+    OPENBL_RegisterInterface( &USART_Handle );
 
-  /* Register FDCAN interfaces */
-  FDCAN_Handle.p_Ops = &FDCAN_Ops;
-  FDCAN_Handle.p_Cmd = OPENBL_FDCAN_GetCommandsList();
+    /* Register FDCAN interfaces */
+    FDCAN_Handle.p_Ops = &FDCAN_Ops;
+    FDCAN_Handle.p_Cmd = OPENBL_FDCAN_GetCommandsList();
 
-  OPENBL_RegisterInterface(&FDCAN_Handle);
+    OPENBL_RegisterInterface( &FDCAN_Handle );
 
-  /* Register I2C interfaces */
-  I2C_Handle.p_Ops = &I2C_Ops;
-  I2C_Handle.p_Cmd = OPENBL_I2C_GetCommandsList();
+    /* Register I2C interfaces */
+    I2C_Handle.p_Ops = &I2C_Ops;
+    I2C_Handle.p_Cmd = OPENBL_I2C_GetCommandsList();
 
-  OPENBL_RegisterInterface(&I2C_Handle);
+    OPENBL_RegisterInterface( &I2C_Handle );
 
-  /* Register USB interfaces */
-  USB_Handle.p_Ops = &USB_Ops;
+    /* Register USB interfaces */
+    USB_Handle.p_Ops = &USB_Ops;
 
-  OPENBL_RegisterInterface(&USB_Handle);
+    OPENBL_RegisterInterface( &USB_Handle );
 
-  /* Register IWDG interfaces */
-  IWDG_Handle.p_Ops = &IWDG_Ops;
-  IWDG_Handle.p_Cmd = NULL;
+    /* Register IWDG interfaces */
+    IWDG_Handle.p_Ops = &IWDG_Ops;
+    IWDG_Handle.p_Cmd = NULL;
 
-  OPENBL_RegisterInterface(&IWDG_Handle);
+    OPENBL_RegisterInterface( &IWDG_Handle );
 
-  /* Initialise interfaces */
-  OPENBL_Init();
+    /* Initialise interfaces */
+    OPENBL_Init();
 
-  /* Initialise memories */
-  OPENBL_MEM_RegisterMemory(&FLASH_Descriptor);
-  OPENBL_MEM_RegisterMemory(&RAM_Descriptor);
-  OPENBL_MEM_RegisterMemory(&OB_Descriptor);
-  OPENBL_MEM_RegisterMemory(&OTP_Descriptor);
-  OPENBL_MEM_RegisterMemory(&ICP1_Descriptor);
-  OPENBL_MEM_RegisterMemory(&ICP2_Descriptor);
-  OPENBL_MEM_RegisterMemory(&EB_Descriptor);
+    /* Initialise memories */
+    OPENBL_MEM_RegisterMemory( &FLASH_Descriptor );
+    OPENBL_MEM_RegisterMemory( &RAM_Descriptor );
+    OPENBL_MEM_RegisterMemory( &OB_Descriptor );
+    OPENBL_MEM_RegisterMemory( &OTP_Descriptor );
+    OPENBL_MEM_RegisterMemory( &ICP1_Descriptor );
+    OPENBL_MEM_RegisterMemory( &ICP2_Descriptor );
+    OPENBL_MEM_RegisterMemory( &EB_Descriptor );
 }
 
 /**
@@ -149,9 +149,9 @@ void OpenBootloader_Init(void)
   * @param  None.
   * @retval None.
   */
-void OpenBootloader_DeInit(void)
+void OpenBootloader_DeInit( void )
 {
-  System_DeInit();
+    System_DeInit();
 }
 
 /**
@@ -159,19 +159,19 @@ void OpenBootloader_DeInit(void)
   * @param  None.
   * @retval None.
   */
-void OpenBootloader_ProtocolDetection(void)
+void OpenBootloader_ProtocolDetection( void )
 {
-  static uint32_t interface_detected = 0;
+    static uint32_t interface_detected = 0;
 
-  if (interface_detected == 0)
-  {
-    interface_detected = OPENBL_InterfaceDetection();
-  }
+    if( interface_detected == 0 )
+    {
+        interface_detected = OPENBL_InterfaceDetection();
+    }
 
-  if (interface_detected == 1)
-  {
-    OPENBL_CommandProcess();
-  }
+    if( interface_detected == 1 )
+    {
+        OPENBL_CommandProcess();
+    }
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -26,8 +26,8 @@
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-uint8_t OPENBL_OB_Read(uint32_t Address);
-void OPENBL_OB_Write(uint32_t Address, uint8_t *Data, uint32_t DataLength);
+uint8_t OPENBL_OB_Read( uint32_t Address );
+void OPENBL_OB_Write( uint32_t Address, uint8_t *Data, uint32_t DataLength );
 
 #endif /* OPTIONBYTES_INTERFACE_H */
 

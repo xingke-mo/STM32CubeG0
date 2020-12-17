@@ -7,11 +7,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -51,7 +51,7 @@ extern "C" {
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void Error_Handler(void);
+void Error_Handler( void );
 
 /* USER CODE BEGIN EFP */
 
@@ -59,7 +59,7 @@ void Error_Handler(void);
 
 /* Private defines -----------------------------------------------------------*/
 /* USER CODE BEGIN Private defines */
-/* 
+/*
     In this example TIM3 input clock (TIM3CLK)  is set to APB1 clock (PCLK1),
     since APB1 prescaler is equal to 1.
       TIM3CLK = PCLK1
@@ -83,12 +83,12 @@ void Error_Handler(void);
 #define PRESCALER_VALUE (uint32_t)((SystemCoreClock / 10000) - 1)
 
 
-  /* Initialize TIMx peripheral as follows:
-       + Period = 10000 - 1
-       + Prescaler = (SystemCoreClock/10000) - 1
-       + ClockDivision = 0
-       + Counter direction = Up
-  */
+/* Initialize TIMx peripheral as follows:
+     + Period = 10000 - 1
+     + Prescaler = (SystemCoreClock/10000) - 1
+     + ClockDivision = 0
+     + Counter direction = Up
+*/
 #define PERIOD_VALUE (10000 - 1);
 
 /* USER CODE END Private defines */

@@ -26,14 +26,14 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include <stdint.h>
-  
+
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions --------------------------------------------------------*/
-void WavePlayer_Demo(void);
-void WavePlayer_UserAction(uint8_t sel);
+void WavePlayer_Demo( void );
+void WavePlayer_UserAction( uint8_t sel );
 
 #ifdef __cplusplus
 }

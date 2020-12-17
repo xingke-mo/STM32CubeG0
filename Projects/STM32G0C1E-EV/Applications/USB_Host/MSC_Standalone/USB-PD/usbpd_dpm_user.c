@@ -26,9 +26,9 @@
 #include "usbpd_core.h"
 #include "usbpd_dpm_user.h"
 #if defined(_TRACE)
-#include "usbpd_trace.h"
-#include "string.h"
-#include "stdio.h"
+    #include "usbpd_trace.h"
+    #include "string.h"
+    #include "stdio.h"
 #endif /* _TRACE */
 
 /** @addtogroup STM32_USBPD_APPLICATION
@@ -128,11 +128,11 @@
   * @param  argument  DPM User event
   * @retval None
   */
-void USBPD_DPM_UserExecute(void const *argument)
+void USBPD_DPM_UserExecute( void const *argument )
 {
-/* USER CODE BEGIN USBPD_DPM_UserExecute */
+    /* USER CODE BEGIN USBPD_DPM_UserExecute */
 
-/* USER CODE END USBPD_DPM_UserExecute */
+    /* USER CODE END USBPD_DPM_UserExecute */
 }
 
 /**
@@ -141,28 +141,30 @@ void USBPD_DPM_UserExecute(void const *argument)
   * @param  State CAD state
   * @retval None
   */
-void USBPD_DPM_UserCableDetection(uint8_t PortNum, USBPD_CAD_EVENT State)
+void USBPD_DPM_UserCableDetection( uint8_t PortNum, USBPD_CAD_EVENT State )
 {
-/* USER CODE BEGIN USBPD_DPM_UserCableDetection */
-  switch(State)
-  {
-  case USBPD_CAD_EVENT_ATTACHED:
-  case USBPD_CAD_EVENT_ATTEMC:
+    /* USER CODE BEGIN USBPD_DPM_UserCableDetection */
+    switch( State )
     {
-      printf("Type C attached\n");
-      USBPD_PWR_IF_VBUSEnable(PortNum);
-      break;
+    case USBPD_CAD_EVENT_ATTACHED:
+    case USBPD_CAD_EVENT_ATTEMC:
+        {
+            printf( "Type C attached\n" );
+            USBPD_PWR_IF_VBUSEnable( PortNum );
+            break;
+        }
+
+    case USBPD_CAD_EVENT_DETACHED :
+    case USBPD_CAD_EVENT_EMC :
+    default :
+        {
+            printf( "Type C detached\n" );
+            USBPD_PWR_IF_VBUSDisable( PortNum );
+            break;
+        }
     }
-  case USBPD_CAD_EVENT_DETACHED :
-  case USBPD_CAD_EVENT_EMC :
-  default :
-    {
-      printf("Type C detached\n");
-      USBPD_PWR_IF_VBUSDisable(PortNum);
-      break;
-    }
-  }
-/* USER CODE END USBPD_DPM_UserCableDetection */
+
+    /* USER CODE END USBPD_DPM_UserCableDetection */
 }
 
 /**

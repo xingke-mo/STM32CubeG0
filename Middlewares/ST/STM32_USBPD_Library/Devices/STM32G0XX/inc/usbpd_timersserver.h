@@ -39,12 +39,13 @@ extern "C" {
   */
 
 /* Exported constants --------------------------------------------------------*/
-typedef enum {
-  TIM_PORT0_CRC,
-  TIM_PORT0_RETRY,
-  TIM_PORT1_CRC,
-  TIM_PORT1_RETRY,
-  TIM_MAX
+typedef enum
+{
+    TIM_PORT0_CRC,
+    TIM_PORT0_RETRY,
+    TIM_PORT1_CRC,
+    TIM_PORT1_RETRY,
+    TIM_MAX
 }
 TIM_identifier;
 
@@ -53,10 +54,10 @@ TIM_identifier;
 /* External variables --------------------------------------------------------*/
 /* Exported macros -----------------------------------------------------------*/
 /* Exported functions --------------------------------------------------------*/
-void     USBPD_TIM_Init(void);
-void     USBPD_TIM_DeInit(void);
-void     USBPD_TIM_Start(TIM_identifier Id, uint32_t TimeUs);
-uint32_t USBPD_TIM_IsExpired(TIM_identifier Id);
+void     USBPD_TIM_Init( void );
+void     USBPD_TIM_DeInit( void );
+void     USBPD_TIM_Start( TIM_identifier Id, uint32_t TimeUs );
+uint32_t USBPD_TIM_IsExpired( TIM_identifier Id );
 
 /**
   * @}

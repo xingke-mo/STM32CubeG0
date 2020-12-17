@@ -74,7 +74,7 @@ extern "C" {
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void Error_Handler(void);
+void Error_Handler( void );
 
 /* USER CODE BEGIN EFP */
 
@@ -89,8 +89,8 @@ void Error_Handler(void);
 /* USER CODE BEGIN Private defines */
 
 /* IRQ Handler treatment.*/
-void UserButton_Callback(void);
-void CRS_Handler_Callback(void);
+void UserButton_Callback( void );
+void CRS_Handler_Callback( void );
 
 /* USER CODE END Private defines */
 

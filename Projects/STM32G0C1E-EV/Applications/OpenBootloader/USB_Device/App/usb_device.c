@@ -24,8 +24,8 @@
 #include "usbd_dfu.h"
 #include "usbd_dfu_if.h"
 
-void USBD_Clock_Config(void);
-extern void Error_Handler(void);
+void USBD_Clock_Config( void );
+extern void Error_Handler( void );
 
 /* USB Device Core handle declaration. */
 USBD_HandleTypeDef hUsbDeviceFS;
@@ -35,25 +35,28 @@ extern USBD_DescriptorsTypeDef DFU_Desc;
   * Init USB device Library, add supported class and start the library
   * @retval None
   */
-void MX_USB_Device_Init(void)
+void MX_USB_Device_Init( void )
 {
-  /* Init Device Library, add supported class and start the library. */
-  if (USBD_Init(&hUsbDeviceFS, &DFU_Desc, DEVICE_FS) != USBD_OK)
-  {
-    Error_Handler();
-  }
-  if (USBD_RegisterClass(&hUsbDeviceFS, &USBD_DFU) != USBD_OK)
-  {
-    Error_Handler();
-  }
-  if (USBD_DFU_RegisterMedia(&hUsbDeviceFS, &USBD_DFU_Media_fops) != USBD_OK)
-  {
-    Error_Handler();
-  }
-  if (USBD_Start(&hUsbDeviceFS) != USBD_OK)
-  {
-    Error_Handler();
-  }
+    /* Init Device Library, add supported class and start the library. */
+    if( USBD_Init( &hUsbDeviceFS, &DFU_Desc, DEVICE_FS ) != USBD_OK )
+    {
+        Error_Handler();
+    }
+
+    if( USBD_RegisterClass( &hUsbDeviceFS, &USBD_DFU ) != USBD_OK )
+    {
+        Error_Handler();
+    }
+
+    if( USBD_DFU_RegisterMedia( &hUsbDeviceFS, &USBD_DFU_Media_fops ) != USBD_OK )
+    {
+        Error_Handler();
+    }
+
+    if( USBD_Start( &hUsbDeviceFS ) != USBD_OK )
+    {
+        Error_Handler();
+    }
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -35,11 +35,11 @@ extern "C" {
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 
-void OPENBL_USB_Configuration(void);
-uint8_t OPENBL_USB_ProtocolDetection(void);
-uint16_t OPENBL_USB_SendAddressNack(USBD_HandleTypeDef *pDev);
-uint16_t OPENBL_USB_DnloadRdpNack(USBD_HandleTypeDef *pDev);
-void OPENBL_USB_UploadRdpNack(USBD_HandleTypeDef *pDev);
+void OPENBL_USB_Configuration( void );
+uint8_t OPENBL_USB_ProtocolDetection( void );
+uint16_t OPENBL_USB_SendAddressNack( USBD_HandleTypeDef *pDev );
+uint16_t OPENBL_USB_DnloadRdpNack( USBD_HandleTypeDef *pDev );
+void OPENBL_USB_UploadRdpNack( USBD_HandleTypeDef *pDev );
 
 #ifdef __cplusplus
 }

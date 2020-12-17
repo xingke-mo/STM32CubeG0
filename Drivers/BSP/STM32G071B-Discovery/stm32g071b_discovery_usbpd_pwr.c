@@ -25,7 +25,7 @@
 
 /* USER CODE BEGIN include */
 #ifdef _RTOS
-#include "cmsis_os.h"
+    #include "cmsis_os.h"
 #endif /* _RTOS */
 /* USER CODE END include */
 
@@ -64,11 +64,11 @@
   */
 /* USER CODE BEGIN POWER_Private_Macros */
 #ifdef _RTOS
-#define USBPD_PWR_LOCK()    osMutexWait(USBPD_PWR_Mutex, osWaitForever);
-#define USBPD_PWR_UNLOCK()  osMutexRelease(USBPD_PWR_Mutex);
+    #define USBPD_PWR_LOCK()    osMutexWait(USBPD_PWR_Mutex, osWaitForever);
+    #define USBPD_PWR_UNLOCK()  osMutexRelease(USBPD_PWR_Mutex);
 #else
-#define USBPD_PWR_LOCK()
-#define USBPD_PWR_UNLOCK()
+    #define USBPD_PWR_LOCK()
+    #define USBPD_PWR_UNLOCK()
 #endif /* _RTOS */
 /* USER CODE END POWER_Private_Macros */
 /**
@@ -80,8 +80,8 @@
   */
 /* USER CODE BEGIN POWER_Private_Variables */
 #ifdef _RTOS
-osMutexId USBPD_PWR_Mutex =0U;
-osMutexDef(USBPD_PWR_Mutex);
+    osMutexId USBPD_PWR_Mutex = 0U;
+    osMutexDef( USBPD_PWR_Mutex );
 #endif /* _RTOS */
 /* USER CODE END POWER_Private_Variables */
 /**
@@ -109,41 +109,44 @@ osMutexDef(USBPD_PWR_Mutex);
   *         @arg @ref USBPD_PWR_TYPE_C_PORT_2
   * @retval BSP status
   */
-int32_t BSP_USBPD_PWR_Init(uint32_t Instance)
+int32_t BSP_USBPD_PWR_Init( uint32_t Instance )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_Init */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_Init */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  else
-  {
-#ifdef _RTOS
-    if (USBPD_PWR_Mutex == 0U)
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
     {
-      /* Initialise mutex */
-      USBPD_PWR_Mutex = osMutexCreate(osMutex(USBPD_PWR_Mutex));
-#endif /* _RTOS */
-      PWRMON_Config_t DefaultConfig =
-      {
-        .ShuntConvertTime  = CONVERT_TIME_1100,
-        .BusConvertTime    = CONVERT_TIME_1100,
-        .AveragingMode     = AVERAGING_MODE_1,
-      };
-
-      USBPD_PWR_LOCK();
-      BSP_PWRMON_Init(ALERT_VBUS, &DefaultConfig);
-      BSP_PWRMON_StartMeasure(ALERT_VBUS, OPERATING_MODE_CONTINUOUS);
-      USBPD_PWR_UNLOCK(); 
-#ifdef _RTOS   
+        ret = BSP_ERROR_WRONG_PARAM;
     }
+    else
+    {
+#ifdef _RTOS
+
+        if( USBPD_PWR_Mutex == 0U )
+        {
+            /* Initialise mutex */
+            USBPD_PWR_Mutex = osMutexCreate( osMutex( USBPD_PWR_Mutex ) );
 #endif /* _RTOS */
-  }
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_Init */
+            PWRMON_Config_t DefaultConfig =
+            {
+                .ShuntConvertTime  = CONVERT_TIME_1100,
+                .BusConvertTime    = CONVERT_TIME_1100,
+                .AveragingMode     = AVERAGING_MODE_1,
+            };
+
+            USBPD_PWR_LOCK();
+            BSP_PWRMON_Init( ALERT_VBUS, &DefaultConfig );
+            BSP_PWRMON_StartMeasure( ALERT_VBUS, OPERATING_MODE_CONTINUOUS );
+            USBPD_PWR_UNLOCK();
+#ifdef _RTOS
+        }
+
+#endif /* _RTOS */
+    }
+
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_Init */
 }
 
 /**
@@ -154,24 +157,25 @@ int32_t BSP_USBPD_PWR_Init(uint32_t Instance)
   *         @arg @ref USBPD_PWR_TYPE_C_PORT_2
   * @retval BSP status
   */
-int32_t BSP_USBPD_PWR_Deinit(uint32_t Instance)
+int32_t BSP_USBPD_PWR_Deinit( uint32_t Instance )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_Deinit */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_Deinit */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  else
-  {
-    USBPD_PWR_LOCK();
-    BSP_PWRMON_DeInit(ALERT_VBUS);
-    USBPD_PWR_UNLOCK();
-  }
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_Deinit */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+    else
+    {
+        USBPD_PWR_LOCK();
+        BSP_PWRMON_DeInit( ALERT_VBUS );
+        USBPD_PWR_UNLOCK();
+    }
+
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_Deinit */
 }
 
 /**
@@ -183,19 +187,19 @@ int32_t BSP_USBPD_PWR_Deinit(uint32_t Instance)
   *         @arg @ref USBPD_PWR_TYPE_C_PORT_2
   * @retval BSP status
   */
-int32_t BSP_USBPD_PWR_VBUSInit(uint32_t Instance)
+int32_t BSP_USBPD_PWR_VBUSInit( uint32_t Instance )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VBUSInit */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VBUSInit */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
 
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VBUSInit */
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VBUSInit */
 }
 
 /**
@@ -207,19 +211,19 @@ int32_t BSP_USBPD_PWR_VBUSInit(uint32_t Instance)
   *         @arg @ref USBPD_PWR_TYPE_C_PORT_2
   * @retval BSP status
   */
-int32_t BSP_USBPD_PWR_VBUSDeInit(uint32_t Instance)
+int32_t BSP_USBPD_PWR_VBUSDeInit( uint32_t Instance )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VBUSDeInit */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VBUSDeInit */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
 
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VBUSDeInit */
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VBUSDeInit */
 }
 
 /**
@@ -229,22 +233,23 @@ int32_t BSP_USBPD_PWR_VBUSDeInit(uint32_t Instance)
   *         @arg @ref USBPD_PWR_TYPE_C_PORT_1
   * @retval BSP status
   */
-int32_t BSP_USBPD_PWR_VBUSOn(uint32_t Instance)
+int32_t BSP_USBPD_PWR_VBUSOn( uint32_t Instance )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VBUSOn */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VBUSOn */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  else
-  {
-    ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
-  }
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VBUSOn */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+    else
+    {
+        ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+    }
+
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VBUSOn */
 }
 
 /**
@@ -254,22 +259,23 @@ int32_t BSP_USBPD_PWR_VBUSOn(uint32_t Instance)
   *         @arg @ref USBPD_PWR_TYPE_C_PORT_1
   * @retval BSP status
   */
-int32_t BSP_USBPD_PWR_VBUSOff(uint32_t Instance)
+int32_t BSP_USBPD_PWR_VBUSOff( uint32_t Instance )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VBUSOff */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VBUSOff */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  else
-  {
-    ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
-  }
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VBUSOff */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+    else
+    {
+        ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+    }
+
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VBUSOff */
 }
 
 /**
@@ -282,22 +288,22 @@ int32_t BSP_USBPD_PWR_VBUSOff(uint32_t Instance)
   * @param  MaxOperatingCurrent the Max Operating Current (in mA)
   * @retval BSP status
   */
-int32_t BSP_USBPD_PWR_VBUSSetVoltage_Fixed(uint32_t Instance,
-                                           uint32_t VbusTargetInmv,
-                                           uint32_t OperatingCurrent,
-                                           uint32_t MaxOperatingCurrent)
+int32_t BSP_USBPD_PWR_VBUSSetVoltage_Fixed( uint32_t Instance,
+        uint32_t VbusTargetInmv,
+        uint32_t OperatingCurrent,
+        uint32_t MaxOperatingCurrent )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VBUSSetVoltage_Fixed */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VBUSSetVoltage_Fixed */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
 
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VBUSSetVoltage_Fixed */
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VBUSSetVoltage_Fixed */
 }
 
 /**
@@ -311,26 +317,27 @@ int32_t BSP_USBPD_PWR_VBUSSetVoltage_Fixed(uint32_t Instance,
   * @param  MaxOperatingCurrent the Max Operating Current (in mA)
   * @retval BSP status
   */
-int32_t BSP_USBPD_PWR_VBUSSetVoltage_Variable(uint32_t Instance,
-                                              uint32_t VbusTargetMinInmv,
-                                              uint32_t VbusTargetMaxInmv,
-                                              uint32_t OperatingCurrent,
-                                              uint32_t MaxOperatingCurrent)
+int32_t BSP_USBPD_PWR_VBUSSetVoltage_Variable( uint32_t Instance,
+        uint32_t VbusTargetMinInmv,
+        uint32_t VbusTargetMaxInmv,
+        uint32_t OperatingCurrent,
+        uint32_t MaxOperatingCurrent )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VBUSSetVoltage_Variable */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VBUSSetVoltage_Variable */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  else
-  {
-    ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
-  }
-  return ret;
-  /* USER CODE BEGIN BSP_USBPD_PWR_VBUSSetVoltage_Variable */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+    else
+    {
+        ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+    }
+
+    return ret;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VBUSSetVoltage_Variable */
 }
 
 /**
@@ -344,26 +351,27 @@ int32_t BSP_USBPD_PWR_VBUSSetVoltage_Variable(uint32_t Instance,
   * @param  MaxOperatingPower the Max Operating Power (in mW)
   * @retval BSP status
   */
-int32_t BSP_USBPD_PWR_VBUSSetVoltage_Battery(uint32_t Instance,
-                                             uint32_t VbusTargetMin,
-                                             uint32_t VbusTargetMax,
-                                             uint32_t OperatingPower,
-                                             uint32_t MaxOperatingPower)
+int32_t BSP_USBPD_PWR_VBUSSetVoltage_Battery( uint32_t Instance,
+        uint32_t VbusTargetMin,
+        uint32_t VbusTargetMax,
+        uint32_t OperatingPower,
+        uint32_t MaxOperatingPower )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VBUSSetVoltage_Battery */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VBUSSetVoltage_Battery */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  else
-  {
-    ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
-  }
-  return ret;
-  /* USER CODE BEGIN BSP_USBPD_PWR_VBUSSetVoltage_Battery */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+    else
+    {
+        ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+    }
+
+    return ret;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VBUSSetVoltage_Battery */
 }
 
 /**
@@ -376,25 +384,26 @@ int32_t BSP_USBPD_PWR_VBUSSetVoltage_Battery(uint32_t Instance,
   * @param  Delta Delta between with previous APDO (in mV), 0 means APDO start
   * @retval BSP status
   */
-int32_t BSP_USBPD_PWR_VBUSSetVoltage_APDO(uint32_t Instance,
-                                          uint32_t VbusTargetInmv,
-                                          uint32_t OperatingCurrent,
-                                          int32_t Delta)
+int32_t BSP_USBPD_PWR_VBUSSetVoltage_APDO( uint32_t Instance,
+        uint32_t VbusTargetInmv,
+        uint32_t OperatingCurrent,
+        int32_t Delta )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VBUSSetVoltage_APDO */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VBUSSetVoltage_APDO */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  else
-  {
-    ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
-  }
-  return ret;
-  /* USER CODE BEGIN BSP_USBPD_PWR_VBUSSetVoltage_APDO */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+    else
+    {
+        ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+    }
+
+    return ret;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VBUSSetVoltage_APDO */
 }
 
 /**
@@ -406,28 +415,29 @@ int32_t BSP_USBPD_PWR_VBUSSetVoltage_APDO(uint32_t Instance,
   * @param  pVoltage Pointer on measured voltage level (in mV)
   * @retval BSP status
   */
-int32_t BSP_USBPD_PWR_VBUSGetVoltage(uint32_t Instance, uint32_t *pVoltage)
+int32_t BSP_USBPD_PWR_VBUSGetVoltage( uint32_t Instance, uint32_t *pVoltage )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VBUSGetVoltage */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VBUSGetVoltage */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  else
-  {
-    uint32_t val = 0;
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+    else
+    {
+        uint32_t val = 0;
 
-    USBPD_PWR_LOCK();
-    BSP_PWRMON_GetVoltage(ALERT_VBUS, &val);
-    USBPD_PWR_UNLOCK();
+        USBPD_PWR_LOCK();
+        BSP_PWRMON_GetVoltage( ALERT_VBUS, &val );
+        USBPD_PWR_UNLOCK();
 
-    *pVoltage = val;
-  }
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VBUSGetVoltage */
+        *pVoltage = val;
+    }
+
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VBUSGetVoltage */
 }
 
 /**
@@ -439,28 +449,29 @@ int32_t BSP_USBPD_PWR_VBUSGetVoltage(uint32_t Instance, uint32_t *pVoltage)
   * @param  pCurrent Pointer on measured current level (in mA)
   * @retval BSP status
   */
-int32_t BSP_USBPD_PWR_VBUSGetCurrent(uint32_t Instance, int32_t *pCurrent)
+int32_t BSP_USBPD_PWR_VBUSGetCurrent( uint32_t Instance, int32_t *pCurrent )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VBUSGetCurrent */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VBUSGetCurrent */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  else
-  {
-    int32_t  current = 0;
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+    else
+    {
+        int32_t  current = 0;
 
-    USBPD_PWR_LOCK();
-    BSP_PWRMON_GetCurrent(ALERT_VBUS, &current);
-    USBPD_PWR_UNLOCK();
+        USBPD_PWR_LOCK();
+        BSP_PWRMON_GetCurrent( ALERT_VBUS, &current );
+        USBPD_PWR_UNLOCK();
 
-    *pCurrent = current;
-  }
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VBUSGetCurrent */
+        *pCurrent = current;
+    }
+
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VBUSGetCurrent */
 }
 
 /**
@@ -475,23 +486,24 @@ int32_t BSP_USBPD_PWR_VBUSGetCurrent(uint32_t Instance, int32_t *pCurrent)
   *         @arg @ref USBPD_PWR_TYPE_C_CC2
   * @retval BSP status
   */
-int32_t BSP_USBPD_PWR_VCONNInit(uint32_t Instance,
-                                uint32_t CCPinId)
+int32_t BSP_USBPD_PWR_VCONNInit( uint32_t Instance,
+                                 uint32_t CCPinId )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VCONNInit */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VCONNInit */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  else
-  {
-    ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
-  }
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VCONNInit */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+    else
+    {
+        ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+    }
+
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VCONNInit */
 }
 
 /**
@@ -506,23 +518,24 @@ int32_t BSP_USBPD_PWR_VCONNInit(uint32_t Instance,
   *         @arg @ref USBPD_PWR_TYPE_C_CC2
   * @retval BSP status
   */
-int32_t BSP_USBPD_PWR_VCONNDeInit(uint32_t Instance,
-                                  uint32_t CCPinId)
+int32_t BSP_USBPD_PWR_VCONNDeInit( uint32_t Instance,
+                                   uint32_t CCPinId )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VCONNDeInit */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VCONNDeInit */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  else
-  {
-    ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
-  }
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VCONNDeInit */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+    else
+    {
+        ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+    }
+
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VCONNDeInit */
 }
 
 /**
@@ -537,23 +550,24 @@ int32_t BSP_USBPD_PWR_VCONNDeInit(uint32_t Instance,
   *         @arg @ref USBPD_PWR_TYPE_C_CC2
   * @retval BSP status
   */
-int32_t BSP_USBPD_PWR_VCONNOn(uint32_t Instance,
-                              uint32_t CCPinId)
+int32_t BSP_USBPD_PWR_VCONNOn( uint32_t Instance,
+                               uint32_t CCPinId )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VCONNOn */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VCONNOn */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  else
-  {
-    ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
-  }
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VCONNOn */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+    else
+    {
+        ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+    }
+
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VCONNOn */
 }
 
 /**
@@ -568,23 +582,24 @@ int32_t BSP_USBPD_PWR_VCONNOn(uint32_t Instance,
   *         @arg @ref USBPD_PWR_TYPE_C_CC2
   * @retval BSP status
   */
-int32_t BSP_USBPD_PWR_VCONNOff(uint32_t Instance,
-                               uint32_t CCPinId)
+int32_t BSP_USBPD_PWR_VCONNOff( uint32_t Instance,
+                                uint32_t CCPinId )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VCONNOff */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VCONNOff */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  else
-  {
-    ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
-  }
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VCONNOff */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+    else
+    {
+        ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+    }
+
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VCONNOff */
 }
 
 /**
@@ -599,23 +614,24 @@ int32_t BSP_USBPD_PWR_VCONNOff(uint32_t Instance,
   * @param  pState VCONN status (1: On, 0: Off)
   * @retval BSP status
   */
-int32_t BSP_USBPD_PWR_VCONNIsOn(uint32_t Instance,
-                                uint32_t CCPinId, uint8_t *pState)
+int32_t BSP_USBPD_PWR_VCONNIsOn( uint32_t Instance,
+                                 uint32_t CCPinId, uint8_t *pState )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VCONNIsOn */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VCONNIsOn */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  else
-  {
-    ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
-  }
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VCONNIsOn */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+    else
+    {
+        ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+    }
+
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VCONNIsOn */
 }
 
 /**
@@ -630,23 +646,24 @@ int32_t BSP_USBPD_PWR_VCONNIsOn(uint32_t Instance,
   * @param  VoltageThreshold VBUS disconnection voltage threshold (in mV)
   * @retval BSP status
   */
-int32_t BSP_USBPD_PWR_SetVBUSDisconnectionThreshold(uint32_t Instance,
-                                                    uint32_t VoltageThreshold)
+int32_t BSP_USBPD_PWR_SetVBUSDisconnectionThreshold( uint32_t Instance,
+        uint32_t VoltageThreshold )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_SetVBUSDisconnectionThreshold */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_SetVBUSDisconnectionThreshold */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  else
-  {
-    ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
-  }
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_SetVBUSDisconnectionThreshold */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+    else
+    {
+        ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+    }
+
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_SetVBUSDisconnectionThreshold */
 }
 
 /**
@@ -662,23 +679,24 @@ int32_t BSP_USBPD_PWR_SetVBUSDisconnectionThreshold(uint32_t Instance,
   * @param  pfnVBUSDetectCallback callback function pointer
   * @retval BSP status
   */
-int32_t BSP_USBPD_PWR_RegisterVBUSDetectCallback(uint32_t                       Instance,
-                                                 USBPD_PWR_VBUSDetectCallbackFunc    *pfnVBUSDetectCallback)
+int32_t BSP_USBPD_PWR_RegisterVBUSDetectCallback( uint32_t                       Instance,
+        USBPD_PWR_VBUSDetectCallbackFunc    *pfnVBUSDetectCallback )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_RegisterVBUSDetectCallback */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_RegisterVBUSDetectCallback */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  else
-  {
-    ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
-  }
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_RegisterVBUSDetectCallback */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+    else
+    {
+        ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+    }
+
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_RegisterVBUSDetectCallback */
 }
 
 /**
@@ -689,22 +707,23 @@ int32_t BSP_USBPD_PWR_RegisterVBUSDetectCallback(uint32_t                       
   * @param  pState VBUS status (1: On, 0: Off)
   * @retval BSP status
   */
-int32_t BSP_USBPD_PWR_VBUSIsOn(uint32_t Instance, uint8_t *pState)
+int32_t BSP_USBPD_PWR_VBUSIsOn( uint32_t Instance, uint8_t *pState )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VBUSIsOn */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VBUSIsOn */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  else
-  {
-    ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
-  }
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VBUSIsOn */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+    else
+    {
+        ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+    }
+
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VBUSIsOn */
 }
 
 /**
@@ -712,43 +731,43 @@ int32_t BSP_USBPD_PWR_VBUSIsOn(uint32_t Instance, uint8_t *pState)
   * @param  Instance     current port number
   * @retval BSP status
   */
-int32_t BSP_USBPD_PWR_CaptiveCablePreConfig(uint8_t Instance)
+int32_t BSP_USBPD_PWR_CaptiveCablePreConfig( uint8_t Instance )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_CaptiveCablePreConfig */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_CaptiveCablePreConfig */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  else
-  {
-    /* Patch SMPS to avoid over current test 4.10.1    */
-    /* disable SMPS put output 0 for SMPS in opendrain */
-    LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOA);
-
-    LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_11, LL_GPIO_MODE_INPUT);
-    LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_12, LL_GPIO_MODE_INPUT);
-
-    if (LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_11) == 1) //&& (LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_12) == 0)) /* PA11 = STLNK_ON, PA12 = SMPS_ON */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
     {
-      /* disable SMPS */
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+    else
+    {
+        /* Patch SMPS to avoid over current test 4.10.1    */
+        /* disable SMPS put output 0 for SMPS in opendrain */
+        LL_IOP_GRP1_EnableClock( LL_IOP_GRP1_PERIPH_GPIOA );
+
+        LL_GPIO_SetPinMode( GPIOA, LL_GPIO_PIN_11, LL_GPIO_MODE_INPUT );
+        LL_GPIO_SetPinMode( GPIOA, LL_GPIO_PIN_12, LL_GPIO_MODE_INPUT );
+
+        if( LL_GPIO_IsInputPinSet( GPIOA, LL_GPIO_PIN_11 ) == 1 ) //&& (LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_12) == 0)) /* PA11 = STLNK_ON, PA12 = SMPS_ON */
+        {
+            /* disable SMPS */
 //    LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_0, LL_GPIO_MODE_OUTPUT);
 //    LL_GPIO_SetPinOutputType(GPIOA, LL_GPIO_PIN_0, LL_GPIO_OUTPUT_PUSHPULL);
 //    LL_GPIO_SetOutputPin(GPIOA, LL_GPIO_PIN_0);
-    }
+        }
 
-    /* Remove the EN1 enable CC1 CC2 */
-    BSP_MOSFET_Init(MOSFET_ENCC1);
-    BSP_MOSFET_Init(MOSFET_ENCC2);
-    BSP_MOSFET_On(MOSFET_ENCC1);
-    BSP_MOSFET_Off(MOSFET_ENCC2);
+        /* Remove the EN1 enable CC1 CC2 */
+        BSP_MOSFET_Init( MOSFET_ENCC1 );
+        BSP_MOSFET_Init( MOSFET_ENCC2 );
+        BSP_MOSFET_On( MOSFET_ENCC1 );
+        BSP_MOSFET_Off( MOSFET_ENCC2 );
 
-    __HAL_RCC_SYSCFG_CLK_ENABLE();
-    __HAL_RCC_PWR_CLK_ENABLE();
+        __HAL_RCC_SYSCFG_CLK_ENABLE();
+        __HAL_RCC_PWR_CLK_ENABLE();
 
-    /* set Programmable Voltage Detector (PVD)  */
+        /* set Programmable Voltage Detector (PVD)  */
 //  LL_PWR_SetPVDLowLevel(LL_PWR_PVDLLEVEL_6);
 //  LL_PWR_SetPVDHighLevel(LL_PWR_PVDHLEVEL_6);
 //  LL_PWR_EnablePVD();
@@ -758,9 +777,10 @@ int32_t BSP_USBPD_PWR_CaptiveCablePreConfig(uint8_t Instance)
 //
 //    HAL_NVIC_SetPriority(PVD_IRQn, 0, 0);
 //  HAL_NVIC_EnableIRQ(PVD_IRQn);
-  }
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_CaptiveCablePreConfig */
+    }
+
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_CaptiveCablePreConfig */
 }
 
 
@@ -769,21 +789,23 @@ int32_t BSP_USBPD_PWR_CaptiveCablePreConfig(uint8_t Instance)
   * @param  Instance     current port number
   * @retval BSP status
   */
-int32_t BSP_USBPD_PWR_CaptiveCablePostConfig(uint8_t Instance)
+int32_t BSP_USBPD_PWR_CaptiveCablePostConfig( uint8_t Instance )
 {
-/* USER CODE BEGIN BSP_USBPD_PWR_CaptiveCablePostConfig */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_CaptiveCablePostConfig */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  else
-  {    BSP_MOSFET_Init(MOSFET_RD_CC1);
-    BSP_MOSFET_Off(MOSFET_RD_CC1);
-  }
-  return ret;
-/* USER CODE END BSP_USBPD_PWR_CaptiveCablePostConfig */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+    else
+    {
+        BSP_MOSFET_Init( MOSFET_RD_CC1 );
+        BSP_MOSFET_Off( MOSFET_RD_CC1 );
+    }
+
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_CaptiveCablePostConfig */
 }
 
 /**

@@ -32,7 +32,7 @@
 extern OPENBL_CommandsTypeDef OPENBL_I2C_Commands;
 
 /* Exported functions ------------------------------------------------------- */
-OPENBL_CommandsTypeDef *OPENBL_I2C_GetCommandsList(void);
+OPENBL_CommandsTypeDef *OPENBL_I2C_GetCommandsList( void );
 
 #endif /* OPENBL_I2C_CMD_H */
 

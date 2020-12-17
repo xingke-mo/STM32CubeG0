@@ -22,127 +22,127 @@
 #include "tracer_emb_hw.h"
 
 #if TRACER_EMB_DMA_MODE == 1UL && TRACER_EMB_IT_MODE == 1UL
-#error "tracer emb hw please select DMA or IT mode"
+    #error "tracer emb hw please select DMA or IT mode"
 #endif
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private Defines -----------------------------------------------------------*/
 #if (TRACER_EMB_IS_INSTANCE_LPUART_TYPE == 1UL)
 
-/* LPUART entry point */
-#define TRACER_EMB_ENABLEDIRECTIONRX    LL_LPUART_EnableDirectionRx
-#define TRACER_EMB_RECEIVE_DATA8        LL_LPUART_ReceiveData8
-#define TRACER_EMB_TRANSMIT_DATA8       LL_LPUART_TransmitData8
-#define TRACER_EMB_DMA_GETREGADDR       LL_LPUART_DMA_GetRegAddr
-#define TRACER_EMB_ENABLEDMAREQ_TX      LL_LPUART_EnableDMAReq_TX
+    /* LPUART entry point */
+    #define TRACER_EMB_ENABLEDIRECTIONRX    LL_LPUART_EnableDirectionRx
+    #define TRACER_EMB_RECEIVE_DATA8        LL_LPUART_ReceiveData8
+    #define TRACER_EMB_TRANSMIT_DATA8       LL_LPUART_TransmitData8
+    #define TRACER_EMB_DMA_GETREGADDR       LL_LPUART_DMA_GetRegAddr
+    #define TRACER_EMB_ENABLEDMAREQ_TX      LL_LPUART_EnableDMAReq_TX
 
-#define TRACER_EMB_ENABLE_IT_RXNE       LL_LPUART_EnableIT_RXNE
-#define TRACER_EMB_ENABLE_IT_ERROR      LL_LPUART_EnableIT_ERROR
-#define TRACER_EMB_ENABLE_IT_TXE        LL_LPUART_EnableIT_TXE
-#define TRACER_EMB_ENABLE_IT_TC         LL_LPUART_EnableIT_TC
+    #define TRACER_EMB_ENABLE_IT_RXNE       LL_LPUART_EnableIT_RXNE
+    #define TRACER_EMB_ENABLE_IT_ERROR      LL_LPUART_EnableIT_ERROR
+    #define TRACER_EMB_ENABLE_IT_TXE        LL_LPUART_EnableIT_TXE
+    #define TRACER_EMB_ENABLE_IT_TC         LL_LPUART_EnableIT_TC
 
-#define TRACER_EMB_DISABLEIT_TXE        LL_LPUART_DisableIT_TXE
-#define TRACER_EMB_DISABLEIT_TC         LL_LPUART_DisableIT_TC
+    #define TRACER_EMB_DISABLEIT_TXE        LL_LPUART_DisableIT_TXE
+    #define TRACER_EMB_DISABLEIT_TC         LL_LPUART_DisableIT_TC
 
-#define TRACER_EMB_ISACTIVEFLAG_TXE     LL_LPUART_IsActiveFlag_TXE
-#define TRACER_EMB_ISACTIVEFLAG_PE      LL_LPUART_IsActiveFlag_PE
-#define TRACER_EMB_ISACTIVEFLAG_RXNE    LL_LPUART_IsActiveFlag_RXNE
-#define TRACER_EMB_ISACTIVEFLAG_FE      LL_LPUART_IsActiveFlag_FE
-#define TRACER_EMB_ISACTIVEFLAG_ORE     LL_LPUART_IsActiveFlag_ORE
-#define TRACER_EMB_ISACTIVEFLAG_NE      LL_LPUART_IsActiveFlag_NE
-#define TRACER_EMB_ISACTIVEFLAG_TC      LL_LPUART_IsActiveFlag_TC
+    #define TRACER_EMB_ISACTIVEFLAG_TXE     LL_LPUART_IsActiveFlag_TXE
+    #define TRACER_EMB_ISACTIVEFLAG_PE      LL_LPUART_IsActiveFlag_PE
+    #define TRACER_EMB_ISACTIVEFLAG_RXNE    LL_LPUART_IsActiveFlag_RXNE
+    #define TRACER_EMB_ISACTIVEFLAG_FE      LL_LPUART_IsActiveFlag_FE
+    #define TRACER_EMB_ISACTIVEFLAG_ORE     LL_LPUART_IsActiveFlag_ORE
+    #define TRACER_EMB_ISACTIVEFLAG_NE      LL_LPUART_IsActiveFlag_NE
+    #define TRACER_EMB_ISACTIVEFLAG_TC      LL_LPUART_IsActiveFlag_TC
 
-#define TRACER_EMB_ISENABLEDIT_TXE      LL_LPUART_IsEnabledIT_TXE
-#define TRACER_EMB_ISENABLEDIT_RXNE     LL_LPUART_IsEnabledIT_RXNE
-#define TRACER_EMB_ISENABLEDIT_PE       LL_LPUART_IsEnabledIT_PE
-#define TRACER_EMB_ISENABLEDIT_ERROR    LL_LPUART_IsEnabledIT_ERROR
-#define TRACER_EMB_ISENABLEDIT_TC       LL_LPUART_IsEnabledIT_TC
+    #define TRACER_EMB_ISENABLEDIT_TXE      LL_LPUART_IsEnabledIT_TXE
+    #define TRACER_EMB_ISENABLEDIT_RXNE     LL_LPUART_IsEnabledIT_RXNE
+    #define TRACER_EMB_ISENABLEDIT_PE       LL_LPUART_IsEnabledIT_PE
+    #define TRACER_EMB_ISENABLEDIT_ERROR    LL_LPUART_IsEnabledIT_ERROR
+    #define TRACER_EMB_ISENABLEDIT_TC       LL_LPUART_IsEnabledIT_TC
 
-#define TRACER_EMB_CLEARFLAG_PE         LL_LPUART_ClearFlag_PE
-#define TRACER_EMB_CLEARFLAG_FE         LL_LPUART_ClearFlag_FE
-#define TRACER_EMB_CLEARFLAG_ORE        LL_LPUART_ClearFlag_ORE
-#define TRACER_EMB_CLEARFLAG_NE         LL_LPUART_ClearFlag_NE
-#define TRACER_EMB_CLEARFLAG_TC         LL_LPUART_ClearFlag_TC
+    #define TRACER_EMB_CLEARFLAG_PE         LL_LPUART_ClearFlag_PE
+    #define TRACER_EMB_CLEARFLAG_FE         LL_LPUART_ClearFlag_FE
+    #define TRACER_EMB_CLEARFLAG_ORE        LL_LPUART_ClearFlag_ORE
+    #define TRACER_EMB_CLEARFLAG_NE         LL_LPUART_ClearFlag_NE
+    #define TRACER_EMB_CLEARFLAG_TC         LL_LPUART_ClearFlag_TC
 
-#define TRACER_EMB_READREG              LL_LPUART_ReadReg
+    #define TRACER_EMB_READREG              LL_LPUART_ReadReg
 
 #else
 
-/* UART entry point */
-#define TRACER_EMB_ENABLEDIRECTIONRX    LL_USART_EnableDirectionRx
-#define TRACER_EMB_RECEIVE_DATA8        LL_USART_ReceiveData8
-#define TRACER_EMB_TRANSMIT_DATA8       LL_USART_TransmitData8
-#define TRACER_EMB_DMA_GETREGADDR       LL_USART_DMA_GetRegAddr
-#define TRACER_EMB_ENABLEDMAREQ_TX      LL_USART_EnableDMAReq_TX
+    /* UART entry point */
+    #define TRACER_EMB_ENABLEDIRECTIONRX    LL_USART_EnableDirectionRx
+    #define TRACER_EMB_RECEIVE_DATA8        LL_USART_ReceiveData8
+    #define TRACER_EMB_TRANSMIT_DATA8       LL_USART_TransmitData8
+    #define TRACER_EMB_DMA_GETREGADDR       LL_USART_DMA_GetRegAddr
+    #define TRACER_EMB_ENABLEDMAREQ_TX      LL_USART_EnableDMAReq_TX
 
-#define TRACER_EMB_ENABLE_IT_RXNE       LL_USART_EnableIT_RXNE
-#define TRACER_EMB_ENABLE_IT_ERROR      LL_USART_EnableIT_ERROR
-#define TRACER_EMB_ENABLE_IT_TXE        LL_USART_EnableIT_TXE
-#define TRACER_EMB_ENABLE_IT_TC         LL_USART_EnableIT_TC
+    #define TRACER_EMB_ENABLE_IT_RXNE       LL_USART_EnableIT_RXNE
+    #define TRACER_EMB_ENABLE_IT_ERROR      LL_USART_EnableIT_ERROR
+    #define TRACER_EMB_ENABLE_IT_TXE        LL_USART_EnableIT_TXE
+    #define TRACER_EMB_ENABLE_IT_TC         LL_USART_EnableIT_TC
 
-#define TRACER_EMB_DISABLEIT_TXE        LL_USART_DisableIT_TXE
-#define TRACER_EMB_DISABLEIT_TC         LL_USART_DisableIT_TC
+    #define TRACER_EMB_DISABLEIT_TXE        LL_USART_DisableIT_TXE
+    #define TRACER_EMB_DISABLEIT_TC         LL_USART_DisableIT_TC
 
-#define TRACER_EMB_ISACTIVEFLAG_TXE     LL_USART_IsActiveFlag_TXE
-#define TRACER_EMB_ISACTIVEFLAG_PE      LL_USART_IsActiveFlag_PE
-#define TRACER_EMB_ISACTIVEFLAG_RXNE    LL_USART_IsActiveFlag_RXNE
-#define TRACER_EMB_ISACTIVEFLAG_FE      LL_USART_IsActiveFlag_FE
-#define TRACER_EMB_ISACTIVEFLAG_ORE     LL_USART_IsActiveFlag_ORE
-#define TRACER_EMB_ISACTIVEFLAG_NE      LL_USART_IsActiveFlag_NE
-#define TRACER_EMB_ISACTIVEFLAG_TC      LL_USART_IsActiveFlag_TC
-#define TRACER_EMB_ISACTIVEFLAG_RTO     LL_USART_IsActiveFlag_RTO
+    #define TRACER_EMB_ISACTIVEFLAG_TXE     LL_USART_IsActiveFlag_TXE
+    #define TRACER_EMB_ISACTIVEFLAG_PE      LL_USART_IsActiveFlag_PE
+    #define TRACER_EMB_ISACTIVEFLAG_RXNE    LL_USART_IsActiveFlag_RXNE
+    #define TRACER_EMB_ISACTIVEFLAG_FE      LL_USART_IsActiveFlag_FE
+    #define TRACER_EMB_ISACTIVEFLAG_ORE     LL_USART_IsActiveFlag_ORE
+    #define TRACER_EMB_ISACTIVEFLAG_NE      LL_USART_IsActiveFlag_NE
+    #define TRACER_EMB_ISACTIVEFLAG_TC      LL_USART_IsActiveFlag_TC
+    #define TRACER_EMB_ISACTIVEFLAG_RTO     LL_USART_IsActiveFlag_RTO
 
-#define TRACER_EMB_ISENABLEDIT_TXE      LL_USART_IsEnabledIT_TXE
-#define TRACER_EMB_ISENABLEDIT_RXNE     LL_USART_IsEnabledIT_RXNE
-#define TRACER_EMB_ISENABLEDIT_PE       LL_USART_IsEnabledIT_PE
-#define TRACER_EMB_ISENABLEDIT_ERROR    LL_USART_IsEnabledIT_ERROR
-#define TRACER_EMB_ISENABLEDIT_TC       LL_USART_IsEnabledIT_TC
-#define TRACER_EMB_ISENABLEDIT_RTO      LL_USART_IsEnabledIT_RTO
+    #define TRACER_EMB_ISENABLEDIT_TXE      LL_USART_IsEnabledIT_TXE
+    #define TRACER_EMB_ISENABLEDIT_RXNE     LL_USART_IsEnabledIT_RXNE
+    #define TRACER_EMB_ISENABLEDIT_PE       LL_USART_IsEnabledIT_PE
+    #define TRACER_EMB_ISENABLEDIT_ERROR    LL_USART_IsEnabledIT_ERROR
+    #define TRACER_EMB_ISENABLEDIT_TC       LL_USART_IsEnabledIT_TC
+    #define TRACER_EMB_ISENABLEDIT_RTO      LL_USART_IsEnabledIT_RTO
 
-#define TRACER_EMB_CLEARFLAG_PE         LL_USART_ClearFlag_PE
-#define TRACER_EMB_CLEARFLAG_FE         LL_USART_ClearFlag_FE
-#define TRACER_EMB_CLEARFLAG_ORE        LL_USART_ClearFlag_ORE
-#define TRACER_EMB_CLEARFLAG_NE         LL_USART_ClearFlag_NE
-#define TRACER_EMB_CLEARFLAG_TC         LL_USART_ClearFlag_TC
-#define TRACER_EMB_CLEARFLAG_RTO        LL_USART_ClearFlag_RTO
+    #define TRACER_EMB_CLEARFLAG_PE         LL_USART_ClearFlag_PE
+    #define TRACER_EMB_CLEARFLAG_FE         LL_USART_ClearFlag_FE
+    #define TRACER_EMB_CLEARFLAG_ORE        LL_USART_ClearFlag_ORE
+    #define TRACER_EMB_CLEARFLAG_NE         LL_USART_ClearFlag_NE
+    #define TRACER_EMB_CLEARFLAG_TC         LL_USART_ClearFlag_TC
+    #define TRACER_EMB_CLEARFLAG_RTO        LL_USART_ClearFlag_RTO
 
-#define TRACER_EMB_READREG              LL_USART_ReadReg
+    #define TRACER_EMB_READREG              LL_USART_ReadReg
 
 #endif
 
 #if defined(USART_ISR_RXNE_RXFNE)
-#define TRACER_EMB_FLAG_RXNE            USART_ISR_RXNE_RXFNE
+    #define TRACER_EMB_FLAG_RXNE            USART_ISR_RXNE_RXFNE
 #elif defined(USART_ISR_RXNE)
-#define TRACER_EMB_FLAG_RXNE            USART_ISR_RXNE
+    #define TRACER_EMB_FLAG_RXNE            USART_ISR_RXNE
 #else
-#define TRACER_EMB_FLAG_RXNE            USART_SR_RXNE
+    #define TRACER_EMB_FLAG_RXNE            USART_SR_RXNE
 #endif  /* USART_ISR_RXNE_RXFNE */
 #if defined(USART_CR1_TXEIE_TXFNFIE)
-#define TRACER_EMB_FLAG_TXE             USART_CR1_TXEIE_TXFNFIE
+    #define TRACER_EMB_FLAG_TXE             USART_CR1_TXEIE_TXFNFIE
 #elif defined(USART_ISR_TXE)
-#define TRACER_EMB_FLAG_TXE             USART_ISR_TXE
+    #define TRACER_EMB_FLAG_TXE             USART_ISR_TXE
 #else
-#define TRACER_EMB_FLAG_TXE             USART_SR_TXE
+    #define TRACER_EMB_FLAG_TXE             USART_SR_TXE
 #endif  /* USART_CR1_TXEIE_TXFNFIE */
 #if defined(USART_ISR_PE)
-#define TRACER_EMB_FLAG_PE              USART_ISR_PE
-#define TRACER_EMB_FLAG_FE              USART_ISR_FE
-#define TRACER_EMB_FLAG_ORE             USART_ISR_ORE
-#define TRACER_EMB_FLAG_NE              USART_ISR_NE
-#define TRACER_EMB_FLAG_TC              USART_ISR_TC
+    #define TRACER_EMB_FLAG_PE              USART_ISR_PE
+    #define TRACER_EMB_FLAG_FE              USART_ISR_FE
+    #define TRACER_EMB_FLAG_ORE             USART_ISR_ORE
+    #define TRACER_EMB_FLAG_NE              USART_ISR_NE
+    #define TRACER_EMB_FLAG_TC              USART_ISR_TC
 #else
-#define TRACER_EMB_FLAG_PE              USART_SR_PE
-#define TRACER_EMB_FLAG_FE              USART_SR_FE
-#define TRACER_EMB_FLAG_ORE             USART_SR_ORE
-#define TRACER_EMB_FLAG_NE              USART_SR_NE
-#define TRACER_EMB_FLAG_TC              USART_SR_TC
+    #define TRACER_EMB_FLAG_PE              USART_SR_PE
+    #define TRACER_EMB_FLAG_FE              USART_SR_FE
+    #define TRACER_EMB_FLAG_ORE             USART_SR_ORE
+    #define TRACER_EMB_FLAG_NE              USART_SR_NE
+    #define TRACER_EMB_FLAG_TC              USART_SR_TC
 #endif  /* USART_ISR_RXNE_RXFNE */
 
 /* Private Variables ---------------------------------------------------------*/
-static void (*fptr_rx)(uint8_t, uint8_t) = NULL;
+static void ( *fptr_rx )( uint8_t, uint8_t ) = NULL;
 #if TRACER_EMB_IT_MODE == 1UL
-  uint8_t *txData = NULL;
-  uint32_t txSize = 0;
+    uint8_t *txData = NULL;
+    uint32_t txSize = 0;
 #endif
 
 /* Private function prototypes -----------------------------------------------*/
@@ -154,202 +154,208 @@ static void (*fptr_rx)(uint8_t, uint8_t) = NULL;
   * @param  callbackRX
   * @retval none
   */
-void HW_TRACER_EMB_Init(void)
+void HW_TRACER_EMB_Init( void )
 {
-  /* Enable the peripheral clock of GPIO Port */
-  TRACER_EMB_TX_GPIO_ENABLE_CLOCK();
-  TRACER_EMB_RX_GPIO_ENABLE_CLOCK();
+    /* Enable the peripheral clock of GPIO Port */
+    TRACER_EMB_TX_GPIO_ENABLE_CLOCK();
+    TRACER_EMB_RX_GPIO_ENABLE_CLOCK();
 
-  /* Configure Tx Pin as : Alternate function, High Speed, Push pull, Pull up */
-  TRACER_EMB_TX_AF_FUNCTION(TRACER_EMB_TX_GPIO, TRACER_EMB_TX_PIN, TRACER_EMB_TX_AF);
-  LL_GPIO_SetPinMode(TRACER_EMB_TX_GPIO, TRACER_EMB_TX_PIN, LL_GPIO_MODE_ALTERNATE);
-  LL_GPIO_SetPinSpeed(TRACER_EMB_TX_GPIO, TRACER_EMB_TX_PIN, LL_GPIO_SPEED_FREQ_HIGH);
-  LL_GPIO_SetPinOutputType(TRACER_EMB_TX_GPIO, TRACER_EMB_TX_PIN, LL_GPIO_OUTPUT_PUSHPULL);
-  LL_GPIO_SetPinPull(TRACER_EMB_TX_GPIO, TRACER_EMB_TX_PIN, LL_GPIO_PULL_UP);
+    /* Configure Tx Pin as : Alternate function, High Speed, Push pull, Pull up */
+    TRACER_EMB_TX_AF_FUNCTION( TRACER_EMB_TX_GPIO, TRACER_EMB_TX_PIN, TRACER_EMB_TX_AF );
+    LL_GPIO_SetPinMode( TRACER_EMB_TX_GPIO, TRACER_EMB_TX_PIN, LL_GPIO_MODE_ALTERNATE );
+    LL_GPIO_SetPinSpeed( TRACER_EMB_TX_GPIO, TRACER_EMB_TX_PIN, LL_GPIO_SPEED_FREQ_HIGH );
+    LL_GPIO_SetPinOutputType( TRACER_EMB_TX_GPIO, TRACER_EMB_TX_PIN, LL_GPIO_OUTPUT_PUSHPULL );
+    LL_GPIO_SetPinPull( TRACER_EMB_TX_GPIO, TRACER_EMB_TX_PIN, LL_GPIO_PULL_UP );
 
-  /* Configure Rx Pin as : Alternate function, High Speed, Push pull, Pull up */
-  TRACER_EMB_RX_AF_FUNCTION(TRACER_EMB_RX_GPIO, TRACER_EMB_RX_PIN, TRACER_EMB_RX_AF);
-  LL_GPIO_SetPinMode(TRACER_EMB_RX_GPIO, TRACER_EMB_RX_PIN, LL_GPIO_MODE_ALTERNATE);
-  LL_GPIO_SetPinSpeed(TRACER_EMB_RX_GPIO, TRACER_EMB_RX_PIN, LL_GPIO_SPEED_FREQ_HIGH);
-  LL_GPIO_SetPinOutputType(TRACER_EMB_RX_GPIO, TRACER_EMB_RX_PIN, LL_GPIO_OUTPUT_PUSHPULL);
-  LL_GPIO_SetPinPull(TRACER_EMB_RX_GPIO, TRACER_EMB_RX_PIN, LL_GPIO_PULL_UP);
+    /* Configure Rx Pin as : Alternate function, High Speed, Push pull, Pull up */
+    TRACER_EMB_RX_AF_FUNCTION( TRACER_EMB_RX_GPIO, TRACER_EMB_RX_PIN, TRACER_EMB_RX_AF );
+    LL_GPIO_SetPinMode( TRACER_EMB_RX_GPIO, TRACER_EMB_RX_PIN, LL_GPIO_MODE_ALTERNATE );
+    LL_GPIO_SetPinSpeed( TRACER_EMB_RX_GPIO, TRACER_EMB_RX_PIN, LL_GPIO_SPEED_FREQ_HIGH );
+    LL_GPIO_SetPinOutputType( TRACER_EMB_RX_GPIO, TRACER_EMB_RX_PIN, LL_GPIO_OUTPUT_PUSHPULL );
+    LL_GPIO_SetPinPull( TRACER_EMB_RX_GPIO, TRACER_EMB_RX_PIN, LL_GPIO_PULL_UP );
 
-  /* Enable the peripheral clock for USART */
-  TRACER_EMB_ENABLE_CLK_USART();
+    /* Enable the peripheral clock for USART */
+    TRACER_EMB_ENABLE_CLK_USART();
 
-  /* Set clock source */
-  TRACER_EMB_SET_CLK_SOURCE_USART();
-
-
-  if(IS_USART_INSTANCE(TRACER_EMB_USART_INSTANCE))
-  {
-    /* Configure USART */
-
-    LL_USART_InitTypeDef usart_initstruct;
-
-    /* Disable USART prior modifying configuration registers */
-    LL_USART_Disable(TRACER_EMB_USART_INSTANCE);
+    /* Set clock source */
+    TRACER_EMB_SET_CLK_SOURCE_USART();
 
 
-    /* Set fields of initialization structure                   */
-    /*  - Prescaler           : LL_USART_PRESCALER_DIV1         */
-    /*  - BaudRate            : TRACE_BAUDRATE                  */
-    /*  - DataWidth           : LL_USART_DATAWIDTH_8B           */
-    /*  - StopBits            : LL_USART_STOPBITS_1             */
-    /*  - Parity              : LL_USART_PARITY_NONE            */
-    /*  - TransferDirection   : LL_USART_DIRECTION_TX           */
-    /*  - HardwareFlowControl : LL_USART_HWCONTROL_NONE         */
-    /*  - OverSampling        : LL_USART_OVERSAMPLING_16        */
+    if( IS_USART_INSTANCE( TRACER_EMB_USART_INSTANCE ) )
+    {
+        /* Configure USART */
+
+        LL_USART_InitTypeDef usart_initstruct;
+
+        /* Disable USART prior modifying configuration registers */
+        LL_USART_Disable( TRACER_EMB_USART_INSTANCE );
+
+
+        /* Set fields of initialization structure                   */
+        /*  - Prescaler           : LL_USART_PRESCALER_DIV1         */
+        /*  - BaudRate            : TRACE_BAUDRATE                  */
+        /*  - DataWidth           : LL_USART_DATAWIDTH_8B           */
+        /*  - StopBits            : LL_USART_STOPBITS_1             */
+        /*  - Parity              : LL_USART_PARITY_NONE            */
+        /*  - TransferDirection   : LL_USART_DIRECTION_TX           */
+        /*  - HardwareFlowControl : LL_USART_HWCONTROL_NONE         */
+        /*  - OverSampling        : LL_USART_OVERSAMPLING_16        */
 #if defined(USART_PRESC_PRESCALER)
-    usart_initstruct.PrescalerValue      = LL_USART_PRESCALER_DIV1;
+        usart_initstruct.PrescalerValue      = LL_USART_PRESCALER_DIV1;
 #endif
-    usart_initstruct.BaudRate            = TRACER_EMB_BAUDRATE;
-    usart_initstruct.DataWidth           = LL_USART_DATAWIDTH_8B;
-    usart_initstruct.StopBits            = LL_USART_STOPBITS_1;
-    usart_initstruct.Parity              = LL_USART_PARITY_NONE;
-    usart_initstruct.TransferDirection   = LL_USART_DIRECTION_TX;
-    usart_initstruct.HardwareFlowControl = LL_USART_HWCONTROL_NONE;
-    usart_initstruct.OverSampling        = LL_USART_OVERSAMPLING_16;
+        usart_initstruct.BaudRate            = TRACER_EMB_BAUDRATE;
+        usart_initstruct.DataWidth           = LL_USART_DATAWIDTH_8B;
+        usart_initstruct.StopBits            = LL_USART_STOPBITS_1;
+        usart_initstruct.Parity              = LL_USART_PARITY_NONE;
+        usart_initstruct.TransferDirection   = LL_USART_DIRECTION_TX;
+        usart_initstruct.HardwareFlowControl = LL_USART_HWCONTROL_NONE;
+        usart_initstruct.OverSampling        = LL_USART_OVERSAMPLING_16;
 
-    /* Initialize USART instance according to parameters defined in initialization structure */
-    LL_USART_Init(TRACER_EMB_USART_INSTANCE, &usart_initstruct);
+        /* Initialize USART instance according to parameters defined in initialization structure */
+        LL_USART_Init( TRACER_EMB_USART_INSTANCE, &usart_initstruct );
 
-    LL_USART_Enable(TRACER_EMB_USART_INSTANCE);
+        LL_USART_Enable( TRACER_EMB_USART_INSTANCE );
 
 #if defined(USART_ISR_TEACK)
-    uint32_t _temp1 = LL_USART_IsActiveFlag_TEACK(TRACER_EMB_USART_INSTANCE);
-    /* Polling USART initialisation */
-    while(0u == _temp1)
-    {
-      _temp1 = LL_USART_IsActiveFlag_TEACK(TRACER_EMB_USART_INSTANCE);
-    }
+        uint32_t _temp1 = LL_USART_IsActiveFlag_TEACK( TRACER_EMB_USART_INSTANCE );
+
+        /* Polling USART initialisation */
+        while( 0u == _temp1 )
+        {
+            _temp1 = LL_USART_IsActiveFlag_TEACK( TRACER_EMB_USART_INSTANCE );
+        }
+
 #endif /* USART_ISR_TEACK */
-  }
-#if (TRACER_EMB_IS_INSTANCE_LPUART_TYPE == 1UL)
-  else
-  {
-    /* Configure USART */
-    LL_LPUART_InitTypeDef lpuart_initstruct;
-
-    /* Disable USART prior modifying configuration registers */
-    LL_LPUART_Disable(TRACER_EMB_USART_INSTANCE);
-
-
-    /* Set fields of initialization structure                   */
-    /*  - Prescaler           : LL_USART_PRESCALER_DIV1         */
-    /*  - BaudRate            : TRACE_BAUDRATE                  */
-    /*  - DataWidth           : LL_USART_DATAWIDTH_8B           */
-    /*  - StopBits            : LL_USART_STOPBITS_1             */
-    /*  - Parity              : LL_USART_PARITY_NONE            */
-    /*  - TransferDirection   : LL_USART_DIRECTION_TX           */
-    /*  - HardwareFlowControl : LL_USART_HWCONTROL_NONE         */
-    /*  - OverSampling        : LL_USART_OVERSAMPLING_16        */
-#if defined(USART_PRESC_PRESCALER)
-    lpuart_initstruct.PrescalerValue      = LL_USART_PRESCALER_DIV1;
-#endif
-    lpuart_initstruct.BaudRate            = TRACER_EMB_BAUDRATE;
-    lpuart_initstruct.DataWidth           = LL_USART_DATAWIDTH_8B;
-    lpuart_initstruct.StopBits            = LL_USART_STOPBITS_1;
-    lpuart_initstruct.Parity              = LL_USART_PARITY_NONE;
-    lpuart_initstruct.TransferDirection   = LL_USART_DIRECTION_TX;
-    lpuart_initstruct.HardwareFlowControl = LL_USART_HWCONTROL_NONE;
-
-    /* Initialize USART instance according to parameters defined in initialization structure */
-    LL_LPUART_Init(TRACER_EMB_USART_INSTANCE, &lpuart_initstruct);
-
-    LL_LPUART_Enable(TRACER_EMB_USART_INSTANCE);
-
-    uint32_t _temp1 = LL_LPUART_IsActiveFlag_TEACK(TRACER_EMB_USART_INSTANCE);
-    /* Polling USART initialisation */
-    while(0u == _temp1)
-    {
-      _temp1 = LL_LPUART_IsActiveFlag_TEACK(TRACER_EMB_USART_INSTANCE);
     }
-  }
+
+#if (TRACER_EMB_IS_INSTANCE_LPUART_TYPE == 1UL)
+    else
+    {
+        /* Configure USART */
+        LL_LPUART_InitTypeDef lpuart_initstruct;
+
+        /* Disable USART prior modifying configuration registers */
+        LL_LPUART_Disable( TRACER_EMB_USART_INSTANCE );
+
+
+        /* Set fields of initialization structure                   */
+        /*  - Prescaler           : LL_USART_PRESCALER_DIV1         */
+        /*  - BaudRate            : TRACE_BAUDRATE                  */
+        /*  - DataWidth           : LL_USART_DATAWIDTH_8B           */
+        /*  - StopBits            : LL_USART_STOPBITS_1             */
+        /*  - Parity              : LL_USART_PARITY_NONE            */
+        /*  - TransferDirection   : LL_USART_DIRECTION_TX           */
+        /*  - HardwareFlowControl : LL_USART_HWCONTROL_NONE         */
+        /*  - OverSampling        : LL_USART_OVERSAMPLING_16        */
+#if defined(USART_PRESC_PRESCALER)
+        lpuart_initstruct.PrescalerValue      = LL_USART_PRESCALER_DIV1;
+#endif
+        lpuart_initstruct.BaudRate            = TRACER_EMB_BAUDRATE;
+        lpuart_initstruct.DataWidth           = LL_USART_DATAWIDTH_8B;
+        lpuart_initstruct.StopBits            = LL_USART_STOPBITS_1;
+        lpuart_initstruct.Parity              = LL_USART_PARITY_NONE;
+        lpuart_initstruct.TransferDirection   = LL_USART_DIRECTION_TX;
+        lpuart_initstruct.HardwareFlowControl = LL_USART_HWCONTROL_NONE;
+
+        /* Initialize USART instance according to parameters defined in initialization structure */
+        LL_LPUART_Init( TRACER_EMB_USART_INSTANCE, &lpuart_initstruct );
+
+        LL_LPUART_Enable( TRACER_EMB_USART_INSTANCE );
+
+        uint32_t _temp1 = LL_LPUART_IsActiveFlag_TEACK( TRACER_EMB_USART_INSTANCE );
+
+        /* Polling USART initialisation */
+        while( 0u == _temp1 )
+        {
+            _temp1 = LL_LPUART_IsActiveFlag_TEACK( TRACER_EMB_USART_INSTANCE );
+        }
+    }
+
 #endif
 
 #if TRACER_EMB_DMA_MODE == 1UL
-  /* Configure TX DMA */
-  TRACER_EMB_ENABLE_CLK_DMA();
+    /* Configure TX DMA */
+    TRACER_EMB_ENABLE_CLK_DMA();
 
-  /* (3) Configure the DMA functional parameters for transmission */
+    /* (3) Configure the DMA functional parameters for transmission */
 #if defined(GPDMA1)
-  LL_DMA_ConfigDataTransfer(TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL,
-                            LL_DMA_SINC_INCREMENT         |
-                            LL_DMA_DINC_NOINCREMENT       |
-                            LL_DMA_SRC_DATAWIDTH_BYTE     |
-                            LL_DMA_DEST_DATAWIDTH_BYTE);
+    LL_DMA_ConfigDataTransfer( TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL,
+                               LL_DMA_SINC_INCREMENT         |
+                               LL_DMA_DINC_NOINCREMENT       |
+                               LL_DMA_SRC_DATAWIDTH_BYTE     |
+                               LL_DMA_DEST_DATAWIDTH_BYTE );
 
-  LL_DMA_SetHardwareRequest(TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL, TRACER_EMB_TX_DMA_REQUEST);
-  
+    LL_DMA_SetHardwareRequest( TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL, TRACER_EMB_TX_DMA_REQUEST );
+
 #elif defined(DMA_SxCR_CHSEL)
-  LL_DMA_SetChannelSelection(TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_STREAM, TRACER_EMB_TX_DMA_CHANNEL);
-  LL_DMA_ConfigTransfer(TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_STREAM,
-                        LL_DMA_DIRECTION_MEMORY_TO_PERIPH |
-                        LL_DMA_PRIORITY_HIGH              |
-                        LL_DMA_MODE_NORMAL                |
-                        LL_DMA_PERIPH_NOINCREMENT         |
-                        LL_DMA_MEMORY_INCREMENT           |
-                        LL_DMA_PDATAALIGN_BYTE            |
-                        LL_DMA_MDATAALIGN_BYTE);
+    LL_DMA_SetChannelSelection( TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_STREAM, TRACER_EMB_TX_DMA_CHANNEL );
+    LL_DMA_ConfigTransfer( TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_STREAM,
+                           LL_DMA_DIRECTION_MEMORY_TO_PERIPH |
+                           LL_DMA_PRIORITY_HIGH              |
+                           LL_DMA_MODE_NORMAL                |
+                           LL_DMA_PERIPH_NOINCREMENT         |
+                           LL_DMA_MEMORY_INCREMENT           |
+                           LL_DMA_PDATAALIGN_BYTE            |
+                           LL_DMA_MDATAALIGN_BYTE );
 #else
-  LL_DMA_ConfigTransfer(TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL,
-                        LL_DMA_DIRECTION_MEMORY_TO_PERIPH |
-                        LL_DMA_PRIORITY_HIGH              |
-                        LL_DMA_MODE_NORMAL                |
-                        LL_DMA_PERIPH_NOINCREMENT         |
-                        LL_DMA_MEMORY_INCREMENT           |
-                        LL_DMA_PDATAALIGN_BYTE            |
-                        LL_DMA_MDATAALIGN_BYTE);
+    LL_DMA_ConfigTransfer( TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL,
+                           LL_DMA_DIRECTION_MEMORY_TO_PERIPH |
+                           LL_DMA_PRIORITY_HIGH              |
+                           LL_DMA_MODE_NORMAL                |
+                           LL_DMA_PERIPH_NOINCREMENT         |
+                           LL_DMA_MEMORY_INCREMENT           |
+                           LL_DMA_PDATAALIGN_BYTE            |
+                           LL_DMA_MDATAALIGN_BYTE );
 
 #if defined(DMAMUX_CxCR_DMAREQ_ID)
-  LL_DMA_SetPeriphRequest(TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL, TRACER_EMB_TX_DMA_REQUEST);
+    LL_DMA_SetPeriphRequest( TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL, TRACER_EMB_TX_DMA_REQUEST );
 #endif
 
 #endif /* GPDMA1 */
 
 #if defined(DMA_SxCR_CHSEL)
-  LL_DMA_EnableIT_TC(TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_STREAM);
+    LL_DMA_EnableIT_TC( TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_STREAM );
 #else
-  LL_DMA_EnableIT_TC(TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL);
+    LL_DMA_EnableIT_TC( TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL );
 #endif /* DMA_SxCR_CHSEL */
 
 #endif
 
-  /* Configure the interrupt for TX */
+    /* Configure the interrupt for TX */
 #if TRACER_EMB_DMA_MODE == 1UL
 #ifdef TRACER_EMB_TX_DMA_PRIORITY
-  NVIC_SetPriority(TRACER_EMB_TX_DMA_IRQ, TRACER_EMB_TX_DMA_PRIORITY);
-  NVIC_EnableIRQ(TRACER_EMB_TX_DMA_IRQ);
+    NVIC_SetPriority( TRACER_EMB_TX_DMA_IRQ, TRACER_EMB_TX_DMA_PRIORITY );
+    NVIC_EnableIRQ( TRACER_EMB_TX_DMA_IRQ );
 #else
-  NVIC_SetPriority(TRACER_EMB_TX_DMA_IRQ, 0);
-  NVIC_EnableIRQ(TRACER_EMB_TX_DMA_IRQ);
+    NVIC_SetPriority( TRACER_EMB_TX_DMA_IRQ, 0 );
+    NVIC_EnableIRQ( TRACER_EMB_TX_DMA_IRQ );
 #endif
 #endif
 #ifdef TRACER_EMB_TX_IRQ_PRIORITY
-  NVIC_SetPriority(TRACER_EMB_USART_IRQ, TRACER_EMB_TX_IRQ_PRIORITY);
-  NVIC_EnableIRQ(TRACER_EMB_USART_IRQ);
+    NVIC_SetPriority( TRACER_EMB_USART_IRQ, TRACER_EMB_TX_IRQ_PRIORITY );
+    NVIC_EnableIRQ( TRACER_EMB_USART_IRQ );
 #else
-  NVIC_SetPriority(TRACER_EMB_USART_IRQ, 3);
-  NVIC_EnableIRQ(TRACER_EMB_USART_IRQ);
+    NVIC_SetPriority( TRACER_EMB_USART_IRQ, 3 );
+    NVIC_EnableIRQ( TRACER_EMB_USART_IRQ );
 #endif
 
-  /* Disable the UART */
-  if(NULL == fptr_rx)
-  {
-    TRACER_EMB_DISABLE_CLK_USART();
-  }
-  return;
+    /* Disable the UART */
+    if( NULL == fptr_rx )
+    {
+        TRACER_EMB_DISABLE_CLK_USART();
+    }
+
+    return;
 }
 
 /**
   * @brief  Trace Deinit
   * @retval none
   */
-void HW_TRACER_EMB_DeInit(void)
+void HW_TRACER_EMB_DeInit( void )
 {
-  TRACER_EMB_DISABLE_CLK_USART();
-  return;
+    TRACER_EMB_DISABLE_CLK_USART();
+    return;
 }
 
 /**
@@ -357,28 +363,28 @@ void HW_TRACER_EMB_DeInit(void)
   * @param  callbackRX
   * @retval none
   */
-void HW_TRACER_EMB_RegisterRxCallback(void (*callbackRX)(uint8_t, uint8_t))
+void HW_TRACER_EMB_RegisterRxCallback( void ( *callbackRX )( uint8_t, uint8_t ) )
 {
-  fptr_rx = callbackRX;
-  TRACER_EMB_ENABLE_CLK_USART();
+    fptr_rx = callbackRX;
+    TRACER_EMB_ENABLE_CLK_USART();
 }
 
 /**
   * @brief  Start RX reception only when OSKernel have been started
   * @retval none
   */
-void HW_TRACER_EMB_StartRX(void)
+void HW_TRACER_EMB_StartRX( void )
 {
-  /* Enable USART IT for RX */
-  TRACER_EMB_ENABLE_IT_RXNE(TRACER_EMB_USART_INSTANCE);
-  TRACER_EMB_ENABLE_IT_ERROR(TRACER_EMB_USART_INSTANCE);
+    /* Enable USART IT for RX */
+    TRACER_EMB_ENABLE_IT_RXNE( TRACER_EMB_USART_INSTANCE );
+    TRACER_EMB_ENABLE_IT_ERROR( TRACER_EMB_USART_INSTANCE );
 
-  /* Enable RX/TX */
-  TRACER_EMB_ENABLEDIRECTIONRX(TRACER_EMB_USART_INSTANCE);
+    /* Enable RX/TX */
+    TRACER_EMB_ENABLEDIRECTIONRX( TRACER_EMB_USART_INSTANCE );
 
-  /* Configure the interrupt for RX */
-  NVIC_SetPriority(TRACER_EMB_USART_IRQ, 3);
-  NVIC_EnableIRQ(TRACER_EMB_USART_IRQ);
+    /* Configure the interrupt for RX */
+    NVIC_SetPriority( TRACER_EMB_USART_IRQ, 3 );
+    NVIC_EnableIRQ( TRACER_EMB_USART_IRQ );
 }
 
 #if TRACER_EMB_DMA_MODE == 1UL
@@ -386,13 +392,13 @@ void HW_TRACER_EMB_StartRX(void)
   * @brief  Function to handle reception in DMA mode
   * @retval none
   */
-void HW_TRACER_EMB_IRQHandlerDMA(void)
+void HW_TRACER_EMB_IRQHandlerDMA( void )
 {
-  if (1UL == TRACER_EMB_TX_DMA_ACTIVE_FLAG(TRACER_EMB_DMA_INSTANCE))
-  {
-    TRACER_EMB_ENABLE_IT_TC(TRACER_EMB_USART_INSTANCE);
-    TRACER_EMB_TX_DMA_CLEAR_FLAG(TRACER_EMB_DMA_INSTANCE);
-  }
+    if( 1UL == TRACER_EMB_TX_DMA_ACTIVE_FLAG( TRACER_EMB_DMA_INSTANCE ) )
+    {
+        TRACER_EMB_ENABLE_IT_TC( TRACER_EMB_USART_INSTANCE );
+        TRACER_EMB_TX_DMA_CLEAR_FLAG( TRACER_EMB_DMA_INSTANCE );
+    }
 }
 #endif
 
@@ -400,153 +406,164 @@ void HW_TRACER_EMB_IRQHandlerDMA(void)
   * @brief  USART/LPUART IRQ Handler
   * @retval none
   */
-void HW_TRACER_EMB_IRQHandlerUSART(void)
+void HW_TRACER_EMB_IRQHandlerUSART( void )
 {
-  uint32_t _temp1, _temp2;
-  uint32_t _isrflags;
-  uint32_t _errorflags;
-  uint8_t _error = 0U;
+    uint32_t _temp1, _temp2;
+    uint32_t _isrflags;
+    uint32_t _errorflags;
+    uint8_t _error = 0U;
 
-  /* Load ISR in local variable */
+    /* Load ISR in local variable */
 #if defined(USART_ISR_TC)
-  _isrflags = TRACER_EMB_READREG(TRACER_EMB_USART_INSTANCE, ISR);
+    _isrflags = TRACER_EMB_READREG( TRACER_EMB_USART_INSTANCE, ISR );
 #else
-  _isrflags = TRACER_EMB_READREG(TRACER_EMB_USART_INSTANCE, SR);
+    _isrflags = TRACER_EMB_READREG( TRACER_EMB_USART_INSTANCE, SR );
 #endif  /* USART_ISR_TC */
 
-  /* Ready to read received char if any */
-  _temp1 = TRACER_EMB_ISENABLEDIT_RXNE(TRACER_EMB_USART_INSTANCE);
+    /* Ready to read received char if any */
+    _temp1 = TRACER_EMB_ISENABLEDIT_RXNE( TRACER_EMB_USART_INSTANCE );
 
-  /* If Reception is ongoing */
-  if (1UL == _temp1)
-  {
-    /* Reception is active : check if new byte is received */
-    __IO uint32_t received_char;
-
-    _errorflags = ((_isrflags) & (TRACER_EMB_FLAG_PE | TRACER_EMB_FLAG_FE | TRACER_EMB_FLAG_NE | TRACER_EMB_FLAG_ORE));
-
-    /* Check if RXNE flag is set : new byte is stored in DR */
-    if (  ((TRACER_EMB_FLAG_RXNE) == ((_isrflags) & (TRACER_EMB_FLAG_RXNE)))
-        &&(0UL == _errorflags) )
+    /* If Reception is ongoing */
+    if( 1UL == _temp1 )
     {
-      /* Read Received character. RXNE flag is cleared by reading of RDR register */
-      received_char = TRACER_EMB_RECEIVE_DATA8(TRACER_EMB_USART_INSTANCE);
+        /* Reception is active : check if new byte is received */
+        __IO uint32_t received_char;
 
-      if (fptr_rx != NULL)
-      {
-        fptr_rx(received_char, 0U);
-      }
-      return;
+        _errorflags = ( ( _isrflags ) & ( TRACER_EMB_FLAG_PE | TRACER_EMB_FLAG_FE | TRACER_EMB_FLAG_NE | TRACER_EMB_FLAG_ORE ) );
+
+        /* Check if RXNE flag is set : new byte is stored in DR */
+        if( ( ( TRACER_EMB_FLAG_RXNE ) == ( ( _isrflags ) & ( TRACER_EMB_FLAG_RXNE ) ) )
+                && ( 0UL == _errorflags ) )
+        {
+            /* Read Received character. RXNE flag is cleared by reading of RDR register */
+            received_char = TRACER_EMB_RECEIVE_DATA8( TRACER_EMB_USART_INSTANCE );
+
+            if( fptr_rx != NULL )
+            {
+                fptr_rx( received_char, 0U );
+            }
+
+            return;
+        }
+        else if( 0UL != _errorflags )
+        {
+            /* Error has been detected */
+
+            /* Check if RXNE flag is set : new byte is stored in DR */
+            if( ( TRACER_EMB_FLAG_RXNE ) == ( ( _isrflags ) & ( TRACER_EMB_FLAG_RXNE ) ) )
+            {
+                /* Read Received character. RXNE flag is cleared by reading of RDR register */
+                received_char = TRACER_EMB_RECEIVE_DATA8( TRACER_EMB_USART_INSTANCE );
+
+                if( fptr_rx != NULL )
+                {
+                    fptr_rx( received_char, 0U );
+                }
+
+                return;
+            }
+
+            /* Parity error    */
+            _temp2 = TRACER_EMB_ISENABLEDIT_PE( TRACER_EMB_USART_INSTANCE );
+
+            if( ( 1U == _temp2 )
+                    && ( TRACER_EMB_FLAG_PE == ( ( _errorflags ) & ( TRACER_EMB_FLAG_PE ) ) ) )
+            {
+                /* Flags clearing */
+                TRACER_EMB_CLEARFLAG_PE( TRACER_EMB_USART_INSTANCE );
+                _error = 1U;
+            }
+
+            /* Generic Errors*/
+            _temp2 = TRACER_EMB_ISENABLEDIT_ERROR( TRACER_EMB_USART_INSTANCE );
+
+            if( 1U == _temp2 )
+            {
+                /* Framing error   */
+                if( TRACER_EMB_FLAG_FE == ( ( _errorflags ) & ( TRACER_EMB_FLAG_FE ) ) )
+                {
+                    /* Flags clearing */
+                    TRACER_EMB_CLEARFLAG_FE( TRACER_EMB_USART_INSTANCE );
+                    _error = 1U;
+                }
+
+                /* Overrun error   */
+                if( TRACER_EMB_FLAG_ORE == ( ( _errorflags ) & ( TRACER_EMB_FLAG_ORE ) ) )
+                {
+                    /* Flags clearing */
+                    TRACER_EMB_CLEARFLAG_ORE( TRACER_EMB_USART_INSTANCE );
+                    _error = 1U;
+                }
+
+                /* Noise detection */
+                if( TRACER_EMB_FLAG_NE == ( ( _errorflags ) & ( TRACER_EMB_FLAG_NE ) ) )
+                {
+                    /* Flags clearing */
+                    TRACER_EMB_CLEARFLAG_NE( TRACER_EMB_USART_INSTANCE );
+                    _error = 1U;
+                }
+            }
+
+            if( ( 1U == _error ) && ( fptr_rx != NULL ) )
+            {
+                fptr_rx( 1U, 1U ); /* 1 indicate a reception error */
+            }
+        }
+        else
+        {
+            /* no error, no reception */
+        }
     }
-    else if (0UL != _errorflags)
-    {
-      /* Error has been detected */
-
-      /* Check if RXNE flag is set : new byte is stored in DR */
-      if ((TRACER_EMB_FLAG_RXNE) == ((_isrflags) & (TRACER_EMB_FLAG_RXNE)))
-      {
-        /* Read Received character. RXNE flag is cleared by reading of RDR register */
-        received_char = TRACER_EMB_RECEIVE_DATA8(TRACER_EMB_USART_INSTANCE);
-
-        if (fptr_rx != NULL)
-        {
-          fptr_rx(received_char, 0U);
-        }
-        return;
-      }
-
-      /* Parity error    */
-      _temp2 = TRACER_EMB_ISENABLEDIT_PE(TRACER_EMB_USART_INSTANCE);
-      if (  (1U == _temp2)
-          &&(TRACER_EMB_FLAG_PE == ((_errorflags) & (TRACER_EMB_FLAG_PE))) )
-      {
-        /* Flags clearing */
-        TRACER_EMB_CLEARFLAG_PE(TRACER_EMB_USART_INSTANCE);
-        _error = 1U;
-      }
-
-      /* Generic Errors*/
-      _temp2 = TRACER_EMB_ISENABLEDIT_ERROR(TRACER_EMB_USART_INSTANCE);
-      if (1U == _temp2)
-      {
-        /* Framing error   */
-        if (TRACER_EMB_FLAG_FE == ((_errorflags) & (TRACER_EMB_FLAG_FE)))
-        {
-          /* Flags clearing */
-          TRACER_EMB_CLEARFLAG_FE(TRACER_EMB_USART_INSTANCE);
-          _error = 1U;
-        }
-
-        /* Overrun error   */
-        if (TRACER_EMB_FLAG_ORE == ((_errorflags) & (TRACER_EMB_FLAG_ORE)))
-        {
-          /* Flags clearing */
-          TRACER_EMB_CLEARFLAG_ORE(TRACER_EMB_USART_INSTANCE);
-          _error = 1U;
-        }
-
-        /* Noise detection */
-        if (TRACER_EMB_FLAG_NE == ((_errorflags) & (TRACER_EMB_FLAG_NE)))
-        {
-          /* Flags clearing */
-          TRACER_EMB_CLEARFLAG_NE(TRACER_EMB_USART_INSTANCE);
-          _error = 1U;
-        }
-      }
-
-      if ((1U == _error) && (fptr_rx != NULL))
-      {
-        fptr_rx(1U, 1U);  /* 1 indicate a reception error */
-      }
-    }
-    else
-    {
-      /* no error, no reception */
-    }
-  }
 
 #if TRACER_EMB_IT_MODE == 1UL
-  /* Ready to handle TXE interrupt */
-  _temp2 = TRACER_EMB_ISENABLEDIT_TXE(TRACER_EMB_USART_INSTANCE);
-  if (((TRACER_EMB_FLAG_TXE) == ((_isrflags) & (TRACER_EMB_FLAG_TXE))) && (1UL == _temp2))
-  {
-    /* Write data inside the data register */
-    TRACER_EMB_TRANSMIT_DATA8(TRACER_EMB_USART_INSTANCE, *txData);
-    txData++;
-    txSize--;
-    if (txSize == 0)
+    /* Ready to handle TXE interrupt */
+    _temp2 = TRACER_EMB_ISENABLEDIT_TXE( TRACER_EMB_USART_INSTANCE );
+
+    if( ( ( TRACER_EMB_FLAG_TXE ) == ( ( _isrflags ) & ( TRACER_EMB_FLAG_TXE ) ) ) && ( 1UL == _temp2 ) )
     {
-      TRACER_EMB_DISABLEIT_TXE(TRACER_EMB_USART_INSTANCE);
+        /* Write data inside the data register */
+        TRACER_EMB_TRANSMIT_DATA8( TRACER_EMB_USART_INSTANCE, *txData );
+        txData++;
+        txSize--;
 
-      if(NULL == fptr_rx)
-      {
-        TRACER_EMB_DISABLE_CLK_USART();
-      }
+        if( txSize == 0 )
+        {
+            TRACER_EMB_DISABLEIT_TXE( TRACER_EMB_USART_INSTANCE );
 
-      TRACER_EMB_CALLBACK_TX();
+            if( NULL == fptr_rx )
+            {
+                TRACER_EMB_DISABLE_CLK_USART();
+            }
+
+            TRACER_EMB_CALLBACK_TX();
+        }
     }
-  }
+
 #endif
 
 #if  (TRACER_EMB_DMA_MODE == 1UL)
-  /* Ready to handle TC interrupt */
-  _temp2 = TRACER_EMB_ISENABLEDIT_TC(TRACER_EMB_USART_INSTANCE);
-  if (((TRACER_EMB_FLAG_TC) == ((_isrflags) & (TRACER_EMB_FLAG_TC))) && (1UL == _temp2))
-  {
-    TRACER_EMB_DISABLEIT_TC(TRACER_EMB_USART_INSTANCE);
-    TRACER_EMB_CLEARFLAG_TC(TRACER_EMB_USART_INSTANCE);
-#if defined(DMA_SxCR_CHSEL)
-    TRACER_EMB_DISABLESTREAM(TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_STREAM);
-#else
-    TRACER_EMB_DISABLECHANNEL(TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL);
-#endif /* DMA_SxCR_CHSEL */
-    if(NULL == fptr_rx)
+    /* Ready to handle TC interrupt */
+    _temp2 = TRACER_EMB_ISENABLEDIT_TC( TRACER_EMB_USART_INSTANCE );
+
+    if( ( ( TRACER_EMB_FLAG_TC ) == ( ( _isrflags ) & ( TRACER_EMB_FLAG_TC ) ) ) && ( 1UL == _temp2 ) )
     {
-      TRACER_EMB_DISABLE_CLK_USART();
+        TRACER_EMB_DISABLEIT_TC( TRACER_EMB_USART_INSTANCE );
+        TRACER_EMB_CLEARFLAG_TC( TRACER_EMB_USART_INSTANCE );
+#if defined(DMA_SxCR_CHSEL)
+        TRACER_EMB_DISABLESTREAM( TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_STREAM );
+#else
+        TRACER_EMB_DISABLECHANNEL( TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL );
+#endif /* DMA_SxCR_CHSEL */
+
+        if( NULL == fptr_rx )
+        {
+            TRACER_EMB_DISABLE_CLK_USART();
+        }
+
+        /* call the callback */
+        TRACER_EMB_CALLBACK_TX();
     }
-    /* call the callback */
-    TRACER_EMB_CALLBACK_TX();
-  }
+
 #endif
 
 }
@@ -557,58 +574,58 @@ void HW_TRACER_EMB_IRQHandlerUSART(void)
   * @param data size
   * @retval none
   */
-void HW_TRACER_EMB_SendData(uint8_t *pData, uint32_t Size)
+void HW_TRACER_EMB_SendData( uint8_t *pData, uint32_t Size )
 {
-  /* enable the USART */
-  TRACER_EMB_ENABLE_CLK_USART();
+    /* enable the USART */
+    TRACER_EMB_ENABLE_CLK_USART();
 
 #if TRACER_EMB_DMA_MODE == 1UL
 #if defined(GPDMA1)
-  LL_DMA_ConfigAddrs(TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL,
-                     (uint32_t)pData,
-                     TRACER_EMB_DMA_GETREGADDR(TRACER_EMB_USART_INSTANCE, LL_USART_DMA_REG_DATA_TRANSMIT));
-  LL_DMA_SetBlkDataLength(TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL, Size);
+    LL_DMA_ConfigAddrs( TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL,
+                        ( uint32_t )pData,
+                        TRACER_EMB_DMA_GETREGADDR( TRACER_EMB_USART_INSTANCE, LL_USART_DMA_REG_DATA_TRANSMIT ) );
+    LL_DMA_SetBlkDataLength( TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL, Size );
 
-  /* Enable DMA TX Interrupt */
-  TRACER_EMB_ENABLEDMAREQ_TX(TRACER_EMB_USART_INSTANCE);
+    /* Enable DMA TX Interrupt */
+    TRACER_EMB_ENABLEDMAREQ_TX( TRACER_EMB_USART_INSTANCE );
 
-  /* Enable DMA Channel Tx */
-  LL_DMA_EnableChannel(TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL);
-  TRACER_EMB_ENABLECHANNEL(TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL);
+    /* Enable DMA Channel Tx */
+    LL_DMA_EnableChannel( TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL );
+    TRACER_EMB_ENABLECHANNEL( TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL );
 #elif defined(DMA_SxCR_CHSEL)
-  LL_DMA_ConfigAddresses(TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_STREAM,
-                         (uint32_t)pData,
-                         TRACER_EMB_DMA_GETREGADDR(TRACER_EMB_USART_INSTANCE),
-                         LL_DMA_GetDataTransferDirection(TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_STREAM));
-  LL_DMA_SetDataLength(TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_STREAM, Size);
+    LL_DMA_ConfigAddresses( TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_STREAM,
+                            ( uint32_t )pData,
+                            TRACER_EMB_DMA_GETREGADDR( TRACER_EMB_USART_INSTANCE ),
+                            LL_DMA_GetDataTransferDirection( TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_STREAM ) );
+    LL_DMA_SetDataLength( TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_STREAM, Size );
 
-  /* Enable DMA TX Interrupt */
-  TRACER_EMB_ENABLEDMAREQ_TX(TRACER_EMB_USART_INSTANCE);
+    /* Enable DMA TX Interrupt */
+    TRACER_EMB_ENABLEDMAREQ_TX( TRACER_EMB_USART_INSTANCE );
 
-  /* Enable DMA Channel Tx */
-  TRACER_EMB_ENABLESTREAM(TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_STREAM);
+    /* Enable DMA Channel Tx */
+    TRACER_EMB_ENABLESTREAM( TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_STREAM );
 #else
-  LL_DMA_ConfigAddresses(TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL,
-                         (uint32_t)pData,
-                         TRACER_EMB_DMA_GETREGADDR(TRACER_EMB_USART_INSTANCE, LL_USART_DMA_REG_DATA_TRANSMIT),
-                         LL_DMA_GetDataTransferDirection(TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL));
-  LL_DMA_SetDataLength(TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL, Size);
+    LL_DMA_ConfigAddresses( TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL,
+                            ( uint32_t )pData,
+                            TRACER_EMB_DMA_GETREGADDR( TRACER_EMB_USART_INSTANCE, LL_USART_DMA_REG_DATA_TRANSMIT ),
+                            LL_DMA_GetDataTransferDirection( TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL ) );
+    LL_DMA_SetDataLength( TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL, Size );
 
-  /* Enable DMA TX Interrupt */
-  TRACER_EMB_ENABLEDMAREQ_TX(TRACER_EMB_USART_INSTANCE);
+    /* Enable DMA TX Interrupt */
+    TRACER_EMB_ENABLEDMAREQ_TX( TRACER_EMB_USART_INSTANCE );
 
-  /* Enable DMA Channel Tx */
-  TRACER_EMB_ENABLECHANNEL(TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL);
+    /* Enable DMA Channel Tx */
+    TRACER_EMB_ENABLECHANNEL( TRACER_EMB_DMA_INSTANCE, TRACER_EMB_TX_DMA_CHANNEL );
 #endif /* GPDMA1 */
 #endif
 
 #if TRACER_EMB_IT_MODE == 1UL
-  /* keep information about the data to transfert */
-  txData = pData;
-  txSize = Size;
+    /* keep information about the data to transfert */
+    txData = pData;
+    txSize = Size;
 
-  /* Enable the TXEIE */
-  TRACER_EMB_ENABLE_IT_TXE(TRACER_EMB_USART_INSTANCE);
+    /* Enable the TXEIE */
+    TRACER_EMB_ENABLE_IT_TXE( TRACER_EMB_USART_INSTANCE );
 #endif
 }
 
@@ -616,8 +633,8 @@ void HW_TRACER_EMB_SendData(uint8_t *pData, uint32_t Size)
   * @brief  USART/LPUART read data
   * @retval return a data
   */
-uint8_t HW_TRACER_EMB_ReadData(void)
+uint8_t HW_TRACER_EMB_ReadData( void )
 {
-  return TRACER_EMB_RECEIVE_DATA8(TRACER_EMB_USART_INSTANCE);
+    return TRACER_EMB_RECEIVE_DATA8( TRACER_EMB_USART_INSTANCE );
 }
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

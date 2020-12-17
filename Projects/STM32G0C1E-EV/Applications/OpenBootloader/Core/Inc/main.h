@@ -33,8 +33,8 @@ extern "C" {
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions prototypes ---------------------------------------------*/
-void Error_Handler(void);
-void System_DeInit(void);
+void Error_Handler( void );
+void System_DeInit( void );
 
 /* Private defines -----------------------------------------------------------*/
 

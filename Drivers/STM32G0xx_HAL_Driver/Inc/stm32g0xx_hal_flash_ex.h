@@ -63,17 +63,17 @@ extern "C" {
 /** @addtogroup FLASHEx_Exported_Functions_Group1
   * @{
   */
-HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef *pEraseInit, uint32_t *PageError);
-HAL_StatusTypeDef HAL_FLASHEx_Erase_IT(FLASH_EraseInitTypeDef *pEraseInit);
-void              HAL_FLASHEx_EnableDebugger(void);
-void              HAL_FLASHEx_DisableDebugger(void);
-uint32_t          HAL_FLASHEx_FlashEmptyCheck(void);
-void              HAL_FLASHEx_ForceFlashEmpty(uint32_t FlashEmpty);
+HAL_StatusTypeDef HAL_FLASHEx_Erase( FLASH_EraseInitTypeDef *pEraseInit, uint32_t *PageError );
+HAL_StatusTypeDef HAL_FLASHEx_Erase_IT( FLASH_EraseInitTypeDef *pEraseInit );
+void              HAL_FLASHEx_EnableDebugger( void );
+void              HAL_FLASHEx_DisableDebugger( void );
+uint32_t          HAL_FLASHEx_FlashEmptyCheck( void );
+void              HAL_FLASHEx_ForceFlashEmpty( uint32_t FlashEmpty );
 #if defined(FLASH_SECURABLE_MEMORY_SUPPORT)
-void              HAL_FLASHEx_EnableSecMemProtection(uint32_t Banks);
+void              HAL_FLASHEx_EnableSecMemProtection( uint32_t Banks );
 #endif
-HAL_StatusTypeDef HAL_FLASHEx_OBProgram(FLASH_OBProgramInitTypeDef *pOBInit);
-void              HAL_FLASHEx_OBGetConfig(FLASH_OBProgramInitTypeDef *pOBInit);
+HAL_StatusTypeDef HAL_FLASHEx_OBProgram( FLASH_OBProgramInitTypeDef *pOBInit );
+void              HAL_FLASHEx_OBGetConfig( FLASH_OBProgramInitTypeDef *pOBInit );
 /**
   * @}
   */
@@ -97,7 +97,7 @@ void              HAL_FLASHEx_OBGetConfig(FLASH_OBProgramInitTypeDef *pOBInit);
   *  @{
   */
 #define IS_FLASH_EMPTY_CHECK(__VALUE__)     (((__VALUE__) == FLASH_PROG_EMPTY) || ((__VALUE__) == FLASH_PROG_NOT_EMPTY))
-void              FLASH_PageErase(uint32_t Banks, uint32_t Page);
+void              FLASH_PageErase( uint32_t Banks, uint32_t Page );
 /**
   * @}
   */

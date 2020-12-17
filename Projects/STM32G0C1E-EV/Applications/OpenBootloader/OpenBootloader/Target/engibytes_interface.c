@@ -32,17 +32,17 @@
 /* Exported variables --------------------------------------------------------*/
 OPENBL_MemoryTypeDef EB_Descriptor =
 {
-  EB_START_ADDRESS,
-  EB_END_ADDRESS,
-  (64),
-  EB_AREA,
-  OPENBL_EB_Read,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL
+    EB_START_ADDRESS,
+    EB_END_ADDRESS,
+    ( 64 ),
+    EB_AREA,
+    OPENBL_EB_Read,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
 };
 
 /* Exported functions --------------------------------------------------------*/
@@ -52,9 +52,9 @@ OPENBL_MemoryTypeDef EB_Descriptor =
   * @param  Address The address to be read.
   * @retval Returns the read value.
   */
-uint8_t OPENBL_EB_Read(uint32_t Address)
+uint8_t OPENBL_EB_Read( uint32_t Address )
 {
-  return (*(uint8_t *)(Address));
+    return ( *( uint8_t * )( Address ) );
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

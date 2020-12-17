@@ -79,19 +79,19 @@
 #include "stm32g0xx.h"
 
 #if !defined  (HSE_VALUE)
-#define HSE_VALUE    8000000U    /*!< Value of the External oscillator in Hz */
+    #define HSE_VALUE    8000000U    /*!< Value of the External oscillator in Hz */
 #endif /* HSE_VALUE */
 
 #if !defined  (HSI_VALUE)
-  #define HSI_VALUE  16000000U   /*!< Value of the Internal oscillator in Hz*/
+    #define HSI_VALUE  16000000U   /*!< Value of the Internal oscillator in Hz*/
 #endif /* HSI_VALUE */
 
 #if !defined  (LSI_VALUE)
- #define LSI_VALUE   32000U      /*!< Value of LSI in Hz*/
+    #define LSI_VALUE   32000U      /*!< Value of LSI in Hz*/
 #endif /* LSI_VALUE */
 
 #if !defined  (LSE_VALUE)
-  #define LSE_VALUE  32768U      /*!< Value of LSE in Hz*/
+    #define LSE_VALUE  32768U      /*!< Value of LSE in Hz*/
 #endif /* LSE_VALUE */
 
 /**
@@ -132,18 +132,18 @@
 /** @addtogroup STM32G0xx_System_Private_Variables
   * @{
   */
-  /* The SystemCoreClock variable is updated in three ways:
-      1) by calling CMSIS function SystemCoreClockUpdate()
-      2) by calling HAL API function HAL_RCC_GetHCLKFreq()
-      3) each time HAL_RCC_ClockConfig() is called to configure the system clock frequency
-         Note: If you use this function to configure the system clock; then there
-               is no need to call the 2 first functions listed above, since SystemCoreClock
-               variable is updated automatically.
-  */
-  uint32_t SystemCoreClock = 16000000U;
+/* The SystemCoreClock variable is updated in three ways:
+    1) by calling CMSIS function SystemCoreClockUpdate()
+    2) by calling HAL API function HAL_RCC_GetHCLKFreq()
+    3) each time HAL_RCC_ClockConfig() is called to configure the system clock frequency
+       Note: If you use this function to configure the system clock; then there
+             is no need to call the 2 first functions listed above, since SystemCoreClock
+             variable is updated automatically.
+*/
+uint32_t SystemCoreClock = 16000000U;
 
-  const uint32_t AHBPrescTable[16] = {0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 1U, 2U, 3U, 4U, 6U, 7U, 8U, 9U};
-  const uint32_t APBPrescTable[8] =  {0U, 0U, 0U, 0U, 1U, 2U, 3U, 4U};
+const uint32_t AHBPrescTable[16] = {0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 1U, 2U, 3U, 4U, 6U, 7U, 8U, 9U};
+const uint32_t APBPrescTable[8] =  {0U, 0U, 0U, 0U, 1U, 2U, 3U, 4U};
 
 /**
   * @}
@@ -166,13 +166,13 @@
   * @param  None
   * @retval None
   */
-void SystemInit(void)
+void SystemInit( void )
 {
-  /* Configure the Vector Table location add offset address ------------------*/
+    /* Configure the Vector Table location add offset address ------------------*/
 #ifdef VECT_TAB_SRAM
-  SCB->VTOR = SRAM_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal SRAM */
+    SCB->VTOR = SRAM_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal SRAM */
 #else
-  SCB->VTOR = FLASH_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal FLASH */
+    SCB->VTOR = FLASH_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal FLASH */
 #endif
 }
 
@@ -216,61 +216,65 @@ void SystemInit(void)
   * @param  None
   * @retval None
   */
-void SystemCoreClockUpdate(void)
+void SystemCoreClockUpdate( void )
 {
-  uint32_t tmp;
-  uint32_t pllvco;
-  uint32_t pllr;
-  uint32_t pllsource;
-  uint32_t pllm;
-  uint32_t hsidiv;
+    uint32_t tmp;
+    uint32_t pllvco;
+    uint32_t pllr;
+    uint32_t pllsource;
+    uint32_t pllm;
+    uint32_t hsidiv;
 
-  /* Get SYSCLK source -------------------------------------------------------*/
-  switch (RCC->CFGR & RCC_CFGR_SWS)
-  {
+    /* Get SYSCLK source -------------------------------------------------------*/
+    switch( RCC->CFGR & RCC_CFGR_SWS )
+    {
     case RCC_CFGR_SWS_0:  /* HSE used as system clock */
-      SystemCoreClock = HSE_VALUE;
-      break;
+        SystemCoreClock = HSE_VALUE;
+        break;
 
-    case (RCC_CFGR_SWS_1 | RCC_CFGR_SWS_0):  /* LSI used as system clock */
-      SystemCoreClock = LSI_VALUE;
-      break;
+    case( RCC_CFGR_SWS_1 | RCC_CFGR_SWS_0 ): /* LSI used as system clock */
+        SystemCoreClock = LSI_VALUE;
+        break;
 
     case RCC_CFGR_SWS_2:  /* LSE used as system clock */
-      SystemCoreClock = LSE_VALUE;
-      break;
+        SystemCoreClock = LSE_VALUE;
+        break;
 
     case RCC_CFGR_SWS_1:  /* PLL used as system clock */
-      {
-      pllsource = (RCC->PLLCFGR & RCC_PLLCFGR_PLLSRC);
-      pllm = ((RCC->PLLCFGR & RCC_PLLCFGR_PLLM) >> RCC_PLLCFGR_PLLM_Pos) + 1U;
-      switch (pllsource)
-      {
-        case 0x03:  /* HSE used as PLL clock source */
-          pllvco = (HSE_VALUE / pllm);
-          break;
+        {
+            pllsource = ( RCC->PLLCFGR & RCC_PLLCFGR_PLLSRC );
+            pllm = ( ( RCC->PLLCFGR & RCC_PLLCFGR_PLLM ) >> RCC_PLLCFGR_PLLM_Pos ) + 1U;
 
-        case 0x02:  /* HSI used as PLL clock source */
-        default:
-          pllvco = (HSI_VALUE / pllm);
-          break;
-      }
-      pllvco = pllvco * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> RCC_PLLCFGR_PLLN_Pos);
-      pllr = (((RCC->PLLCFGR & RCC_PLLCFGR_PLLR) >> RCC_PLLCFGR_PLLR_Pos) + 1U);
-      SystemCoreClock = pllvco/pllr;
-      break;
-      }
+            switch( pllsource )
+            {
+            case 0x03:  /* HSE used as PLL clock source */
+                pllvco = ( HSE_VALUE / pllm );
+                break;
+
+            case 0x02:  /* HSI used as PLL clock source */
+            default:
+                pllvco = ( HSI_VALUE / pllm );
+                break;
+            }
+
+            pllvco = pllvco * ( ( RCC->PLLCFGR & RCC_PLLCFGR_PLLN ) >> RCC_PLLCFGR_PLLN_Pos );
+            pllr = ( ( ( RCC->PLLCFGR & RCC_PLLCFGR_PLLR ) >> RCC_PLLCFGR_PLLR_Pos ) + 1U );
+            SystemCoreClock = pllvco / pllr;
+            break;
+        }
+
     case 0x00000000U:  /* HSI used as system clock */
     default:                /* HSI used as system clock */
-      hsidiv = (1UL << ((READ_BIT(RCC->CR, RCC_CR_HSIDIV))>> RCC_CR_HSIDIV_Pos));
-      SystemCoreClock = (HSI_VALUE/hsidiv);
-      break;
-  }
-  /* Compute HCLK clock frequency --------------------------------------------*/
-  /* Get HCLK prescaler */
-  tmp = AHBPrescTable[((RCC->CFGR & RCC_CFGR_HPRE) >> RCC_CFGR_HPRE_Pos)];
-  /* HCLK clock frequency */
-  SystemCoreClock >>= tmp;
+        hsidiv = ( 1UL << ( ( READ_BIT( RCC->CR, RCC_CR_HSIDIV ) ) >> RCC_CR_HSIDIV_Pos ) );
+        SystemCoreClock = ( HSI_VALUE / hsidiv );
+        break;
+    }
+
+    /* Compute HCLK clock frequency --------------------------------------------*/
+    /* Get HCLK prescaler */
+    tmp = AHBPrescTable[( ( RCC->CFGR & RCC_CFGR_HPRE ) >> RCC_CFGR_HPRE_Pos )];
+    /* HCLK clock frequency */
+    SystemCoreClock >>= tmp;
 }
 
 

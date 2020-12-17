@@ -26,8 +26,8 @@
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void OPENBL_IWDG_Configuration(void);
-void OPENBL_IWDG_Refresh(void);
+void OPENBL_IWDG_Configuration( void );
+void OPENBL_IWDG_Refresh( void );
 
 #endif /* IWDG_INTERFACE_H */
 

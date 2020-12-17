@@ -12,14 +12,14 @@
   *                               www.st.com/SLA0044
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef _K_WINDOW_H
 #define _K_WINDOW_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -30,9 +30,9 @@
 /* Exported variables --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 
-   /* Exported functions ------------------------------------------------------- */
-void kWindow_Error(char *msg);
-void kWindow_Popup(char *title, uint16_t title_tc, uint16_t title_bc ,char *Msg, uint16_t msg_tc, uint16_t msg_bc);
+/* Exported functions ------------------------------------------------------- */
+void kWindow_Error( char *msg );
+void kWindow_Popup( char *title, uint16_t title_tc, uint16_t title_bc, char *Msg, uint16_t msg_tc, uint16_t msg_bc );
 
 
 #ifdef __cplusplus

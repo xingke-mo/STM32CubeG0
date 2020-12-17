@@ -30,7 +30,7 @@
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void HID_MOUSE_App(USBH_HandleTypeDef *phost);
+void HID_MOUSE_App( USBH_HandleTypeDef *phost );
 
 #endif /* __MOUSE_H */
 

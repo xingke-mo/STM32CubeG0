@@ -42,12 +42,12 @@ extern RTC_HandleTypeDef RtcHandle;
   * @param  None
   * @retval None
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
-  /* Go to infinite loop */
-  while (1)
-  {
-  }
+    /* Go to infinite loop */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -56,12 +56,12 @@ void NMI_Handler(void)
   * @param  None
   * @retval None
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* Go to infinite loop */
-  while (1)
-  {
-  }
+    /* Go to infinite loop */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -70,12 +70,12 @@ void HardFault_Handler(void)
   * @param  None
   * @retval None
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
-  /* Go to infinite loop */
-  while (1)
-  {
-  }
+    /* Go to infinite loop */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -84,17 +84,17 @@ void SVC_Handler(void)
   * @param  None
   * @retval None
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
-  /* Go to infinite loop */
-  while (1)
-  {
-  }
+    /* Go to infinite loop */
+    while( 1 )
+    {
+    }
 }
 
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
-  HAL_IncTick();
+    HAL_IncTick();
 }
 
 /******************************************************************************/
@@ -108,10 +108,10 @@ void SysTick_Handler(void)
   * @param  None
   * @retval None
   */
-void RTC_TAMP_IRQHandler(void)
+void RTC_TAMP_IRQHandler( void )
 {
-    HAL_RTC_AlarmIRQHandler(&RtcHandle);
-    HAL_RTCEx_WakeUpTimerIRQHandler(&RtcHandle);
+    HAL_RTC_AlarmIRQHandler( &RtcHandle );
+    HAL_RTCEx_WakeUpTimerIRQHandler( &RtcHandle );
 }
 
 /**
@@ -119,12 +119,12 @@ void RTC_TAMP_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void EXTI4_15_IRQHandler(void)
+void EXTI4_15_IRQHandler( void )
 {
-  HAL_GPIO_EXTI_IRQHandler(SD_DETECT_PIN);
-  HAL_GPIO_EXTI_IRQHandler(RIGHT_JOY_PIN);
-  HAL_GPIO_EXTI_IRQHandler(LEFT_JOY_PIN);  
-  HAL_GPIO_EXTI_IRQHandler(TAMPER_BUTTON_PIN);
+    HAL_GPIO_EXTI_IRQHandler( SD_DETECT_PIN );
+    HAL_GPIO_EXTI_IRQHandler( RIGHT_JOY_PIN );
+    HAL_GPIO_EXTI_IRQHandler( LEFT_JOY_PIN );
+    HAL_GPIO_EXTI_IRQHandler( TAMPER_BUTTON_PIN );
 }
 
 /**
@@ -132,10 +132,10 @@ void EXTI4_15_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void EXTI2_3_IRQHandler(void)
+void EXTI2_3_IRQHandler( void )
 {
-  HAL_GPIO_EXTI_IRQHandler(DOWN_JOY_PIN);
-  HAL_GPIO_EXTI_IRQHandler(UP_JOY_PIN);
+    HAL_GPIO_EXTI_IRQHandler( DOWN_JOY_PIN );
+    HAL_GPIO_EXTI_IRQHandler( UP_JOY_PIN );
 }
 
 /**
@@ -143,26 +143,26 @@ void EXTI2_3_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void EXTI0_1_IRQHandler(void)
+void EXTI0_1_IRQHandler( void )
 {
-  HAL_GPIO_EXTI_IRQHandler(SEL_JOY_PIN);
+    HAL_GPIO_EXTI_IRQHandler( SEL_JOY_PIN );
 }
-  
+
 /**
   * @brief  DMA1 channel 1 interrupt handler.
   * @param  None
   * @retval None
   */
-void DMA1_Channel1_IRQHandler(void)
+void DMA1_Channel1_IRQHandler( void )
 {
-  if (hdac.DMA_Handle1 != (DMA_HandleTypeDef *)NULL)
-  {
-    HAL_DMA_IRQHandler(hdac.DMA_Handle1);  
-  }
-  else if (hadc.DMA_Handle != (DMA_HandleTypeDef *)NULL)
-  {
-    HAL_DMA_IRQHandler(hadc.DMA_Handle); 
-  }
+    if( hdac.DMA_Handle1 != ( DMA_HandleTypeDef * )NULL )
+    {
+        HAL_DMA_IRQHandler( hdac.DMA_Handle1 );
+    }
+    else if( hadc.DMA_Handle != ( DMA_HandleTypeDef * )NULL )
+    {
+        HAL_DMA_IRQHandler( hadc.DMA_Handle );
+    }
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

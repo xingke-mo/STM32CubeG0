@@ -6,11 +6,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -53,15 +53,15 @@
   *          - SUCCESS: PWR registers are de-initialized
   *          - ERROR: not applicable
   */
-ErrorStatus LL_PWR_DeInit(void)
+ErrorStatus LL_PWR_DeInit( void )
 {
-  /* Force reset of PWR clock */
-  LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_PWR);
+    /* Force reset of PWR clock */
+    LL_APB1_GRP1_ForceReset( LL_APB1_GRP1_PERIPH_PWR );
 
-  /* Release reset of PWR clock */
-  LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_PWR);
+    /* Release reset of PWR clock */
+    LL_APB1_GRP1_ReleaseReset( LL_APB1_GRP1_PERIPH_PWR );
 
-  return SUCCESS;
+    return SUCCESS;
 }
 
 /**

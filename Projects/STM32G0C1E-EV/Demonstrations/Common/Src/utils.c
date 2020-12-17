@@ -34,34 +34,34 @@
 /* Exported variables --------------------------------------------------------*/
 
 /* Exported functions --------------------------------------------------------*/
-void UTILS_DisplayBuildOption(uint32_t Timeout)
+void UTILS_DisplayBuildOption( uint32_t Timeout )
 {
-  uint8_t line;
-  
-  /* Clear the LCD Screen */
-  BSP_LCD_Clear(LCD_COLOR_ST_PINK);
-  BSP_LCD_SetBackColor(LCD_COLOR_ST_PINK);
-  BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
-  
-  /* Set the Back Color */
-  BSP_LCD_SetFont(&LCD_DEFAULT_FONT);
-  BSP_LCD_SetTextColor(LCD_COLOR_WHITE);  
-  BSP_LCD_DisplayStringAt(0, 0, (uint8_t *)"CAUTION", CENTER_MODE);
-  
-  /* Prepare the msg area */
-  BSP_LCD_SetBackColor(LCD_COLOR_WHITE);
-  BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
-  BSP_LCD_FillRect(0, LCD_DEFAULT_FONT.Height, BSP_LCD_GetXSize(), BSP_LCD_GetYSize() - LCD_DEFAULT_FONT.Height);
-  BSP_LCD_SetTextColor(LCD_COLOR_ST_PINK);
-  
-  line = 0;
-  BSP_LCD_DisplayStringAt(0, (2+line) * LCD_DEFAULT_FONT.Height, (uint8_t *)"BSP built for", CENTER_MODE);
-  line++;
-  BSP_LCD_DisplayStringAt(0, (2+line) * LCD_DEFAULT_FONT.Height, (uint8_t *)"STM32G0C1E-EV", CENTER_MODE);
-  line++;
-  BSP_LCD_DisplayStringAt(0, (2+line) * LCD_DEFAULT_FONT.Height, EVAL_BOARD_REVISION, CENTER_MODE);
-  
-  HAL_Delay(Timeout);
+    uint8_t line;
+
+    /* Clear the LCD Screen */
+    BSP_LCD_Clear( LCD_COLOR_ST_PINK );
+    BSP_LCD_SetBackColor( LCD_COLOR_ST_PINK );
+    BSP_LCD_SetTextColor( LCD_COLOR_WHITE );
+
+    /* Set the Back Color */
+    BSP_LCD_SetFont( &LCD_DEFAULT_FONT );
+    BSP_LCD_SetTextColor( LCD_COLOR_WHITE );
+    BSP_LCD_DisplayStringAt( 0, 0, ( uint8_t * )"CAUTION", CENTER_MODE );
+
+    /* Prepare the msg area */
+    BSP_LCD_SetBackColor( LCD_COLOR_WHITE );
+    BSP_LCD_SetTextColor( LCD_COLOR_WHITE );
+    BSP_LCD_FillRect( 0, LCD_DEFAULT_FONT.Height, BSP_LCD_GetXSize(), BSP_LCD_GetYSize() - LCD_DEFAULT_FONT.Height );
+    BSP_LCD_SetTextColor( LCD_COLOR_ST_PINK );
+
+    line = 0;
+    BSP_LCD_DisplayStringAt( 0, ( 2 + line ) * LCD_DEFAULT_FONT.Height, ( uint8_t * )"BSP built for", CENTER_MODE );
+    line++;
+    BSP_LCD_DisplayStringAt( 0, ( 2 + line ) * LCD_DEFAULT_FONT.Height, ( uint8_t * )"STM32G0C1E-EV", CENTER_MODE );
+    line++;
+    BSP_LCD_DisplayStringAt( 0, ( 2 + line ) * LCD_DEFAULT_FONT.Height, EVAL_BOARD_REVISION, CENTER_MODE );
+
+    HAL_Delay( Timeout );
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

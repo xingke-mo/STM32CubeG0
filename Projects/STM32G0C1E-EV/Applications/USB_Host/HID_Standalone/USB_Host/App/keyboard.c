@@ -34,20 +34,21 @@
   * @param  phost: Host handle
   * @retval None
   */
-void HID_KEYBRD_App(USBH_HandleTypeDef *phost)
+void HID_KEYBRD_App( USBH_HandleTypeDef *phost )
 {
-  HID_KEYBD_Info_TypeDef *k_pinfo;
-  char c;
-  k_pinfo = USBH_HID_GetKeybdInfo(phost);
+    HID_KEYBD_Info_TypeDef *k_pinfo;
+    char c;
+    k_pinfo = USBH_HID_GetKeybdInfo( phost );
 
-  if(k_pinfo != NULL)
-  {
-    c = USBH_HID_GetASCIICode(k_pinfo);
-    if(c != 0)
+    if( k_pinfo != NULL )
     {
-      USBH_UsrLog("%c", c);
+        c = USBH_HID_GetASCIICode( k_pinfo );
+
+        if( c != 0 )
+        {
+            USBH_UsrLog( "%c", c );
+        }
     }
-  }
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

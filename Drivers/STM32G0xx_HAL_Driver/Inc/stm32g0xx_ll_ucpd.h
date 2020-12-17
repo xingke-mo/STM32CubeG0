@@ -53,21 +53,21 @@ extern "C" {
   */
 typedef struct
 {
-  uint32_t psc_ucpdclk;         /*!< Specify the prescaler for the UCPD clock.
+    uint32_t psc_ucpdclk;         /*!< Specify the prescaler for the UCPD clock.
                                      This parameter can be a value of @ref UCPD_LL_EC_PSC.
                                      This feature can be modified afterwards using unitary function @ref LL_UCPD_SetPSCClk().         */
 
-  uint32_t transwin;            /*!< Specify the number of cycles (minus 1) of the half bit clock (see HBITCLKDIV) to achieve a legal
+    uint32_t transwin;            /*!< Specify the number of cycles (minus 1) of the half bit clock (see HBITCLKDIV) to achieve a legal
                                     tTransitionWindow (set according to peripheral clock to define an interval of between 12 and 20 us)
                                     This parameter can be a value between Min_Data=0x1 and Max_Data=0x1F
                                     This value can be modified afterwards using unitary function @ref LL_UCPD_SetTransWin().          */
 
-  uint32_t IfrGap;              /*!< Specify the definition of the clock divider (minus 1) in order to generate tInterframeGap
+    uint32_t IfrGap;              /*!< Specify the definition of the clock divider (minus 1) in order to generate tInterframeGap
                                     from the peripheral clock.
                                     This parameter can be a value between Min_Data=0x1 and Max_Data=0x1F
                                     This feature can be modified afterwards using unitary function @ref LL_UCPD_SetIfrGap().          */
 
-  uint32_t HbitClockDiv;        /*!< Specify the number of cycles (minus one) at UCPD peripheral for a half bit clock e.g. program 3
+    uint32_t HbitClockDiv;        /*!< Specify the number of cycles (minus one) at UCPD peripheral for a half bit clock e.g. program 3
                                      for a bit clock that takes 8 cycles of the peripheral clock "UCPD1_CLK"..
                                      This parameter can be a value between Min_Data=0x0 and Max_Data=0x3F.
                                      This feature can be modified afterwards using unitary function @ref LL_UCPD_SetHbitClockDiv().   */
@@ -337,9 +337,9 @@ typedef struct
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_Enable(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_Enable( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->CFG1, UCPD_CFG1_UCPDEN);
+    SET_BIT( UCPDx->CFG1, UCPD_CFG1_UCPDEN );
 }
 
 /**
@@ -349,9 +349,9 @@ __STATIC_INLINE void LL_UCPD_Enable(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_Disable(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_Disable( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->CFG1, UCPD_CFG1_UCPDEN);
+    CLEAR_BIT( UCPDx->CFG1, UCPD_CFG1_UCPDEN );
 }
 
 /**
@@ -360,9 +360,9 @@ __STATIC_INLINE void LL_UCPD_Disable(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsEnabled(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsEnabled( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->CFG1, UCPD_CFG1_UCPDEN) == (UCPD_CFG1_UCPDEN)) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->CFG1, UCPD_CFG1_UCPDEN ) == ( UCPD_CFG1_UCPDEN ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -381,9 +381,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsEnabled(UCPD_TypeDef const * const UCPDx)
   *         @arg @ref LL_UCPD_ORDERSET_SOP_EXT2
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_SetRxOrderSet(UCPD_TypeDef *UCPDx, uint32_t OrderSet)
+__STATIC_INLINE void LL_UCPD_SetRxOrderSet( UCPD_TypeDef *UCPDx, uint32_t OrderSet )
 {
-  MODIFY_REG(UCPDx->CFG1, UCPD_CFG1_RXORDSETEN, OrderSet);
+    MODIFY_REG( UCPDx->CFG1, UCPD_CFG1_RXORDSETEN, OrderSet );
 }
 
 /**
@@ -398,9 +398,9 @@ __STATIC_INLINE void LL_UCPD_SetRxOrderSet(UCPD_TypeDef *UCPDx, uint32_t OrderSe
   *         @arg @ref LL_UCPD_PSC_DIV16
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_SetPSCClk(UCPD_TypeDef *UCPDx, uint32_t Psc)
+__STATIC_INLINE void LL_UCPD_SetPSCClk( UCPD_TypeDef *UCPDx, uint32_t Psc )
 {
-  MODIFY_REG(UCPDx->CFG1, UCPD_CFG1_PSC_UCPDCLK, Psc);
+    MODIFY_REG( UCPDx->CFG1, UCPD_CFG1_PSC_UCPDCLK, Psc );
 }
 
 /**
@@ -410,9 +410,9 @@ __STATIC_INLINE void LL_UCPD_SetPSCClk(UCPD_TypeDef *UCPDx, uint32_t Psc)
   * @param  TransWin a value between Min_Data=0x1 and Max_Data=0x1F
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_SetTransWin(UCPD_TypeDef *UCPDx, uint32_t TransWin)
+__STATIC_INLINE void LL_UCPD_SetTransWin( UCPD_TypeDef *UCPDx, uint32_t TransWin )
 {
-  MODIFY_REG(UCPDx->CFG1, UCPD_CFG1_TRANSWIN, TransWin << UCPD_CFG1_TRANSWIN_Pos);
+    MODIFY_REG( UCPDx->CFG1, UCPD_CFG1_TRANSWIN, TransWin << UCPD_CFG1_TRANSWIN_Pos );
 }
 
 /**
@@ -422,9 +422,9 @@ __STATIC_INLINE void LL_UCPD_SetTransWin(UCPD_TypeDef *UCPDx, uint32_t TransWin)
   * @param  IfrGap a value between Min_Data=0x1 and Max_Data=0x1F
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_SetIfrGap(UCPD_TypeDef *UCPDx, uint32_t IfrGap)
+__STATIC_INLINE void LL_UCPD_SetIfrGap( UCPD_TypeDef *UCPDx, uint32_t IfrGap )
 {
-  MODIFY_REG(UCPDx->CFG1, UCPD_CFG1_IFRGAP, IfrGap << UCPD_CFG1_IFRGAP_Pos);
+    MODIFY_REG( UCPDx->CFG1, UCPD_CFG1_IFRGAP, IfrGap << UCPD_CFG1_IFRGAP_Pos );
 }
 
 /**
@@ -434,9 +434,9 @@ __STATIC_INLINE void LL_UCPD_SetIfrGap(UCPD_TypeDef *UCPDx, uint32_t IfrGap)
   * @param  HbitClock a value between Min_Data=0x0 and Max_Data=0x3F
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_SetHbitClockDiv(UCPD_TypeDef *UCPDx, uint32_t HbitClock)
+__STATIC_INLINE void LL_UCPD_SetHbitClockDiv( UCPD_TypeDef *UCPDx, uint32_t HbitClock )
 {
-  MODIFY_REG(UCPDx->CFG1, UCPD_CFG1_HBITCLKDIV, HbitClock << UCPD_CFG1_HBITCLKDIV_Pos);
+    MODIFY_REG( UCPDx->CFG1, UCPD_CFG1_HBITCLKDIV, HbitClock << UCPD_CFG1_HBITCLKDIV_Pos );
 }
 
 /**
@@ -453,9 +453,9 @@ __STATIC_INLINE void LL_UCPD_SetHbitClockDiv(UCPD_TypeDef *UCPDx, uint32_t HbitC
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_WakeUpEnable(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_WakeUpEnable( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->CFG2, UCPD_CFG2_WUPEN);
+    SET_BIT( UCPDx->CFG2, UCPD_CFG2_WUPEN );
 }
 
 /**
@@ -464,9 +464,9 @@ __STATIC_INLINE void LL_UCPD_WakeUpEnable(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_WakeUpDisable(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_WakeUpDisable( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->CFG2, UCPD_CFG2_WUPEN);
+    CLEAR_BIT( UCPDx->CFG2, UCPD_CFG2_WUPEN );
 }
 
 /**
@@ -475,9 +475,9 @@ __STATIC_INLINE void LL_UCPD_WakeUpDisable(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_ForceClockEnable(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_ForceClockEnable( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->CFG2, UCPD_CFG2_FORCECLK);
+    SET_BIT( UCPDx->CFG2, UCPD_CFG2_FORCECLK );
 }
 
 /**
@@ -486,9 +486,9 @@ __STATIC_INLINE void LL_UCPD_ForceClockEnable(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_ForceClockDisable(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_ForceClockDisable( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->CFG2, UCPD_CFG2_FORCECLK);
+    CLEAR_BIT( UCPDx->CFG2, UCPD_CFG2_FORCECLK );
 }
 
 /**
@@ -497,9 +497,9 @@ __STATIC_INLINE void LL_UCPD_ForceClockDisable(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_RxFilterEnable(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_RxFilterEnable( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->CFG2, UCPD_CFG2_RXFILTDIS);
+    CLEAR_BIT( UCPDx->CFG2, UCPD_CFG2_RXFILTDIS );
 }
 
 /**
@@ -508,9 +508,9 @@ __STATIC_INLINE void LL_UCPD_RxFilterEnable(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_RxFilterDisable(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_RxFilterDisable( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->CFG2, UCPD_CFG2_RXFILTDIS);
+    SET_BIT( UCPDx->CFG2, UCPD_CFG2_RXFILTDIS );
 }
 
 /**
@@ -530,9 +530,9 @@ __STATIC_INLINE void LL_UCPD_RxFilterDisable(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_TypeCDetectionCC2Enable(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_TypeCDetectionCC2Enable( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->CR, UCPD_CR_CC2TCDIS);
+    CLEAR_BIT( UCPDx->CR, UCPD_CR_CC2TCDIS );
 }
 
 /**
@@ -541,9 +541,9 @@ __STATIC_INLINE void LL_UCPD_TypeCDetectionCC2Enable(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_TypeCDetectionCC2Disable(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_TypeCDetectionCC2Disable( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->CR, UCPD_CR_CC2TCDIS);
+    SET_BIT( UCPDx->CR, UCPD_CR_CC2TCDIS );
 }
 
 /**
@@ -552,9 +552,9 @@ __STATIC_INLINE void LL_UCPD_TypeCDetectionCC2Disable(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_TypeCDetectionCC1Enable(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_TypeCDetectionCC1Enable( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->CR, UCPD_CR_CC1TCDIS);
+    CLEAR_BIT( UCPDx->CR, UCPD_CR_CC1TCDIS );
 }
 
 /**
@@ -563,9 +563,9 @@ __STATIC_INLINE void LL_UCPD_TypeCDetectionCC1Enable(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_TypeCDetectionCC1Disable(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_TypeCDetectionCC1Disable( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->CR, UCPD_CR_CC1TCDIS);
+    SET_BIT( UCPDx->CR, UCPD_CR_CC1TCDIS );
 }
 
 /**
@@ -574,9 +574,9 @@ __STATIC_INLINE void LL_UCPD_TypeCDetectionCC1Disable(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_VconnDischargeEnable(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_VconnDischargeEnable( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->CR, UCPD_CR_RDCH);
+    SET_BIT( UCPDx->CR, UCPD_CR_RDCH );
 }
 
 /**
@@ -585,9 +585,9 @@ __STATIC_INLINE void LL_UCPD_VconnDischargeEnable(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_VconnDischargeDisable(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_VconnDischargeDisable( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->CR, UCPD_CR_RDCH);
+    CLEAR_BIT( UCPDx->CR, UCPD_CR_RDCH );
 }
 
 /**
@@ -596,9 +596,9 @@ __STATIC_INLINE void LL_UCPD_VconnDischargeDisable(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_SignalFRSTX(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_SignalFRSTX( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->CR, UCPD_CR_FRSTX);
+    SET_BIT( UCPDx->CR, UCPD_CR_FRSTX );
 }
 
 /**
@@ -607,9 +607,9 @@ __STATIC_INLINE void LL_UCPD_SignalFRSTX(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_FRSDetectionEnable(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_FRSDetectionEnable( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->CR, UCPD_CR_FRSRXEN);
+    SET_BIT( UCPDx->CR, UCPD_CR_FRSRXEN );
 }
 
 /**
@@ -618,9 +618,9 @@ __STATIC_INLINE void LL_UCPD_FRSDetectionEnable(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_FRSDetectionDisable(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_FRSDetectionDisable( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->CR, UCPD_CR_FRSRXEN);
+    CLEAR_BIT( UCPDx->CR, UCPD_CR_FRSRXEN );
 }
 
 /**
@@ -634,9 +634,9 @@ __STATIC_INLINE void LL_UCPD_FRSDetectionDisable(UCPD_TypeDef *UCPDx)
   *         @arg @ref LL_UCPD_CCENABLE_CC1CC2
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_SetccEnable(UCPD_TypeDef *UCPDx, uint32_t CCEnable)
+__STATIC_INLINE void LL_UCPD_SetccEnable( UCPD_TypeDef *UCPDx, uint32_t CCEnable )
 {
-  MODIFY_REG(UCPDx->CR, UCPD_CR_CCENABLE, CCEnable);
+    MODIFY_REG( UCPDx->CR, UCPD_CR_CCENABLE, CCEnable );
 }
 
 /**
@@ -645,9 +645,9 @@ __STATIC_INLINE void LL_UCPD_SetccEnable(UCPD_TypeDef *UCPDx, uint32_t CCEnable)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_SetSNKRole(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_SetSNKRole( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->CR, UCPD_CR_ANAMODE);
+    SET_BIT( UCPDx->CR, UCPD_CR_ANAMODE );
 }
 
 /**
@@ -656,9 +656,9 @@ __STATIC_INLINE void LL_UCPD_SetSNKRole(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_SetSRCRole(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_SetSRCRole( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->CR, UCPD_CR_ANAMODE);
+    CLEAR_BIT( UCPDx->CR, UCPD_CR_ANAMODE );
 }
 
 /**
@@ -669,9 +669,9 @@ __STATIC_INLINE void LL_UCPD_SetSRCRole(UCPD_TypeDef *UCPDx)
   *         @arg @ref LL_UCPD_ROLE_SNK
   *         @arg @ref LL_UCPD_ROLE_SRC
   */
-__STATIC_INLINE uint32_t LL_UCPD_GetRole(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_GetRole( UCPD_TypeDef const *const UCPDx )
 {
-  return (uint32_t)(READ_BIT(UCPDx->CR, UCPD_CR_ANAMODE));
+    return ( uint32_t )( READ_BIT( UCPDx->CR, UCPD_CR_ANAMODE ) );
 }
 
 /**
@@ -685,9 +685,9 @@ __STATIC_INLINE uint32_t LL_UCPD_GetRole(UCPD_TypeDef const * const UCPDx)
   *         @arg @ref LL_UCPD_RESISTOR_NONE
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_SetRpResistor(UCPD_TypeDef *UCPDx, uint32_t Resistor)
+__STATIC_INLINE void LL_UCPD_SetRpResistor( UCPD_TypeDef *UCPDx, uint32_t Resistor )
 {
-  MODIFY_REG(UCPDx->CR, UCPD_CR_ANASUBMODE,  Resistor);
+    MODIFY_REG( UCPDx->CR, UCPD_CR_ANASUBMODE,  Resistor );
 }
 
 /**
@@ -699,9 +699,9 @@ __STATIC_INLINE void LL_UCPD_SetRpResistor(UCPD_TypeDef *UCPDx, uint32_t Resisto
   *         @arg @ref LL_UCPD_CCPIN_CC2
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_SetCCPin(UCPD_TypeDef *UCPDx, uint32_t CCPin)
+__STATIC_INLINE void LL_UCPD_SetCCPin( UCPD_TypeDef *UCPDx, uint32_t CCPin )
 {
-  MODIFY_REG(UCPDx->CR, UCPD_CR_PHYCCSEL,  CCPin);
+    MODIFY_REG( UCPDx->CR, UCPD_CR_PHYCCSEL,  CCPin );
 }
 
 /**
@@ -710,9 +710,9 @@ __STATIC_INLINE void LL_UCPD_SetCCPin(UCPD_TypeDef *UCPDx, uint32_t CCPin)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_RxEnable(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_RxEnable( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->CR, UCPD_CR_PHYRXEN);
+    SET_BIT( UCPDx->CR, UCPD_CR_PHYRXEN );
 }
 
 /**
@@ -721,9 +721,9 @@ __STATIC_INLINE void LL_UCPD_RxEnable(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_RxDisable(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_RxDisable( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->CR, UCPD_CR_PHYRXEN);
+    CLEAR_BIT( UCPDx->CR, UCPD_CR_PHYRXEN );
 }
 
 /**
@@ -735,9 +735,9 @@ __STATIC_INLINE void LL_UCPD_RxDisable(UCPD_TypeDef *UCPDx)
   *         @arg @ref LL_UCPD_RXMODE_BIST_TEST_DATA
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_SetRxMode(UCPD_TypeDef *UCPDx, uint32_t RxMode)
+__STATIC_INLINE void LL_UCPD_SetRxMode( UCPD_TypeDef *UCPDx, uint32_t RxMode )
 {
-  MODIFY_REG(UCPDx->CR, UCPD_CR_RXMODE, RxMode);
+    MODIFY_REG( UCPDx->CR, UCPD_CR_RXMODE, RxMode );
 }
 
 /**
@@ -746,9 +746,9 @@ __STATIC_INLINE void LL_UCPD_SetRxMode(UCPD_TypeDef *UCPDx, uint32_t RxMode)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_SendHardReset(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_SendHardReset( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->CR, UCPD_CR_TXHRST);
+    SET_BIT( UCPDx->CR, UCPD_CR_TXHRST );
 }
 
 /**
@@ -757,9 +757,9 @@ __STATIC_INLINE void LL_UCPD_SendHardReset(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_SendMessage(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_SendMessage( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->CR, UCPD_CR_TXSEND);
+    SET_BIT( UCPDx->CR, UCPD_CR_TXSEND );
 }
 
 /**
@@ -772,9 +772,9 @@ __STATIC_INLINE void LL_UCPD_SendMessage(UCPD_TypeDef *UCPDx)
   *         @arg @ref LL_UCPD_TXMODE_BIST_CARRIER2
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_SetTxMode(UCPD_TypeDef *UCPDx, uint32_t TxMode)
+__STATIC_INLINE void LL_UCPD_SetTxMode( UCPD_TypeDef *UCPDx, uint32_t TxMode )
 {
-  MODIFY_REG(UCPDx->CR, UCPD_CR_TXMODE, TxMode);
+    MODIFY_REG( UCPDx->CR, UCPD_CR_TXMODE, TxMode );
 }
 
 /**
@@ -791,9 +791,9 @@ __STATIC_INLINE void LL_UCPD_SetTxMode(UCPD_TypeDef *UCPDx, uint32_t TxMode)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_EnableIT_FRS(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_EnableIT_FRS( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->IMR, UCPD_IMR_FRSEVTIE);
+    SET_BIT( UCPDx->IMR, UCPD_IMR_FRSEVTIE );
 }
 
 /**
@@ -802,9 +802,9 @@ __STATIC_INLINE void LL_UCPD_EnableIT_FRS(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_EnableIT_TypeCEventCC2(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_EnableIT_TypeCEventCC2( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->IMR, UCPD_IMR_TYPECEVT2IE);
+    SET_BIT( UCPDx->IMR, UCPD_IMR_TYPECEVT2IE );
 }
 
 /**
@@ -813,9 +813,9 @@ __STATIC_INLINE void LL_UCPD_EnableIT_TypeCEventCC2(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_EnableIT_TypeCEventCC1(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_EnableIT_TypeCEventCC1( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->IMR, UCPD_IMR_TYPECEVT1IE);
+    SET_BIT( UCPDx->IMR, UCPD_IMR_TYPECEVT1IE );
 }
 
 /**
@@ -824,9 +824,9 @@ __STATIC_INLINE void LL_UCPD_EnableIT_TypeCEventCC1(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_EnableIT_RxMsgEnd(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_EnableIT_RxMsgEnd( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->IMR, UCPD_IMR_RXMSGENDIE);
+    SET_BIT( UCPDx->IMR, UCPD_IMR_RXMSGENDIE );
 }
 
 /**
@@ -835,9 +835,9 @@ __STATIC_INLINE void LL_UCPD_EnableIT_RxMsgEnd(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_EnableIT_RxOvr(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_EnableIT_RxOvr( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->IMR, UCPD_IMR_RXOVRIE);
+    SET_BIT( UCPDx->IMR, UCPD_IMR_RXOVRIE );
 }
 
 /**
@@ -846,9 +846,9 @@ __STATIC_INLINE void LL_UCPD_EnableIT_RxOvr(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_EnableIT_RxHRST(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_EnableIT_RxHRST( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->IMR, UCPD_IMR_RXHRSTDETIE);
+    SET_BIT( UCPDx->IMR, UCPD_IMR_RXHRSTDETIE );
 }
 
 /**
@@ -857,9 +857,9 @@ __STATIC_INLINE void LL_UCPD_EnableIT_RxHRST(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_EnableIT_RxOrderSet(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_EnableIT_RxOrderSet( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->IMR, UCPD_IMR_RXORDDETIE);
+    SET_BIT( UCPDx->IMR, UCPD_IMR_RXORDDETIE );
 }
 
 /**
@@ -868,9 +868,9 @@ __STATIC_INLINE void LL_UCPD_EnableIT_RxOrderSet(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_EnableIT_RxNE(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_EnableIT_RxNE( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->IMR, UCPD_IMR_RXNEIE);
+    SET_BIT( UCPDx->IMR, UCPD_IMR_RXNEIE );
 }
 
 /**
@@ -879,9 +879,9 @@ __STATIC_INLINE void LL_UCPD_EnableIT_RxNE(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_EnableIT_TxUND(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_EnableIT_TxUND( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->IMR, UCPD_IMR_TXUNDIE);
+    SET_BIT( UCPDx->IMR, UCPD_IMR_TXUNDIE );
 }
 
 /**
@@ -890,9 +890,9 @@ __STATIC_INLINE void LL_UCPD_EnableIT_TxUND(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_EnableIT_TxHRSTSENT(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_EnableIT_TxHRSTSENT( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->IMR, UCPD_IMR_HRSTSENTIE);
+    SET_BIT( UCPDx->IMR, UCPD_IMR_HRSTSENTIE );
 }
 
 /**
@@ -901,9 +901,9 @@ __STATIC_INLINE void LL_UCPD_EnableIT_TxHRSTSENT(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_EnableIT_TxHRSTDISC(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_EnableIT_TxHRSTDISC( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->IMR, UCPD_IMR_HRSTDISCIE);
+    SET_BIT( UCPDx->IMR, UCPD_IMR_HRSTDISCIE );
 }
 
 /**
@@ -912,9 +912,9 @@ __STATIC_INLINE void LL_UCPD_EnableIT_TxHRSTDISC(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_EnableIT_TxMSGABT(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_EnableIT_TxMSGABT( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->IMR, UCPD_IMR_TXMSGABTIE);
+    SET_BIT( UCPDx->IMR, UCPD_IMR_TXMSGABTIE );
 }
 
 /**
@@ -923,9 +923,9 @@ __STATIC_INLINE void LL_UCPD_EnableIT_TxMSGABT(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_EnableIT_TxMSGSENT(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_EnableIT_TxMSGSENT( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->IMR, UCPD_IMR_TXMSGSENTIE);
+    SET_BIT( UCPDx->IMR, UCPD_IMR_TXMSGSENTIE );
 }
 
 /**
@@ -934,9 +934,9 @@ __STATIC_INLINE void LL_UCPD_EnableIT_TxMSGSENT(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_EnableIT_TxMSGDISC(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_EnableIT_TxMSGDISC( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->IMR, UCPD_IMR_TXMSGDISCIE);
+    SET_BIT( UCPDx->IMR, UCPD_IMR_TXMSGDISCIE );
 }
 
 /**
@@ -945,9 +945,9 @@ __STATIC_INLINE void LL_UCPD_EnableIT_TxMSGDISC(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_EnableIT_TxIS(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_EnableIT_TxIS( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->IMR, UCPD_IMR_TXISIE);
+    SET_BIT( UCPDx->IMR, UCPD_IMR_TXISIE );
 }
 
 /**
@@ -956,9 +956,9 @@ __STATIC_INLINE void LL_UCPD_EnableIT_TxIS(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_DisableIT_FRS(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_DisableIT_FRS( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->IMR, UCPD_IMR_FRSEVTIE);
+    CLEAR_BIT( UCPDx->IMR, UCPD_IMR_FRSEVTIE );
 }
 
 /**
@@ -967,9 +967,9 @@ __STATIC_INLINE void LL_UCPD_DisableIT_FRS(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_DisableIT_TypeCEventCC2(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_DisableIT_TypeCEventCC2( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->IMR, UCPD_IMR_TYPECEVT2IE);
+    CLEAR_BIT( UCPDx->IMR, UCPD_IMR_TYPECEVT2IE );
 }
 
 /**
@@ -978,9 +978,9 @@ __STATIC_INLINE void LL_UCPD_DisableIT_TypeCEventCC2(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_DisableIT_TypeCEventCC1(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_DisableIT_TypeCEventCC1( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->IMR, UCPD_IMR_TYPECEVT1IE);
+    CLEAR_BIT( UCPDx->IMR, UCPD_IMR_TYPECEVT1IE );
 }
 
 /**
@@ -989,9 +989,9 @@ __STATIC_INLINE void LL_UCPD_DisableIT_TypeCEventCC1(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_DisableIT_RxMsgEnd(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_DisableIT_RxMsgEnd( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->IMR, UCPD_IMR_RXMSGENDIE);
+    CLEAR_BIT( UCPDx->IMR, UCPD_IMR_RXMSGENDIE );
 }
 
 /**
@@ -1000,9 +1000,9 @@ __STATIC_INLINE void LL_UCPD_DisableIT_RxMsgEnd(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_DisableIT_RxOvr(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_DisableIT_RxOvr( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->IMR, UCPD_IMR_RXOVRIE);
+    CLEAR_BIT( UCPDx->IMR, UCPD_IMR_RXOVRIE );
 }
 
 /**
@@ -1011,9 +1011,9 @@ __STATIC_INLINE void LL_UCPD_DisableIT_RxOvr(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_DisableIT_RxHRST(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_DisableIT_RxHRST( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->IMR, UCPD_IMR_RXHRSTDETIE);
+    CLEAR_BIT( UCPDx->IMR, UCPD_IMR_RXHRSTDETIE );
 }
 
 /**
@@ -1022,9 +1022,9 @@ __STATIC_INLINE void LL_UCPD_DisableIT_RxHRST(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_DisableIT_RxOrderSet(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_DisableIT_RxOrderSet( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->IMR, UCPD_IMR_RXORDDETIE);
+    CLEAR_BIT( UCPDx->IMR, UCPD_IMR_RXORDDETIE );
 }
 
 /**
@@ -1033,9 +1033,9 @@ __STATIC_INLINE void LL_UCPD_DisableIT_RxOrderSet(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_DisableIT_RxNE(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_DisableIT_RxNE( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->IMR, UCPD_IMR_RXNEIE);
+    CLEAR_BIT( UCPDx->IMR, UCPD_IMR_RXNEIE );
 }
 
 /**
@@ -1044,9 +1044,9 @@ __STATIC_INLINE void LL_UCPD_DisableIT_RxNE(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_DisableIT_TxUND(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_DisableIT_TxUND( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->IMR, UCPD_IMR_TXUNDIE);
+    CLEAR_BIT( UCPDx->IMR, UCPD_IMR_TXUNDIE );
 }
 
 /**
@@ -1055,9 +1055,9 @@ __STATIC_INLINE void LL_UCPD_DisableIT_TxUND(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_DisableIT_TxHRSTSENT(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_DisableIT_TxHRSTSENT( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->IMR, UCPD_IMR_HRSTSENTIE);
+    CLEAR_BIT( UCPDx->IMR, UCPD_IMR_HRSTSENTIE );
 }
 
 /**
@@ -1066,9 +1066,9 @@ __STATIC_INLINE void LL_UCPD_DisableIT_TxHRSTSENT(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_DisableIT_TxHRSTDISC(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_DisableIT_TxHRSTDISC( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->IMR, UCPD_IMR_HRSTDISCIE);
+    CLEAR_BIT( UCPDx->IMR, UCPD_IMR_HRSTDISCIE );
 }
 
 /**
@@ -1077,9 +1077,9 @@ __STATIC_INLINE void LL_UCPD_DisableIT_TxHRSTDISC(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_DisableIT_TxMSGABT(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_DisableIT_TxMSGABT( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->IMR, UCPD_IMR_TXMSGABTIE);
+    CLEAR_BIT( UCPDx->IMR, UCPD_IMR_TXMSGABTIE );
 }
 
 /**
@@ -1088,9 +1088,9 @@ __STATIC_INLINE void LL_UCPD_DisableIT_TxMSGABT(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_DisableIT_TxMSGSENT(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_DisableIT_TxMSGSENT( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->IMR, UCPD_IMR_TXMSGSENTIE);
+    CLEAR_BIT( UCPDx->IMR, UCPD_IMR_TXMSGSENTIE );
 }
 
 /**
@@ -1099,9 +1099,9 @@ __STATIC_INLINE void LL_UCPD_DisableIT_TxMSGSENT(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_DisableIT_TxMSGDISC(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_DisableIT_TxMSGDISC( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->IMR, UCPD_IMR_TXMSGDISCIE);
+    CLEAR_BIT( UCPDx->IMR, UCPD_IMR_TXMSGDISCIE );
 }
 
 /**
@@ -1110,9 +1110,9 @@ __STATIC_INLINE void LL_UCPD_DisableIT_TxMSGDISC(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_DisableIT_TxIS(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_DisableIT_TxIS( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->IMR, UCPD_IMR_TXISIE);
+    CLEAR_BIT( UCPDx->IMR, UCPD_IMR_TXISIE );
 }
 
 /**
@@ -1121,9 +1121,9 @@ __STATIC_INLINE void LL_UCPD_DisableIT_TxIS(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_FRS(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_FRS( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->IMR, UCPD_IMR_FRSEVTIE) == UCPD_IMR_FRSEVTIE) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->IMR, UCPD_IMR_FRSEVTIE ) == UCPD_IMR_FRSEVTIE ) ? 1UL : 0UL );
 }
 
 /**
@@ -1132,9 +1132,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_FRS(UCPD_TypeDef const * const UCPDx
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TypeCEventCC2(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TypeCEventCC2( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->IMR, UCPD_IMR_TYPECEVT2IE) == UCPD_IMR_TYPECEVT2IE) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->IMR, UCPD_IMR_TYPECEVT2IE ) == UCPD_IMR_TYPECEVT2IE ) ? 1UL : 0UL );
 }
 
 /**
@@ -1143,9 +1143,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TypeCEventCC2(UCPD_TypeDef const * c
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TypeCEventCC1(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TypeCEventCC1( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->IMR, UCPD_IMR_TYPECEVT1IE) == UCPD_IMR_TYPECEVT1IE) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->IMR, UCPD_IMR_TYPECEVT1IE ) == UCPD_IMR_TYPECEVT1IE ) ? 1UL : 0UL );
 }
 
 /**
@@ -1154,9 +1154,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TypeCEventCC1(UCPD_TypeDef const * c
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_RxMsgEnd(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_RxMsgEnd( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->IMR, UCPD_IMR_RXMSGENDIE) == UCPD_IMR_RXMSGENDIE) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->IMR, UCPD_IMR_RXMSGENDIE ) == UCPD_IMR_RXMSGENDIE ) ? 1UL : 0UL );
 }
 
 /**
@@ -1165,9 +1165,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_RxMsgEnd(UCPD_TypeDef const * const 
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_RxOvr(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_RxOvr( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->IMR, UCPD_IMR_RXOVRIE) == UCPD_IMR_RXOVRIE) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->IMR, UCPD_IMR_RXOVRIE ) == UCPD_IMR_RXOVRIE ) ? 1UL : 0UL );
 }
 
 /**
@@ -1176,9 +1176,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_RxOvr(UCPD_TypeDef const * const UCP
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_RxHRST(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_RxHRST( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->IMR, UCPD_IMR_RXHRSTDETIE) == UCPD_IMR_RXHRSTDETIE) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->IMR, UCPD_IMR_RXHRSTDETIE ) == UCPD_IMR_RXHRSTDETIE ) ? 1UL : 0UL );
 }
 
 /**
@@ -1187,9 +1187,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_RxHRST(UCPD_TypeDef const * const UC
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_RxOrderSet(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_RxOrderSet( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->IMR, UCPD_IMR_RXORDDETIE) == UCPD_IMR_RXORDDETIE) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->IMR, UCPD_IMR_RXORDDETIE ) == UCPD_IMR_RXORDDETIE ) ? 1UL : 0UL );
 }
 
 /**
@@ -1198,9 +1198,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_RxOrderSet(UCPD_TypeDef const * cons
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_RxNE(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_RxNE( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->IMR, UCPD_IMR_RXNEIE) == UCPD_IMR_RXNEIE) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->IMR, UCPD_IMR_RXNEIE ) == UCPD_IMR_RXNEIE ) ? 1UL : 0UL );
 }
 
 /**
@@ -1209,9 +1209,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_RxNE(UCPD_TypeDef const * const UCPD
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TxUND(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TxUND( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->IMR, UCPD_IMR_TXUNDIE) == UCPD_IMR_TXUNDIE) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->IMR, UCPD_IMR_TXUNDIE ) == UCPD_IMR_TXUNDIE ) ? 1UL : 0UL );
 }
 
 /**
@@ -1220,9 +1220,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TxUND(UCPD_TypeDef const * const UCP
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TxHRSTSENT(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TxHRSTSENT( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->IMR, UCPD_IMR_HRSTSENTIE) == UCPD_IMR_HRSTSENTIE) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->IMR, UCPD_IMR_HRSTSENTIE ) == UCPD_IMR_HRSTSENTIE ) ? 1UL : 0UL );
 }
 
 /**
@@ -1231,9 +1231,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TxHRSTSENT(UCPD_TypeDef const * cons
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TxHRSTDISC(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TxHRSTDISC( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->IMR, UCPD_IMR_HRSTDISCIE) == UCPD_IMR_HRSTDISCIE) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->IMR, UCPD_IMR_HRSTDISCIE ) == UCPD_IMR_HRSTDISCIE ) ? 1UL : 0UL );
 }
 
 /**
@@ -1242,9 +1242,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TxHRSTDISC(UCPD_TypeDef const * cons
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TxMSGABT(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TxMSGABT( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->IMR, UCPD_IMR_TXMSGABTIE) == UCPD_IMR_TXMSGABTIE) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->IMR, UCPD_IMR_TXMSGABTIE ) == UCPD_IMR_TXMSGABTIE ) ? 1UL : 0UL );
 }
 
 /**
@@ -1253,9 +1253,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TxMSGABT(UCPD_TypeDef const * const 
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TxMSGSENT(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TxMSGSENT( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->IMR, UCPD_IMR_TXMSGSENTIE) == UCPD_IMR_TXMSGSENTIE) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->IMR, UCPD_IMR_TXMSGSENTIE ) == UCPD_IMR_TXMSGSENTIE ) ? 1UL : 0UL );
 }
 
 /**
@@ -1264,9 +1264,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TxMSGSENT(UCPD_TypeDef const * const
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TxMSGDISC(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TxMSGDISC( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->IMR, UCPD_IMR_TXMSGDISCIE) == UCPD_IMR_TXMSGDISCIE) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->IMR, UCPD_IMR_TXMSGDISCIE ) == UCPD_IMR_TXMSGDISCIE ) ? 1UL : 0UL );
 }
 
 /**
@@ -1275,9 +1275,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TxMSGDISC(UCPD_TypeDef const * const
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TxIS(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TxIS( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->IMR, UCPD_IMR_TXISIE) == UCPD_IMR_TXISIE) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->IMR, UCPD_IMR_TXISIE ) == UCPD_IMR_TXISIE ) ? 1UL : 0UL );
 }
 
 /**
@@ -1293,9 +1293,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsEnableIT_TxIS(UCPD_TypeDef const * const UCPD
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_ClearFlag_FRS(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_ClearFlag_FRS( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->ICR, UCPD_ICR_FRSEVTCF);
+    SET_BIT( UCPDx->ICR, UCPD_ICR_FRSEVTCF );
 }
 
 /**
@@ -1304,9 +1304,9 @@ __STATIC_INLINE void LL_UCPD_ClearFlag_FRS(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_ClearFlag_TypeCEventCC2(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_ClearFlag_TypeCEventCC2( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->ICR, UCPD_ICR_TYPECEVT2CF);
+    SET_BIT( UCPDx->ICR, UCPD_ICR_TYPECEVT2CF );
 }
 
 /**
@@ -1315,9 +1315,9 @@ __STATIC_INLINE void LL_UCPD_ClearFlag_TypeCEventCC2(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_ClearFlag_TypeCEventCC1(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_ClearFlag_TypeCEventCC1( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->ICR, UCPD_ICR_TYPECEVT1CF);
+    SET_BIT( UCPDx->ICR, UCPD_ICR_TYPECEVT1CF );
 }
 
 /**
@@ -1326,9 +1326,9 @@ __STATIC_INLINE void LL_UCPD_ClearFlag_TypeCEventCC1(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_ClearFlag_RxMsgEnd(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_ClearFlag_RxMsgEnd( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->ICR, UCPD_ICR_RXMSGENDCF);
+    SET_BIT( UCPDx->ICR, UCPD_ICR_RXMSGENDCF );
 }
 
 /**
@@ -1337,9 +1337,9 @@ __STATIC_INLINE void LL_UCPD_ClearFlag_RxMsgEnd(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_ClearFlag_RxOvr(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_ClearFlag_RxOvr( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->ICR, UCPD_ICR_RXOVRCF);
+    SET_BIT( UCPDx->ICR, UCPD_ICR_RXOVRCF );
 }
 
 /**
@@ -1348,9 +1348,9 @@ __STATIC_INLINE void LL_UCPD_ClearFlag_RxOvr(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_ClearFlag_RxHRST(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_ClearFlag_RxHRST( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->ICR, UCPD_ICR_RXHRSTDETCF);
+    SET_BIT( UCPDx->ICR, UCPD_ICR_RXHRSTDETCF );
 }
 
 /**
@@ -1359,9 +1359,9 @@ __STATIC_INLINE void LL_UCPD_ClearFlag_RxHRST(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_ClearFlag_RxOrderSet(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_ClearFlag_RxOrderSet( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->ICR, UCPD_ICR_RXORDDETCF);
+    SET_BIT( UCPDx->ICR, UCPD_ICR_RXORDDETCF );
 }
 
 /**
@@ -1370,9 +1370,9 @@ __STATIC_INLINE void LL_UCPD_ClearFlag_RxOrderSet(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_ClearFlag_TxUND(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_ClearFlag_TxUND( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->ICR, UCPD_ICR_TXUNDCF);
+    SET_BIT( UCPDx->ICR, UCPD_ICR_TXUNDCF );
 }
 
 /**
@@ -1381,9 +1381,9 @@ __STATIC_INLINE void LL_UCPD_ClearFlag_TxUND(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_ClearFlag_TxHRSTSENT(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_ClearFlag_TxHRSTSENT( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->ICR, UCPD_ICR_HRSTSENTCF);
+    SET_BIT( UCPDx->ICR, UCPD_ICR_HRSTSENTCF );
 }
 
 /**
@@ -1392,9 +1392,9 @@ __STATIC_INLINE void LL_UCPD_ClearFlag_TxHRSTSENT(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_ClearFlag_TxHRSTDISC(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_ClearFlag_TxHRSTDISC( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->ICR, UCPD_ICR_HRSTDISCCF);
+    SET_BIT( UCPDx->ICR, UCPD_ICR_HRSTDISCCF );
 }
 
 /**
@@ -1403,9 +1403,9 @@ __STATIC_INLINE void LL_UCPD_ClearFlag_TxHRSTDISC(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_ClearFlag_TxMSGABT(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_ClearFlag_TxMSGABT( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->ICR, UCPD_ICR_TXMSGABTCF);
+    SET_BIT( UCPDx->ICR, UCPD_ICR_TXMSGABTCF );
 }
 
 /**
@@ -1414,9 +1414,9 @@ __STATIC_INLINE void LL_UCPD_ClearFlag_TxMSGABT(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_ClearFlag_TxMSGSENT(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_ClearFlag_TxMSGSENT( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->ICR, UCPD_ICR_TXMSGSENTCF);
+    SET_BIT( UCPDx->ICR, UCPD_ICR_TXMSGSENTCF );
 }
 
 /**
@@ -1425,9 +1425,9 @@ __STATIC_INLINE void LL_UCPD_ClearFlag_TxMSGSENT(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_ClearFlag_TxMSGDISC(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_ClearFlag_TxMSGDISC( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->ICR, UCPD_ICR_TXMSGDISCCF);
+    SET_BIT( UCPDx->ICR, UCPD_ICR_TXMSGDISCCF );
 }
 
 /**
@@ -1444,9 +1444,9 @@ __STATIC_INLINE void LL_UCPD_ClearFlag_TxMSGDISC(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_FRS(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_FRS( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->SR, UCPD_SR_FRSEVT) == UCPD_SR_FRSEVT) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->SR, UCPD_SR_FRSEVT ) == UCPD_SR_FRSEVT ) ? 1UL : 0UL );
 }
 
 /**
@@ -1455,9 +1455,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_FRS(UCPD_TypeDef const * const UCP
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TypeCEventCC2(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TypeCEventCC2( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->SR, UCPD_SR_TYPECEVT2) == UCPD_SR_TYPECEVT2) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->SR, UCPD_SR_TYPECEVT2 ) == UCPD_SR_TYPECEVT2 ) ? 1UL : 0UL );
 }
 
 /**
@@ -1466,9 +1466,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TypeCEventCC2(UCPD_TypeDef const *
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TypeCEventCC1(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TypeCEventCC1( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->SR, UCPD_SR_TYPECEVT1) == UCPD_SR_TYPECEVT1) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->SR, UCPD_SR_TYPECEVT1 ) == UCPD_SR_TYPECEVT1 ) ? 1UL : 0UL );
 }
 
 /**
@@ -1477,9 +1477,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TypeCEventCC1(UCPD_TypeDef const *
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_RxMsgEnd(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_RxMsgEnd( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->SR, UCPD_SR_RXMSGEND) == UCPD_SR_RXMSGEND) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->SR, UCPD_SR_RXMSGEND ) == UCPD_SR_RXMSGEND ) ? 1UL : 0UL );
 }
 
 /**
@@ -1488,9 +1488,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_RxMsgEnd(UCPD_TypeDef const * cons
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_RxOvr(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_RxOvr( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->SR, UCPD_SR_RXOVR) == UCPD_SR_RXOVR) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->SR, UCPD_SR_RXOVR ) == UCPD_SR_RXOVR ) ? 1UL : 0UL );
 }
 
 /**
@@ -1499,9 +1499,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_RxOvr(UCPD_TypeDef const * const U
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_RxHRST(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_RxHRST( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->SR, UCPD_SR_RXHRSTDET) == UCPD_SR_RXHRSTDET) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->SR, UCPD_SR_RXHRSTDET ) == UCPD_SR_RXHRSTDET ) ? 1UL : 0UL );
 }
 
 /**
@@ -1510,9 +1510,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_RxHRST(UCPD_TypeDef const * const 
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_RxOrderSet(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_RxOrderSet( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->SR, UCPD_SR_RXORDDET) == UCPD_SR_RXORDDET) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->SR, UCPD_SR_RXORDDET ) == UCPD_SR_RXORDDET ) ? 1UL : 0UL );
 }
 
 /**
@@ -1521,9 +1521,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_RxOrderSet(UCPD_TypeDef const * co
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_RxNE(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_RxNE( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->SR, UCPD_SR_RXNE) == UCPD_SR_RXNE) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->SR, UCPD_SR_RXNE ) == UCPD_SR_RXNE ) ? 1UL : 0UL );
 }
 
 /**
@@ -1532,9 +1532,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_RxNE(UCPD_TypeDef const * const UC
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TxUND(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TxUND( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->SR, UCPD_SR_TXUND) == UCPD_SR_TXUND) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->SR, UCPD_SR_TXUND ) == UCPD_SR_TXUND ) ? 1UL : 0UL );
 }
 
 /**
@@ -1543,9 +1543,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TxUND(UCPD_TypeDef const * const U
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TxHRSTSENT(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TxHRSTSENT( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->SR, UCPD_SR_HRSTSENT) == UCPD_SR_HRSTSENT) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->SR, UCPD_SR_HRSTSENT ) == UCPD_SR_HRSTSENT ) ? 1UL : 0UL );
 }
 
 /**
@@ -1554,9 +1554,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TxHRSTSENT(UCPD_TypeDef const * co
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TxHRSTDISC(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TxHRSTDISC( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->SR, UCPD_SR_HRSTDISC) == UCPD_SR_HRSTDISC) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->SR, UCPD_SR_HRSTDISC ) == UCPD_SR_HRSTDISC ) ? 1UL : 0UL );
 }
 
 /**
@@ -1565,9 +1565,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TxHRSTDISC(UCPD_TypeDef const * co
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TxMSGABT(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TxMSGABT( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->SR, UCPD_SR_TXMSGABT) == UCPD_SR_TXMSGABT) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->SR, UCPD_SR_TXMSGABT ) == UCPD_SR_TXMSGABT ) ? 1UL : 0UL );
 }
 
 /**
@@ -1576,9 +1576,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TxMSGABT(UCPD_TypeDef const * cons
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TxMSGSENT(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TxMSGSENT( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->SR, UCPD_SR_TXMSGSENT) == UCPD_SR_TXMSGSENT) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->SR, UCPD_SR_TXMSGSENT ) == UCPD_SR_TXMSGSENT ) ? 1UL : 0UL );
 }
 
 /**
@@ -1587,9 +1587,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TxMSGSENT(UCPD_TypeDef const * con
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TxMSGDISC(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TxMSGDISC( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->SR, UCPD_SR_TXMSGDISC) == UCPD_SR_TXMSGDISC) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->SR, UCPD_SR_TXMSGDISC ) == UCPD_SR_TXMSGDISC ) ? 1UL : 0UL );
 }
 
 /**
@@ -1598,9 +1598,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TxMSGDISC(UCPD_TypeDef const * con
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TxIS(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TxIS( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->SR, UCPD_SR_TXIS) == UCPD_SR_TXIS) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->SR, UCPD_SR_TXIS ) == UCPD_SR_TXIS ) ? 1UL : 0UL );
 }
 
 /**
@@ -1609,9 +1609,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsActiveFlag_TxIS(UCPD_TypeDef const * const UC
   * @param  UCPDx UCPD Instance
   * @retval val
   */
-__STATIC_INLINE uint32_t LL_UCPD_GetTypeCVstateCC2(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_GetTypeCVstateCC2( UCPD_TypeDef const *const UCPDx )
 {
-  return UCPDx->SR & UCPD_SR_TYPEC_VSTATE_CC2;
+    return UCPDx->SR & UCPD_SR_TYPEC_VSTATE_CC2;
 }
 
 /**
@@ -1620,9 +1620,9 @@ __STATIC_INLINE uint32_t LL_UCPD_GetTypeCVstateCC2(UCPD_TypeDef const * const UC
   * @param  UCPDx UCPD Instance
   * @retval val
   */
-__STATIC_INLINE uint32_t LL_UCPD_GetTypeCVstateCC1(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_GetTypeCVstateCC1( UCPD_TypeDef const *const UCPDx )
 {
-  return UCPDx->SR & UCPD_SR_TYPEC_VSTATE_CC1;
+    return UCPDx->SR & UCPD_SR_TYPEC_VSTATE_CC1;
 }
 
 /**
@@ -1640,9 +1640,9 @@ __STATIC_INLINE uint32_t LL_UCPD_GetTypeCVstateCC1(UCPD_TypeDef const * const UC
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_RxDMAEnable(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_RxDMAEnable( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->CFG1, UCPD_CFG1_RXDMAEN);
+    SET_BIT( UCPDx->CFG1, UCPD_CFG1_RXDMAEN );
 }
 
 /**
@@ -1651,9 +1651,9 @@ __STATIC_INLINE void LL_UCPD_RxDMAEnable(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_RxDMADisable(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_RxDMADisable( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->CFG1, UCPD_CFG1_RXDMAEN);
+    CLEAR_BIT( UCPDx->CFG1, UCPD_CFG1_RXDMAEN );
 }
 
 /**
@@ -1662,9 +1662,9 @@ __STATIC_INLINE void LL_UCPD_RxDMADisable(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_TxDMAEnable(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_TxDMAEnable( UCPD_TypeDef *UCPDx )
 {
-  SET_BIT(UCPDx->CFG1, UCPD_CFG1_TXDMAEN);
+    SET_BIT( UCPDx->CFG1, UCPD_CFG1_TXDMAEN );
 }
 
 /**
@@ -1673,9 +1673,9 @@ __STATIC_INLINE void LL_UCPD_TxDMAEnable(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_TxDMADisable(UCPD_TypeDef *UCPDx)
+__STATIC_INLINE void LL_UCPD_TxDMADisable( UCPD_TypeDef *UCPDx )
 {
-  CLEAR_BIT(UCPDx->CFG1, UCPD_CFG1_TXDMAEN);
+    CLEAR_BIT( UCPDx->CFG1, UCPD_CFG1_TXDMAEN );
 }
 
 /**
@@ -1684,9 +1684,9 @@ __STATIC_INLINE void LL_UCPD_TxDMADisable(UCPD_TypeDef *UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsEnabledTxDMA(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsEnabledTxDMA( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->CFG1, UCPD_CFG1_TXDMAEN) == (UCPD_CFG1_TXDMAEN)) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->CFG1, UCPD_CFG1_TXDMAEN ) == ( UCPD_CFG1_TXDMAEN ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1695,9 +1695,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsEnabledTxDMA(UCPD_TypeDef const * const UCPDx
   * @param  UCPDx UCPD Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_UCPD_IsEnabledRxDMA(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_IsEnabledRxDMA( UCPD_TypeDef const *const UCPDx )
 {
-  return ((READ_BIT(UCPDx->CFG1, UCPD_CFG1_RXDMAEN) == (UCPD_CFG1_RXDMAEN)) ? 1UL : 0UL);
+    return ( ( READ_BIT( UCPDx->CFG1, UCPD_CFG1_RXDMAEN ) == ( UCPD_CFG1_RXDMAEN ) ) ? 1UL : 0UL );
 }
 
 /**
@@ -1722,9 +1722,9 @@ __STATIC_INLINE uint32_t LL_UCPD_IsEnabledRxDMA(UCPD_TypeDef const * const UCPDx
   *         @arg @ref LL_UCPD_ORDERED_SET_SOP2_DEBUG
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_WriteTxOrderSet(UCPD_TypeDef *UCPDx, uint32_t TxOrderSet)
+__STATIC_INLINE void LL_UCPD_WriteTxOrderSet( UCPD_TypeDef *UCPDx, uint32_t TxOrderSet )
 {
-  WRITE_REG(UCPDx->TX_ORDSET, TxOrderSet);
+    WRITE_REG( UCPDx->TX_ORDSET, TxOrderSet );
 }
 
 /**
@@ -1734,9 +1734,9 @@ __STATIC_INLINE void LL_UCPD_WriteTxOrderSet(UCPD_TypeDef *UCPDx, uint32_t TxOrd
   * @param  TxPaySize
   * @retval None.
   */
-__STATIC_INLINE void LL_UCPD_WriteTxPaySize(UCPD_TypeDef *UCPDx, uint32_t TxPaySize)
+__STATIC_INLINE void LL_UCPD_WriteTxPaySize( UCPD_TypeDef *UCPDx, uint32_t TxPaySize )
 {
-  WRITE_REG(UCPDx->TX_PAYSZ, TxPaySize);
+    WRITE_REG( UCPDx->TX_PAYSZ, TxPaySize );
 }
 
 /**
@@ -1746,9 +1746,9 @@ __STATIC_INLINE void LL_UCPD_WriteTxPaySize(UCPD_TypeDef *UCPDx, uint32_t TxPayS
   * @param  Data Value between Min_Data=0x00 and Max_Data=0xFF
   * @retval None.
   */
-__STATIC_INLINE void LL_UCPD_WriteData(UCPD_TypeDef *UCPDx, uint8_t Data)
+__STATIC_INLINE void LL_UCPD_WriteData( UCPD_TypeDef *UCPDx, uint8_t Data )
 {
-  WRITE_REG(UCPDx->TXDR, Data);
+    WRITE_REG( UCPDx->TXDR, Data );
 }
 
 /**
@@ -1765,9 +1765,9 @@ __STATIC_INLINE void LL_UCPD_WriteData(UCPD_TypeDef *UCPDx, uint8_t Data)
   *         @arg @ref LL_UCPD_RXORDSET_SOPEXT1
   *         @arg @ref LL_UCPD_RXORDSET_SOPEXT2
   */
-__STATIC_INLINE uint32_t LL_UCPD_ReadRxOrderSet(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_ReadRxOrderSet( UCPD_TypeDef const *const UCPDx )
 {
-  return READ_BIT(UCPDx->RX_ORDSET, UCPD_RX_ORDSET_RXORDSET);
+    return READ_BIT( UCPDx->RX_ORDSET, UCPD_RX_ORDSET_RXORDSET );
 }
 
 /**
@@ -1776,9 +1776,9 @@ __STATIC_INLINE uint32_t LL_UCPD_ReadRxOrderSet(UCPD_TypeDef const * const UCPDx
   * @param  UCPDx UCPD Instance
   * @retval RXPaysize.
   */
-__STATIC_INLINE uint32_t LL_UCPD_ReadRxPaySize(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_ReadRxPaySize( UCPD_TypeDef const *const UCPDx )
 {
-  return READ_BIT(UCPDx->TX_PAYSZ, UCPD_RX_PAYSZ_RXPAYSZ);
+    return READ_BIT( UCPDx->TX_PAYSZ, UCPD_RX_PAYSZ_RXPAYSZ );
 }
 
 /**
@@ -1787,9 +1787,9 @@ __STATIC_INLINE uint32_t LL_UCPD_ReadRxPaySize(UCPD_TypeDef const * const UCPDx)
   * @param  UCPDx UCPD Instance
   * @retval RxData Value between Min_Data=0x00 and Max_Data=0xFF
   */
-__STATIC_INLINE uint32_t LL_UCPD_ReadData(UCPD_TypeDef const * const UCPDx)
+__STATIC_INLINE uint32_t LL_UCPD_ReadData( UCPD_TypeDef const *const UCPDx )
 {
-  return READ_REG(UCPDx->RXDR);
+    return READ_REG( UCPDx->RXDR );
 }
 
 /**
@@ -1799,9 +1799,9 @@ __STATIC_INLINE uint32_t LL_UCPD_ReadData(UCPD_TypeDef const * const UCPDx)
   * @param  SOPExt Value between Min_Data=0x00000 and Max_Data=0xFFFFF
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_SetRxOrdExt1(UCPD_TypeDef *UCPDx, uint32_t SOPExt)
+__STATIC_INLINE void LL_UCPD_SetRxOrdExt1( UCPD_TypeDef *UCPDx, uint32_t SOPExt )
 {
-  WRITE_REG(UCPDx->RX_ORDEXT1, SOPExt);
+    WRITE_REG( UCPDx->RX_ORDEXT1, SOPExt );
 }
 
 /**
@@ -1811,9 +1811,9 @@ __STATIC_INLINE void LL_UCPD_SetRxOrdExt1(UCPD_TypeDef *UCPDx, uint32_t SOPExt)
   * @param  SOPExt Value between Min_Data=0x00000 and Max_Data=0xFFFFF
   * @retval None
   */
-__STATIC_INLINE void LL_UCPD_SetRxOrdExt2(UCPD_TypeDef *UCPDx, uint32_t SOPExt)
+__STATIC_INLINE void LL_UCPD_SetRxOrdExt2( UCPD_TypeDef *UCPDx, uint32_t SOPExt )
 {
-  WRITE_REG(UCPDx->RX_ORDEXT2, SOPExt);
+    WRITE_REG( UCPDx->RX_ORDEXT2, SOPExt );
 }
 
 /**
@@ -1825,9 +1825,9 @@ __STATIC_INLINE void LL_UCPD_SetRxOrdExt2(UCPD_TypeDef *UCPDx, uint32_t SOPExt)
   * @{
   */
 
-ErrorStatus LL_UCPD_DeInit(UCPD_TypeDef *UCPDx);
-ErrorStatus LL_UCPD_Init(UCPD_TypeDef *UCPDx, LL_UCPD_InitTypeDef *UCPD_InitStruct);
-void        LL_UCPD_StructInit(LL_UCPD_InitTypeDef *UCPD_InitStruct);
+ErrorStatus LL_UCPD_DeInit( UCPD_TypeDef *UCPDx );
+ErrorStatus LL_UCPD_Init( UCPD_TypeDef *UCPDx, LL_UCPD_InitTypeDef *UCPD_InitStruct );
+void        LL_UCPD_StructInit( LL_UCPD_InitTypeDef *UCPD_InitStruct );
 
 /**
   * @}

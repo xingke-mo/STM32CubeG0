@@ -24,7 +24,7 @@
 #define __STM32G0xx_IT_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Private includes ----------------------------------------------------------*/
@@ -48,9 +48,9 @@
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void NMI_Handler(void);
-void HardFault_Handler(void);
-void TIM6_IRQHandler(void);
+void NMI_Handler( void );
+void HardFault_Handler( void );
+void TIM6_IRQHandler( void );
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */

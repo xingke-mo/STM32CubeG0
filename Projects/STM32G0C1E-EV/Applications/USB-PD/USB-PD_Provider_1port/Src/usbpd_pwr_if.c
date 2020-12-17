@@ -29,7 +29,7 @@
 #include "usbpd_pdo_defs.h"
 #include "usbpd_core.h"
 #if defined(_TRACE)
-#include "usbpd_trace.h"
+    #include "usbpd_trace.h"
 #endif /* _TRACE */
 #include "string.h"
 #include "gui_api.h"
@@ -72,9 +72,9 @@
   * @{
   */
 #if defined(_TRACE)
-#define PWR_IF_DEBUG_TRACE(_PORT_, __MESSAGE__)  USBPD_TRACE_Add(USBPD_TRACE_DEBUG, (_PORT_), 0u, (uint8_t*)(__MESSAGE__), sizeof(__MESSAGE__) - 1u)
+    #define PWR_IF_DEBUG_TRACE(_PORT_, __MESSAGE__)  USBPD_TRACE_Add(USBPD_TRACE_DEBUG, (_PORT_), 0u, (uint8_t*)(__MESSAGE__), sizeof(__MESSAGE__) - 1u)
 #else
-#define PWR_IF_DEBUG_TRACE(_PORT_, __MESSAGE__)
+    #define PWR_IF_DEBUG_TRACE(_PORT_, __MESSAGE__)
 #endif /* _TRACE */
 /* USER CODE BEGIN Private_Macro */
 
@@ -119,18 +119,18 @@ USBPD_PWR_Port_PDO_Storage_TypeDef PWR_Port_PDO_Storage[USBPD_PORT_COUNT];
   *         used by Sink and Source, for all available ports.
   * @retval USBPD status
   */
-USBPD_StatusTypeDef USBPD_PWR_IF_Init(void)
+USBPD_StatusTypeDef USBPD_PWR_IF_Init( void )
 {
-/* USER CODE BEGIN USBPD_PWR_IF_Init */
-  USBPD_StatusTypeDef _status = USBPD_OK;
+    /* USER CODE BEGIN USBPD_PWR_IF_Init */
+    USBPD_StatusTypeDef _status = USBPD_OK;
 
-  /* Set links to PDO values and number for Port 0 (defined in PDO arrays in H file).
-   */
-  PWR_Port_PDO_Storage[USBPD_PORT_0].SourcePDO.ListOfPDO = (uint32_t *) PORT0_PDO_ListSRC;
-  PWR_Port_PDO_Storage[USBPD_PORT_0].SourcePDO.NumberOfPDO = &USBPD_NbPDO[1];
+    /* Set links to PDO values and number for Port 0 (defined in PDO arrays in H file).
+     */
+    PWR_Port_PDO_Storage[USBPD_PORT_0].SourcePDO.ListOfPDO = ( uint32_t * ) PORT0_PDO_ListSRC;
+    PWR_Port_PDO_Storage[USBPD_PORT_0].SourcePDO.NumberOfPDO = &USBPD_NbPDO[1];
 
-  return _status;
-/* USER CODE END USBPD_PWR_IF_Init */
+    return _status;
+    /* USER CODE END USBPD_PWR_IF_Init */
 }
 
 /**
@@ -138,28 +138,33 @@ USBPD_StatusTypeDef USBPD_PWR_IF_Init(void)
   * @param  PortNum Port number
   * @retval USBPD status
 */
-USBPD_StatusTypeDef USBPD_PWR_IF_SetProfile(uint8_t PortNum)
+USBPD_StatusTypeDef USBPD_PWR_IF_SetProfile( uint8_t PortNum )
 {
-/* USER CODE BEGIN USBPD_PWR_IF_SetProfile */
-  USBPD_StatusTypeDef      _ret = USBPD_ERROR;
-  USBPD_PDO_TypeDef        _pdo;
-  USBPD_SNKRDO_TypeDef     _rdo;
+    /* USER CODE BEGIN USBPD_PWR_IF_SetProfile */
+    USBPD_StatusTypeDef      _ret = USBPD_ERROR;
+    USBPD_PDO_TypeDef        _pdo;
+    USBPD_SNKRDO_TypeDef     _rdo;
 
-  _rdo.d32 = DPM_Ports[PortNum].DPM_RcvRequestDOMsg;
-  if (0 == PortNum)
-    _pdo.d32 = PORT0_PDO_ListSRC[0];
-  else
-    _pdo.d32 = PORT0_PDO_ListSRC[0];
+    _rdo.d32 = DPM_Ports[PortNum].DPM_RcvRequestDOMsg;
 
-  if(PWR_OK == BSP_USBPD_PWR_VBUSSetVoltage_Fixed(PortNum, _pdo.SRCFixedPDO.VoltageIn50mVunits * 50,
-                                                     (_rdo.FixedVariableRDO.OperatingCurrentIn10mAunits * 10),
-                                                     (_rdo.FixedVariableRDO.MaxOperatingCurrent10mAunits * 10)))
-  {
-     _ret = USBPD_OK;
-  }
+    if( 0 == PortNum )
+    {
+        _pdo.d32 = PORT0_PDO_ListSRC[0];
+    }
+    else
+    {
+        _pdo.d32 = PORT0_PDO_ListSRC[0];
+    }
 
-  return _ret;
-/* USER CODE END USBPD_PWR_IF_SetProfile */
+    if( PWR_OK == BSP_USBPD_PWR_VBUSSetVoltage_Fixed( PortNum, _pdo.SRCFixedPDO.VoltageIn50mVunits * 50,
+            ( _rdo.FixedVariableRDO.OperatingCurrentIn10mAunits * 10 ),
+            ( _rdo.FixedVariableRDO.MaxOperatingCurrent10mAunits * 10 ) ) )
+    {
+        _ret = USBPD_OK;
+    }
+
+    return _ret;
+    /* USER CODE END USBPD_PWR_IF_SetProfile */
 }
 
 /**
@@ -168,11 +173,11 @@ USBPD_StatusTypeDef USBPD_PWR_IF_SetProfile(uint8_t PortNum)
   * @param  Vsafe   Vsafe status based on @ref USBPD_VSAFE_StatusTypeDef
   * @retval USBPD status
   */
-USBPD_StatusTypeDef USBPD_PWR_IF_SupplyReady(uint8_t PortNum, USBPD_VSAFE_StatusTypeDef Vsafe)
+USBPD_StatusTypeDef USBPD_PWR_IF_SupplyReady( uint8_t PortNum, USBPD_VSAFE_StatusTypeDef Vsafe )
 {
-/* USER CODE BEGIN USBPD_PWR_IF_SupplyReady */
-  return USBPD_ERROR;
-/* USER CODE END USBPD_PWR_IF_SupplyReady */
+    /* USER CODE BEGIN USBPD_PWR_IF_SupplyReady */
+    return USBPD_ERROR;
+    /* USER CODE END USBPD_PWR_IF_SupplyReady */
 }
 
 /**
@@ -180,12 +185,12 @@ USBPD_StatusTypeDef USBPD_PWR_IF_SupplyReady(uint8_t PortNum, USBPD_VSAFE_Status
   * @param  PortNum Port number
   * @retval USBPD status
   */
-USBPD_StatusTypeDef USBPD_PWR_IF_VBUSEnable(uint8_t PortNum)
+USBPD_StatusTypeDef USBPD_PWR_IF_VBUSEnable( uint8_t PortNum )
 {
-/* USER CODE BEGIN USBPD_PWR_IF_VBUSEnable */
-  USBPD_StatusTypeDef _status = (USBPD_StatusTypeDef)HW_IF_PWR_Enable(PortNum, USBPD_ENABLE, CCNONE, USBPD_FALSE, USBPD_PORTPOWERROLE_SRC);
-  return _status;
-/* USER CODE END USBPD_PWR_IF_VBUSEnable */
+    /* USER CODE BEGIN USBPD_PWR_IF_VBUSEnable */
+    USBPD_StatusTypeDef _status = ( USBPD_StatusTypeDef )HW_IF_PWR_Enable( PortNum, USBPD_ENABLE, CCNONE, USBPD_FALSE, USBPD_PORTPOWERROLE_SRC );
+    return _status;
+    /* USER CODE END USBPD_PWR_IF_VBUSEnable */
 }
 
 /**
@@ -193,12 +198,12 @@ USBPD_StatusTypeDef USBPD_PWR_IF_VBUSEnable(uint8_t PortNum)
   * @param  PortNum Port number
   * @retval USBPD status
   */
-USBPD_StatusTypeDef USBPD_PWR_IF_VBUSDisable(uint8_t PortNum)
+USBPD_StatusTypeDef USBPD_PWR_IF_VBUSDisable( uint8_t PortNum )
 {
-/* USER CODE BEGIN USBPD_PWR_IF_VBUSDisable */
-  USBPD_StatusTypeDef _status = (USBPD_StatusTypeDef)HW_IF_PWR_Enable(PortNum, USBPD_DISABLE, CCNONE, USBPD_FALSE, USBPD_PORTPOWERROLE_SRC);
-  return _status;
-/* USER CODE END USBPD_PWR_IF_VBUSDisable */
+    /* USER CODE BEGIN USBPD_PWR_IF_VBUSDisable */
+    USBPD_StatusTypeDef _status = ( USBPD_StatusTypeDef )HW_IF_PWR_Enable( PortNum, USBPD_DISABLE, CCNONE, USBPD_FALSE, USBPD_PORTPOWERROLE_SRC );
+    return _status;
+    /* USER CODE END USBPD_PWR_IF_VBUSDisable */
 }
 
 /**
@@ -206,10 +211,10 @@ USBPD_StatusTypeDef USBPD_PWR_IF_VBUSDisable(uint8_t PortNum)
   * @param  PortNum Port number
   * @retval USBPD_ENABLE or USBPD_DISABLE
   */
-USBPD_FunctionalState USBPD_PWR_IF_VBUSIsEnabled(uint8_t PortNum)
+USBPD_FunctionalState USBPD_PWR_IF_VBUSIsEnabled( uint8_t PortNum )
 {
-  /* Get the Status of the port */
-  return USBPD_PORT_IsValid(PortNum) ? (USBPD_FunctionalState)HW_IF_PWR_VBUSIsEnabled(PortNum) : USBPD_DISABLE;
+    /* Get the Status of the port */
+    return USBPD_PORT_IsValid( PortNum ) ? ( USBPD_FunctionalState )HW_IF_PWR_VBUSIsEnabled( PortNum ) : USBPD_DISABLE;
 }
 
 /**
@@ -219,11 +224,11 @@ USBPD_FunctionalState USBPD_PWR_IF_VBUSIsEnabled(uint8_t PortNum)
   * @param  pCurrent: The Current in mA
   * @retval USBPD_ERROR or USBPD_OK
   */
-USBPD_StatusTypeDef USBPD_PWR_IF_ReadVA(uint8_t PortNum, uint16_t *pVoltage, uint16_t *pCurrent)
+USBPD_StatusTypeDef USBPD_PWR_IF_ReadVA( uint8_t PortNum, uint16_t *pVoltage, uint16_t *pCurrent )
 {
-/* USER CODE BEGIN USBPD_PWR_IF_ReadVA */
-  return USBPD_ERROR;
-/* USER CODE END USBPD_PWR_IF_ReadVA */
+    /* USER CODE BEGIN USBPD_PWR_IF_ReadVA */
+    return USBPD_ERROR;
+    /* USER CODE END USBPD_PWR_IF_ReadVA */
 }
 
 /**
@@ -232,11 +237,11 @@ USBPD_StatusTypeDef USBPD_PWR_IF_ReadVA(uint8_t PortNum, uint16_t *pVoltage, uin
   * @param  CC      Specifies the CCx to be selected based on @ref CCxPin_TypeDef structure
   * @retval USBPD status
   */
-USBPD_StatusTypeDef USBPD_PWR_IF_Enable_VConn(uint8_t PortNum, CCxPin_TypeDef CC)
+USBPD_StatusTypeDef USBPD_PWR_IF_Enable_VConn( uint8_t PortNum, CCxPin_TypeDef CC )
 {
-/* USER CODE BEGIN USBPD_PWR_IF_Enable_VConn */
-  return USBPD_ERROR;
-/* USER CODE END USBPD_PWR_IF_Enable_VConn */
+    /* USER CODE BEGIN USBPD_PWR_IF_Enable_VConn */
+    return USBPD_ERROR;
+    /* USER CODE END USBPD_PWR_IF_Enable_VConn */
 }
 
 /**
@@ -245,11 +250,11 @@ USBPD_StatusTypeDef USBPD_PWR_IF_Enable_VConn(uint8_t PortNum, CCxPin_TypeDef CC
   * @param  CC      Specifies the CCx to be selected based on @ref CCxPin_TypeDef structure
   * @retval USBPD status
   */
-USBPD_StatusTypeDef USBPD_PWR_IF_Disable_VConn(uint8_t PortNum, CCxPin_TypeDef CC)
+USBPD_StatusTypeDef USBPD_PWR_IF_Disable_VConn( uint8_t PortNum, CCxPin_TypeDef CC )
 {
-/* USER CODE BEGIN USBPD_PWR_IF_Disable_VConn */
-  return USBPD_ERROR;
-/* USER CODE END USBPD_PWR_IF_Disable_VConn */
+    /* USER CODE BEGIN USBPD_PWR_IF_Disable_VConn */
+    return USBPD_ERROR;
+    /* USER CODE END USBPD_PWR_IF_Disable_VConn */
 }
 
 /**
@@ -263,69 +268,78 @@ USBPD_StatusTypeDef USBPD_PWR_IF_Disable_VConn(uint8_t PortNum, CCxPin_TypeDef C
   * @param  Size Pointer on nb of u32 written by PWR_IF (nb of PDOs)
   * @retval None
   */
-void USBPD_PWR_IF_GetPortPDOs(uint8_t PortNum, USBPD_CORE_DataInfoType_TypeDef DataId, uint8_t *Ptr, uint32_t *Size)
+void USBPD_PWR_IF_GetPortPDOs( uint8_t PortNum, USBPD_CORE_DataInfoType_TypeDef DataId, uint8_t *Ptr, uint32_t *Size )
 {
-    if (DataId == USBPD_CORE_DATATYPE_SRC_PDO)
+    if( DataId == USBPD_CORE_DATATYPE_SRC_PDO )
     {
-      *Size = USBPD_NbPDO[1];
-      memcpy(Ptr,PORT0_PDO_ListSRC, sizeof(uint32_t) * USBPD_NbPDO[1]);
+        *Size = USBPD_NbPDO[1];
+        memcpy( Ptr, PORT0_PDO_ListSRC, sizeof( uint32_t ) * USBPD_NbPDO[1] );
     }
-/* USER CODE BEGIN USBPD_PWR_IF_GetPortPDOs */
-  uint32_t   nbpdo, index, nb_valid_pdo = 0;
-  uint32_t   *ptpdoarray = NULL;
-  USBPD_PDO_TypeDef pdo_first;
-  USBPD_PDO_TypeDef pdo;
-  
-  /* Check if valid port */
-  if (USBPD_PORT_IsValid(PortNum))
-  {
-    /* According to type of PDO to be read, set pointer on values and nb of elements */
-    switch(DataId)
+
+    /* USER CODE BEGIN USBPD_PWR_IF_GetPortPDOs */
+    uint32_t   nbpdo, index, nb_valid_pdo = 0;
+    uint32_t   *ptpdoarray = NULL;
+    USBPD_PDO_TypeDef pdo_first;
+    USBPD_PDO_TypeDef pdo;
+
+    /* Check if valid port */
+    if( USBPD_PORT_IsValid( PortNum ) )
     {
-    case USBPD_CORE_DATATYPE_SRC_PDO :
-      nbpdo = *PWR_Port_PDO_Storage[PortNum].SourcePDO.NumberOfPDO;
-      ptpdoarray = PWR_Port_PDO_Storage[PortNum].SourcePDO.ListOfPDO;
-      /* Save the 1st PDO */
-      pdo_first.d32 = *ptpdoarray;
-      /* Reset unchunked bit if current revision is PD2.0*/
-      if (USBPD_SPECIFICATION_REV2 == DPM_Params[PortNum].PE_SpecRevision)
-      {
-        pdo_first.SRCFixedPDO.UnchunkedExtendedMessage  = USBPD_PDO_SRC_FIXED_UNCHUNK_NOT_SUPPORTED;
-      }
-      break;
-    default :
-      nbpdo = 0;
-      break;
-    }
-    
-    /* Copy PDO data in output buffer */
-    for (index = 0; index < nbpdo; index++)
-    {
-      pdo.d32 = *ptpdoarray;
-      /* Copy only PDO (and not APDO in case of current revision is PD2.0) */
-      if ((USBPD_SPECIFICATION_REV2 == DPM_Params[PortNum].PE_SpecRevision)
-          && (pdo.GenericPDO.PowerObject == USBPD_CORE_PDO_TYPE_APDO))
-      {
-      }
-      else
-      {
-        /* Copy 1st PDO as potentially FRS or UNCHUNKED bits have been reset */
-        if (0 == index)
+        /* According to type of PDO to be read, set pointer on values and nb of elements */
+        switch( DataId )
         {
-          (void)memcpy(Ptr, (uint8_t*)&pdo_first.d32, 4u);
+        case USBPD_CORE_DATATYPE_SRC_PDO :
+            nbpdo = *PWR_Port_PDO_Storage[PortNum].SourcePDO.NumberOfPDO;
+            ptpdoarray = PWR_Port_PDO_Storage[PortNum].SourcePDO.ListOfPDO;
+            /* Save the 1st PDO */
+            pdo_first.d32 = *ptpdoarray;
+
+            /* Reset unchunked bit if current revision is PD2.0*/
+            if( USBPD_SPECIFICATION_REV2 == DPM_Params[PortNum].PE_SpecRevision )
+            {
+                pdo_first.SRCFixedPDO.UnchunkedExtendedMessage  = USBPD_PDO_SRC_FIXED_UNCHUNK_NOT_SUPPORTED;
+            }
+
+            break;
+
+        default :
+            nbpdo = 0;
+            break;
         }
-        else
+
+        /* Copy PDO data in output buffer */
+        for( index = 0; index < nbpdo; index++ )
         {
-          (void)memcpy((Ptr + (nb_valid_pdo * 4u)), (uint8_t*)ptpdoarray, 4u);
+            pdo.d32 = *ptpdoarray;
+
+            /* Copy only PDO (and not APDO in case of current revision is PD2.0) */
+            if( ( USBPD_SPECIFICATION_REV2 == DPM_Params[PortNum].PE_SpecRevision )
+                    && ( pdo.GenericPDO.PowerObject == USBPD_CORE_PDO_TYPE_APDO ) )
+            {
+            }
+            else
+            {
+                /* Copy 1st PDO as potentially FRS or UNCHUNKED bits have been reset */
+                if( 0 == index )
+                {
+                    ( void )memcpy( Ptr, ( uint8_t * )&pdo_first.d32, 4u );
+                }
+                else
+                {
+                    ( void )memcpy( ( Ptr + ( nb_valid_pdo * 4u ) ), ( uint8_t * )ptpdoarray, 4u );
+                }
+
+                nb_valid_pdo++;
+            }
+
+            ptpdoarray++;
         }
-        nb_valid_pdo++;
-      }
-      ptpdoarray++;
+
+        /* Set nb of read PDO (nb of u32 elements); */
+        *Size = nb_valid_pdo;
     }
-    /* Set nb of read PDO (nb of u32 elements); */
-    *Size = nb_valid_pdo;
-  }
-/* USER CODE END USBPD_PWR_IF_GetPortPDOs */
+
+    /* USER CODE END USBPD_PWR_IF_GetPortPDOs */
 }
 
 /**
@@ -337,18 +351,18 @@ void USBPD_PWR_IF_GetPortPDOs(uint8_t PortNum, USBPD_CORE_DataInfoType_TypeDef D
   *         USBPD_OK : Src PDO found for requested DO position (output Pdo parameter is set)
   *         USBPD_FAIL : Position is not compliant with current Src PDO for this port (no corresponding PDO value)
   */
-USBPD_StatusTypeDef USBPD_PWR_IF_SearchRequestedPDO(uint8_t PortNum, uint32_t RdoPosition, uint32_t *Pdo)
+USBPD_StatusTypeDef USBPD_PWR_IF_SearchRequestedPDO( uint8_t PortNum, uint32_t RdoPosition, uint32_t *Pdo )
 {
-/* USER CODE BEGIN USBPD_PWR_IF_SearchRequestedPDO */
-  if((RdoPosition == 0) || (RdoPosition > *PWR_Port_PDO_Storage[PortNum].SourcePDO.NumberOfPDO))
-  {
-    /* Invalid PDO index */
-  return USBPD_FAIL;
-  }
+    /* USER CODE BEGIN USBPD_PWR_IF_SearchRequestedPDO */
+    if( ( RdoPosition == 0 ) || ( RdoPosition > *PWR_Port_PDO_Storage[PortNum].SourcePDO.NumberOfPDO ) )
+    {
+        /* Invalid PDO index */
+        return USBPD_FAIL;
+    }
 
-  *Pdo = PWR_Port_PDO_Storage[PortNum].SourcePDO.ListOfPDO[RdoPosition - 1];
-  return USBPD_OK;
-/* USER CODE END USBPD_PWR_IF_SearchRequestedPDO */
+    *Pdo = PWR_Port_PDO_Storage[PortNum].SourcePDO.ListOfPDO[RdoPosition - 1];
+    return USBPD_OK;
+    /* USER CODE END USBPD_PWR_IF_SearchRequestedPDO */
 }
 
 /**
@@ -357,9 +371,9 @@ USBPD_StatusTypeDef USBPD_PWR_IF_SearchRequestedPDO(uint8_t PortNum, uint32_t Rd
   */
 void USBPD_PWR_IF_Alarm()
 {
-/* USER CODE BEGIN USBPD_PWR_IF_Alarm */
+    /* USER CODE BEGIN USBPD_PWR_IF_Alarm */
 
-/* USER CODE END USBPD_PWR_IF_Alarm */
+    /* USER CODE END USBPD_PWR_IF_Alarm */
 }
 
 /**
@@ -368,28 +382,44 @@ void USBPD_PWR_IF_Alarm()
   * @param PowerTypeStatus  Power type status based on @ref USBPD_VBUSPOWER_STATUS
   * @retval UBBPD_TRUE or USBPD_FALSE
   */
-uint8_t USBPD_PWR_IF_GetVBUSStatus(uint8_t PortNum, USBPD_VBUSPOWER_STATUS PowerTypeStatus)
+uint8_t USBPD_PWR_IF_GetVBUSStatus( uint8_t PortNum, USBPD_VBUSPOWER_STATUS PowerTypeStatus )
 {
-/* USER CODE BEGIN USBPD_PWR_IF_GetVBUSStatus */
-  uint8_t _status = USBPD_FALSE;
-  uint32_t _vbus = HW_IF_PWR_GetVoltage(PortNum);
+    /* USER CODE BEGIN USBPD_PWR_IF_GetVBUSStatus */
+    uint8_t _status = USBPD_FALSE;
+    uint32_t _vbus = HW_IF_PWR_GetVoltage( PortNum );
 
-  switch(PowerTypeStatus)
-  {
-  case USBPD_PWR_BELOWVSAFE0V :
-    if (_vbus < USBPD_PWR_LOW_VBUS_THRESHOLD) _status = USBPD_TRUE;
-    break;
-  case USBPD_PWR_VSAFE5V :
-    if (_vbus >= USBPD_PWR_HIGH_VBUS_THRESHOLD) _status = USBPD_TRUE;
-    break;
-  case USBPD_PWR_SNKDETACH:
-    if (_vbus < USBPD_PWR_HIGH_VBUS_THRESHOLD) _status = USBPD_TRUE;
-    break;
-  default :
-    break;
-  }
-  return _status;
-/* USER CODE END USBPD_PWR_IF_GetVBUSStatus */
+    switch( PowerTypeStatus )
+    {
+    case USBPD_PWR_BELOWVSAFE0V :
+        if( _vbus < USBPD_PWR_LOW_VBUS_THRESHOLD )
+        {
+            _status = USBPD_TRUE;
+        }
+
+        break;
+
+    case USBPD_PWR_VSAFE5V :
+        if( _vbus >= USBPD_PWR_HIGH_VBUS_THRESHOLD )
+        {
+            _status = USBPD_TRUE;
+        }
+
+        break;
+
+    case USBPD_PWR_SNKDETACH:
+        if( _vbus < USBPD_PWR_HIGH_VBUS_THRESHOLD )
+        {
+            _status = USBPD_TRUE;
+        }
+
+        break;
+
+    default :
+        break;
+    }
+
+    return _status;
+    /* USER CODE END USBPD_PWR_IF_GetVBUSStatus */
 }
 
 /**
@@ -397,10 +427,10 @@ uint8_t USBPD_PWR_IF_GetVBUSStatus(uint8_t PortNum, USBPD_VBUSPOWER_STATUS Power
   * @param PortNum Port number
   * @retval None
   */
-void USBPD_PWR_IF_UpdateVbusThreshold(uint8_t PortNum)
+void USBPD_PWR_IF_UpdateVbusThreshold( uint8_t PortNum )
 {
-/* USER CODE BEGIN USBPD_PWR_IF_UpdateVbusThreshold */
-/* USER CODE END USBPD_PWR_IF_UpdateVbusThreshold */
+    /* USER CODE BEGIN USBPD_PWR_IF_UpdateVbusThreshold */
+    /* USER CODE END USBPD_PWR_IF_UpdateVbusThreshold */
 }
 
 /**
@@ -408,10 +438,10 @@ void USBPD_PWR_IF_UpdateVbusThreshold(uint8_t PortNum)
   * @param PortNum Port number
   * @retval None
   */
-void USBPD_PWR_IF_ResetVbusThreshold(uint8_t PortNum)
+void USBPD_PWR_IF_ResetVbusThreshold( uint8_t PortNum )
 {
-/* USER CODE BEGIN USBPD_PWR_IF_ResetVbusThreshold */
-/* USER CODE END USBPD_PWR_IF_ResetVbusThreshold */
+    /* USER CODE BEGIN USBPD_PWR_IF_ResetVbusThreshold */
+    /* USER CODE END USBPD_PWR_IF_ResetVbusThreshold */
 }
 
 /**

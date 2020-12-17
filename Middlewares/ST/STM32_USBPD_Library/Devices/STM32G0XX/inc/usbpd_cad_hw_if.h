@@ -50,17 +50,17 @@ extern "C" {
 
 #if defined(USBPDCORE_DRP) || defined(USBPDCORE_SRC)
 /* Keep for legacy */
-uint32_t                          CAD_Set_ResistorRp(uint8_t PortNum, CAD_RP_Source_Current_Adv_Typedef RpValue);
+uint32_t                          CAD_Set_ResistorRp( uint8_t PortNum, CAD_RP_Source_Current_Adv_Typedef RpValue );
 #endif /* USBPDCORE_DRP || USBPDCORE_SRC */
 
 /** @addtogroup USBPD_DEVICE_CAD_HW_IF_Exported_Functions
   * @{
   */
-void                              CAD_Init(uint8_t PortNum, USBPD_SettingsTypeDef *Settings, USBPD_ParamsTypeDef *Params, void (*PtrWakeUp)(void));
-uint32_t                          CAD_StateMachine(uint8_t PortNum, USBPD_CAD_EVENT *Event, CCxPin_TypeDef *CCXX);
-void                              CAD_Enter_ErrorRecovery(uint8_t PortNum);
+void                              CAD_Init( uint8_t PortNum, USBPD_SettingsTypeDef *Settings, USBPD_ParamsTypeDef *Params, void ( *PtrWakeUp )( void ) );
+uint32_t                          CAD_StateMachine( uint8_t PortNum, USBPD_CAD_EVENT *Event, CCxPin_TypeDef *CCXX );
+void                              CAD_Enter_ErrorRecovery( uint8_t PortNum );
 #if defined(USBPDCORE_DRP) || defined(USBPDCORE_SRC)
-uint32_t                          CAD_SRC_Set_ResistorRp(uint8_t PortNum, CAD_RP_Source_Current_Adv_Typedef RpValue);
+uint32_t                          CAD_SRC_Set_ResistorRp( uint8_t PortNum, CAD_RP_Source_Current_Adv_Typedef RpValue );
 #endif /* USBPDCORE_DRP || USBPDCORE_SRC */
 
 /**

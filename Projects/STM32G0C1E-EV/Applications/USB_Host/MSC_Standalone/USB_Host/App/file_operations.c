@@ -37,70 +37,73 @@ uint8_t wtext[] = "USB Host Library : Mass Storage Example";
 * @param  None
 * @retval Operation result
 */
-uint8_t msc_file_operations(void)
+uint8_t msc_file_operations( void )
 {
-  UINT bytesread = 0;
-  uint8_t retvalue = 0;
+    UINT bytesread = 0;
+    uint8_t retvalue = 0;
 
-  USBH_UsrLog("INFO : FatFs Initialized\n");
+    USBH_UsrLog( "INFO : FatFs Initialized\n" );
 
-  if(f_open(&MyFile, "0:USBHost.txt",FA_CREATE_ALWAYS | FA_WRITE) != FR_OK)
-  {
-    USBH_ErrLog("Cannot Open 'USBHost.txt' file \n");
-    retvalue = 1;
-  }
-  else
-  {
-    USBH_UsrLog("Write Text:");
-    USBH_UsrLog("INFO : 'USBHost.txt' opened for write");
-    res= f_write (&MyFile, wtext, sizeof(wtext), &bytesWritten);
-    f_close(&MyFile);
-
-    if((bytesWritten == 0) || (res != FR_OK)) /*EOF or Error*/
+    if( f_open( &MyFile, "0:USBHost.txt", FA_CREATE_ALWAYS | FA_WRITE ) != FR_OK )
     {
-      USBH_ErrLog("Cannot Write on the  'USBHost.txt' file \n");
-      retvalue = 1;
+        USBH_ErrLog( "Cannot Open 'USBHost.txt' file \n" );
+        retvalue = 1;
     }
     else
     {
-      if(f_open(&MyFile, "0:USBHost.txt", FA_READ) != FR_OK)
-      {
-        USBH_ErrLog("Cannot Open 'USBHost.txt' file for read.\n");
-        retvalue = 1;
-      }
-      else
-      {
-        USBH_UsrLog("INFO : Text written on the 'USBHost.txt' file\n");
+        USBH_UsrLog( "Write Text:" );
+        USBH_UsrLog( "INFO : 'USBHost.txt' opened for write" );
+        res = f_write( &MyFile, wtext, sizeof( wtext ), &bytesWritten );
+        f_close( &MyFile );
 
-        res = f_read(&MyFile, rtext, sizeof(rtext), &bytesread);
-
-        if((bytesread == 0) || (res != FR_OK)) /*EOF or Error*/
+        if( ( bytesWritten == 0 ) || ( res != FR_OK ) ) /*EOF or Error*/
         {
-          USBH_ErrLog("Cannot Read from the  'USBHost.txt' file \n");
-          retvalue = 1;
+            USBH_ErrLog( "Cannot Write on the  'USBHost.txt' file \n" );
+            retvalue = 1;
         }
         else
         {
-          USBH_UsrLog("Read Text:");
-          USBH_UsrLog((char *)rtext);
-          USBH_UsrLog("\n");
+            if( f_open( &MyFile, "0:USBHost.txt", FA_READ ) != FR_OK )
+            {
+                USBH_ErrLog( "Cannot Open 'USBHost.txt' file for read.\n" );
+                retvalue = 1;
+            }
+            else
+            {
+                USBH_UsrLog( "INFO : Text written on the 'USBHost.txt' file\n" );
+
+                res = f_read( &MyFile, rtext, sizeof( rtext ), &bytesread );
+
+                if( ( bytesread == 0 ) || ( res != FR_OK ) ) /*EOF or Error*/
+                {
+                    USBH_ErrLog( "Cannot Read from the  'USBHost.txt' file \n" );
+                    retvalue = 1;
+                }
+                else
+                {
+                    USBH_UsrLog( "Read Text:" );
+                    USBH_UsrLog( ( char * )rtext );
+                    USBH_UsrLog( "\n" );
+                }
+
+                f_close( &MyFile );
+            }
+
+            /* Compare read data with the expected data */
+            if( ( bytesread == bytesWritten ) )
+            {
+                USBH_UsrLog( "INFO : FatFs data compare SUCCESS" );
+            }
+            else
+            {
+                USBH_ErrLog( "FatFs data compare ERROR" );
+                USBH_ErrLog( "\n" );
+                retvalue = 1;
+            }
         }
-        f_close(&MyFile);
-      }
-      /* Compare read data with the expected data */
-      if((bytesread == bytesWritten))
-      {
-        USBH_UsrLog("INFO : FatFs data compare SUCCESS");
-      }
-      else
-      {
-        USBH_ErrLog("FatFs data compare ERROR");
-        USBH_ErrLog("\n");
-        retvalue = 1;
-      }
     }
-  }
-  return (retvalue);
+
+    return ( retvalue );
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

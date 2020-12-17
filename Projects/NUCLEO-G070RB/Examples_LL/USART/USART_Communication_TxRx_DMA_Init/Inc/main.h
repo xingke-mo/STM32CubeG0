@@ -86,13 +86,13 @@ extern "C" {
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void Error_Handler(void);
+void Error_Handler( void );
 
 /* USER CODE BEGIN EFP */
-void DMA1_TransmitComplete_Callback(void);
-void DMA1_ReceiveComplete_Callback(void);
-void USART_TransferError_Callback(void);
-void UserButton_Callback(void);
+void DMA1_TransmitComplete_Callback( void );
+void DMA1_ReceiveComplete_Callback( void );
+void USART_TransferError_Callback( void );
+void UserButton_Callback( void );
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

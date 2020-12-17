@@ -26,12 +26,12 @@
   * @param  phost: Host handle
   * @retval USBH Status
   */
-USBH_StatusTypeDef  USBH_LL_Init(USBH_HandleTypeDef *phost)
+USBH_StatusTypeDef  USBH_LL_Init( USBH_HandleTypeDef *phost )
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
+    /* Prevent unused argument(s) compilation warning */
+    UNUSED( phost );
 
-  return USBH_OK;
+    return USBH_OK;
 }
 
 /**
@@ -40,12 +40,12 @@ USBH_StatusTypeDef  USBH_LL_Init(USBH_HandleTypeDef *phost)
   * @param  phost: Host handle
   * @retval USBH Status
   */
-USBH_StatusTypeDef  USBH_LL_DeInit(USBH_HandleTypeDef *phost)
+USBH_StatusTypeDef  USBH_LL_DeInit( USBH_HandleTypeDef *phost )
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
+    /* Prevent unused argument(s) compilation warning */
+    UNUSED( phost );
 
-  return USBH_OK;
+    return USBH_OK;
 }
 
 /**
@@ -54,12 +54,12 @@ USBH_StatusTypeDef  USBH_LL_DeInit(USBH_HandleTypeDef *phost)
   * @param  phost: Host handle
   * @retval USBH Status
   */
-USBH_StatusTypeDef  USBH_LL_Start(USBH_HandleTypeDef *phost)
+USBH_StatusTypeDef  USBH_LL_Start( USBH_HandleTypeDef *phost )
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
+    /* Prevent unused argument(s) compilation warning */
+    UNUSED( phost );
 
-  return USBH_OK;
+    return USBH_OK;
 }
 
 /**
@@ -68,12 +68,12 @@ USBH_StatusTypeDef  USBH_LL_Start(USBH_HandleTypeDef *phost)
   * @param  phost: Host handle
   * @retval USBH Status
   */
-USBH_StatusTypeDef  USBH_LL_Stop(USBH_HandleTypeDef *phost)
+USBH_StatusTypeDef  USBH_LL_Stop( USBH_HandleTypeDef *phost )
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
+    /* Prevent unused argument(s) compilation warning */
+    UNUSED( phost );
 
-  return USBH_OK;
+    return USBH_OK;
 }
 
 /**
@@ -82,14 +82,14 @@ USBH_StatusTypeDef  USBH_LL_Stop(USBH_HandleTypeDef *phost)
   * @param  phost: Host handle
   * @retval USBH Speeds
   */
-USBH_SpeedTypeDef USBH_LL_GetSpeed(USBH_HandleTypeDef *phost)
+USBH_SpeedTypeDef USBH_LL_GetSpeed( USBH_HandleTypeDef *phost )
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
+    /* Prevent unused argument(s) compilation warning */
+    UNUSED( phost );
 
-  USBH_SpeedTypeDef speed = USBH_SPEED_FULL;
+    USBH_SpeedTypeDef speed = USBH_SPEED_FULL;
 
-  return  speed;
+    return  speed;
 }
 
 /**
@@ -98,12 +98,12 @@ USBH_SpeedTypeDef USBH_LL_GetSpeed(USBH_HandleTypeDef *phost)
   * @param  phost: Host handle
   * @retval USBH Status
   */
-USBH_StatusTypeDef USBH_LL_ResetPort(USBH_HandleTypeDef *phost)
+USBH_StatusTypeDef USBH_LL_ResetPort( USBH_HandleTypeDef *phost )
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
+    /* Prevent unused argument(s) compilation warning */
+    UNUSED( phost );
 
-  return USBH_OK;
+    return USBH_OK;
 }
 
 /**
@@ -113,13 +113,13 @@ USBH_StatusTypeDef USBH_LL_ResetPort(USBH_HandleTypeDef *phost)
   * @param  pipe: Pipe index
   * @retval Packet Size
   */
-uint32_t USBH_LL_GetLastXferSize(USBH_HandleTypeDef *phost, uint8_t pipe)
+uint32_t USBH_LL_GetLastXferSize( USBH_HandleTypeDef *phost, uint8_t pipe )
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
-  UNUSED(pipe);
+    /* Prevent unused argument(s) compilation warning */
+    UNUSED( phost );
+    UNUSED( pipe );
 
-  return 0U;
+    return 0U;
 }
 
 /**
@@ -134,24 +134,24 @@ uint32_t USBH_LL_GetLastXferSize(USBH_HandleTypeDef *phost, uint8_t pipe)
   * @param  mps: Endpoint Max Packet Size
   * @retval USBH Status
   */
-USBH_StatusTypeDef   USBH_LL_OpenPipe(USBH_HandleTypeDef *phost,
-                                      uint8_t pipe_num,
-                                      uint8_t epnum,
-                                      uint8_t dev_address,
-                                      uint8_t speed,
-                                      uint8_t ep_type,
-                                      uint16_t mps)
+USBH_StatusTypeDef   USBH_LL_OpenPipe( USBH_HandleTypeDef *phost,
+                                       uint8_t pipe_num,
+                                       uint8_t epnum,
+                                       uint8_t dev_address,
+                                       uint8_t speed,
+                                       uint8_t ep_type,
+                                       uint16_t mps )
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
-  UNUSED(pipe_num);
-  UNUSED(epnum);
-  UNUSED(dev_address);
-  UNUSED(speed);
-  UNUSED(ep_type);
-  UNUSED(mps);
+    /* Prevent unused argument(s) compilation warning */
+    UNUSED( phost );
+    UNUSED( pipe_num );
+    UNUSED( epnum );
+    UNUSED( dev_address );
+    UNUSED( speed );
+    UNUSED( ep_type );
+    UNUSED( mps );
 
-  return USBH_OK;
+    return USBH_OK;
 }
 
 /**
@@ -161,13 +161,13 @@ USBH_StatusTypeDef   USBH_LL_OpenPipe(USBH_HandleTypeDef *phost,
   * @param  pipe_num: Pipe index
   * @retval USBH Status
   */
-USBH_StatusTypeDef   USBH_LL_ClosePipe(USBH_HandleTypeDef *phost, uint8_t pipe)
+USBH_StatusTypeDef   USBH_LL_ClosePipe( USBH_HandleTypeDef *phost, uint8_t pipe )
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
-  UNUSED(pipe);
+    /* Prevent unused argument(s) compilation warning */
+    UNUSED( phost );
+    UNUSED( pipe );
 
-  return USBH_OK;
+    return USBH_OK;
 }
 
 /**
@@ -199,26 +199,26 @@ USBH_StatusTypeDef   USBH_LL_ClosePipe(USBH_HandleTypeDef *phost, uint8_t pipe)
   * @retval Status
   */
 
-USBH_StatusTypeDef   USBH_LL_SubmitURB(USBH_HandleTypeDef *phost,
-                                       uint8_t pipe,
-                                       uint8_t direction,
-                                       uint8_t ep_type,
-                                       uint8_t token,
-                                       uint8_t *pbuff,
-                                       uint16_t length,
-                                       uint8_t do_ping)
+USBH_StatusTypeDef   USBH_LL_SubmitURB( USBH_HandleTypeDef *phost,
+                                        uint8_t pipe,
+                                        uint8_t direction,
+                                        uint8_t ep_type,
+                                        uint8_t token,
+                                        uint8_t *pbuff,
+                                        uint16_t length,
+                                        uint8_t do_ping )
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
-  UNUSED(pipe);
-  UNUSED(direction);
-  UNUSED(ep_type);
-  UNUSED(token);
-  UNUSED(pbuff);
-  UNUSED(length);
-  UNUSED(do_ping);
+    /* Prevent unused argument(s) compilation warning */
+    UNUSED( phost );
+    UNUSED( pipe );
+    UNUSED( direction );
+    UNUSED( ep_type );
+    UNUSED( token );
+    UNUSED( pbuff );
+    UNUSED( length );
+    UNUSED( do_ping );
 
-  return USBH_OK;
+    return USBH_OK;
 }
 
 /**
@@ -236,13 +236,13 @@ USBH_StatusTypeDef   USBH_LL_SubmitURB(USBH_HandleTypeDef *phost,
   *            @arg URB_ERROR
   *            @arg URB_STALL
   */
-USBH_URBStateTypeDef  USBH_LL_GetURBState(USBH_HandleTypeDef *phost, uint8_t pipe)
+USBH_URBStateTypeDef  USBH_LL_GetURBState( USBH_HandleTypeDef *phost, uint8_t pipe )
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
-  UNUSED(pipe);
+    /* Prevent unused argument(s) compilation warning */
+    UNUSED( phost );
+    UNUSED( pipe );
 
-  return USBH_URB_IDLE;
+    return USBH_URB_IDLE;
 }
 
 /**
@@ -256,13 +256,13 @@ USBH_URBStateTypeDef  USBH_LL_GetURBState(USBH_HandleTypeDef *phost, uint8_t pip
   * @retval Status
   */
 
-USBH_StatusTypeDef  USBH_LL_DriverVBUS(USBH_HandleTypeDef *phost, uint8_t state)
+USBH_StatusTypeDef  USBH_LL_DriverVBUS( USBH_HandleTypeDef *phost, uint8_t state )
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
-  UNUSED(state);
+    /* Prevent unused argument(s) compilation warning */
+    UNUSED( phost );
+    UNUSED( state );
 
-  return USBH_OK;
+    return USBH_OK;
 }
 
 /**
@@ -274,14 +274,14 @@ USBH_StatusTypeDef  USBH_LL_DriverVBUS(USBH_HandleTypeDef *phost, uint8_t state)
   * @param  toggle: toggle (0/1)
   * @retval Status
   */
-USBH_StatusTypeDef   USBH_LL_SetToggle(USBH_HandleTypeDef *phost, uint8_t pipe, uint8_t toggle)
+USBH_StatusTypeDef   USBH_LL_SetToggle( USBH_HandleTypeDef *phost, uint8_t pipe, uint8_t toggle )
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
-  UNUSED(pipe);
-  UNUSED(toggle);
+    /* Prevent unused argument(s) compilation warning */
+    UNUSED( phost );
+    UNUSED( pipe );
+    UNUSED( toggle );
 
-  return USBH_OK;
+    return USBH_OK;
 }
 
 /**
@@ -291,15 +291,15 @@ USBH_StatusTypeDef   USBH_LL_SetToggle(USBH_HandleTypeDef *phost, uint8_t pipe, 
   * @param  pipe: Pipe index
   * @retval toggle (0/1)
   */
-uint8_t  USBH_LL_GetToggle(USBH_HandleTypeDef *phost, uint8_t pipe)
+uint8_t  USBH_LL_GetToggle( USBH_HandleTypeDef *phost, uint8_t pipe )
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
-  UNUSED(pipe);
+    /* Prevent unused argument(s) compilation warning */
+    UNUSED( phost );
+    UNUSED( pipe );
 
-  uint8_t toggle = 0U;
+    uint8_t toggle = 0U;
 
-  return toggle;
+    return toggle;
 }
 /**
   * @brief  USBH_Delay
@@ -307,9 +307,9 @@ uint8_t  USBH_LL_GetToggle(USBH_HandleTypeDef *phost, uint8_t pipe)
   * @param  Delay: Delay in ms
   * @retval None
   */
-void  USBH_Delay(uint32_t Delay)
+void  USBH_Delay( uint32_t Delay )
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(Delay);
+    /* Prevent unused argument(s) compilation warning */
+    UNUSED( Delay );
 }
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

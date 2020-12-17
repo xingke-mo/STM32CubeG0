@@ -72,17 +72,17 @@ extern "C" {
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void Error_Handler(void);
+void Error_Handler( void );
 
 /* USER CODE BEGIN EFP */
 /* IRQ Handler treatment functions */
-void USART1_DMA1_TransmitComplete_Callback(void);
-void USART1_DMA1_ReceiveComplete_Callback(void);
-void SPI1_DMA1_TransmitComplete_Callback(void);
-void SPI1_DMA1_ReceiveComplete_Callback(void);
-void USART_TransferError_Callback(void);
-void SPI_TransferError_Callback(void);
-void UserButton_Callback(void);
+void USART1_DMA1_TransmitComplete_Callback( void );
+void USART1_DMA1_ReceiveComplete_Callback( void );
+void SPI1_DMA1_TransmitComplete_Callback( void );
+void SPI1_DMA1_ReceiveComplete_Callback( void );
+void USART_TransferError_Callback( void );
+void SPI_TransferError_Callback( void );
+void UserButton_Callback( void );
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

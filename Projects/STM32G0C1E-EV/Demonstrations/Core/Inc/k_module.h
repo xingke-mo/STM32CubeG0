@@ -19,40 +19,41 @@
 #define __K_MODULE_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
 #include <stdint.h>
-   
+
 /* Exported constants --------------------------------------------------------*/
-typedef enum {
-  KMODULE_OK, 
-  /* Module exec */
-  KMODULE_ERROR_PRE,
-  KMODULE_ERROR_EXEC,
-  KMODULE_ERROR_POST,
-  KMODULE_ERROR_ICON,
-  KMODULE_RESMISSIG
+typedef enum
+{
+    KMODULE_OK,
+    /* Module exec */
+    KMODULE_ERROR_PRE,
+    KMODULE_ERROR_EXEC,
+    KMODULE_ERROR_POST,
+    KMODULE_ERROR_ICON,
+    KMODULE_RESMISSIG
 } KMODULE_RETURN;
 
 /* Exported types ------------------------------------------------------------*/
 typedef struct
 {
- uint8_t     kModuleId;
- KMODULE_RETURN (*kModulePreExec)(void);  
- KMODULE_RETURN (*kModuleExec)(void);
- KMODULE_RETURN (*kModulePostExec)(void);
- KMODULE_RETURN (*kModuleRessouceCheck)(void);
+    uint8_t     kModuleId;
+    KMODULE_RETURN( *kModulePreExec )( void );
+    KMODULE_RETURN( *kModuleExec )( void );
+    KMODULE_RETURN( *kModulePostExec )( void );
+    KMODULE_RETURN( *kModuleRessouceCheck )( void );
 } K_ModuleItem_Typedef;
 
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variable ---------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void kModule_Init(void);
-void kModule_Add(uint8_t kModuleId, K_ModuleItem_Typedef kModuleInfo);
-KMODULE_RETURN kModule_CheckRessource(void);
-KMODULE_RETURN kModule_Execute(uint8_t kModuleId);
+void kModule_Init( void );
+void kModule_Add( uint8_t kModuleId, K_ModuleItem_Typedef kModuleInfo );
+KMODULE_RETURN kModule_CheckRessource( void );
+KMODULE_RETURN kModule_Execute( uint8_t kModuleId );
 
 #ifdef __cplusplus
 }

@@ -75,9 +75,9 @@ typedef enum
 /** @defgroup STM32G081B_EVAL_TSENSOR_Exported_Functions Exported Functions
   * @{
   */
-uint32_t BSP_TSENSOR_Init(void);
-uint8_t  BSP_TSENSOR_ReadStatus(void);
-float    BSP_TSENSOR_ReadTemp(void);
+uint32_t BSP_TSENSOR_Init( void );
+uint8_t  BSP_TSENSOR_ReadStatus( void );
+float    BSP_TSENSOR_ReadTemp( void );
 
 /**
   * @}

@@ -44,31 +44,31 @@ uint8_t USB_Detection = 0;
  * @brief  This function is used to configure USB pins and then initialize the used USB instance.
  * @retval None.
  */
-void OPENBL_USB_Configuration(void)
+void OPENBL_USB_Configuration( void )
 {
-  HAL_PWREx_EnableVddUSB();
-  /* Init USB device Library, add supported class and start the library */
-  MX_USB_Device_Init();
+    HAL_PWREx_EnableVddUSB();
+    /* Init USB device Library, add supported class and start the library */
+    MX_USB_Device_Init();
 }
 
 /**
  * @brief  This function is used to detect if there is any activity on USB protocol.
  * @retval None.
  */
-uint8_t OPENBL_USB_ProtocolDetection(void)
+uint8_t OPENBL_USB_ProtocolDetection( void )
 {
-  uint8_t detected;
+    uint8_t detected;
 
-  if (USB_Detection == 1)
-  {
-    detected = 1;
-  }
-  else
-  {
-    detected = 0;
-  }
+    if( USB_Detection == 1 )
+    {
+        detected = 1;
+    }
+    else
+    {
+        detected = 0;
+    }
 
-  return detected;
+    return detected;
 }
 
 /**
@@ -76,21 +76,23 @@ uint8_t OPENBL_USB_ProtocolDetection(void)
   * the state of the usb to dfu_error.
   * @retval Returns USBD_FAIL.
   */
-uint16_t OPENBL_USB_SendAddressNack(USBD_HandleTypeDef *pDev)
+uint16_t OPENBL_USB_SendAddressNack( USBD_HandleTypeDef *pDev )
 {
-  USBD_DFU_HandleTypeDef *hdfu;
-  hdfu = (USBD_DFU_HandleTypeDef *)pDev->pClassData;
-  if (hdfu->dev_state == DFU_STATE_DNLOAD_BUSY)
-  {
-    hdfu->dev_state = DFU_ERROR_TARGET;
-    hdfu->dev_status[0] = DFU_ERROR_TARGET;
-    hdfu->dev_status[1] = 0;
-    hdfu->dev_status[2] = 0;
-    hdfu->dev_status[3] = 0;
-    hdfu->dev_status[4] = DFU_STATE_ERROR;
-    hdfu->dev_status[5] = 0;
-  }
-  return (uint16_t)USBD_FAIL;
+    USBD_DFU_HandleTypeDef *hdfu;
+    hdfu = ( USBD_DFU_HandleTypeDef * )pDev->pClassData;
+
+    if( hdfu->dev_state == DFU_STATE_DNLOAD_BUSY )
+    {
+        hdfu->dev_state = DFU_ERROR_TARGET;
+        hdfu->dev_status[0] = DFU_ERROR_TARGET;
+        hdfu->dev_status[1] = 0;
+        hdfu->dev_status[2] = 0;
+        hdfu->dev_status[3] = 0;
+        hdfu->dev_status[4] = DFU_STATE_ERROR;
+        hdfu->dev_status[5] = 0;
+    }
+
+    return ( uint16_t )USBD_FAIL;
 }
 
 /**
@@ -98,21 +100,23 @@ uint16_t OPENBL_USB_SendAddressNack(USBD_HandleTypeDef *pDev)
   * to 1 by changing the state of the usb to dfu_error.
   * @retval Returns USBD_FAIL.
   */
-uint16_t OPENBL_USB_DnloadRdpNack(USBD_HandleTypeDef *pDev)
+uint16_t OPENBL_USB_DnloadRdpNack( USBD_HandleTypeDef *pDev )
 {
-  USBD_DFU_HandleTypeDef *hdfu;
-  hdfu = (USBD_DFU_HandleTypeDef *)pDev->pClassData;
-  if (hdfu->dev_state == DFU_STATE_DNLOAD_BUSY)
-  {
-    hdfu->dev_state = DFU_ERROR_VENDOR;
-    hdfu->dev_status[0] = DFU_ERROR_VENDOR;
-    hdfu->dev_status[1] = 0;
-    hdfu->dev_status[2] = 0;
-    hdfu->dev_status[3] = 0;
-    hdfu->dev_status[4] = DFU_STATE_ERROR;
-    hdfu->dev_status[5] = 0;
-  }
-  return (uint16_t)USBD_FAIL;
+    USBD_DFU_HandleTypeDef *hdfu;
+    hdfu = ( USBD_DFU_HandleTypeDef * )pDev->pClassData;
+
+    if( hdfu->dev_state == DFU_STATE_DNLOAD_BUSY )
+    {
+        hdfu->dev_state = DFU_ERROR_VENDOR;
+        hdfu->dev_status[0] = DFU_ERROR_VENDOR;
+        hdfu->dev_status[1] = 0;
+        hdfu->dev_status[2] = 0;
+        hdfu->dev_status[3] = 0;
+        hdfu->dev_status[4] = DFU_STATE_ERROR;
+        hdfu->dev_status[5] = 0;
+    }
+
+    return ( uint16_t )USBD_FAIL;
 }
 
 /**
@@ -120,26 +124,26 @@ uint16_t OPENBL_USB_DnloadRdpNack(USBD_HandleTypeDef *pDev)
   * to 1 by changing the state of the usb to dfu_error.
   * @retval Returns USBD_FAIL.
   */
-void OPENBL_USB_UploadRdpNack(USBD_HandleTypeDef *pDev)
+void OPENBL_USB_UploadRdpNack( USBD_HandleTypeDef *pDev )
 {
-  USBD_DFU_HandleTypeDef *hdfu;
-  hdfu = (USBD_DFU_HandleTypeDef *)pDev->pClassData;
+    USBD_DFU_HandleTypeDef *hdfu;
+    hdfu = ( USBD_DFU_HandleTypeDef * )pDev->pClassData;
 
-  if ((hdfu->dev_state == DFU_STATE_IDLE) || (hdfu->dev_state == DFU_STATE_UPLOAD_IDLE))
-  {
-    if (hdfu->wblock_num > 1U)
+    if( ( hdfu->dev_state == DFU_STATE_IDLE ) || ( hdfu->dev_state == DFU_STATE_UPLOAD_IDLE ) )
     {
-      /* Call the error management function (command will be nacked */
-      hdfu->dev_state = DFU_ERROR_VENDOR;
-      hdfu->dev_status[0] = DFU_ERROR_VENDOR;
-      hdfu->dev_status[1] = 0;
-      hdfu->dev_status[2] = 0;
-      hdfu->dev_status[3] = 0;
-      hdfu->dev_status[4] = DFU_STATE_ERROR;
-      hdfu->dev_status[5] = 0;
-      USBD_CtlSendData(pDev, NULL, 0x0);
+        if( hdfu->wblock_num > 1U )
+        {
+            /* Call the error management function (command will be nacked */
+            hdfu->dev_state = DFU_ERROR_VENDOR;
+            hdfu->dev_status[0] = DFU_ERROR_VENDOR;
+            hdfu->dev_status[1] = 0;
+            hdfu->dev_status[2] = 0;
+            hdfu->dev_status[3] = 0;
+            hdfu->dev_status[4] = DFU_STATE_ERROR;
+            hdfu->dev_status[5] = 0;
+            USBD_CtlSendData( pDev, NULL, 0x0 );
+        }
     }
-  }
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

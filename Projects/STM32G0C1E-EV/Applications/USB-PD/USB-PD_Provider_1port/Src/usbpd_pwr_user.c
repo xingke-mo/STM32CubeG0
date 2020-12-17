@@ -23,8 +23,8 @@
 #include "usbpd_pwr_user.h"
 #include "stm32g0xx_hal.h"
 #if defined(_TRACE)
-#include "usbpd_core.h"
-#include "usbpd_trace.h"
+    #include "usbpd_core.h"
+    #include "usbpd_trace.h"
 #endif /* _TRACE */
 
 /* USER CODE BEGIN include */
@@ -61,9 +61,9 @@
   * @{
   */
 #if defined(_TRACE)
-#define PWR_DEBUG_TRACE(_PORT_, __MESSAGE__)  USBPD_TRACE_Add(USBPD_TRACE_DEBUG,    (_PORT_), 0u, (uint8_t*)(__MESSAGE__), sizeof(__MESSAGE__) - 1u)
+    #define PWR_DEBUG_TRACE(_PORT_, __MESSAGE__)  USBPD_TRACE_Add(USBPD_TRACE_DEBUG,    (_PORT_), 0u, (uint8_t*)(__MESSAGE__), sizeof(__MESSAGE__) - 1u)
 #else
-#define PWR_DEBUG_TRACE(_PORT_, __MESSAGE__)
+    #define PWR_DEBUG_TRACE(_PORT_, __MESSAGE__)
 #endif /* _TRACE */
 /* USER CODE BEGIN POWER_Private_Macros */
 
@@ -115,12 +115,12 @@
   *         @arg TYPE_C_PORT_2
   * @retval PD controller status
   */
-__weak PWR_StatusTypeDef BSP_PWR_VBUSInit(uint32_t               PortId)
+__weak PWR_StatusTypeDef BSP_PWR_VBUSInit( uint32_t               PortId )
 {
-  PWR_DEBUG_TRACE(PortId, "ADVICE: Obsolete BSP_PWR_VBUSInit");
-/* USER CODE BEGIN BSP_PWR_VBUSInit */
-  return ((BSP_ERROR_NONE == BSP_USBPD_PWR_VBUSInit(PortId)) ? PWR_OK : PWR_ERROR);
-/* USER CODE END BSP_PWR_VBUSInit */
+    PWR_DEBUG_TRACE( PortId, "ADVICE: Obsolete BSP_PWR_VBUSInit" );
+    /* USER CODE BEGIN BSP_PWR_VBUSInit */
+    return ( ( BSP_ERROR_NONE == BSP_USBPD_PWR_VBUSInit( PortId ) ) ? PWR_OK : PWR_ERROR );
+    /* USER CODE END BSP_PWR_VBUSInit */
 }
 
 /**
@@ -133,12 +133,12 @@ __weak PWR_StatusTypeDef BSP_PWR_VBUSInit(uint32_t               PortId)
   *         @arg TYPE_C_PORT_2
   * @retval PD controller status
   */
-__weak PWR_StatusTypeDef BSP_PWR_VBUSDeInit(uint32_t PortId)
+__weak PWR_StatusTypeDef BSP_PWR_VBUSDeInit( uint32_t PortId )
 {
-  PWR_DEBUG_TRACE(PortId, "ADVICE: Obsolete BSP_PWR_VBUSDeInit");
-/* USER CODE BEGIN BSP_PWR_VBUSDeInit */
-  return ((BSP_ERROR_NONE == BSP_USBPD_PWR_VBUSDeInit(PortId)) ? PWR_OK : PWR_ERROR);
-/* USER CODE END BSP_PWR_VBUSDeInit */
+    PWR_DEBUG_TRACE( PortId, "ADVICE: Obsolete BSP_PWR_VBUSDeInit" );
+    /* USER CODE BEGIN BSP_PWR_VBUSDeInit */
+    return ( ( BSP_ERROR_NONE == BSP_USBPD_PWR_VBUSDeInit( PortId ) ) ? PWR_OK : PWR_ERROR );
+    /* USER CODE END BSP_PWR_VBUSDeInit */
 }
 
 /**
@@ -150,12 +150,12 @@ __weak PWR_StatusTypeDef BSP_PWR_VBUSDeInit(uint32_t PortId)
   *         @arg TYPE_C_PORT_2
   * @retval PD controller status
   */
-__weak PWR_StatusTypeDef BSP_PWR_VBUSOn(uint32_t PortId)
+__weak PWR_StatusTypeDef BSP_PWR_VBUSOn( uint32_t PortId )
 {
-  PWR_DEBUG_TRACE(PortId, "ADVICE: Obsolete BSP_PWR_VBUSOn");
-/* USER CODE BEGIN BSP_PWR_VBUSOn */
-  return ((BSP_ERROR_NONE == BSP_USBPD_PWR_VBUSOn(PortId)) ? PWR_OK : PWR_ERROR);
-/* USER CODE END BSP_PWR_VBUSOn */
+    PWR_DEBUG_TRACE( PortId, "ADVICE: Obsolete BSP_PWR_VBUSOn" );
+    /* USER CODE BEGIN BSP_PWR_VBUSOn */
+    return ( ( BSP_ERROR_NONE == BSP_USBPD_PWR_VBUSOn( PortId ) ) ? PWR_OK : PWR_ERROR );
+    /* USER CODE END BSP_PWR_VBUSOn */
 }
 
 /**
@@ -167,12 +167,12 @@ __weak PWR_StatusTypeDef BSP_PWR_VBUSOn(uint32_t PortId)
   *         @arg TYPE_C_PORT_2
   * @retval PD controller status
   */
-__weak PWR_StatusTypeDef BSP_PWR_VBUSOff(uint32_t PortId)
+__weak PWR_StatusTypeDef BSP_PWR_VBUSOff( uint32_t PortId )
 {
-  PWR_DEBUG_TRACE(PortId, "ADVICE: Obsolete BSP_PWR_VBUSOff");
-/* USER CODE BEGIN BSP_PWR_VBUSOff */
-  return ((BSP_ERROR_NONE == BSP_USBPD_PWR_VBUSOff(PortId)) ? PWR_OK : PWR_ERROR);
-/* USER CODE END BSP_PWR_VBUSOff */
+    PWR_DEBUG_TRACE( PortId, "ADVICE: Obsolete BSP_PWR_VBUSOff" );
+    /* USER CODE BEGIN BSP_PWR_VBUSOff */
+    return ( ( BSP_ERROR_NONE == BSP_USBPD_PWR_VBUSOff( PortId ) ) ? PWR_OK : PWR_ERROR );
+    /* USER CODE END BSP_PWR_VBUSOff */
 }
 
 /**
@@ -187,15 +187,15 @@ __weak PWR_StatusTypeDef BSP_PWR_VBUSOff(uint32_t PortId)
   * @param  MaxOperatingCurrent the Max Operating Current (in mA)
   * @retval PD controller status
   */
-__weak PWR_StatusTypeDef BSP_PWR_VBUSSetVoltage_Fixed(uint32_t PortId,
-                                               uint32_t VbusTargetInmv,
-                                               uint32_t OperatingCurrent,
-                                               uint32_t MaxOperatingCurrent)
+__weak PWR_StatusTypeDef BSP_PWR_VBUSSetVoltage_Fixed( uint32_t PortId,
+        uint32_t VbusTargetInmv,
+        uint32_t OperatingCurrent,
+        uint32_t MaxOperatingCurrent )
 {
-  PWR_DEBUG_TRACE(PortId, "ADVICE: Obsolete BSP_PWR_VBUSSetVoltage_Fixed");
-/* USER CODE BEGIN BSP_PWR_VBUSSetVoltage_Fixed */
-  return ((BSP_ERROR_NONE == BSP_USBPD_PWR_VBUSSetVoltage_Fixed(PortId, VbusTargetInmv, OperatingCurrent, MaxOperatingCurrent)) ? PWR_OK : PWR_ERROR);
-/* USER CODE END BSP_PWR_VBUSSetVoltage_Fixed */
+    PWR_DEBUG_TRACE( PortId, "ADVICE: Obsolete BSP_PWR_VBUSSetVoltage_Fixed" );
+    /* USER CODE BEGIN BSP_PWR_VBUSSetVoltage_Fixed */
+    return ( ( BSP_ERROR_NONE == BSP_USBPD_PWR_VBUSSetVoltage_Fixed( PortId, VbusTargetInmv, OperatingCurrent, MaxOperatingCurrent ) ) ? PWR_OK : PWR_ERROR );
+    /* USER CODE END BSP_PWR_VBUSSetVoltage_Fixed */
 }
 
 /**
@@ -211,16 +211,16 @@ __weak PWR_StatusTypeDef BSP_PWR_VBUSSetVoltage_Fixed(uint32_t PortId,
   * @param  MaxOperatingCurrent the Max Operating Current (in mA)
   * @retval PD controller status
   */
-__weak PWR_StatusTypeDef BSP_PWR_VBUSSetVoltage_Variable(uint32_t PortId,
-                                                  uint32_t VbusTargetMinInmv,
-                                                  uint32_t VbusTargetMaxInmv,
-                                                  uint32_t OperatingCurrent,
-                                                  uint32_t MaxOperatingCurrent)
+__weak PWR_StatusTypeDef BSP_PWR_VBUSSetVoltage_Variable( uint32_t PortId,
+        uint32_t VbusTargetMinInmv,
+        uint32_t VbusTargetMaxInmv,
+        uint32_t OperatingCurrent,
+        uint32_t MaxOperatingCurrent )
 {
-  PWR_DEBUG_TRACE(PortId, "ADVICE: Obsolete BSP_PWR_VBUSSetVoltage_Variable");
-/* USER CODE BEGIN BSP_PWR_VBUSSetVoltage_Variable */
-  return ((BSP_ERROR_NONE == BSP_USBPD_PWR_VBUSSetVoltage_Variable(PortId, VbusTargetMinInmv, VbusTargetMaxInmv, OperatingCurrent, MaxOperatingCurrent)) ? PWR_OK : PWR_ERROR);
-/* USER CODE BEGIN BSP_PWR_VBUSSetVoltage_Variable */
+    PWR_DEBUG_TRACE( PortId, "ADVICE: Obsolete BSP_PWR_VBUSSetVoltage_Variable" );
+    /* USER CODE BEGIN BSP_PWR_VBUSSetVoltage_Variable */
+    return ( ( BSP_ERROR_NONE == BSP_USBPD_PWR_VBUSSetVoltage_Variable( PortId, VbusTargetMinInmv, VbusTargetMaxInmv, OperatingCurrent, MaxOperatingCurrent ) ) ? PWR_OK : PWR_ERROR );
+    /* USER CODE BEGIN BSP_PWR_VBUSSetVoltage_Variable */
 }
 
 /**
@@ -236,16 +236,16 @@ __weak PWR_StatusTypeDef BSP_PWR_VBUSSetVoltage_Variable(uint32_t PortId,
   * @param  MaxOperatingPower the Max Operating Power (in mW)
   * @retval PD controller status
   */
-__weak PWR_StatusTypeDef BSP_PWR_VBUSSetVoltage_Battery(uint32_t PortId,
-                                                 uint32_t VbusTargetMin,
-                                                 uint32_t VbusTargetMax,
-                                                 uint32_t OperatingPower,
-                                                 uint32_t MaxOperatingPower)
+__weak PWR_StatusTypeDef BSP_PWR_VBUSSetVoltage_Battery( uint32_t PortId,
+        uint32_t VbusTargetMin,
+        uint32_t VbusTargetMax,
+        uint32_t OperatingPower,
+        uint32_t MaxOperatingPower )
 {
-  PWR_DEBUG_TRACE(PortId, "ADVICE: Obsolete BSP_PWR_VBUSSetVoltage_Battery");
-/* USER CODE BEGIN BSP_PWR_VBUSSetVoltage_Battery */
-  return ((BSP_ERROR_NONE == BSP_USBPD_PWR_VBUSSetVoltage_Battery(PortId, VbusTargetMin, VbusTargetMax, OperatingPower, MaxOperatingPower)) ? PWR_OK : PWR_ERROR);
-/* USER CODE BEGIN BSP_PWR_VBUSSetVoltage_Battery */
+    PWR_DEBUG_TRACE( PortId, "ADVICE: Obsolete BSP_PWR_VBUSSetVoltage_Battery" );
+    /* USER CODE BEGIN BSP_PWR_VBUSSetVoltage_Battery */
+    return ( ( BSP_ERROR_NONE == BSP_USBPD_PWR_VBUSSetVoltage_Battery( PortId, VbusTargetMin, VbusTargetMax, OperatingPower, MaxOperatingPower ) ) ? PWR_OK : PWR_ERROR );
+    /* USER CODE BEGIN BSP_PWR_VBUSSetVoltage_Battery */
 }
 
 /**
@@ -260,15 +260,15 @@ __weak PWR_StatusTypeDef BSP_PWR_VBUSSetVoltage_Battery(uint32_t PortId,
   * @param  Delta Delta between with previous APDO (in mV), 0 means APDO start
   * @retval PD controller status
   */
-__weak PWR_StatusTypeDef BSP_PWR_VBUSSetVoltage_APDO(uint32_t PortId,
-                                              uint32_t VbusTargetInmv,
-                                              uint32_t OperatingCurrent,
-                                              int32_t Delta)
+__weak PWR_StatusTypeDef BSP_PWR_VBUSSetVoltage_APDO( uint32_t PortId,
+        uint32_t VbusTargetInmv,
+        uint32_t OperatingCurrent,
+        int32_t Delta )
 {
-  PWR_DEBUG_TRACE(PortId, "ADVICE: Obsolete BSP_PWR_VBUSSetVoltage_APDO");
-/* USER CODE BEGIN BSP_PWR_VBUSSetVoltage_APDO */
-  return ((BSP_ERROR_NONE == BSP_USBPD_PWR_VBUSSetVoltage_APDO(PortId, VbusTargetInmv, OperatingCurrent, Delta)) ? PWR_OK : PWR_ERROR);
-/* USER CODE BEGIN BSP_PWR_VBUSSetVoltage_APDO */
+    PWR_DEBUG_TRACE( PortId, "ADVICE: Obsolete BSP_PWR_VBUSSetVoltage_APDO" );
+    /* USER CODE BEGIN BSP_PWR_VBUSSetVoltage_APDO */
+    return ( ( BSP_ERROR_NONE == BSP_USBPD_PWR_VBUSSetVoltage_APDO( PortId, VbusTargetInmv, OperatingCurrent, Delta ) ) ? PWR_OK : PWR_ERROR );
+    /* USER CODE BEGIN BSP_PWR_VBUSSetVoltage_APDO */
 }
 
 /**
@@ -280,16 +280,16 @@ __weak PWR_StatusTypeDef BSP_PWR_VBUSSetVoltage_APDO(uint32_t PortId,
   *         @arg TYPE_C_PORT_2
   * @retval Voltage measured voltage level (in mV)
   */
-__weak uint32_t BSP_PWR_VBUSGetVoltage(uint32_t PortId)
+__weak uint32_t BSP_PWR_VBUSGetVoltage( uint32_t PortId )
 {
-  PWR_DEBUG_TRACE(PortId, "ADVICE: Obsolete BSP_PWR_VBUSGetVoltage");
-/* USER CODE BEGIN BSP_PWR_VBUSGetVoltage */
-  uint32_t voltage = 0;
+    PWR_DEBUG_TRACE( PortId, "ADVICE: Obsolete BSP_PWR_VBUSGetVoltage" );
+    /* USER CODE BEGIN BSP_PWR_VBUSGetVoltage */
+    uint32_t voltage = 0;
 
-  (void)BSP_USBPD_PWR_VBUSGetVoltage(PortId, &voltage);
+    ( void )BSP_USBPD_PWR_VBUSGetVoltage( PortId, &voltage );
 
-  return voltage;
-/* USER CODE END BSP_PWR_VBUSGetVoltage */
+    return voltage;
+    /* USER CODE END BSP_PWR_VBUSGetVoltage */
 }
 
 /**
@@ -301,16 +301,16 @@ __weak uint32_t BSP_PWR_VBUSGetVoltage(uint32_t PortId)
   *         @arg TYPE_C_PORT_2
   * @retval Current measured current level (in mA)
   */
-__weak int32_t BSP_PWR_VBUSGetCurrent(uint32_t PortId)
+__weak int32_t BSP_PWR_VBUSGetCurrent( uint32_t PortId )
 {
-  PWR_DEBUG_TRACE(PortId, "ADVICE: Obsolete BSP_PWR_VBUSGetCurrent");
-/* USER CODE BEGIN BSP_PWR_VBUSGetCurrent */
-  int32_t current = 0;
+    PWR_DEBUG_TRACE( PortId, "ADVICE: Obsolete BSP_PWR_VBUSGetCurrent" );
+    /* USER CODE BEGIN BSP_PWR_VBUSGetCurrent */
+    int32_t current = 0;
 
-  (void)BSP_USBPD_PWR_VBUSGetCurrent(PortId, &current);
+    ( void )BSP_USBPD_PWR_VBUSGetCurrent( PortId, &current );
 
-  return current;
-/* USER CODE END BSP_PWR_VBUSGetCurrent */
+    return current;
+    /* USER CODE END BSP_PWR_VBUSGetCurrent */
 }
 
 /**
@@ -326,13 +326,13 @@ __weak int32_t BSP_PWR_VBUSGetCurrent(uint32_t PortId)
   *         @arg TYPE_C_CC2
   * @retval PD controller status
   */
-__weak PWR_StatusTypeDef BSP_PWR_VCONNInit(uint32_t PortId,
-                                    uint32_t CCPinId)
+__weak PWR_StatusTypeDef BSP_PWR_VCONNInit( uint32_t PortId,
+        uint32_t CCPinId )
 {
-  PWR_DEBUG_TRACE(PortId, "ADVICE: Obsolete BSP_PWR_VCONNInit");
-/* USER CODE BEGIN BSP_PWR_VCONNInit */
-  return ((BSP_ERROR_NONE == BSP_USBPD_PWR_VCONNInit(PortId, CCPinId)) ? PWR_OK : PWR_ERROR);
-/* USER CODE END BSP_PWR_VCONNInit */
+    PWR_DEBUG_TRACE( PortId, "ADVICE: Obsolete BSP_PWR_VCONNInit" );
+    /* USER CODE BEGIN BSP_PWR_VCONNInit */
+    return ( ( BSP_ERROR_NONE == BSP_USBPD_PWR_VCONNInit( PortId, CCPinId ) ) ? PWR_OK : PWR_ERROR );
+    /* USER CODE END BSP_PWR_VCONNInit */
 }
 
 /**
@@ -348,13 +348,13 @@ __weak PWR_StatusTypeDef BSP_PWR_VCONNInit(uint32_t PortId,
   *         @arg TYPE_C_CC2
   * @retval PD controller status
   */
-__weak PWR_StatusTypeDef BSP_PWR_VCONNDeInit(uint32_t PortId,
-                                      uint32_t CCPinId)
+__weak PWR_StatusTypeDef BSP_PWR_VCONNDeInit( uint32_t PortId,
+        uint32_t CCPinId )
 {
-  PWR_DEBUG_TRACE(PortId, "ADVICE: Obsolete BSP_PWR_VCONNDeInit");
-/* USER CODE BEGIN BSP_PWR_VCONNDeInit */
-  return ((BSP_ERROR_NONE == BSP_USBPD_PWR_VCONNDeInit(PortId, CCPinId)) ? PWR_OK : PWR_ERROR);
-/* USER CODE END BSP_PWR_VCONNDeInit */
+    PWR_DEBUG_TRACE( PortId, "ADVICE: Obsolete BSP_PWR_VCONNDeInit" );
+    /* USER CODE BEGIN BSP_PWR_VCONNDeInit */
+    return ( ( BSP_ERROR_NONE == BSP_USBPD_PWR_VCONNDeInit( PortId, CCPinId ) ) ? PWR_OK : PWR_ERROR );
+    /* USER CODE END BSP_PWR_VCONNDeInit */
 }
 
 /**
@@ -370,13 +370,13 @@ __weak PWR_StatusTypeDef BSP_PWR_VCONNDeInit(uint32_t PortId,
   *         @arg TYPE_C_CC2
   * @retval PD controller status
   */
-__weak PWR_StatusTypeDef BSP_PWR_VCONNOn(uint32_t PortId,
-                                  uint32_t CCPinId)
+__weak PWR_StatusTypeDef BSP_PWR_VCONNOn( uint32_t PortId,
+        uint32_t CCPinId )
 {
-  PWR_DEBUG_TRACE(PortId, "ADVICE: Obsolete BSP_PWR_VCONNOn");
-/* USER CODE BEGIN BSP_PWR_VCONNOn */
-  return ((BSP_ERROR_NONE == BSP_USBPD_PWR_VCONNOn(PortId, CCPinId)) ? PWR_OK : PWR_ERROR);
-/* USER CODE END BSP_PWR_VCONNOn */
+    PWR_DEBUG_TRACE( PortId, "ADVICE: Obsolete BSP_PWR_VCONNOn" );
+    /* USER CODE BEGIN BSP_PWR_VCONNOn */
+    return ( ( BSP_ERROR_NONE == BSP_USBPD_PWR_VCONNOn( PortId, CCPinId ) ) ? PWR_OK : PWR_ERROR );
+    /* USER CODE END BSP_PWR_VCONNOn */
 }
 
 /**
@@ -392,13 +392,13 @@ __weak PWR_StatusTypeDef BSP_PWR_VCONNOn(uint32_t PortId,
   *         @arg TYPE_C_CC2
   * @retval PD controller status
   */
-__weak PWR_StatusTypeDef BSP_PWR_VCONNOff(uint32_t PortId,
-                                   uint32_t CCPinId)
+__weak PWR_StatusTypeDef BSP_PWR_VCONNOff( uint32_t PortId,
+        uint32_t CCPinId )
 {
-  PWR_DEBUG_TRACE(PortId, "ADVICE: Obsolete BSP_PWR_VCONNOff");
-/* USER CODE BEGIN BSP_PWR_VCONNOff */
-  return ((BSP_ERROR_NONE == BSP_USBPD_PWR_VCONNOff(PortId, CCPinId)) ? PWR_OK : PWR_ERROR);
-/* USER CODE END BSP_PWR_VCONNOff */
+    PWR_DEBUG_TRACE( PortId, "ADVICE: Obsolete BSP_PWR_VCONNOff" );
+    /* USER CODE BEGIN BSP_PWR_VCONNOff */
+    return ( ( BSP_ERROR_NONE == BSP_USBPD_PWR_VCONNOff( PortId, CCPinId ) ) ? PWR_OK : PWR_ERROR );
+    /* USER CODE END BSP_PWR_VCONNOff */
 }
 
 /**
@@ -414,13 +414,13 @@ __weak PWR_StatusTypeDef BSP_PWR_VCONNOff(uint32_t PortId,
   * @param  VoltageThreshold: VBUS disconnection voltage threshold (in mV)
   * @retval PD controller status
   */
-__weak void BSP_PWR_SetVBUSDisconnectionThreshold(uint32_t PortId,
-                                           uint32_t VoltageThreshold)
+__weak void BSP_PWR_SetVBUSDisconnectionThreshold( uint32_t PortId,
+        uint32_t VoltageThreshold )
 {
-  PWR_DEBUG_TRACE(PortId, "ADVICE: Obsolete BSP_PWR_SetVBUSDisconnectionThreshold");
-/* USER CODE BEGIN BSP_PWR_SetVBUSDisconnectionThreshold */
-  (void)BSP_USBPD_PWR_SetVBUSDisconnectionThreshold(PortId, VoltageThreshold);
-/* USER CODE END BSP_PWR_SetVBUSDisconnectionThreshold */
+    PWR_DEBUG_TRACE( PortId, "ADVICE: Obsolete BSP_PWR_SetVBUSDisconnectionThreshold" );
+    /* USER CODE BEGIN BSP_PWR_SetVBUSDisconnectionThreshold */
+    ( void )BSP_USBPD_PWR_SetVBUSDisconnectionThreshold( PortId, VoltageThreshold );
+    /* USER CODE END BSP_PWR_SetVBUSDisconnectionThreshold */
 }
 
 /**
@@ -437,13 +437,13 @@ __weak void BSP_PWR_SetVBUSDisconnectionThreshold(uint32_t PortId,
   * @param  pfnVBUSDetectCallback callback function pointer
   * @retval 0 success else fail
   */
-__weak PWR_StatusTypeDef BSP_PWR_RegisterVBUSDetectCallback(uint32_t                       PortId,
-                                                     PWR_VBUSDetectCallbackFunc *   pfnVBUSDetectCallback)
+__weak PWR_StatusTypeDef BSP_PWR_RegisterVBUSDetectCallback( uint32_t                       PortId,
+        PWR_VBUSDetectCallbackFunc    *pfnVBUSDetectCallback )
 {
-  PWR_DEBUG_TRACE(PortId, "ADVICE: Obsolete BSP_PWR_RegisterVBUSDetectCallback");
-/* USER CODE BEGIN BSP_PWR_RegisterVBUSDetectCallback */
-  return ((BSP_ERROR_NONE == BSP_USBPD_PWR_RegisterVBUSDetectCallback(PortId, (USBPD_PWR_VBUSDetectCallbackFunc*)pfnVBUSDetectCallback)) ? PWR_OK : PWR_ERROR);
-/* USER CODE END BSP_PWR_RegisterVBUSDetectCallback */
+    PWR_DEBUG_TRACE( PortId, "ADVICE: Obsolete BSP_PWR_RegisterVBUSDetectCallback" );
+    /* USER CODE BEGIN BSP_PWR_RegisterVBUSDetectCallback */
+    return ( ( BSP_ERROR_NONE == BSP_USBPD_PWR_RegisterVBUSDetectCallback( PortId, ( USBPD_PWR_VBUSDetectCallbackFunc * )pfnVBUSDetectCallback ) ) ? PWR_OK : PWR_ERROR );
+    /* USER CODE END BSP_PWR_RegisterVBUSDetectCallback */
 }
 
 /**
@@ -455,16 +455,16 @@ __weak PWR_StatusTypeDef BSP_PWR_RegisterVBUSDetectCallback(uint32_t            
   *         @arg TYPE_C_PORT_2
   * @retval VBUS status (1: On, 0: Off)
   */
-__weak uint8_t BSP_PWR_VBUSIsOn(uint32_t PortId)
+__weak uint8_t BSP_PWR_VBUSIsOn( uint32_t PortId )
 {
-  PWR_DEBUG_TRACE(PortId, "ADVICE: Obsolete BSP_PWR_VBUSIsOn");
-/* USER CODE BEGIN BSP_PWR_VBUSIsOn */
-  uint8_t state = 0;
+    PWR_DEBUG_TRACE( PortId, "ADVICE: Obsolete BSP_PWR_VBUSIsOn" );
+    /* USER CODE BEGIN BSP_PWR_VBUSIsOn */
+    uint8_t state = 0;
 
-  (void)BSP_USBPD_PWR_VBUSIsOn(PortId, &state);
+    ( void )BSP_USBPD_PWR_VBUSIsOn( PortId, &state );
 
-  return state;
-/* USER CODE END BSP_PWR_VBUSIsOn */
+    return state;
+    /* USER CODE END BSP_PWR_VBUSIsOn */
 }
 
 /**
@@ -480,17 +480,17 @@ __weak uint8_t BSP_PWR_VBUSIsOn(uint32_t PortId)
   *         @arg TYPE_C_CC2
   * @retval VCONN status (1: On, 0: Off)
   */
-__weak uint8_t BSP_PWR_VCONNIsOn(uint32_t PortId,
-                          uint32_t CCPinId)
+__weak uint8_t BSP_PWR_VCONNIsOn( uint32_t PortId,
+                                  uint32_t CCPinId )
 {
-  PWR_DEBUG_TRACE(PortId, "ADVICE: Obsolete BSP_PWR_VCONNIsOn");
-/* USER CODE BEGIN BSP_PWR_VCONNIsOn */
-  uint8_t state = 0;
+    PWR_DEBUG_TRACE( PortId, "ADVICE: Obsolete BSP_PWR_VCONNIsOn" );
+    /* USER CODE BEGIN BSP_PWR_VCONNIsOn */
+    uint8_t state = 0;
 
-  (void)BSP_USBPD_PWR_VCONNIsOn(PortId, CCPinId, &state);
+    ( void )BSP_USBPD_PWR_VCONNIsOn( PortId, CCPinId, &state );
 
-  return state;
-/* USER CODE END BSP_PWR_VCONNIsOn */
+    return state;
+    /* USER CODE END BSP_PWR_VCONNIsOn */
 }
 
 /**
@@ -509,18 +509,19 @@ __weak uint8_t BSP_PWR_VCONNIsOn(uint32_t PortId,
   *         @arg @ref USBPD_PWR_TYPE_C_PORT_2
   * @retval BSP status
   */
-__weak int32_t BSP_USBPD_PWR_Init(uint32_t Instance)
+__weak int32_t BSP_USBPD_PWR_Init( uint32_t Instance )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_Init */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_Init */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_Init */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_Init */
 }
 
 /**
@@ -531,18 +532,19 @@ __weak int32_t BSP_USBPD_PWR_Init(uint32_t Instance)
   *         @arg @ref USBPD_PWR_TYPE_C_PORT_2
   * @retval BSP status
   */
-__weak int32_t BSP_USBPD_PWR_Deinit(uint32_t Instance)
+__weak int32_t BSP_USBPD_PWR_Deinit( uint32_t Instance )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_Deinit */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_Deinit */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_Deinit */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_Deinit */
 }
 
 /**
@@ -554,27 +556,27 @@ __weak int32_t BSP_USBPD_PWR_Deinit(uint32_t Instance)
   *         @arg @ref USBPD_PWR_TYPE_C_PORT_2
   * @retval BSP status
   */
-__weak int32_t BSP_USBPD_PWR_VBUSInit(uint32_t Instance)
+__weak int32_t BSP_USBPD_PWR_VBUSInit( uint32_t Instance )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VBUSInit */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VBUSInit */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  else
-  {
-    /* !!!
-      BSP_PWR_VBUSInit is obsolete. You may need to move your user code
-      inside this function
-    !!! */
-    PWR_DEBUG_TRACE(Instance, "ADVICE: Update BSP_USBPD_PWR_VBUSInit");
-  }
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+    else
+    {
+        /* !!!
+          BSP_PWR_VBUSInit is obsolete. You may need to move your user code
+          inside this function
+        !!! */
+        PWR_DEBUG_TRACE( Instance, "ADVICE: Update BSP_USBPD_PWR_VBUSInit" );
+    }
 
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VBUSInit */
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VBUSInit */
 }
 
 /**
@@ -586,23 +588,24 @@ __weak int32_t BSP_USBPD_PWR_VBUSInit(uint32_t Instance)
   *         @arg @ref USBPD_PWR_TYPE_C_PORT_2
   * @retval BSP status
   */
-__weak int32_t BSP_USBPD_PWR_VBUSDeInit(uint32_t Instance)
+__weak int32_t BSP_USBPD_PWR_VBUSDeInit( uint32_t Instance )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VBUSDeInit */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VBUSDeInit */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  /* !!!
-      BSP_PWR_VBUSDeInit is obsolete. You may need to move your user code
-      inside this function
-   !!! */
-  PWR_DEBUG_TRACE(Instance, "ADVICE: Update BSP_USBPD_PWR_VBUSDeInit");
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VBUSDeInit */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+
+    /* !!!
+        BSP_PWR_VBUSDeInit is obsolete. You may need to move your user code
+        inside this function
+     !!! */
+    PWR_DEBUG_TRACE( Instance, "ADVICE: Update BSP_USBPD_PWR_VBUSDeInit" );
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VBUSDeInit */
 }
 
 /**
@@ -613,27 +616,28 @@ __weak int32_t BSP_USBPD_PWR_VBUSDeInit(uint32_t Instance)
   *         @arg @ref USBPD_PWR_TYPE_C_PORT_2
   * @retval BSP status
   */
-__weak int32_t BSP_USBPD_PWR_VBUSOn(uint32_t Instance)
+__weak int32_t BSP_USBPD_PWR_VBUSOn( uint32_t Instance )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VBUSOn */
-  /* Check if instance is valid       */
-  int32_t ret;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VBUSOn */
+    /* Check if instance is valid       */
+    int32_t ret;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  else
-  {
-    ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
-    /* !!!
-        BSP_PWR_VBUSOn is obsolete. You may need to move your user code
-        inside this function
-     !!! */
-    PWR_DEBUG_TRACE(Instance, "ADVICE: Update BSP_USBPD_PWR_VBUSOn");
-  }
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VBUSOn */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+    else
+    {
+        ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+        /* !!!
+            BSP_PWR_VBUSOn is obsolete. You may need to move your user code
+            inside this function
+         !!! */
+        PWR_DEBUG_TRACE( Instance, "ADVICE: Update BSP_USBPD_PWR_VBUSOn" );
+    }
+
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VBUSOn */
 }
 
 /**
@@ -644,27 +648,28 @@ __weak int32_t BSP_USBPD_PWR_VBUSOn(uint32_t Instance)
   *         @arg @ref USBPD_PWR_TYPE_C_PORT_2
   * @retval BSP status
   */
-__weak int32_t BSP_USBPD_PWR_VBUSOff(uint32_t Instance)
+__weak int32_t BSP_USBPD_PWR_VBUSOff( uint32_t Instance )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VBUSOff */
-  /* Check if instance is valid       */
-  int32_t ret;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VBUSOff */
+    /* Check if instance is valid       */
+    int32_t ret;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  else
-  {
-    ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
-    /* !!!
-        BSP_PWR_VBUSOff is obsolete. You may need to move your user code
-        inside this function
-     !!! */
-    PWR_DEBUG_TRACE(Instance, "ADVICE: Update BSP_USBPD_PWR_VBUSOff");
-  }
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VBUSOff */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+    else
+    {
+        ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+        /* !!!
+            BSP_PWR_VBUSOff is obsolete. You may need to move your user code
+            inside this function
+         !!! */
+        PWR_DEBUG_TRACE( Instance, "ADVICE: Update BSP_USBPD_PWR_VBUSOff" );
+    }
+
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VBUSOff */
 }
 
 /**
@@ -678,26 +683,27 @@ __weak int32_t BSP_USBPD_PWR_VBUSOff(uint32_t Instance)
   * @param  MaxOperatingCurrent the Max Operating Current (in mA)
   * @retval BSP status
   */
-__weak int32_t BSP_USBPD_PWR_VBUSSetVoltage_Fixed(uint32_t Instance,
-                                           uint32_t VbusTargetInmv,
-                                           uint32_t OperatingCurrent,
-                                           uint32_t MaxOperatingCurrent)
+__weak int32_t BSP_USBPD_PWR_VBUSSetVoltage_Fixed( uint32_t Instance,
+        uint32_t VbusTargetInmv,
+        uint32_t OperatingCurrent,
+        uint32_t MaxOperatingCurrent )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VBUSSetVoltage_Fixed */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VBUSSetVoltage_Fixed */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  /* !!!
-      BSP_PWR_VBUSSetVoltage_Fixed is obsolete. You may need to move your user code
-      inside this function
-   !!! */
-  PWR_DEBUG_TRACE(Instance, "ADVICE: Update BSP_USBPD_PWR_VBUSSetVoltage_Fixed");
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VBUSSetVoltage_Fixed */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+
+    /* !!!
+        BSP_PWR_VBUSSetVoltage_Fixed is obsolete. You may need to move your user code
+        inside this function
+     !!! */
+    PWR_DEBUG_TRACE( Instance, "ADVICE: Update BSP_USBPD_PWR_VBUSSetVoltage_Fixed" );
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VBUSSetVoltage_Fixed */
 }
 
 /**
@@ -712,27 +718,28 @@ __weak int32_t BSP_USBPD_PWR_VBUSSetVoltage_Fixed(uint32_t Instance,
   * @param  MaxOperatingCurrent the Max Operating Current (in mA)
   * @retval BSP status
   */
-__weak int32_t BSP_USBPD_PWR_VBUSSetVoltage_Variable(uint32_t Instance,
-                                              uint32_t VbusTargetMinInmv,
-                                              uint32_t VbusTargetMaxInmv,
-                                              uint32_t OperatingCurrent,
-                                              uint32_t MaxOperatingCurrent)
+__weak int32_t BSP_USBPD_PWR_VBUSSetVoltage_Variable( uint32_t Instance,
+        uint32_t VbusTargetMinInmv,
+        uint32_t VbusTargetMaxInmv,
+        uint32_t OperatingCurrent,
+        uint32_t MaxOperatingCurrent )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VBUSSetVoltage_Variable */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VBUSSetVoltage_Variable */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  /* !!!
-      BSP_PWR_VBUSSetVoltage_Variable is obsolete. You may need to move your user code
-      inside this function
-   !!! */
-  PWR_DEBUG_TRACE(Instance, "ADVICE: Update BSP_USBPD_PWR_VBUSSetVoltage_Variable");
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VBUSSetVoltage_Variable */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+
+    /* !!!
+        BSP_PWR_VBUSSetVoltage_Variable is obsolete. You may need to move your user code
+        inside this function
+     !!! */
+    PWR_DEBUG_TRACE( Instance, "ADVICE: Update BSP_USBPD_PWR_VBUSSetVoltage_Variable" );
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VBUSSetVoltage_Variable */
 }
 
 /**
@@ -747,27 +754,28 @@ __weak int32_t BSP_USBPD_PWR_VBUSSetVoltage_Variable(uint32_t Instance,
   * @param  MaxOperatingPower the Max Operating Power (in mW)
   * @retval BSP status
   */
-__weak int32_t BSP_USBPD_PWR_VBUSSetVoltage_Battery(uint32_t Instance,
-                                             uint32_t VbusTargetMin,
-                                             uint32_t VbusTargetMax,
-                                             uint32_t OperatingPower,
-                                             uint32_t MaxOperatingPower)
+__weak int32_t BSP_USBPD_PWR_VBUSSetVoltage_Battery( uint32_t Instance,
+        uint32_t VbusTargetMin,
+        uint32_t VbusTargetMax,
+        uint32_t OperatingPower,
+        uint32_t MaxOperatingPower )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VBUSSetVoltage_Battery */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VBUSSetVoltage_Battery */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  /* !!!
-      BSP_PWR_VBUSSetVoltage_Battery is obsolete. You may need to move your user code
-      inside this function
-   !!! */
-  PWR_DEBUG_TRACE(Instance, "ADVICE: Update BSP_USBPD_PWR_VBUSSetVoltage_Battery");
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VBUSSetVoltage_Battery */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+
+    /* !!!
+        BSP_PWR_VBUSSetVoltage_Battery is obsolete. You may need to move your user code
+        inside this function
+     !!! */
+    PWR_DEBUG_TRACE( Instance, "ADVICE: Update BSP_USBPD_PWR_VBUSSetVoltage_Battery" );
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VBUSSetVoltage_Battery */
 }
 
 /**
@@ -781,26 +789,27 @@ __weak int32_t BSP_USBPD_PWR_VBUSSetVoltage_Battery(uint32_t Instance,
   * @param  Delta Delta between with previous APDO (in mV), 0 means APDO start
   * @retval BSP status
   */
-__weak int32_t BSP_USBPD_PWR_VBUSSetVoltage_APDO(uint32_t Instance,
-                                          uint32_t VbusTargetInmv,
-                                          uint32_t OperatingCurrent,
-                                          int32_t Delta)
+__weak int32_t BSP_USBPD_PWR_VBUSSetVoltage_APDO( uint32_t Instance,
+        uint32_t VbusTargetInmv,
+        uint32_t OperatingCurrent,
+        int32_t Delta )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VBUSSetVoltage_APDO */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VBUSSetVoltage_APDO */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  /* !!!
-      BSP_PWR_VBUSSetVoltage_APDO is obsolete. You may need to move your user code
-      inside this function
-   !!! */
-  PWR_DEBUG_TRACE(Instance, "ADVICE: Update BSP_USBPD_PWR_VBUSSetVoltage_APDO");
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VBUSSetVoltage_APDO */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+
+    /* !!!
+        BSP_PWR_VBUSSetVoltage_APDO is obsolete. You may need to move your user code
+        inside this function
+     !!! */
+    PWR_DEBUG_TRACE( Instance, "ADVICE: Update BSP_USBPD_PWR_VBUSSetVoltage_APDO" );
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VBUSSetVoltage_APDO */
 }
 
 /**
@@ -812,25 +821,26 @@ __weak int32_t BSP_USBPD_PWR_VBUSSetVoltage_APDO(uint32_t Instance,
   * @param  pVoltage Pointer on measured voltage level (in mV)
   * @retval BSP status
   */
-__weak int32_t BSP_USBPD_PWR_VBUSGetVoltage(uint32_t Instance, uint32_t *pVoltage)
+__weak int32_t BSP_USBPD_PWR_VBUSGetVoltage( uint32_t Instance, uint32_t *pVoltage )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VBUSGetVoltage */
+    /* USER CODE BEGIN BSP_USBPD_PWR_VBUSGetVoltage */
 
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if ((Instance >= USBPD_PWR_INSTANCES_NBR) || (NULL == pVoltage))
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  *pVoltage = 0u;
-  /* !!!
-      BSP_PWR_VBUSGetVoltage is obsolete. You may need to move your user code
-      inside this function
-   !!! */
-  PWR_DEBUG_TRACE(Instance, "ADVICE: Update BSP_USBPD_PWR_VBUSGetVoltage");
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VBUSGetVoltage */
+    if( ( Instance >= USBPD_PWR_INSTANCES_NBR ) || ( NULL == pVoltage ) )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+
+    *pVoltage = 0u;
+    /* !!!
+        BSP_PWR_VBUSGetVoltage is obsolete. You may need to move your user code
+        inside this function
+     !!! */
+    PWR_DEBUG_TRACE( Instance, "ADVICE: Update BSP_USBPD_PWR_VBUSGetVoltage" );
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VBUSGetVoltage */
 }
 
 /**
@@ -842,28 +852,29 @@ __weak int32_t BSP_USBPD_PWR_VBUSGetVoltage(uint32_t Instance, uint32_t *pVoltag
   * @param  pCurrent Pointer on measured current level (in mA)
   * @retval BSP status
   */
-__weak int32_t BSP_USBPD_PWR_VBUSGetCurrent(uint32_t Instance, int32_t *pCurrent)
+__weak int32_t BSP_USBPD_PWR_VBUSGetCurrent( uint32_t Instance, int32_t *pCurrent )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VBUSGetCurrent */
-  /* Check if instance is valid       */
-  int32_t ret;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VBUSGetCurrent */
+    /* Check if instance is valid       */
+    int32_t ret;
 
-  if ((Instance >= USBPD_PWR_INSTANCES_NBR) || (NULL == pCurrent))
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  else
-  {
-    *pCurrent = 0;
-    ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
-  }
-  /* !!!
-      BSP_PWR_VBUSGetCurrent is obsolete. You may need to move your user code
-      inside this function
-   !!! */
-  PWR_DEBUG_TRACE(Instance, "ADVICE: Update BSP_USBPD_PWR_VBUSGetCurrent");
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VBUSGetCurrent */
+    if( ( Instance >= USBPD_PWR_INSTANCES_NBR ) || ( NULL == pCurrent ) )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+    else
+    {
+        *pCurrent = 0;
+        ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+    }
+
+    /* !!!
+        BSP_PWR_VBUSGetCurrent is obsolete. You may need to move your user code
+        inside this function
+     !!! */
+    PWR_DEBUG_TRACE( Instance, "ADVICE: Update BSP_USBPD_PWR_VBUSGetCurrent" );
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VBUSGetCurrent */
 }
 
 /**
@@ -878,24 +889,25 @@ __weak int32_t BSP_USBPD_PWR_VBUSGetCurrent(uint32_t Instance, int32_t *pCurrent
   *         @arg @ref USBPD_PWR_TYPE_C_CC2
   * @retval BSP status
   */
-__weak int32_t BSP_USBPD_PWR_VCONNInit(uint32_t Instance,
-                                uint32_t CCPinId)
+__weak int32_t BSP_USBPD_PWR_VCONNInit( uint32_t Instance,
+                                        uint32_t CCPinId )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VCONNInit */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VCONNInit */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  /* !!!
-      BSP_PWR_VCONNInit is obsolete. You may need to move your user code
-      inside this function
-   !!! */
-  PWR_DEBUG_TRACE(Instance, "ADVICE: Update BSP_USBPD_PWR_VCONNInit");
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VCONNInit */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+
+    /* !!!
+        BSP_PWR_VCONNInit is obsolete. You may need to move your user code
+        inside this function
+     !!! */
+    PWR_DEBUG_TRACE( Instance, "ADVICE: Update BSP_USBPD_PWR_VCONNInit" );
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VCONNInit */
 }
 
 /**
@@ -910,24 +922,25 @@ __weak int32_t BSP_USBPD_PWR_VCONNInit(uint32_t Instance,
   *         @arg @ref USBPD_PWR_TYPE_C_CC2
   * @retval BSP status
   */
-__weak int32_t BSP_USBPD_PWR_VCONNDeInit(uint32_t Instance,
-                                  uint32_t CCPinId)
+__weak int32_t BSP_USBPD_PWR_VCONNDeInit( uint32_t Instance,
+        uint32_t CCPinId )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VCONNDeInit */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VCONNDeInit */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  /* !!!
-      BSP_PWR_VCONNDeInit is obsolete. You may need to move your user code
-      inside this function
-   !!! */
-  PWR_DEBUG_TRACE(Instance, "ADVICE: Update BSP_USBPD_PWR_VCONNDeInit");
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VCONNDeInit */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+
+    /* !!!
+        BSP_PWR_VCONNDeInit is obsolete. You may need to move your user code
+        inside this function
+     !!! */
+    PWR_DEBUG_TRACE( Instance, "ADVICE: Update BSP_USBPD_PWR_VCONNDeInit" );
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VCONNDeInit */
 }
 
 /**
@@ -942,24 +955,25 @@ __weak int32_t BSP_USBPD_PWR_VCONNDeInit(uint32_t Instance,
   *         @arg @ref USBPD_PWR_TYPE_C_CC2
   * @retval BSP status
   */
-__weak int32_t BSP_USBPD_PWR_VCONNOn(uint32_t Instance,
-                              uint32_t CCPinId)
+__weak int32_t BSP_USBPD_PWR_VCONNOn( uint32_t Instance,
+                                      uint32_t CCPinId )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VCONNOn */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VCONNOn */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  /* !!!
-      BSP_PWR_VCONNOn is obsolete. You may need to move your user code
-      inside this function
-   !!! */
-  PWR_DEBUG_TRACE(Instance, "ADVICE: Update BSP_USBPD_PWR_VCONNOn");
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VCONNOn */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+
+    /* !!!
+        BSP_PWR_VCONNOn is obsolete. You may need to move your user code
+        inside this function
+     !!! */
+    PWR_DEBUG_TRACE( Instance, "ADVICE: Update BSP_USBPD_PWR_VCONNOn" );
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VCONNOn */
 }
 
 /**
@@ -974,24 +988,25 @@ __weak int32_t BSP_USBPD_PWR_VCONNOn(uint32_t Instance,
   *         @arg @ref USBPD_PWR_TYPE_C_CC2
   * @retval BSP status
   */
-__weak int32_t BSP_USBPD_PWR_VCONNOff(uint32_t Instance,
-                               uint32_t CCPinId)
+__weak int32_t BSP_USBPD_PWR_VCONNOff( uint32_t Instance,
+                                       uint32_t CCPinId )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VCONNOff */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VCONNOff */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  /* !!!
-      BSP_PWR_VCONNOff is obsolete. You may need to move your user code
-      inside this function
-   !!! */
-  PWR_DEBUG_TRACE(Instance, "ADVICE: Update BSP_USBPD_PWR_VCONNOff");
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VCONNOff */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+
+    /* !!!
+        BSP_PWR_VCONNOff is obsolete. You may need to move your user code
+        inside this function
+     !!! */
+    PWR_DEBUG_TRACE( Instance, "ADVICE: Update BSP_USBPD_PWR_VCONNOff" );
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VCONNOff */
 }
 
 /**
@@ -1007,25 +1022,26 @@ __weak int32_t BSP_USBPD_PWR_VCONNOff(uint32_t Instance,
   * @param  pState VCONN status (1: On, 0: Off)
   * @retval BSP status
   */
-__weak int32_t BSP_USBPD_PWR_VCONNIsOn(uint32_t Instance,
-                                uint32_t CCPinId, uint8_t *pState)
+__weak int32_t BSP_USBPD_PWR_VCONNIsOn( uint32_t Instance,
+                                        uint32_t CCPinId, uint8_t *pState )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VCONNIsOn */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VCONNIsOn */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  *pState = 0u;
-  /* !!!
-      BSP_PWR_VCONNIsOn is obsolete. You may need to move your user code
-      inside this function
-   !!! */
-  PWR_DEBUG_TRACE(Instance, "ADVICE: Update BSP_USBPD_PWR_VCONNIsOn");
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VCONNIsOn */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+
+    *pState = 0u;
+    /* !!!
+        BSP_PWR_VCONNIsOn is obsolete. You may need to move your user code
+        inside this function
+     !!! */
+    PWR_DEBUG_TRACE( Instance, "ADVICE: Update BSP_USBPD_PWR_VCONNIsOn" );
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VCONNIsOn */
 }
 
 /**
@@ -1040,24 +1056,25 @@ __weak int32_t BSP_USBPD_PWR_VCONNIsOn(uint32_t Instance,
   * @param  VoltageThreshold VBUS disconnection voltage threshold (in mV)
   * @retval BSP status
   */
-__weak int32_t BSP_USBPD_PWR_SetVBUSDisconnectionThreshold(uint32_t Instance,
-                                                    uint32_t VoltageThreshold)
+__weak int32_t BSP_USBPD_PWR_SetVBUSDisconnectionThreshold( uint32_t Instance,
+        uint32_t VoltageThreshold )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_SetVBUSDisconnectionThreshold */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+    /* USER CODE BEGIN BSP_USBPD_PWR_SetVBUSDisconnectionThreshold */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  /* !!!
-      BSP_PWR_SetVBUSDisconnectionThreshold is obsolete. You may need to move your user code
-      inside this function
-   !!! */
-  PWR_DEBUG_TRACE(Instance, "ADVICE: Update BSP_USBPD_PWR_SetVBUSDisconnectionThreshold");
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_SetVBUSDisconnectionThreshold */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+
+    /* !!!
+        BSP_PWR_SetVBUSDisconnectionThreshold is obsolete. You may need to move your user code
+        inside this function
+     !!! */
+    PWR_DEBUG_TRACE( Instance, "ADVICE: Update BSP_USBPD_PWR_SetVBUSDisconnectionThreshold" );
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_SetVBUSDisconnectionThreshold */
 }
 
 /**
@@ -1073,24 +1090,25 @@ __weak int32_t BSP_USBPD_PWR_SetVBUSDisconnectionThreshold(uint32_t Instance,
   * @param  pfnVBUSDetectCallback callback function pointer
   * @retval BSP status
   */
-__weak int32_t BSP_USBPD_PWR_RegisterVBUSDetectCallback(uint32_t  Instance,
-                                                 USBPD_PWR_VBUSDetectCallbackFunc *pfnVBUSDetectCallback)
+__weak int32_t BSP_USBPD_PWR_RegisterVBUSDetectCallback( uint32_t  Instance,
+        USBPD_PWR_VBUSDetectCallbackFunc *pfnVBUSDetectCallback )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_RegisterVBUSDetectCallback */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+    /* USER CODE BEGIN BSP_USBPD_PWR_RegisterVBUSDetectCallback */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  /* !!!
-      BSP_PWR_RegisterVBUSDetectCallback is obsolete. You may need to move your user code
-      inside this function
-   !!! */
-  PWR_DEBUG_TRACE(Instance, "ADVICE: Update BSP_USBPD_PWR_RegisterVBUSDetectCallback");
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_RegisterVBUSDetectCallback */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+
+    /* !!!
+        BSP_PWR_RegisterVBUSDetectCallback is obsolete. You may need to move your user code
+        inside this function
+     !!! */
+    PWR_DEBUG_TRACE( Instance, "ADVICE: Update BSP_USBPD_PWR_RegisterVBUSDetectCallback" );
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_RegisterVBUSDetectCallback */
 }
 
 /**
@@ -1102,28 +1120,29 @@ __weak int32_t BSP_USBPD_PWR_RegisterVBUSDetectCallback(uint32_t  Instance,
   * @param  pState VBUS status (1: On, 0: Off)
   * @retval BSP status
   */
-__weak int32_t BSP_USBPD_PWR_VBUSIsOn(uint32_t Instance, uint8_t *pState)
+__weak int32_t BSP_USBPD_PWR_VBUSIsOn( uint32_t Instance, uint8_t *pState )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VBUSIsOn */
-  /* Check if instance is valid       */
-  int32_t ret;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VBUSIsOn */
+    /* Check if instance is valid       */
+    int32_t ret;
 
-  if (Instance >= USBPD_PWR_INSTANCES_NBR)
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  else
-  {
-    ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
-    /* !!!
-        BSP_PWR_VBUSIsOn is obsolete. You may need to move your user code
-        inside this function
-     !!! */
-    PWR_DEBUG_TRACE(Instance, "ADVICE: Update BSP_USBPD_PWR_VBUSIsOn");
-  }
-  *pState = 0u;
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VBUSIsOn */
+    if( Instance >= USBPD_PWR_INSTANCES_NBR )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+    else
+    {
+        ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+        /* !!!
+            BSP_PWR_VBUSIsOn is obsolete. You may need to move your user code
+            inside this function
+         !!! */
+        PWR_DEBUG_TRACE( Instance, "ADVICE: Update BSP_USBPD_PWR_VBUSIsOn" );
+    }
+
+    *pState = 0u;
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VBUSIsOn */
 }
 
 /**
@@ -1135,23 +1154,24 @@ __weak int32_t BSP_USBPD_PWR_VBUSIsOn(uint32_t Instance, uint8_t *pState)
   * @param  State VCC state
   * @retval BSP status
   */
-__weak int32_t BSP_USBPD_PWR_VCCSetState(uint32_t Instance, uint32_t State)
+__weak int32_t BSP_USBPD_PWR_VCCSetState( uint32_t Instance, uint32_t State )
 {
-  /* USER CODE BEGIN BSP_USBPD_PWR_VCCSetState */
-  /* Check if instance is valid       */
-  int32_t ret = BSP_ERROR_NONE;
+    /* USER CODE BEGIN BSP_USBPD_PWR_VCCSetState */
+    /* Check if instance is valid       */
+    int32_t ret = BSP_ERROR_NONE;
 
-  if ((Instance != USBPD_PWR_TYPE_C_PORT_1) && (Instance != USBPD_PWR_TYPE_C_PORT_2))
-  {
-    ret = BSP_ERROR_WRONG_PARAM;
-  }
-  else
-  {
-    ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
-    PWR_DEBUG_TRACE(Instance, "ADVICE: Update BSP_USBPD_PWR_VCCSetState");
-  }
-  return ret;
-  /* USER CODE END BSP_USBPD_PWR_VCCSetState */
+    if( ( Instance != USBPD_PWR_TYPE_C_PORT_1 ) && ( Instance != USBPD_PWR_TYPE_C_PORT_2 ) )
+    {
+        ret = BSP_ERROR_WRONG_PARAM;
+    }
+    else
+    {
+        ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+        PWR_DEBUG_TRACE( Instance, "ADVICE: Update BSP_USBPD_PWR_VCCSetState" );
+    }
+
+    return ret;
+    /* USER CODE END BSP_USBPD_PWR_VCCSetState */
 }
 /**
   * @}

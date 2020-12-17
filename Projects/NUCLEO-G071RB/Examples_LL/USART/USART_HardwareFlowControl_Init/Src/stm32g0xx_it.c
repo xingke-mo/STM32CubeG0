@@ -80,70 +80,70 @@
 /**
   * @brief This function handles Non maskable interrupt.
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
-  /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
+    /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
 
-  /* USER CODE END NonMaskableInt_IRQn 0 */
-  /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
+    /* USER CODE END NonMaskableInt_IRQn 0 */
+    /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
 
-  /* USER CODE END NonMaskableInt_IRQn 1 */
+    /* USER CODE END NonMaskableInt_IRQn 1 */
 }
 
 /**
   * @brief This function handles Hard fault interrupt.
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* USER CODE BEGIN HardFault_IRQn 0 */
-  /* Go to infinite loop when Hard Fault exception occurs */
+    /* USER CODE BEGIN HardFault_IRQn 0 */
+    /* Go to infinite loop when Hard Fault exception occurs */
 
-  /* USER CODE END HardFault_IRQn 0 */
-  while (1)
-  {
-    /* USER CODE BEGIN W1_HardFault_IRQn 0 */
-    /* USER CODE END W1_HardFault_IRQn 0 */
-  }
+    /* USER CODE END HardFault_IRQn 0 */
+    while( 1 )
+    {
+        /* USER CODE BEGIN W1_HardFault_IRQn 0 */
+        /* USER CODE END W1_HardFault_IRQn 0 */
+    }
 }
 
 /**
   * @brief This function handles System service call via SWI instruction.
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
-  /* USER CODE BEGIN SVC_IRQn 0 */
+    /* USER CODE BEGIN SVC_IRQn 0 */
 
-  /* USER CODE END SVC_IRQn 0 */
-  /* USER CODE BEGIN SVC_IRQn 1 */
+    /* USER CODE END SVC_IRQn 0 */
+    /* USER CODE BEGIN SVC_IRQn 1 */
 
-  /* USER CODE END SVC_IRQn 1 */
+    /* USER CODE END SVC_IRQn 1 */
 }
 
 /**
   * @brief This function handles Pendable request for system service.
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
-  /* USER CODE BEGIN PendSV_IRQn 0 */
+    /* USER CODE BEGIN PendSV_IRQn 0 */
 
-  /* USER CODE END PendSV_IRQn 0 */
-  /* USER CODE BEGIN PendSV_IRQn 1 */
+    /* USER CODE END PendSV_IRQn 0 */
+    /* USER CODE BEGIN PendSV_IRQn 1 */
 
-  /* USER CODE END PendSV_IRQn 1 */
+    /* USER CODE END PendSV_IRQn 1 */
 }
 
 /**
   * @brief This function handles System tick timer.
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
-  /* USER CODE BEGIN SysTick_IRQn 0 */
+    /* USER CODE BEGIN SysTick_IRQn 0 */
 
-  /* USER CODE END SysTick_IRQn 0 */
+    /* USER CODE END SysTick_IRQn 0 */
 
-  /* USER CODE BEGIN SysTick_IRQn 1 */
+    /* USER CODE BEGIN SysTick_IRQn 1 */
 
-  /* USER CODE END SysTick_IRQn 1 */
+    /* USER CODE END SysTick_IRQn 1 */
 }
 
 /******************************************************************************/
@@ -156,66 +156,68 @@ void SysTick_Handler(void)
 /**
   * @brief This function handles EXTI line 4 to 15 interrupts.
   */
-void EXTI4_15_IRQHandler(void)
+void EXTI4_15_IRQHandler( void )
 {
-  /* USER CODE BEGIN EXTI4_15_IRQn 0 */
+    /* USER CODE BEGIN EXTI4_15_IRQn 0 */
 
-  /* USER CODE END EXTI4_15_IRQn 0 */
-  if (LL_EXTI_IsActiveFallingFlag_0_31(LL_EXTI_LINE_13) != RESET)
-  {
-    LL_EXTI_ClearFallingFlag_0_31(LL_EXTI_LINE_13);
-    /* USER CODE BEGIN LL_EXTI_LINE_13_FALLING */
+    /* USER CODE END EXTI4_15_IRQn 0 */
+    if( LL_EXTI_IsActiveFallingFlag_0_31( LL_EXTI_LINE_13 ) != RESET )
+    {
+        LL_EXTI_ClearFallingFlag_0_31( LL_EXTI_LINE_13 );
+        /* USER CODE BEGIN LL_EXTI_LINE_13_FALLING */
 
-    /* Handle User push-button press in dedicated function */
-    UserButton_Callback();
+        /* Handle User push-button press in dedicated function */
+        UserButton_Callback();
 
-    /* USER CODE END LL_EXTI_LINE_13_FALLING */
-  }
-  /* USER CODE BEGIN EXTI4_15_IRQn 1 */
+        /* USER CODE END LL_EXTI_LINE_13_FALLING */
+    }
 
-  /* USER CODE END EXTI4_15_IRQn 1 */
+    /* USER CODE BEGIN EXTI4_15_IRQn 1 */
+
+    /* USER CODE END EXTI4_15_IRQn 1 */
 }
 
 /**
   * @brief This function handles USART1 global interrupt / USART1 wake-up interrupt through EXTI line 25.
   */
-void USART1_IRQHandler(void)
+void USART1_IRQHandler( void )
 {
-  /* USER CODE BEGIN USART1_IRQn 0 */
-  /* Check RXNE flag value in ISR register */
-  if (LL_USART_IsActiveFlag_RXNE(USARTx_INSTANCE) && LL_USART_IsEnabledIT_RXNE(USARTx_INSTANCE))
-  {
-    /* RXNE flag will be cleared by reading of RDR register (done in call) */
-    /* Call function in charge of handling Character reception */
-    USART_CharReception_Callback();
-  }
+    /* USER CODE BEGIN USART1_IRQn 0 */
+    /* Check RXNE flag value in ISR register */
+    if( LL_USART_IsActiveFlag_RXNE( USARTx_INSTANCE ) && LL_USART_IsEnabledIT_RXNE( USARTx_INSTANCE ) )
+    {
+        /* RXNE flag will be cleared by reading of RDR register (done in call) */
+        /* Call function in charge of handling Character reception */
+        USART_CharReception_Callback();
+    }
 
-  if (LL_USART_IsEnabledIT_TXE(USARTx_INSTANCE) && LL_USART_IsActiveFlag_TXE(USARTx_INSTANCE))
-  {
-    /* TXE flag will be automatically cleared when writing new data in TDR register */
+    if( LL_USART_IsEnabledIT_TXE( USARTx_INSTANCE ) && LL_USART_IsActiveFlag_TXE( USARTx_INSTANCE ) )
+    {
+        /* TXE flag will be automatically cleared when writing new data in TDR register */
 
-    /* Call function in charge of handling empty TDR => will lead to transmission of next character */
-    USART_TXEmpty_Callback();
-  }
+        /* Call function in charge of handling empty TDR => will lead to transmission of next character */
+        USART_TXEmpty_Callback();
+    }
 
-  if (LL_USART_IsEnabledIT_TC(USARTx_INSTANCE) && LL_USART_IsActiveFlag_TC(USARTx_INSTANCE))
-  {
-    /* Clear TC flag */
-    LL_USART_ClearFlag_TC(USARTx_INSTANCE);
-    /* Call function in charge of handling end of transmission of sent character
-       and prepare next character transmission */
-    USART_CharTransmitComplete_Callback();
-  }
+    if( LL_USART_IsEnabledIT_TC( USARTx_INSTANCE ) && LL_USART_IsActiveFlag_TC( USARTx_INSTANCE ) )
+    {
+        /* Clear TC flag */
+        LL_USART_ClearFlag_TC( USARTx_INSTANCE );
+        /* Call function in charge of handling end of transmission of sent character
+           and prepare next character transmission */
+        USART_CharTransmitComplete_Callback();
+    }
 
-  if (LL_USART_IsEnabledIT_ERROR(USARTx_INSTANCE) && LL_USART_IsActiveFlag_NE(USARTx_INSTANCE))
-  {
-    /* Call Error function */
-    Error_Callback();
-  }
-  /* USER CODE END USART1_IRQn 0 */
-  /* USER CODE BEGIN USART1_IRQn 1 */
+    if( LL_USART_IsEnabledIT_ERROR( USARTx_INSTANCE ) && LL_USART_IsActiveFlag_NE( USARTx_INSTANCE ) )
+    {
+        /* Call Error function */
+        Error_Callback();
+    }
 
-  /* USER CODE END USART1_IRQn 1 */
+    /* USER CODE END USART1_IRQn 0 */
+    /* USER CODE BEGIN USART1_IRQn 1 */
+
+    /* USER CODE END USART1_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */

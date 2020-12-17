@@ -9,11 +9,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -50,16 +50,16 @@ __IO uint32_t     ubReceivedChar;
 uint8_t aTextInfo[] = "\r\nUSART Example : MCU will now enter in Stop 0 mode.\n\rEnter any character for waking up MCU.\r\n";
 
 /* Private function prototypes -----------------------------------------------*/
-void     SystemClock_Config(void);
-void     LED_Init(void);
-void     LED_On(void);
-void     LED_Off(void);
-void     LED_Blinking(uint32_t Period);
-void     LED_Blinking_3s(void);
-void     Configure_USART1(void);
-void     PrepareUSARTToStopMode(void);
-void     EnterSTOP0Mode(void);
-void     PrintInfo(void);
+void     SystemClock_Config( void );
+void     LED_Init( void );
+void     LED_On( void );
+void     LED_Off( void );
+void     LED_Blinking( uint32_t Period );
+void     LED_Blinking_3s( void );
+void     Configure_USART1( void );
+void     PrepareUSARTToStopMode( void );
+void     EnterSTOP0Mode( void );
+void     PrintInfo( void );
 
 /* Private functions ---------------------------------------------------------*/
 
@@ -68,43 +68,43 @@ void     PrintInfo(void);
   * @param  None
   * @retval None
   */
-int main(void)
+int main( void )
 {
-  /* Configure the system clock to 56 MHz */
-  SystemClock_Config();
+    /* Configure the system clock to 56 MHz */
+    SystemClock_Config();
 
-  /* Initialize LED4 */
-  LED_Init();
+    /* Initialize LED4 */
+    LED_Init();
 
-  /* Configure USART1 (USART IP configuration and related GPIO initialization) */
-  Configure_USART1();
+    /* Configure USART1 (USART IP configuration and related GPIO initialization) */
+    Configure_USART1();
 
-  /* Start main program loop :
-     - make LED blink during 3 sec
-     - Enter Stop 0 mode (LED turned Off)
-     - Wait for any character received on USART RX line for waking up MCU
-  */
-  while (ubFinalCharReceived == 0)
-  {
-    /* LED blinks during 3 seconds */
-    LED_Blinking_3s();
+    /* Start main program loop :
+       - make LED blink during 3 sec
+       - Enter Stop 0 mode (LED turned Off)
+       - Wait for any character received on USART RX line for waking up MCU
+    */
+    while( ubFinalCharReceived == 0 )
+    {
+        /* LED blinks during 3 seconds */
+        LED_Blinking_3s();
 
-    /* Send Text Information on USART TX to PC Com port */
-    PrintInfo();
+        /* Send Text Information on USART TX to PC Com port */
+        PrintInfo();
 
-    /* Prepare USART for entering Stop Mode */
-    PrepareUSARTToStopMode();
-    
-    /* Enter Stop 0 mode */
-    EnterSTOP0Mode();
-    
-    /* At this point, MCU just wakes up from Stop 0 mode */
-  }
-  
-  /* Infinite loop */
-  while (1)
-  {
-  }
+        /* Prepare USART for entering Stop Mode */
+        PrepareUSARTToStopMode();
+
+        /* Enter Stop 0 mode */
+        EnterSTOP0Mode();
+
+        /* At this point, MCU just wakes up from Stop 0 mode */
+    }
+
+    /* Infinite loop */
+    while( 1 )
+    {
+    }
 }
 
 /**
@@ -121,73 +121,73 @@ int main(void)
   * @param  None
   * @retval None
   */
-void Configure_USART1(void)
+void Configure_USART1( void )
 {
-  /* (1) Enable GPIO clock and configures the USART1 pins **********************/
-  /*    (TX on PA.9, RX on PA.10)                     **********************/
+    /* (1) Enable GPIO clock and configures the USART1 pins **********************/
+    /*    (TX on PA.9, RX on PA.10)                     **********************/
 
-  /* Enable the peripheral clock of GPIOA */
-  LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOA);
+    /* Enable the peripheral clock of GPIOA */
+    LL_IOP_GRP1_EnableClock( LL_IOP_GRP1_PERIPH_GPIOA );
 
-  /* Configure TX Pin as : Alternate function, High Speed, PushPull, Pull up */
-  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_9, LL_GPIO_MODE_ALTERNATE);
-  LL_GPIO_SetAFPin_8_15(GPIOA, LL_GPIO_PIN_9, LL_GPIO_AF_1);
-  LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_9, LL_GPIO_SPEED_FREQ_HIGH);
-  LL_GPIO_SetPinOutputType(GPIOA, LL_GPIO_PIN_9, LL_GPIO_OUTPUT_PUSHPULL);
-  LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_9, LL_GPIO_PULL_UP);
+    /* Configure TX Pin as : Alternate function, High Speed, PushPull, Pull up */
+    LL_GPIO_SetPinMode( GPIOA, LL_GPIO_PIN_9, LL_GPIO_MODE_ALTERNATE );
+    LL_GPIO_SetAFPin_8_15( GPIOA, LL_GPIO_PIN_9, LL_GPIO_AF_1 );
+    LL_GPIO_SetPinSpeed( GPIOA, LL_GPIO_PIN_9, LL_GPIO_SPEED_FREQ_HIGH );
+    LL_GPIO_SetPinOutputType( GPIOA, LL_GPIO_PIN_9, LL_GPIO_OUTPUT_PUSHPULL );
+    LL_GPIO_SetPinPull( GPIOA, LL_GPIO_PIN_9, LL_GPIO_PULL_UP );
 
-  /* Configure RX Pin as : Alternate function, High Speed, PushPull, Pull up */
-  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_10, LL_GPIO_MODE_ALTERNATE);
-  LL_GPIO_SetAFPin_8_15(GPIOA, LL_GPIO_PIN_10, LL_GPIO_AF_1);
-  LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_10, LL_GPIO_SPEED_FREQ_HIGH);
-  LL_GPIO_SetPinOutputType(GPIOA, LL_GPIO_PIN_10, LL_GPIO_OUTPUT_PUSHPULL);
-  LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_10, LL_GPIO_PULL_UP);
+    /* Configure RX Pin as : Alternate function, High Speed, PushPull, Pull up */
+    LL_GPIO_SetPinMode( GPIOA, LL_GPIO_PIN_10, LL_GPIO_MODE_ALTERNATE );
+    LL_GPIO_SetAFPin_8_15( GPIOA, LL_GPIO_PIN_10, LL_GPIO_AF_1 );
+    LL_GPIO_SetPinSpeed( GPIOA, LL_GPIO_PIN_10, LL_GPIO_SPEED_FREQ_HIGH );
+    LL_GPIO_SetPinOutputType( GPIOA, LL_GPIO_PIN_10, LL_GPIO_OUTPUT_PUSHPULL );
+    LL_GPIO_SetPinPull( GPIOA, LL_GPIO_PIN_10, LL_GPIO_PULL_UP );
 
-  /* (2) NVIC Configuration for USART1 interrupts */
-  /*  - Set priority for USART1_IRQn */
-  /*  - Enable USART1_IRQn           */
-  NVIC_SetPriority(USART1_IRQn, 0);  
-  NVIC_EnableIRQ(USART1_IRQn);
+    /* (2) NVIC Configuration for USART1 interrupts */
+    /*  - Set priority for USART1_IRQn */
+    /*  - Enable USART1_IRQn           */
+    NVIC_SetPriority( USART1_IRQn, 0 );
+    NVIC_EnableIRQ( USART1_IRQn );
 
-  /* (3) Enable the USART1 peripheral clock and clock source ****************/
-  LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_USART1);
+    /* (3) Enable the USART1 peripheral clock and clock source ****************/
+    LL_APB2_GRP1_EnableClock( LL_APB2_GRP1_PERIPH_USART1 );
 
-  /* Set USART1 clock source as HSI */
-  LL_RCC_SetUSARTClockSource(LL_RCC_USART1_CLKSOURCE_HSI);
+    /* Set USART1 clock source as HSI */
+    LL_RCC_SetUSARTClockSource( LL_RCC_USART1_CLKSOURCE_HSI );
 
-  /* (4) Configure USART1 functional parameters ********************************/
-  
-  /* Disable USART1 prior modifying configuration registers */
-  /* Note: Commented as corresponding to Reset value */
-  // LL_USART_Disable(USART1);
-  
-  /* TX/RX direction */
-  LL_USART_SetTransferDirection(USART1, LL_USART_DIRECTION_TX_RX);
+    /* (4) Configure USART1 functional parameters ********************************/
 
-  /* 8 data bit, 1 start bit, 1 stop bit, no parity */
-  LL_USART_ConfigCharacter(USART1, LL_USART_DATAWIDTH_8B, LL_USART_PARITY_NONE, LL_USART_STOPBITS_1);
+    /* Disable USART1 prior modifying configuration registers */
+    /* Note: Commented as corresponding to Reset value */
+    // LL_USART_Disable(USART1);
 
-  /* No Hardware Flow control */
-  /* Reset value is LL_USART_HWCONTROL_NONE */
-  // LL_USART_SetHWFlowCtrl(USART1, LL_USART_HWCONTROL_NONE);
+    /* TX/RX direction */
+    LL_USART_SetTransferDirection( USART1, LL_USART_DIRECTION_TX_RX );
 
-  /* Oversampling by 16 */
-  /* Reset value is LL_USART_OVERSAMPLING_16 */
-  // LL_USART_SetOverSampling(USART1, LL_USART_OVERSAMPLING_16);
+    /* 8 data bit, 1 start bit, 1 stop bit, no parity */
+    LL_USART_ConfigCharacter( USART1, LL_USART_DATAWIDTH_8B, LL_USART_PARITY_NONE, LL_USART_STOPBITS_1 );
 
-  /* Set Baudrate to 9600 using HSI frequency set to HSI_VALUE */
-  LL_USART_SetBaudRate(USART1, HSI_VALUE, LL_USART_PRESCALER_DIV1, LL_USART_OVERSAMPLING_16, 9600); 
+    /* No Hardware Flow control */
+    /* Reset value is LL_USART_HWCONTROL_NONE */
+    // LL_USART_SetHWFlowCtrl(USART1, LL_USART_HWCONTROL_NONE);
 
-  /* Set the wake-up event type : specify wake-up on RXNE flag */
-  LL_USART_SetWKUPType(USART1, LL_USART_WAKEUP_ON_RXNE);
+    /* Oversampling by 16 */
+    /* Reset value is LL_USART_OVERSAMPLING_16 */
+    // LL_USART_SetOverSampling(USART1, LL_USART_OVERSAMPLING_16);
 
-  /* (5) Enable USART1 **********************************************************/
-  LL_USART_Enable(USART1);
-  
-  /* Polling USART initialisation */
-  while((!(LL_USART_IsActiveFlag_TEACK(USART1))) || (!(LL_USART_IsActiveFlag_REACK(USART1))))
-  { 
-  }
+    /* Set Baudrate to 9600 using HSI frequency set to HSI_VALUE */
+    LL_USART_SetBaudRate( USART1, HSI_VALUE, LL_USART_PRESCALER_DIV1, LL_USART_OVERSAMPLING_16, 9600 );
+
+    /* Set the wake-up event type : specify wake-up on RXNE flag */
+    LL_USART_SetWKUPType( USART1, LL_USART_WAKEUP_ON_RXNE );
+
+    /* (5) Enable USART1 **********************************************************/
+    LL_USART_Enable( USART1 );
+
+    /* Polling USART initialisation */
+    while( ( !( LL_USART_IsActiveFlag_TEACK( USART1 ) ) ) || ( !( LL_USART_IsActiveFlag_REACK( USART1 ) ) ) )
+    {
+    }
 }
 
 /**
@@ -195,39 +195,40 @@ void Configure_USART1(void)
   * @param  None
   * @retval None
   */
-void PrepareUSARTToStopMode(void)
+void PrepareUSARTToStopMode( void )
 {
 
-  /* Empty RX Fifo before entering "Stop 0" mode (Otherwise, characters already present in FIFO
-     will lead to immediate wake up */
-  while (LL_USART_IsActiveFlag_RXNE(USART1))
-  {
-    /* Read Received character. RXNE flag is cleared by reading of RDR register */
-    ubReceivedChar = LL_USART_ReceiveData8(USART1);
-  }
+    /* Empty RX Fifo before entering "Stop 0" mode (Otherwise, characters already present in FIFO
+       will lead to immediate wake up */
+    while( LL_USART_IsActiveFlag_RXNE( USART1 ) )
+    {
+        /* Read Received character. RXNE flag is cleared by reading of RDR register */
+        ubReceivedChar = LL_USART_ReceiveData8( USART1 );
+    }
 
-  /* Clear OVERRUN flag */
-  LL_USART_ClearFlag_ORE(USART1);
+    /* Clear OVERRUN flag */
+    LL_USART_ClearFlag_ORE( USART1 );
 
-  /* Make sure that no USART transfer is on-going */ 
-  while(LL_USART_IsActiveFlag_BUSY(USART1) == 1)
-  {
-  }
-  /* Make sure that USART is ready to receive */   
-  while(LL_USART_IsActiveFlag_REACK(USART1) == 0)
-  {
-  }
+    /* Make sure that no USART transfer is on-going */
+    while( LL_USART_IsActiveFlag_BUSY( USART1 ) == 1 )
+    {
+    }
 
-  /* About to enter stop mode: switch off LED */
-  LED_Off();
+    /* Make sure that USART is ready to receive */
+    while( LL_USART_IsActiveFlag_REACK( USART1 ) == 0 )
+    {
+    }
 
-  /* Configure USART1 transfer interrupts : */
-  /* Clear WUF flag and enable the UART Wake Up from stop mode Interrupt */
-  LL_USART_ClearFlag_WKUP(USART1);
-  LL_USART_EnableIT_WKUP(USART1);
+    /* About to enter stop mode: switch off LED */
+    LED_Off();
 
-  /* Enable Wake Up From Stop */
-  LL_USART_EnableInStopMode(USART1);
+    /* Configure USART1 transfer interrupts : */
+    /* Clear WUF flag and enable the UART Wake Up from stop mode Interrupt */
+    LL_USART_ClearFlag_WKUP( USART1 );
+    LL_USART_EnableIT_WKUP( USART1 );
+
+    /* Enable Wake Up From Stop */
+    LL_USART_EnableInStopMode( USART1 );
 }
 
 /**
@@ -235,20 +236,20 @@ void PrepareUSARTToStopMode(void)
   * @param  None
   * @retval None
   */
-void EnterSTOP0Mode(void)
+void EnterSTOP0Mode( void )
 {
-  /** Request to enter "Stop 0" mode
-    * Following procedure describe in STM32G0xx Reference Manual
-    * See PWR part, section Low-power modes, "Stop 0" mode
-    */
-  /* Set low-power mode "Stop 0" */
-  LL_PWR_SetPowerMode(LL_PWR_MODE_STOP0);
+    /** Request to enter "Stop 0" mode
+      * Following procedure describe in STM32G0xx Reference Manual
+      * See PWR part, section Low-power modes, "Stop 0" mode
+      */
+    /* Set low-power mode "Stop 0" */
+    LL_PWR_SetPowerMode( LL_PWR_MODE_STOP0 );
 
-  /* Set SLEEPDEEP bit of Cortex System Control Register */
-  LL_LPM_EnableDeepSleep();
+    /* Set SLEEPDEEP bit of Cortex System Control Register */
+    LL_LPM_EnableDeepSleep();
 
-  /* Request Wait For Interrupt */
-  __WFI();
+    /* Request Wait For Interrupt */
+    __WFI();
 }
 
 /**
@@ -256,27 +257,27 @@ void EnterSTOP0Mode(void)
   * @param  None
   * @retval None
   */
-void PrintInfo(void)
+void PrintInfo( void )
 {
-  uint32_t index = 0;
-  
-  /* Send characters one per one, until last char to be sent */
-  for (index = 0; index < sizeof(aTextInfo); index++)
-  {
-    /* Wait for TXE flag to be raised */
-    while (!LL_USART_IsActiveFlag_TXE(USART1))
+    uint32_t index = 0;
+
+    /* Send characters one per one, until last char to be sent */
+    for( index = 0; index < sizeof( aTextInfo ); index++ )
     {
+        /* Wait for TXE flag to be raised */
+        while( !LL_USART_IsActiveFlag_TXE( USART1 ) )
+        {
+        }
+
+        /* Write character in Transmit Data register.
+           TXE flag is cleared by writing data in TDR register */
+        LL_USART_TransmitData8( USART1, aTextInfo[index] );
     }
 
-    /* Write character in Transmit Data register.
-       TXE flag is cleared by writing data in TDR register */
-    LL_USART_TransmitData8(USART1, aTextInfo[index]);
-  }
-
-  /* Wait for TC flag to be raised for last char */
-  while (!LL_USART_IsActiveFlag_TC(USART1))
-  {
-  }
+    /* Wait for TC flag to be raised for last char */
+    while( !LL_USART_IsActiveFlag_TC( USART1 ) )
+    {
+    }
 }
 
 /**
@@ -284,19 +285,19 @@ void PrintInfo(void)
   * @param  None
   * @retval None
   */
-void LED_Init(void)
+void LED_Init( void )
 {
-  /* Enable the LED4 Clock */
-  LED4_GPIO_CLK_ENABLE();
+    /* Enable the LED4 Clock */
+    LED4_GPIO_CLK_ENABLE();
 
-  /* Configure IO in output push-pull mode to drive external LED4 */
-  LL_GPIO_SetPinMode(LED4_GPIO_PORT, LED4_PIN, LL_GPIO_MODE_OUTPUT);
-  /* Reset value is LL_GPIO_OUTPUT_PUSHPULL */
-  //LL_GPIO_SetPinOutputType(LED4_GPIO_PORT, LED4_PIN, LL_GPIO_OUTPUT_PUSHPULL);
-  /* Reset value is LL_GPIO_SPEED_FREQ_LOW */
-  //LL_GPIO_SetPinSpeed(LED4_GPIO_PORT, LED4_PIN, LL_GPIO_SPEED_FREQ_LOW);
-  /* Reset value is LL_GPIO_PULL_NO */
-  //LL_GPIO_SetPinPull(LED4_GPIO_PORT, LED4_PIN, LL_GPIO_PULL_NO);
+    /* Configure IO in output push-pull mode to drive external LED4 */
+    LL_GPIO_SetPinMode( LED4_GPIO_PORT, LED4_PIN, LL_GPIO_MODE_OUTPUT );
+    /* Reset value is LL_GPIO_OUTPUT_PUSHPULL */
+    //LL_GPIO_SetPinOutputType(LED4_GPIO_PORT, LED4_PIN, LL_GPIO_OUTPUT_PUSHPULL);
+    /* Reset value is LL_GPIO_SPEED_FREQ_LOW */
+    //LL_GPIO_SetPinSpeed(LED4_GPIO_PORT, LED4_PIN, LL_GPIO_SPEED_FREQ_LOW);
+    /* Reset value is LL_GPIO_PULL_NO */
+    //LL_GPIO_SetPinPull(LED4_GPIO_PORT, LED4_PIN, LL_GPIO_PULL_NO);
 }
 
 /**
@@ -304,10 +305,10 @@ void LED_Init(void)
   * @param  None
   * @retval None
   */
-void LED_On(void)
+void LED_On( void )
 {
-  /* Turn LED4 on */
-  LL_GPIO_SetOutputPin(LED4_GPIO_PORT, LED4_PIN);
+    /* Turn LED4 on */
+    LL_GPIO_SetOutputPin( LED4_GPIO_PORT, LED4_PIN );
 }
 
 /**
@@ -315,10 +316,10 @@ void LED_On(void)
   * @param  None
   * @retval None
   */
-void LED_Off(void)
+void LED_Off( void )
 {
-  /* Turn LED4 off */
-  LL_GPIO_ResetOutputPin(LED4_GPIO_PORT, LED4_PIN);
+    /* Turn LED4 off */
+    LL_GPIO_ResetOutputPin( LED4_GPIO_PORT, LED4_PIN );
 }
 
 /**
@@ -330,14 +331,14 @@ void LED_Off(void)
   *     @arg LED_BLINK_ERROR : Error specific Blinking
   * @retval None
   */
-void LED_Blinking(uint32_t Period)
+void LED_Blinking( uint32_t Period )
 {
-  /* Toggle IO in an infinite loop */
-  while (1)
-  {
-    LL_GPIO_TogglePin(LED4_GPIO_PORT, LED4_PIN);  
-    LL_mDelay(Period);
-  }
+    /* Toggle IO in an infinite loop */
+    while( 1 )
+    {
+        LL_GPIO_TogglePin( LED4_GPIO_PORT, LED4_PIN );
+        LL_mDelay( Period );
+    }
 }
 
 /**
@@ -345,16 +346,16 @@ void LED_Blinking(uint32_t Period)
   * @param  None
   * @retval None
   */
-void LED_Blinking_3s(void)
+void LED_Blinking_3s( void )
 {
-  uint32_t index=0;
+    uint32_t index = 0;
 
-  /* Toggle IO in during 3s (15*200ms) */
-  for(index = 0; index < 15; index++)
-  {
-    LL_GPIO_TogglePin(LED4_GPIO_PORT, LED4_PIN);  
-    LL_mDelay(200);
-  }
+    /* Toggle IO in during 3s (15*200ms) */
+    for( index = 0; index < 15; index++ )
+    {
+        LL_GPIO_TogglePin( LED4_GPIO_PORT, LED4_PIN );
+        LL_mDelay( 200 );
+    }
 }
 
 
@@ -362,30 +363,32 @@ void LED_Blinking_3s(void)
   * @brief System Clock Configuration
   * @retval None
   */
-void SystemClock_Config(void)
+void SystemClock_Config( void )
 {
-  /* HSI configuration and activation */
-  LL_RCC_HSI_Enable();
-  while(LL_RCC_HSI_IsReady() != 1)
-  {
-  }
+    /* HSI configuration and activation */
+    LL_RCC_HSI_Enable();
 
-  /* Set AHB prescaler*/
-  LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
+    while( LL_RCC_HSI_IsReady() != 1 )
+    {
+    }
 
-  /* Sysclk activation on the HSI */
-  LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_HSI);
-  while(LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_HSI)
-  {
-  }
+    /* Set AHB prescaler*/
+    LL_RCC_SetAHBPrescaler( LL_RCC_SYSCLK_DIV_1 );
 
-  /* Set APB1 prescaler*/
-  LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
+    /* Sysclk activation on the HSI */
+    LL_RCC_SetSysClkSource( LL_RCC_SYS_CLKSOURCE_HSI );
 
-  LL_Init1msTick(16000000);
+    while( LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_HSI )
+    {
+    }
 
-  /* Update CMSIS variable (which can be updated also through SystemCoreClockUpdate function) */
-  LL_SetSystemCoreClock(16000000);
+    /* Set APB1 prescaler*/
+    LL_RCC_SetAPB1Prescaler( LL_RCC_APB1_DIV_1 );
+
+    LL_Init1msTick( 16000000 );
+
+    /* Update CMSIS variable (which can be updated also through SystemCoreClockUpdate function) */
+    LL_SetSystemCoreClock( 16000000 );
 }
 
 /******************************************************************************/
@@ -398,23 +401,23 @@ void SystemClock_Config(void)
   * @param  None
   * @retval None
   */
-void USART_CharReception_Callback(void)
+void USART_CharReception_Callback( void )
 {
-  /* Read Received character. RXNE flag is cleared by reading of RDR register */
-  ubReceivedChar = LL_USART_ReceiveData8(USART1);
+    /* Read Received character. RXNE flag is cleared by reading of RDR register */
+    ubReceivedChar = LL_USART_ReceiveData8( USART1 );
 
-  /* Check if received value is corresponding to specific one : S or s */
-  if ((ubReceivedChar == 'S') || (ubReceivedChar == 's'))
-  {
-    /* Turn LED4 On : Expected character has been received */
-    LED_On();
+    /* Check if received value is corresponding to specific one : S or s */
+    if( ( ubReceivedChar == 'S' ) || ( ubReceivedChar == 's' ) )
+    {
+        /* Turn LED4 On : Expected character has been received */
+        LED_On();
 
-    /* End of program : set boolean for main loop exit */
-    ubFinalCharReceived = 1;
-  }
+        /* End of program : set boolean for main loop exit */
+        ubFinalCharReceived = 1;
+    }
 
-  /* Echo received character on TX */
-  LL_USART_TransmitData8(USART1, ubReceivedChar);
+    /* Echo received character on TX */
+    LL_USART_TransmitData8( USART1, ubReceivedChar );
 }
 
 /**
@@ -422,13 +425,13 @@ void USART_CharReception_Callback(void)
   * @param  None
   * @retval None
   */
-void Error_Callback(void)
+void Error_Callback( void )
 {
-  /* Disable USART1_IRQn */
-  NVIC_DisableIRQ(USART1_IRQn);
-  
-  /* Unexpected event : Set LED4 to Blinking mode to indicate error occurs */
-  LED_Blinking(LED_BLINK_ERROR);
+    /* Disable USART1_IRQn */
+    NVIC_DisableIRQ( USART1_IRQn );
+
+    /* Unexpected event : Set LED4 to Blinking mode to indicate error occurs */
+    LED_Blinking( LED_BLINK_ERROR );
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -440,15 +443,15 @@ void Error_Callback(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t *file, uint32_t line)
+void assert_failed( uint8_t *file, uint32_t line )
 {
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d", file, line) */
+    /* User can add his own implementation to report the file name and line number,
+       ex: printf("Wrong parameters value: file %s on line %d", file, line) */
 
-  /* Infinite loop */
-  while (1)
-  {
-  }
+    /* Infinite loop */
+    while( 1 )
+    {
+    }
 }
 #endif
 

@@ -21,7 +21,7 @@
 #define __USBPD_PW_IF_H_
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -43,11 +43,12 @@
   * @{
   */
 
-/* Enumeration of the different power status available for VBUS */    
-typedef enum{
-  USBPD_PWR_BELOWVSAFE0V,
-  USBPD_PWR_VSAFE5V,
-  USBPD_PWR_SNKDETACH
+/* Enumeration of the different power status available for VBUS */
+typedef enum
+{
+    USBPD_PWR_BELOWVSAFE0V,
+    USBPD_PWR_VSAFE5V,
+    USBPD_PWR_SNKDETACH
 } USBPD_VBUSPOWER_STATUS;
 
 /* Macros used to convert values into PDO representation */
@@ -81,21 +82,21 @@ typedef enum{
   *         used by Sink and Source, for all available ports.
   * @retval USBPD status
   */
-USBPD_StatusTypeDef USBPD_PWR_IF_Init(void);
+USBPD_StatusTypeDef USBPD_PWR_IF_Init( void );
 
 /**
   * @brief  Start the monitoring
 
   * @retval USBPD status
   */
-USBPD_StatusTypeDef USBPD_PWR_IF_StartMonitoring(void);
+USBPD_StatusTypeDef USBPD_PWR_IF_StartMonitoring( void );
 
 /**
   * @brief  Sets the required power profile
   * @param  PortNum Port number
   * @retval USBPD status
   */
-USBPD_StatusTypeDef USBPD_PWR_IF_SetProfile(uint8_t PortNum);
+USBPD_StatusTypeDef USBPD_PWR_IF_SetProfile( uint8_t PortNum );
 
 /**
   * @brief  Checks if the power on a specified port is ready
@@ -103,7 +104,7 @@ USBPD_StatusTypeDef USBPD_PWR_IF_SetProfile(uint8_t PortNum);
   * @param  Vsafe   Vsafe status based on @ref USBPD_VSAFE_StatusTypeDef
   * @retval USBPD status
   */
-USBPD_StatusTypeDef USBPD_PWR_IF_SupplyReady(uint8_t PortNum, USBPD_VSAFE_StatusTypeDef Vsafe);
+USBPD_StatusTypeDef USBPD_PWR_IF_SupplyReady( uint8_t PortNum, USBPD_VSAFE_StatusTypeDef Vsafe );
 
 
 /**
@@ -111,7 +112,7 @@ USBPD_StatusTypeDef USBPD_PWR_IF_SupplyReady(uint8_t PortNum, USBPD_VSAFE_Status
   * @param  PortNum Port number
   * @retval ENABLE or DISABLE
   */
-USBPD_FunctionalState USBPD_PWR_IF_VBUSIsEnabled(uint8_t PortNum);
+USBPD_FunctionalState USBPD_PWR_IF_VBUSIsEnabled( uint8_t PortNum );
 
 /**
   * @brief  Reads the voltage and the current on a specified port
@@ -120,7 +121,7 @@ USBPD_FunctionalState USBPD_PWR_IF_VBUSIsEnabled(uint8_t PortNum);
   * @param  pCurrent The Current in mA
   * @retval ENABLE or DISABLE
   */
-USBPD_StatusTypeDef USBPD_PWR_IF_ReadVA(uint8_t PortNum, uint16_t *pVoltage, uint16_t *pCurrent);
+USBPD_StatusTypeDef USBPD_PWR_IF_ReadVA( uint8_t PortNum, uint16_t *pVoltage, uint16_t *pCurrent );
 
 
 /**
@@ -134,7 +135,7 @@ USBPD_StatusTypeDef USBPD_PWR_IF_ReadVA(uint8_t PortNum, uint16_t *pVoltage, uin
   * @param  Size Pointer on nb of u32 written by PWR_IF (nb of PDOs)
   * @retval None
   */
-void USBPD_PWR_IF_GetPortPDOs(uint8_t PortNum, USBPD_CORE_DataInfoType_TypeDef DataId, uint8_t *Ptr, uint32_t *Size);
+void USBPD_PWR_IF_GetPortPDOs( uint8_t PortNum, USBPD_CORE_DataInfoType_TypeDef DataId, uint8_t *Ptr, uint32_t *Size );
 
 
 /**
@@ -142,7 +143,7 @@ void USBPD_PWR_IF_GetPortPDOs(uint8_t PortNum, USBPD_CORE_DataInfoType_TypeDef D
   * @param  PortNum Port number
   * @retval USBPD Status
   */
-USBPD_StatusTypeDef USBPD_PWR_IF_CheckUpdateSNKPower(uint8_t PortNum);
+USBPD_StatusTypeDef USBPD_PWR_IF_CheckUpdateSNKPower( uint8_t PortNum );
 
 /**
   * @brief the function is called to get VBUS power status.
@@ -150,21 +151,21 @@ USBPD_StatusTypeDef USBPD_PWR_IF_CheckUpdateSNKPower(uint8_t PortNum);
   * @param PowerTypeStatus
   * @retval UBBPD_TRUE or USBPD_FALSE
   */
-uint8_t USBPD_PWR_IF_GetVBUSStatus(uint8_t PortNum, USBPD_VBUSPOWER_STATUS PowerTypeStatus);
+uint8_t USBPD_PWR_IF_GetVBUSStatus( uint8_t PortNum, USBPD_VBUSPOWER_STATUS PowerTypeStatus );
 
 /**
   * @brief Function is called to set the VBUS threshold when a request has been accepted.
   * @param PortNum Port number
   * @retval None
   */
-void USBPD_PWR_IF_UpdateVbusThreshold(uint8_t PortNum);
+void USBPD_PWR_IF_UpdateVbusThreshold( uint8_t PortNum );
 
 /**
   * @brief Function is called to reset the VBUS threshold when there is a power reset.
   * @param PortNum Port number
   * @retval None
   */
-void USBPD_PWR_IF_ResetVbusThreshold(uint8_t PortNum);
+void USBPD_PWR_IF_ResetVbusThreshold( uint8_t PortNum );
 
 /**
   * @}

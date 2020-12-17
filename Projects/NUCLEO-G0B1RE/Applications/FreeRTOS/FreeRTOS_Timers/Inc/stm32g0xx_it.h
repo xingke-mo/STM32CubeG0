@@ -24,7 +24,7 @@
 #define __STM32G0xx_IT_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Private includes ----------------------------------------------------------*/
@@ -48,8 +48,8 @@
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void HardFault_Handler(void);
-void TIM6_DAC_LPTIM1_IRQHandler(void);
+void HardFault_Handler( void );
+void TIM6_DAC_LPTIM1_IRQHandler( void );
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */

@@ -32,17 +32,17 @@
 /* Exported variables --------------------------------------------------------*/
 OPENBL_MemoryTypeDef OB_Descriptor =
 {
-  OB_START_ADDRESS,
-  OB_END_ADDRESS,
-  (128),
-  OB_AREA,
-  OPENBL_OB_Read,
-  OPENBL_OB_Write,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL
+    OB_START_ADDRESS,
+    OB_END_ADDRESS,
+    ( 128 ),
+    OB_AREA,
+    OPENBL_OB_Read,
+    OPENBL_OB_Write,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
 };
 
 
@@ -53,9 +53,9 @@ OPENBL_MemoryTypeDef OB_Descriptor =
   * @param  Address The address to be read.
   * @retval Returns the read value.
   */
-uint8_t OPENBL_OB_Read(uint32_t Address)
+uint8_t OPENBL_OB_Read( uint32_t Address )
 {
-  return (*(uint8_t *)(Address));
+    return ( *( uint8_t * )( Address ) );
 }
 
 /**
@@ -63,7 +63,7 @@ uint8_t OPENBL_OB_Read(uint32_t Address)
   * @param  None
   * @retval None
   */
-void BL_FLASH_WriteOptKeys(void)
+void BL_FLASH_WriteOptKeys( void )
 {
 }
 /**
@@ -73,7 +73,7 @@ void BL_FLASH_WriteOptKeys(void)
   * @param  DataLength The length of the data to be written.
   * @retval None.
   */
-void OPENBL_OB_Write(uint32_t Address, uint8_t *Data, uint32_t DataLength)
+void OPENBL_OB_Write( uint32_t Address, uint8_t *Data, uint32_t DataLength )
 {
 }
 

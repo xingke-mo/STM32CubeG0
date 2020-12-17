@@ -10,7 +10,7 @@
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -121,8 +121,8 @@ extern "C" {
   *        When the CRS is not used, the HSI48 RC oscillator runs on it default frequency
   *        which is subject to manufacturing process variations.
   */
-#if !defined  (HSI48_VALUE) 
-  #define HSI48_VALUE   48000000U             /*!< Value of the Internal High Speed oscillator for USB FS/SDMMC/RNG in Hz.
+#if !defined  (HSI48_VALUE)
+#define HSI48_VALUE   48000000U             /*!< Value of the Internal High Speed oscillator for USB FS/SDMMC/RNG in Hz.
                                                The real value my vary depending on manufacturing process variations.*/
 #endif /* HSI48_VALUE */
 #endif
@@ -159,11 +159,11 @@ in voltage and temperature.*/
 #if defined(STM32G0C1xx) || defined(STM32G0B1xx) || defined(STM32G0B0xx)
 /**
   * @brief External clock source for I2S2 peripheral
-  *        This value is used by the RCC HAL module to compute the I2S2 clock source 
+  *        This value is used by the RCC HAL module to compute the I2S2 clock source
   *        frequency.
   */
 #if !defined  (EXTERNAL_I2S2_CLOCK_VALUE)
-  #define EXTERNAL_I2S2_CLOCK_VALUE    48000U /*!< Value of the I2S2 External clock source in Hz*/
+#define EXTERNAL_I2S2_CLOCK_VALUE    48000U /*!< Value of the I2S2 External clock source in Hz*/
 #endif /* EXTERNAL_I2S2_CLOCK_VALUE */
 #endif
 
@@ -339,7 +339,7 @@ in voltage and temperature.*/
   */
 #define assert_param(expr) ((expr) ? (void)0U : assert_failed((uint8_t *)__FILE__, __LINE__))
 /* Exported functions ------------------------------------------------------- */
-void assert_failed(uint8_t *file, uint32_t line);
+void assert_failed( uint8_t *file, uint32_t line );
 #else
 #define assert_param(expr) ((void)0U)
 #endif /* USE_FULL_ASSERT */

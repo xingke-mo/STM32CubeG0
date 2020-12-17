@@ -61,7 +61,7 @@ extern "C" {
 /* Definition for USARTx Pins */
 #define USARTx_TX_PIN                    GPIO_PIN_10
 #define USARTx_TX_GPIO_PORT              GPIOC
-#define USARTx_TX_AF                     GPIO_AF0_USART3 
+#define USARTx_TX_AF                     GPIO_AF0_USART3
 #define USARTx_RX_PIN                    GPIO_PIN_11
 #define USARTx_RX_GPIO_PORT              GPIOC
 #define USARTx_RX_AF                     GPIO_AF0_USART3
@@ -73,9 +73,9 @@ extern "C" {
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void Error_Handler(void);
-void MSC_File_Operations(void);
-void MSC_MenuProcess(void);
+void Error_Handler( void );
+void MSC_File_Operations( void );
+void MSC_MenuProcess( void );
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */

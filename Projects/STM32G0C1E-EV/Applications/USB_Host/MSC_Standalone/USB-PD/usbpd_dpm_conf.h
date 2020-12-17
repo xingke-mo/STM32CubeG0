@@ -23,7 +23,7 @@
 #define __USBPD_DPM_CONF_H_
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -57,10 +57,10 @@ extern USBPD_SettingsTypeDef            DPM_Settings[USBPD_PORT_COUNT];
 #else /* __USBPD_DPM_CORE_C */
 const USBPD_SettingsTypeDef       DPM_Settings[USBPD_PORT_COUNT] =
 {
-  {
-    .PE_DefaultRole = USBPD_PORTPOWERROLE_SRC,  /* Default port role                                       */
-    .CAD_DefaultResistor = 0x00u,
-  }
+    {
+        .PE_DefaultRole = USBPD_PORTPOWERROLE_SRC,  /* Default port role                                       */
+        .CAD_DefaultResistor = 0x00u,
+    }
 };
 #endif /* !__USBPD_DPM_CORE_C */
 

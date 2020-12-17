@@ -26,7 +26,7 @@
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-FRESULT msc_explore_disk(char *path, uint8_t recu_level);
+FRESULT msc_explore_disk( char *path, uint8_t recu_level );
 
 #endif /* __EXPLORER_H */
 

@@ -62,7 +62,7 @@ EndBSPDependencies */
 * @}
 */
 #ifndef AZERTY_KEYBOARD
-#define QWERTY_KEYBOARD
+    #define QWERTY_KEYBOARD
 #endif
 #define  KBD_LEFT_CTRL                                  0x01
 #define  KBD_LEFT_SHIFT                                 0x02
@@ -84,7 +84,7 @@ EndBSPDependencies */
 /** @defgroup USBH_HID_KEYBD_Private_FunctionPrototypes
 * @{
 */
-static USBH_StatusTypeDef USBH_HID_KeybdDecode(USBH_HandleTypeDef *phost);
+static USBH_StatusTypeDef USBH_HID_KeybdDecode( USBH_HandleTypeDef *phost );
 /**
 * @}
 */
@@ -99,224 +99,224 @@ uint32_t                   keybd_report_data[2];
 
 static const HID_Report_ItemTypedef imp_0_lctrl =
 {
-  (uint8_t *)(void *)keybd_report_data + 0, /*data*/
-  1,     /*size*/
-  0,     /*shift*/
-  0,     /*count (only for array items)*/
-  0,     /*signed?*/
-  0,     /*min value read can return*/
-  1,     /*max value read can return*/
-  0,     /*min vale device can report*/
-  1,     /*max value device can report*/
-  1      /*resolution*/
+    ( uint8_t * )( void * )keybd_report_data + 0, /*data*/
+    1,     /*size*/
+    0,     /*shift*/
+    0,     /*count (only for array items)*/
+    0,     /*signed?*/
+    0,     /*min value read can return*/
+    1,     /*max value read can return*/
+    0,     /*min vale device can report*/
+    1,     /*max value device can report*/
+    1      /*resolution*/
 };
 static const HID_Report_ItemTypedef imp_0_lshift =
 {
-  (uint8_t *)(void *)keybd_report_data + 0, /*data*/
-  1,     /*size*/
-  1,     /*shift*/
-  0,     /*count (only for array items)*/
-  0,     /*signed?*/
-  0,     /*min value read can return*/
-  1,     /*max value read can return*/
-  0,     /*min vale device can report*/
-  1,     /*max value device can report*/
-  1      /*resolution*/
+    ( uint8_t * )( void * )keybd_report_data + 0, /*data*/
+    1,     /*size*/
+    1,     /*shift*/
+    0,     /*count (only for array items)*/
+    0,     /*signed?*/
+    0,     /*min value read can return*/
+    1,     /*max value read can return*/
+    0,     /*min vale device can report*/
+    1,     /*max value device can report*/
+    1      /*resolution*/
 };
 static const HID_Report_ItemTypedef imp_0_lalt =
 {
-  (uint8_t *)(void *)keybd_report_data + 0, /*data*/
-  1,     /*size*/
-  2,     /*shift*/
-  0,     /*count (only for array items)*/
-  0,     /*signed?*/
-  0,     /*min value read can return*/
-  1,     /*max value read can return*/
-  0,     /*min vale device can report*/
-  1,     /*max value device can report*/
-  1      /*resolution*/
+    ( uint8_t * )( void * )keybd_report_data + 0, /*data*/
+    1,     /*size*/
+    2,     /*shift*/
+    0,     /*count (only for array items)*/
+    0,     /*signed?*/
+    0,     /*min value read can return*/
+    1,     /*max value read can return*/
+    0,     /*min vale device can report*/
+    1,     /*max value device can report*/
+    1      /*resolution*/
 };
 static const HID_Report_ItemTypedef imp_0_lgui =
 {
-  (uint8_t *)(void *)keybd_report_data + 0, /*data*/
-  1,     /*size*/
-  3,     /*shift*/
-  0,     /*count (only for array items)*/
-  0,     /*signed?*/
-  0,     /*min value read can return*/
-  1,     /*max value read can return*/
-  0,     /*min vale device can report*/
-  1,     /*max value device can report*/
-  1      /*resolution*/
+    ( uint8_t * )( void * )keybd_report_data + 0, /*data*/
+    1,     /*size*/
+    3,     /*shift*/
+    0,     /*count (only for array items)*/
+    0,     /*signed?*/
+    0,     /*min value read can return*/
+    1,     /*max value read can return*/
+    0,     /*min vale device can report*/
+    1,     /*max value device can report*/
+    1      /*resolution*/
 };
 static const HID_Report_ItemTypedef imp_0_rctrl =
 {
-  (uint8_t *)(void *)keybd_report_data + 0, /*data*/
-  1,     /*size*/
-  4,     /*shift*/
-  0,     /*count (only for array items)*/
-  0,     /*signed?*/
-  0,     /*min value read can return*/
-  1,     /*max value read can return*/
-  0,     /*min vale device can report*/
-  1,     /*max value device can report*/
-  1      /*resolution*/
+    ( uint8_t * )( void * )keybd_report_data + 0, /*data*/
+    1,     /*size*/
+    4,     /*shift*/
+    0,     /*count (only for array items)*/
+    0,     /*signed?*/
+    0,     /*min value read can return*/
+    1,     /*max value read can return*/
+    0,     /*min vale device can report*/
+    1,     /*max value device can report*/
+    1      /*resolution*/
 };
 static const HID_Report_ItemTypedef imp_0_rshift =
 {
-  (uint8_t *)(void *)keybd_report_data + 0, /*data*/
-  1,     /*size*/
-  5,     /*shift*/
-  0,     /*count (only for array items)*/
-  0,     /*signed?*/
-  0,     /*min value read can return*/
-  1,     /*max value read can return*/
-  0,     /*min vale device can report*/
-  1,     /*max value device can report*/
-  1      /*resolution*/
+    ( uint8_t * )( void * )keybd_report_data + 0, /*data*/
+    1,     /*size*/
+    5,     /*shift*/
+    0,     /*count (only for array items)*/
+    0,     /*signed?*/
+    0,     /*min value read can return*/
+    1,     /*max value read can return*/
+    0,     /*min vale device can report*/
+    1,     /*max value device can report*/
+    1      /*resolution*/
 };
 static const HID_Report_ItemTypedef imp_0_ralt =
 {
-  (uint8_t *)(void *)keybd_report_data + 0, /*data*/
-  1,     /*size*/
-  6,     /*shift*/
-  0,     /*count (only for array items)*/
-  0,     /*signed?*/
-  0,     /*min value read can return*/
-  1,     /*max value read can return*/
-  0,     /*min vale device can report*/
-  1,     /*max value device can report*/
-  1      /*resolution*/
+    ( uint8_t * )( void * )keybd_report_data + 0, /*data*/
+    1,     /*size*/
+    6,     /*shift*/
+    0,     /*count (only for array items)*/
+    0,     /*signed?*/
+    0,     /*min value read can return*/
+    1,     /*max value read can return*/
+    0,     /*min vale device can report*/
+    1,     /*max value device can report*/
+    1      /*resolution*/
 };
 static const HID_Report_ItemTypedef imp_0_rgui =
 {
-  (uint8_t *)(void *)keybd_report_data + 0, /*data*/
-  1,     /*size*/
-  7,     /*shift*/
-  0,     /*count (only for array items)*/
-  0,     /*signed?*/
-  0,     /*min value read can return*/
-  1,     /*max value read can return*/
-  0,     /*min vale device can report*/
-  1,     /*max value device can report*/
-  1      /*resolution*/
+    ( uint8_t * )( void * )keybd_report_data + 0, /*data*/
+    1,     /*size*/
+    7,     /*shift*/
+    0,     /*count (only for array items)*/
+    0,     /*signed?*/
+    0,     /*min value read can return*/
+    1,     /*max value read can return*/
+    0,     /*min vale device can report*/
+    1,     /*max value device can report*/
+    1      /*resolution*/
 };
 
 static const HID_Report_ItemTypedef imp_0_key_array =
 {
-  (uint8_t *)(void *)keybd_report_data + 2, /*data*/
-  8,     /*size*/
-  0,     /*shift*/
-  6,     /*count (only for array items)*/
-  0,     /*signed?*/
-  0,     /*min value read can return*/
-  101,   /*max value read can return*/
-  0,     /*min vale device can report*/
-  101,   /*max value device can report*/
-  1      /*resolution*/
+    ( uint8_t * )( void * )keybd_report_data + 2, /*data*/
+    8,     /*size*/
+    0,     /*shift*/
+    6,     /*count (only for array items)*/
+    0,     /*signed?*/
+    0,     /*min value read can return*/
+    101,   /*max value read can return*/
+    0,     /*min vale device can report*/
+    101,   /*max value device can report*/
+    1      /*resolution*/
 };
 
 #ifdef QWERTY_KEYBOARD
 static  const  uint8_t  HID_KEYBRD_Key[] =
 {
-  '\0',  '`',  '1',  '2',  '3',  '4',  '5',  '6',
-  '7',  '8',  '9',  '0',  '-',  '=',  '\0', '\r',
-  '\t',  'q',  'w',  'e',  'r',  't',  'y',  'u',
-  'i',  'o',  'p',  '[',  ']',  '\\',
-  '\0',  'a',  's',  'd',  'f',  'g',  'h',  'j',
-  'k',  'l',  ';',  '\'', '\0', '\n',
-  '\0',  '\0', 'z',  'x',  'c',  'v',  'b',  'n',
-  'm',  ',',  '.',  '/',  '\0', '\0',
-  '\0',  '\0', '\0', ' ',  '\0', '\0', '\0', '\0',
-  '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
-  '\0',  '\0', '\0', '\0', '\0', '\r', '\0', '\0',
-  '\0', '\0', '\0', '\0', '\0', '\0',
-  '\0',  '\0', '7',  '4',  '1',
-  '\0',  '/',  '8',  '5',  '2',
-  '0',   '*',  '9',  '6',  '3',
-  '.',   '-',  '+',  '\0', '\n', '\0', '\0', '\0', '\0', '\0', '\0',
-  '\0',  '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
-  '\0', '\0', '\0', '\0'
+    '\0',  '`',  '1',  '2',  '3',  '4',  '5',  '6',
+    '7',  '8',  '9',  '0',  '-',  '=',  '\0', '\r',
+    '\t',  'q',  'w',  'e',  'r',  't',  'y',  'u',
+    'i',  'o',  'p',  '[',  ']',  '\\',
+    '\0',  'a',  's',  'd',  'f',  'g',  'h',  'j',
+    'k',  'l',  ';',  '\'', '\0', '\n',
+    '\0',  '\0', 'z',  'x',  'c',  'v',  'b',  'n',
+    'm',  ',',  '.',  '/',  '\0', '\0',
+    '\0',  '\0', '\0', ' ',  '\0', '\0', '\0', '\0',
+    '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
+    '\0',  '\0', '\0', '\0', '\0', '\r', '\0', '\0',
+    '\0', '\0', '\0', '\0', '\0', '\0',
+    '\0',  '\0', '7',  '4',  '1',
+    '\0',  '/',  '8',  '5',  '2',
+    '0',   '*',  '9',  '6',  '3',
+    '.',   '-',  '+',  '\0', '\n', '\0', '\0', '\0', '\0', '\0', '\0',
+    '\0',  '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
+    '\0', '\0', '\0', '\0'
 };
 
 static  const  uint8_t  HID_KEYBRD_ShiftKey[] =
 {
-  '\0', '~',  '!',  '@',  '#',  '$',  '%',  '^',  '&',  '*',  '(',  ')',
-  '_',  '+',  '\0', '\0', '\0', 'Q',  'W',  'E',  'R',  'T',  'Y',  'U',
-  'I',  'O',  'P',  '{',  '}',  '|',  '\0', 'A',  'S',  'D',  'F',  'G',
-  'H',  'J',  'K',  'L',  ':',  '"',  '\0', '\n', '\0', '\0', 'Z',  'X',
-  'C',  'V',  'B',  'N',  'M',  '<',  '>',  '?',  '\0', '\0',  '\0', '\0',
-  '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
-  '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
-  '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
-  '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
-  '\0', '\0', '\0', '\0', '\0', '\0', '\0',    '\0', '\0', '\0', '\0', '\0',
-  '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0'
+    '\0', '~',  '!',  '@',  '#',  '$',  '%',  '^',  '&',  '*',  '(',  ')',
+    '_',  '+',  '\0', '\0', '\0', 'Q',  'W',  'E',  'R',  'T',  'Y',  'U',
+    'I',  'O',  'P',  '{',  '}',  '|',  '\0', 'A',  'S',  'D',  'F',  'G',
+    'H',  'J',  'K',  'L',  ':',  '"',  '\0', '\n', '\0', '\0', 'Z',  'X',
+    'C',  'V',  'B',  'N',  'M',  '<',  '>',  '?',  '\0', '\0',  '\0', '\0',
+    '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
+    '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
+    '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
+    '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
+    '\0', '\0', '\0', '\0', '\0', '\0', '\0',    '\0', '\0', '\0', '\0', '\0',
+    '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0'
 };
 
 #else
 
 static  const  uint8_t  HID_KEYBRD_Key[] =
 {
-  '\0',  '`',  '1',  '2',  '3',  '4',  '5',  '6',  '7',  '8',  '9',  '0',
-  '-',  '=',  '\0', '\r', '\t',  'a',  'z',  'e',  'r',  't',  'y',  'u',
-  'i',  'o',  'p',  '[',  ']', '\\', '\0',  'q',  's',  'd',  'f',  'g',
-  'h',  'j',  'k',  'l',  'm',  '\0', '\0', '\n', '\0',  '\0', 'w',  'x',
-  'c',  'v',  'b',  'n',  ',',  ';',  ':',  '!',  '\0', '\0', '\0',  '\0',
-  '\0', ' ',  '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
-  '\0', '\0', '\0', '\0',  '\0', '\0', '\0', '\0', '\r', '\0', '\0', '\0',
-  '\0', '\0', '\0', '\0', '\0', '\0',  '\0', '7',  '4',  '1', '\0',  '/',
-  '8',  '5',  '2', '0',   '*',  '9',  '6',  '3', '.',   '-',  '+',  '\0',
-  '\n', '\0', '\0', '\0', '\0', '\0', '\0', '\0',  '\0', '\0', '\0', '\0', '\0',
-  '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0'
+    '\0',  '`',  '1',  '2',  '3',  '4',  '5',  '6',  '7',  '8',  '9',  '0',
+    '-',  '=',  '\0', '\r', '\t',  'a',  'z',  'e',  'r',  't',  'y',  'u',
+    'i',  'o',  'p',  '[',  ']', '\\', '\0',  'q',  's',  'd',  'f',  'g',
+    'h',  'j',  'k',  'l',  'm',  '\0', '\0', '\n', '\0',  '\0', 'w',  'x',
+    'c',  'v',  'b',  'n',  ',',  ';',  ':',  '!',  '\0', '\0', '\0',  '\0',
+    '\0', ' ',  '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
+    '\0', '\0', '\0', '\0',  '\0', '\0', '\0', '\0', '\r', '\0', '\0', '\0',
+    '\0', '\0', '\0', '\0', '\0', '\0',  '\0', '7',  '4',  '1', '\0',  '/',
+    '8',  '5',  '2', '0',   '*',  '9',  '6',  '3', '.',   '-',  '+',  '\0',
+    '\n', '\0', '\0', '\0', '\0', '\0', '\0', '\0',  '\0', '\0', '\0', '\0', '\0',
+    '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0'
 };
 
 static  const  uint8_t  HID_KEYBRD_ShiftKey[] =
 {
-  '\0', '~',  '!',  '@',  '#',  '$',  '%',  '^',  '&',  '*',  '(',  ')',  '_',
-  '+',  '\0', '\0', '\0', 'A',  'Z',  'E',  'R',  'T',  'Y',  'U',  'I',  'O',
-  'P',  '{',  '}',  '*', '\0', 'Q',  'S',  'D',  'F',  'G',  'H',  'J',  'K',
-  'L',  'M',  '%',  '\0', '\n', '\0', '\0', 'W',  'X',  'C',  'V',  'B',  'N',
-  '?',  '.',  '/',  '\0',  '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
-  '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
-  '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
-  '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
-  '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
-  '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0'
+    '\0', '~',  '!',  '@',  '#',  '$',  '%',  '^',  '&',  '*',  '(',  ')',  '_',
+    '+',  '\0', '\0', '\0', 'A',  'Z',  'E',  'R',  'T',  'Y',  'U',  'I',  'O',
+    'P',  '{',  '}',  '*', '\0', 'Q',  'S',  'D',  'F',  'G',  'H',  'J',  'K',
+    'L',  'M',  '%',  '\0', '\n', '\0', '\0', 'W',  'X',  'C',  'V',  'B',  'N',
+    '?',  '.',  '/',  '\0',  '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
+    '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
+    '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
+    '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
+    '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0',
+    '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0'
 };
 #endif
 
 static  const  uint8_t  HID_KEYBRD_Codes[] =
 {
-  0,     0,    0,    0,   31,   50,   48,   33,
-  19,   34,   35,   36,   24,   37,   38,   39,       /* 0x00 - 0x0F */
-  52,    51,   25,   26,   17,   20,   32,   21,
-  23,   49,   18,   47,   22,   46,    2,    3,       /* 0x10 - 0x1F */
-  4,    5,    6,    7,    8,    9,   10,   11,
-  43,  110,   15,   16,   61,   12,   13,   27,       /* 0x20 - 0x2F */
-  28,   29,   42,   40,   41,    1,   53,   54,
-  55,   30,  112,  113,  114,  115,  116,  117,       /* 0x30 - 0x3F */
-  118,  119,  120,  121,  122,  123,  124,  125,
-  126,   75,   80,   85,   76,   81,   86,   89,       /* 0x40 - 0x4F */
-  79,   84,   83,   90,   95,  100,  105,  106,
-  108,   93,   98,  103,   92,   97,  102,   91,       /* 0x50 - 0x5F */
-  96,  101,   99,  104,   45,  129,    0,    0,
-  0,    0,    0,    0,    0,    0,    0,    0,       /* 0x60 - 0x6F */
-  0,    0,    0,    0,    0,    0,    0,    0,
-  0,    0,    0,    0,    0,    0,    0,    0,       /* 0x70 - 0x7F */
-  0,    0,    0,    0,    0,  107,    0,   56,
-  0,    0,    0,    0,    0,    0,    0,    0,       /* 0x80 - 0x8F */
-  0,    0,    0,    0,    0,    0,    0,    0,
-  0,    0,    0,    0,    0,    0,    0,    0,       /* 0x90 - 0x9F */
-  0,    0,    0,    0,    0,    0,    0,    0,
-  0,    0,    0,    0,    0,    0,    0,    0,       /* 0xA0 - 0xAF */
-  0,    0,    0,    0,    0,    0,    0,    0,
-  0,    0,    0,    0,    0,    0,    0,    0,       /* 0xB0 - 0xBF */
-  0,    0,    0,    0,    0,    0,    0,    0,
-  0,    0,    0,    0,    0,    0,    0,    0,       /* 0xC0 - 0xCF */
-  0,    0,    0,    0,    0,    0,    0,    0,
-  0,    0,    0,    0,    0,    0,    0,    0,       /* 0xD0 - 0xDF */
-  58,   44,   60,  127,   64,   57,   62,  128        /* 0xE0 - 0xE7 */
+    0,     0,    0,    0,   31,   50,   48,   33,
+    19,   34,   35,   36,   24,   37,   38,   39,       /* 0x00 - 0x0F */
+    52,    51,   25,   26,   17,   20,   32,   21,
+    23,   49,   18,   47,   22,   46,    2,    3,       /* 0x10 - 0x1F */
+    4,    5,    6,    7,    8,    9,   10,   11,
+    43,  110,   15,   16,   61,   12,   13,   27,       /* 0x20 - 0x2F */
+    28,   29,   42,   40,   41,    1,   53,   54,
+    55,   30,  112,  113,  114,  115,  116,  117,       /* 0x30 - 0x3F */
+    118,  119,  120,  121,  122,  123,  124,  125,
+    126,   75,   80,   85,   76,   81,   86,   89,       /* 0x40 - 0x4F */
+    79,   84,   83,   90,   95,  100,  105,  106,
+    108,   93,   98,  103,   92,   97,  102,   91,       /* 0x50 - 0x5F */
+    96,  101,   99,  104,   45,  129,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,       /* 0x60 - 0x6F */
+    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,       /* 0x70 - 0x7F */
+    0,    0,    0,    0,    0,  107,    0,   56,
+    0,    0,    0,    0,    0,    0,    0,    0,       /* 0x80 - 0x8F */
+    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,       /* 0x90 - 0x9F */
+    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,       /* 0xA0 - 0xAF */
+    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,       /* 0xB0 - 0xBF */
+    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,       /* 0xC0 - 0xCF */
+    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,       /* 0xD0 - 0xDF */
+    58,   44,   60,  127,   64,   57,   62,  128        /* 0xE0 - 0xE7 */
 };
 
 /**
@@ -325,31 +325,32 @@ static  const  uint8_t  HID_KEYBRD_Codes[] =
   * @param  phost: Host handle
   * @retval USBH Status
   */
-USBH_StatusTypeDef USBH_HID_KeybdInit(USBH_HandleTypeDef *phost)
+USBH_StatusTypeDef USBH_HID_KeybdInit( USBH_HandleTypeDef *phost )
 {
-  uint32_t x;
-  HID_HandleTypeDef *HID_Handle = (HID_HandleTypeDef *) phost->pActiveClass->pData;
+    uint32_t x;
+    HID_HandleTypeDef *HID_Handle = ( HID_HandleTypeDef * ) phost->pActiveClass->pData;
 
-  keybd_info.lctrl = keybd_info.lshift = 0U;
-  keybd_info.lalt = keybd_info.lgui = 0U;
-  keybd_info.rctrl = keybd_info.rshift = 0U;
-  keybd_info.ralt = keybd_info.rgui = 0U;
+    keybd_info.lctrl = keybd_info.lshift = 0U;
+    keybd_info.lalt = keybd_info.lgui = 0U;
+    keybd_info.rctrl = keybd_info.rshift = 0U;
+    keybd_info.ralt = keybd_info.rgui = 0U;
 
 
-  for (x = 0U; x < (sizeof(keybd_report_data) / sizeof(uint32_t)); x++)
-  {
-    keybd_report_data[x] = 0U;
-    keybd_rx_report_buf[x] = 0U;
-  }
+    for( x = 0U; x < ( sizeof( keybd_report_data ) / sizeof( uint32_t ) ); x++ )
+    {
+        keybd_report_data[x] = 0U;
+        keybd_rx_report_buf[x] = 0U;
+    }
 
-  if (HID_Handle->length > (sizeof(keybd_report_data)))
-  {
-    HID_Handle->length = (sizeof(keybd_report_data));
-  }
-  HID_Handle->pData = (uint8_t *)(void *)keybd_rx_report_buf;
-  USBH_HID_FifoInit(&HID_Handle->fifo, phost->device.Data, HID_QUEUE_SIZE * sizeof(keybd_report_data));
+    if( HID_Handle->length > ( sizeof( keybd_report_data ) ) )
+    {
+        HID_Handle->length = ( sizeof( keybd_report_data ) );
+    }
 
-  return USBH_OK;
+    HID_Handle->pData = ( uint8_t * )( void * )keybd_rx_report_buf;
+    USBH_HID_FifoInit( &HID_Handle->fifo, phost->device.Data, HID_QUEUE_SIZE * sizeof( keybd_report_data ) );
+
+    return USBH_OK;
 }
 
 /**
@@ -358,16 +359,16 @@ USBH_StatusTypeDef USBH_HID_KeybdInit(USBH_HandleTypeDef *phost)
   * @param  phost: Host handle
   * @retval keyboard information
   */
-HID_KEYBD_Info_TypeDef *USBH_HID_GetKeybdInfo(USBH_HandleTypeDef *phost)
+HID_KEYBD_Info_TypeDef *USBH_HID_GetKeybdInfo( USBH_HandleTypeDef *phost )
 {
-  if (USBH_HID_KeybdDecode(phost) == USBH_OK)
-  {
-    return &keybd_info;
-  }
-  else
-  {
-    return NULL;
-  }
+    if( USBH_HID_KeybdDecode( phost ) == USBH_OK )
+    {
+        return &keybd_info;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 /**
@@ -376,35 +377,38 @@ HID_KEYBD_Info_TypeDef *USBH_HID_GetKeybdInfo(USBH_HandleTypeDef *phost)
   * @param  phost: Host handle
   * @retval USBH Status
   */
-static USBH_StatusTypeDef USBH_HID_KeybdDecode(USBH_HandleTypeDef *phost)
+static USBH_StatusTypeDef USBH_HID_KeybdDecode( USBH_HandleTypeDef *phost )
 {
-  uint8_t x;
+    uint8_t x;
 
-  HID_HandleTypeDef *HID_Handle = (HID_HandleTypeDef *) phost->pActiveClass->pData;
-  if (HID_Handle->length == 0U)
-  {
-    return USBH_FAIL;
-  }
-  /*Fill report */
-  if (USBH_HID_FifoRead(&HID_Handle->fifo, &keybd_report_data, HID_Handle->length) ==  HID_Handle->length)
-  {
-    keybd_info.lctrl = (uint8_t)HID_ReadItem((HID_Report_ItemTypedef *) &imp_0_lctrl, 0U);
-    keybd_info.lshift = (uint8_t)HID_ReadItem((HID_Report_ItemTypedef *) &imp_0_lshift, 0U);
-    keybd_info.lalt = (uint8_t)HID_ReadItem((HID_Report_ItemTypedef *) &imp_0_lalt, 0U);
-    keybd_info.lgui = (uint8_t)HID_ReadItem((HID_Report_ItemTypedef *) &imp_0_lgui, 0U);
-    keybd_info.rctrl = (uint8_t)HID_ReadItem((HID_Report_ItemTypedef *) &imp_0_rctrl, 0U);
-    keybd_info.rshift = (uint8_t)HID_ReadItem((HID_Report_ItemTypedef *) &imp_0_rshift, 0U);
-    keybd_info.ralt = (uint8_t)HID_ReadItem((HID_Report_ItemTypedef *) &imp_0_ralt, 0U);
-    keybd_info.rgui = (uint8_t)HID_ReadItem((HID_Report_ItemTypedef *) &imp_0_rgui, 0U);
+    HID_HandleTypeDef *HID_Handle = ( HID_HandleTypeDef * ) phost->pActiveClass->pData;
 
-    for (x = 0U; x < sizeof(keybd_info.keys); x++)
+    if( HID_Handle->length == 0U )
     {
-      keybd_info.keys[x] = (uint8_t)HID_ReadItem((HID_Report_ItemTypedef *) &imp_0_key_array, x);
+        return USBH_FAIL;
     }
 
-    return USBH_OK;
-  }
-  return   USBH_FAIL;
+    /*Fill report */
+    if( USBH_HID_FifoRead( &HID_Handle->fifo, &keybd_report_data, HID_Handle->length ) ==  HID_Handle->length )
+    {
+        keybd_info.lctrl = ( uint8_t )HID_ReadItem( ( HID_Report_ItemTypedef * ) &imp_0_lctrl, 0U );
+        keybd_info.lshift = ( uint8_t )HID_ReadItem( ( HID_Report_ItemTypedef * ) &imp_0_lshift, 0U );
+        keybd_info.lalt = ( uint8_t )HID_ReadItem( ( HID_Report_ItemTypedef * ) &imp_0_lalt, 0U );
+        keybd_info.lgui = ( uint8_t )HID_ReadItem( ( HID_Report_ItemTypedef * ) &imp_0_lgui, 0U );
+        keybd_info.rctrl = ( uint8_t )HID_ReadItem( ( HID_Report_ItemTypedef * ) &imp_0_rctrl, 0U );
+        keybd_info.rshift = ( uint8_t )HID_ReadItem( ( HID_Report_ItemTypedef * ) &imp_0_rshift, 0U );
+        keybd_info.ralt = ( uint8_t )HID_ReadItem( ( HID_Report_ItemTypedef * ) &imp_0_ralt, 0U );
+        keybd_info.rgui = ( uint8_t )HID_ReadItem( ( HID_Report_ItemTypedef * ) &imp_0_rgui, 0U );
+
+        for( x = 0U; x < sizeof( keybd_info.keys ); x++ )
+        {
+            keybd_info.keys[x] = ( uint8_t )HID_ReadItem( ( HID_Report_ItemTypedef * ) &imp_0_key_array, x );
+        }
+
+        return USBH_OK;
+    }
+
+    return   USBH_FAIL;
 }
 
 /**
@@ -414,18 +418,20 @@ static USBH_StatusTypeDef USBH_HID_KeybdDecode(USBH_HandleTypeDef *phost)
   * @param  info: Keyboard information
   * @retval ASCII code
   */
-uint8_t USBH_HID_GetASCIICode(HID_KEYBD_Info_TypeDef *info)
+uint8_t USBH_HID_GetASCIICode( HID_KEYBD_Info_TypeDef *info )
 {
-  uint8_t   output;
-  if ((info->lshift == 1U) || (info->rshift))
-  {
-    output =  HID_KEYBRD_ShiftKey[HID_KEYBRD_Codes[info->keys[0]]];
-  }
-  else
-  {
-    output =  HID_KEYBRD_Key[HID_KEYBRD_Codes[info->keys[0]]];
-  }
-  return output;
+    uint8_t   output;
+
+    if( ( info->lshift == 1U ) || ( info->rshift ) )
+    {
+        output =  HID_KEYBRD_ShiftKey[HID_KEYBRD_Codes[info->keys[0]]];
+    }
+    else
+    {
+        output =  HID_KEYBRD_Key[HID_KEYBRD_Codes[info->keys[0]]];
+    }
+
+    return output;
 }
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 

@@ -6,11 +6,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -22,7 +22,7 @@
 #define STM32G0xx_HAL_PWR_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -164,7 +164,7 @@
 /**
   * @}
   */
-  
+
 /**
   * @}
   */
@@ -277,7 +277,7 @@
   */
 
 /* Initialization and de-initialization functions *******************************/
-void              HAL_PWR_DeInit(void);
+void              HAL_PWR_DeInit( void );
 /**
   * @}
   */
@@ -286,21 +286,21 @@ void              HAL_PWR_DeInit(void);
   * @{
   */
 /* Peripheral Control functions  ************************************************/
-void              HAL_PWR_EnableBkUpAccess(void);
-void              HAL_PWR_DisableBkUpAccess(void);
+void              HAL_PWR_EnableBkUpAccess( void );
+void              HAL_PWR_DisableBkUpAccess( void );
 
 /* WakeUp pins configuration functions ****************************************/
-void              HAL_PWR_EnableWakeUpPin(uint32_t WakeUpPinPolarity);
-void              HAL_PWR_DisableWakeUpPin(uint32_t WakeUpPinx);
+void              HAL_PWR_EnableWakeUpPin( uint32_t WakeUpPinPolarity );
+void              HAL_PWR_DisableWakeUpPin( uint32_t WakeUpPinx );
 
 /* Low Power modes configuration functions ************************************/
-void              HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry);
-void              HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry);
-void              HAL_PWR_EnterSTANDBYMode(void);
-void              HAL_PWR_EnableSleepOnExit(void);
-void              HAL_PWR_DisableSleepOnExit(void);
-void              HAL_PWR_EnableSEVOnPend(void);
-void              HAL_PWR_DisableSEVOnPend(void);
+void              HAL_PWR_EnterSLEEPMode( uint32_t Regulator, uint8_t SLEEPEntry );
+void              HAL_PWR_EnterSTOPMode( uint32_t Regulator, uint8_t STOPEntry );
+void              HAL_PWR_EnterSTANDBYMode( void );
+void              HAL_PWR_EnableSleepOnExit( void );
+void              HAL_PWR_DisableSleepOnExit( void );
+void              HAL_PWR_EnableSEVOnPend( void );
+void              HAL_PWR_DisableSEVOnPend( void );
 
 /**
   * @}

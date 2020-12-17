@@ -79,20 +79,20 @@
 #include "stm32g0xx.h"
 
 #if !defined  (HSE_VALUE)
-#define HSE_VALUE    ((uint32_t)52000000) /*!< Value of the External oscillator in Hz on FPGA*/
-//#define HSE_VALUE    ((uint32_t)8000000) /*!< Value of the External oscillator in Hz */
+    #define HSE_VALUE    ((uint32_t)52000000) /*!< Value of the External oscillator in Hz on FPGA*/
+    //#define HSE_VALUE    ((uint32_t)8000000) /*!< Value of the External oscillator in Hz */
 #endif /* HSE_VALUE */
 
 #if !defined  (HSI_VALUE)
-  #define HSI_VALUE    ((uint32_t)16000000) /*!< Value of the Internal oscillator in Hz*/
+    #define HSI_VALUE    ((uint32_t)16000000) /*!< Value of the Internal oscillator in Hz*/
 #endif /* HSI_VALUE */
 
 #if !defined  (LSI_VALUE)
- #define LSI_VALUE  ((uint32_t)32000)       /*!< Value of LSI in Hz*/
+    #define LSI_VALUE  ((uint32_t)32000)       /*!< Value of LSI in Hz*/
 #endif /* LSI_VALUE */
 
 #if !defined  (LSE_VALUE)
-  #define LSE_VALUE    ((uint32_t)32768)    /*!< Value of LSE in Hz*/
+    #define LSE_VALUE    ((uint32_t)32768)    /*!< Value of LSE in Hz*/
 #endif /* LSE_VALUE */
 
 /**
@@ -115,11 +115,11 @@
 /*!< Uncomment the following line if you need to relocate your vector Table in
      Internal SRAM. */
 #if defined(RELOCATE)
-#define VECT_TAB_OFFSET  0x8000 /*!< Vector Table base offset field.
-                                       This value must be a multiple of 0x100. */
+    #define VECT_TAB_OFFSET  0x8000 /*!< Vector Table base offset field.
+    This value must be a multiple of 0x100. */
 #else
-#define VECT_TAB_OFFSET  0x00   /*!< Vector Table base offset field.
-                                       This value must be a multiple of 0x100. */
+    #define VECT_TAB_OFFSET  0x00   /*!< Vector Table base offset field.
+    This value must be a multiple of 0x100. */
 #endif /* RELOCATE */
 /******************************************************************************/
 /**
@@ -137,18 +137,18 @@
 /** @addtogroup STM32G0xx_System_Private_Variables
   * @{
   */
-  /* This variable is updated in three ways:
-      1) by calling CMSIS function SystemCoreClockUpdate()
-      2) by calling HAL API function HAL_RCC_GetHCLKFreq()
-      3) each time HAL_RCC_ClockConfig() is called to configure the system clock frequency
-         Note: If you use this function to configure the system clock; then there
-               is no need to call the 2 first functions listed above, since SystemCoreClock
-               variable is updated automatically.
-  */
-  uint32_t SystemCoreClock = HSI_VALUE;
+/* This variable is updated in three ways:
+    1) by calling CMSIS function SystemCoreClockUpdate()
+    2) by calling HAL API function HAL_RCC_GetHCLKFreq()
+    3) each time HAL_RCC_ClockConfig() is called to configure the system clock frequency
+       Note: If you use this function to configure the system clock; then there
+             is no need to call the 2 first functions listed above, since SystemCoreClock
+             variable is updated automatically.
+*/
+uint32_t SystemCoreClock = HSI_VALUE;
 
-  const uint32_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
-  const uint32_t APBPrescTable[8] =  {0, 0, 0, 0, 1, 2, 3, 4};
+const uint32_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
+const uint32_t APBPrescTable[8] =  {0, 0, 0, 0, 1, 2, 3, 4};
 
 /**
   * @}
@@ -171,13 +171,13 @@
   * @param  None
   * @retval None
   */
-void SystemInit(void)
+void SystemInit( void )
 {
-  /* Configure the Vector Table location add offset address ------------------*/
+    /* Configure the Vector Table location add offset address ------------------*/
 #ifdef VECT_TAB_SRAM
-  SCB->VTOR = SRAM_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal SRAM */
+    SCB->VTOR = SRAM_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal SRAM */
 #else
-  SCB->VTOR = FLASH_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal FLASH */
+    SCB->VTOR = FLASH_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal FLASH */
 #endif
 }
 
@@ -221,56 +221,58 @@ void SystemInit(void)
   * @param  None
   * @retval None
   */
-void SystemCoreClockUpdate(void)
+void SystemCoreClockUpdate( void )
 {
-  uint32_t tmp = 0U, pllvco = 0U, pllr = 2U, pllsource = 0U, pllm = 2U, hsidiv = 0U;
+    uint32_t tmp = 0U, pllvco = 0U, pllr = 2U, pllsource = 0U, pllm = 2U, hsidiv = 0U;
 
-  /* Get SYSCLK source -------------------------------------------------------*/
-  switch (RCC->CFGR & RCC_CFGR_SWS)
-  {
+    /* Get SYSCLK source -------------------------------------------------------*/
+    switch( RCC->CFGR & RCC_CFGR_SWS )
+    {
     case RCC_CFGR_SWS_0:  /* HSE used as system clock */
-      SystemCoreClock = HSE_VALUE;
-      break;
+        SystemCoreClock = HSE_VALUE;
+        break;
 
-    case (RCC_CFGR_SWS_1 | RCC_CFGR_SWS_0):  /* LSI used as system clock */
-      SystemCoreClock = LSI_VALUE;
-      break;
+    case( RCC_CFGR_SWS_1 | RCC_CFGR_SWS_0 ): /* LSI used as system clock */
+        SystemCoreClock = LSI_VALUE;
+        break;
 
     case RCC_CFGR_SWS_2:  /* LSE used as system clock */
-      SystemCoreClock = LSE_VALUE;
-      break;
+        SystemCoreClock = LSE_VALUE;
+        break;
 
     case RCC_CFGR_SWS_1:  /* PLL used as system clock */
-      pllsource = (RCC->PLLCFGR & RCC_PLLCFGR_PLLSRC);
-      pllm = ((RCC->PLLCFGR & RCC_PLLCFGR_PLLM) >> 4U) + 1U ;
+        pllsource = ( RCC->PLLCFGR & RCC_PLLCFGR_PLLSRC );
+        pllm = ( ( RCC->PLLCFGR & RCC_PLLCFGR_PLLM ) >> 4U ) + 1U ;
 
-      switch (pllsource)
-      {
+        switch( pllsource )
+        {
         case 0x03:  /* HSE used as PLL clock source */
-          pllvco = (HSE_VALUE / pllm);
-          break;
+            pllvco = ( HSE_VALUE / pllm );
+            break;
 
         case 0x02:  /* HSI used as PLL clock source */
         default:
-          pllvco = (HSI_VALUE / pllm);
-          break;
-      }
-      pllvco = pllvco * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 8U);
-      pllr = (((RCC->PLLCFGR & RCC_PLLCFGR_PLLR) >> 29U) + 1U);
-      SystemCoreClock = pllvco/pllr;
-      break;
+            pllvco = ( HSI_VALUE / pllm );
+            break;
+        }
+
+        pllvco = pllvco * ( ( RCC->PLLCFGR & RCC_PLLCFGR_PLLN ) >> 8U );
+        pllr = ( ( ( RCC->PLLCFGR & RCC_PLLCFGR_PLLR ) >> 29U ) + 1U );
+        SystemCoreClock = pllvco / pllr;
+        break;
 
     case 0x00000000U:  /* HSI used as system clock */
     default:                /* HSI used as system clock */
-      hsidiv = (1U << ((READ_BIT(RCC->CR, RCC_CR_HSIDIV))>> RCC_CR_HSIDIV_Pos));
-      SystemCoreClock = (HSI_VALUE/hsidiv);
-      break;
-  }
-  /* Compute HCLK clock frequency --------------------------------------------*/
-  /* Get HCLK prescaler */
-  tmp = AHBPrescTable[((RCC->CFGR & RCC_CFGR_HPRE) >> 8U)];
-  /* HCLK clock frequency */
-  SystemCoreClock >>= tmp;
+        hsidiv = ( 1U << ( ( READ_BIT( RCC->CR, RCC_CR_HSIDIV ) ) >> RCC_CR_HSIDIV_Pos ) );
+        SystemCoreClock = ( HSI_VALUE / hsidiv );
+        break;
+    }
+
+    /* Compute HCLK clock frequency --------------------------------------------*/
+    /* Get HCLK prescaler */
+    tmp = AHBPrescTable[( ( RCC->CFGR & RCC_CFGR_HPRE ) >> 8U )];
+    /* HCLK clock frequency */
+    SystemCoreClock >>= tmp;
 }
 
 

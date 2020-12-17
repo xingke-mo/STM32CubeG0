@@ -30,7 +30,7 @@
 #include "k_menu.h"
 #include "k_window.h"
 
-/* Private typedef -----------------------------------------------------------*/    
+/* Private typedef -----------------------------------------------------------*/
 /* Private constants ---------------------------------------------------------*/
 #define LOW_POWER_WAKEKUP_PIN       PWR_WAKEUP_PIN1
 #define LOW_POWER_WAKEUP_POLARITY   PWR_WAKEUP_PIN1_HIGH
@@ -42,445 +42,517 @@
 #define LOW_POWER_WAKEUP_TEXT2      "\n\n\n\npress JOY SEL\nto exit\nand reset\n"
 
 /* Private function prototypes -----------------------------------------------*/
-KMODULE_RETURN _LowPowerDemoExec(void);
-KMODULE_RETURN _LowPowerDemoConfig(void);
-KMODULE_RETURN _LowPowerDemoUnConfig(void);
+KMODULE_RETURN _LowPowerDemoExec( void );
+KMODULE_RETURN _LowPowerDemoConfig( void );
+KMODULE_RETURN _LowPowerDemoUnConfig( void );
 
-void LowPowerDemo(void);
-void LowPowerUserAction(uint8_t sel);
-void LowPowerStandbyWakeupPin(void);
-void LowPowerStandbyRTCAlarm(void);
-void LowPowerStopEXTI(void);
-void LowPowerStopRTCAlarm(void);
+void LowPowerDemo( void );
+void LowPowerUserAction( uint8_t sel );
+void LowPowerStandbyWakeupPin( void );
+void LowPowerStandbyRTCAlarm( void );
+void LowPowerStopEXTI( void );
+void LowPowerStopRTCAlarm( void );
 
-static void LowPowerHandleAlarm(void);
+static void LowPowerHandleAlarm( void );
 
 /* Private Variable ----------------------------------------------------------*/
 /* standby mode menu */
 const tMenuItem StandbyModeMenuItems[] =
 {
-    {"Wakeup pin"    , 14, 30,    SEL_EXEC, MODULE_LOWPOWER, LowPowerStandbyWakeupPin, LowPowerUserAction, NULL, NULL, NULL  },
-    {"RTC Alarm" , 14, 30,    SEL_EXEC, MODULE_LOWPOWER, LowPowerStandbyRTCAlarm, LowPowerUserAction, NULL, NULL, NULL  },
-    {"RETURN"         ,  0,  0,    SEL_EXIT, MODULE_LOWPOWER, NULL, NULL, NULL, NULL, NULL  }
+    {"Wakeup pin", 14, 30,    SEL_EXEC, MODULE_LOWPOWER, LowPowerStandbyWakeupPin, LowPowerUserAction, NULL, NULL, NULL  },
+    {"RTC Alarm", 14, 30,    SEL_EXEC, MODULE_LOWPOWER, LowPowerStandbyRTCAlarm, LowPowerUserAction, NULL, NULL, NULL  },
+    {"RETURN",  0,  0,    SEL_EXIT, MODULE_LOWPOWER, NULL, NULL, NULL, NULL, NULL  }
 };
 
-const tMenu StandbyModeMenu = {
-  "Standby mode", StandbyModeMenuItems, countof(StandbyModeMenuItems), TYPE_TEXT, 1, 1
+const tMenu StandbyModeMenu =
+{
+    "Standby mode", StandbyModeMenuItems, countof( StandbyModeMenuItems ), TYPE_TEXT, 1, 1
 };
 
 
 /* stop mode menu */
 const tMenuItem StopModeMenuItems[] =
 {
-    {"EXTI pin"     , 14, 30,    SEL_EXEC, MODULE_LOWPOWER, LowPowerStopEXTI, LowPowerUserAction, NULL, NULL , NULL },
+    {"EXTI pin", 14, 30,    SEL_EXEC, MODULE_LOWPOWER, LowPowerStopEXTI, LowPowerUserAction, NULL, NULL, NULL },
     {"RTC Alarm", 14, 30,    SEL_EXEC, MODULE_LOWPOWER, LowPowerStopRTCAlarm, LowPowerUserAction, NULL, NULL, NULL  },
-    {"Return"        ,  0,  0,    SEL_EXIT, MODULE_LOWPOWER, NULL, NULL, NULL, NULL }
+    {"Return",  0,  0,    SEL_EXIT, MODULE_LOWPOWER, NULL, NULL, NULL, NULL }
 };
 
-const tMenu StopModeMenu = {
-  "Stop mode", StopModeMenuItems, countof(StopModeMenuItems), TYPE_TEXT, 1, 1
+const tMenu StopModeMenu =
+{
+    "Stop mode", StopModeMenuItems, countof( StopModeMenuItems ), TYPE_TEXT, 1, 1
 };
 
 
 /* Main menu */
 const tMenuItem LowPowerMenuItems[] =
 {
-    {"STOP mode"   , 14, 30, SEL_SUBMENU, MODULE_LOWPOWER, NULL, NULL, (const tMenu*)&StopModeMenu, NULL, NULL  },
-    {"STANDBY mode", 14, 30, SEL_SUBMENU, MODULE_LOWPOWER, NULL, NULL, (const tMenu*)&StandbyModeMenu, NULL, NULL  },
-    {"Return"      ,  0,  0, SEL_EXIT, MODULE_NONE, NULL, NULL, NULL, NULL }
+    {"STOP mode", 14, 30, SEL_SUBMENU, MODULE_LOWPOWER, NULL, NULL, ( const tMenu * ) &StopModeMenu, NULL, NULL  },
+    {"STANDBY mode", 14, 30, SEL_SUBMENU, MODULE_LOWPOWER, NULL, NULL, ( const tMenu * ) &StandbyModeMenu, NULL, NULL  },
+    {"Return",  0,  0, SEL_EXIT, MODULE_NONE, NULL, NULL, NULL, NULL }
 };
 
-const tMenu LowpowerMenu = {
-  "Low power", LowPowerMenuItems, countof(LowPowerMenuItems), TYPE_TEXT, 1, 1};
+const tMenu LowpowerMenu =
+{
+    "Low power", LowPowerMenuItems, countof( LowPowerMenuItems ), TYPE_TEXT, 1, 1
+};
 
 /* used to exit application */
-static __IO uint8_t user_event=0;
-static __IO uint8_t user_action=0;
+static __IO uint8_t user_event = 0;
+static __IO uint8_t user_action = 0;
 
 /* Private typedef -----------------------------------------------------------*/
 /* External variables --------------------------------------------------------*/
 const K_ModuleItem_Typedef ModuleLowPower =
 {
-  MODULE_LOWPOWER,
-  _LowPowerDemoConfig,
-  _LowPowerDemoExec,
-  _LowPowerDemoUnConfig,
-  NULL
+    MODULE_LOWPOWER,
+    _LowPowerDemoConfig,
+    _LowPowerDemoExec,
+    _LowPowerDemoUnConfig,
+    NULL
 };
 
 /**
-  * @brief  Configure the Lowpower application 
-  * @param  None.
-  * @note   run and display information about the lowpower feature.  
-  * @retval None.
-  */
-KMODULE_RETURN _LowPowerDemoConfig(void)
-{
-  /*#### Disable all used wakeup sources ####*/
-  HAL_RTC_DeactivateAlarm(&hrtc, RTC_ALARM_B);
-  /* Disable all previous wake up interrupt */
-  HAL_PWR_DisableWakeUpPin(LOW_POWER_WAKEKUP_PIN);
-
-  /*#### Clear all related wakeup flags ####*/
-  /* Clear the Alarm interrupt pending bit */
-  __HAL_RTC_ALARM_CLEAR_FLAG(&hrtc,RTC_FLAG_ALRBF);
-  /* Clear PWR wake up Flag */
-  __HAL_PWR_CLEAR_FLAG(LOW_POWER_WAKEUP_FLAG | PWR_FLAG_SB);
-
-  return KMODULE_OK;
-}
-
-/**
-  * @brief  un-Configure the Lowpower application 
+  * @brief  Configure the Lowpower application
   * @param  None.
   * @note   run and display information about the lowpower feature.
   * @retval None.
   */
-KMODULE_RETURN _LowPowerDemoUnConfig(void)
+KMODULE_RETURN _LowPowerDemoConfig( void )
 {
-  return KMODULE_OK;
+    /*#### Disable all used wakeup sources ####*/
+    HAL_RTC_DeactivateAlarm( &hrtc, RTC_ALARM_B );
+    /* Disable all previous wake up interrupt */
+    HAL_PWR_DisableWakeUpPin( LOW_POWER_WAKEKUP_PIN );
+
+    /*#### Clear all related wakeup flags ####*/
+    /* Clear the Alarm interrupt pending bit */
+    __HAL_RTC_ALARM_CLEAR_FLAG( &hrtc, RTC_FLAG_ALRBF );
+    /* Clear PWR wake up Flag */
+    __HAL_PWR_CLEAR_FLAG( LOW_POWER_WAKEUP_FLAG | PWR_FLAG_SB );
+
+    return KMODULE_OK;
 }
 
 /**
-  * @brief  Run the Lowpower application 
+  * @brief  un-Configure the Lowpower application
   * @param  None.
-  * @note   run and display information about the lowpower feature.  
+  * @note   run and display information about the lowpower feature.
   * @retval None.
   */
-KMODULE_RETURN _LowPowerDemoExec(void)
+KMODULE_RETURN _LowPowerDemoUnConfig( void )
 {
-  /* Prepare Execute the main MMI of lowpower application */
-  kMenu_Execute(LowpowerMenu);
-  return KMODULE_OK;
+    return KMODULE_OK;
 }
 
 /**
-  * @brief  Get User action 
+  * @brief  Run the Lowpower application
+  * @param  None.
+  * @note   run and display information about the lowpower feature.
+  * @retval None.
+  */
+KMODULE_RETURN _LowPowerDemoExec( void )
+{
+    /* Prepare Execute the main MMI of lowpower application */
+    kMenu_Execute( LowpowerMenu );
+    return KMODULE_OK;
+}
+
+/**
+  * @brief  Get User action
   * @param  sel : User selection (JOY_SEL,...)
-  * @note   This example is the only way to get user information.  
+  * @note   This example is the only way to get user information.
   * @retval None
   */
-void LowPowerUserAction(uint8_t sel)
+void LowPowerUserAction( uint8_t sel )
 {
-  if (user_action == 0)
-  {
-    user_action = 1;
-    user_event = sel;
-  }
+    if( user_action == 0 )
+    {
+        user_action = 1;
+        user_event = sel;
+    }
 }
 
 /**
-  * @brief  Run the Lowpower Standby mode Wakeup pin 
+  * @brief  Run the Lowpower Standby mode Wakeup pin
   * @param  None.
-  * @note   run and display information about the lowpower feature.  
+  * @note   run and display information about the lowpower feature.
   * @retval None.
   */
-void LowPowerStandbyWakeupPin(void)
+void LowPowerStandbyWakeupPin( void )
 {
-  kWindow_Popup("STANDBY WAKEUP", LCD_COLOR_WHITE, LCD_COLOR_ST_BLUE,\
-                LOW_POWER_WAKEUP_TEXT1,                  \
-                LCD_COLOR_WHITE, LCD_COLOR_ST_BLUE );
+    kWindow_Popup( "STANDBY WAKEUP", LCD_COLOR_WHITE, LCD_COLOR_ST_BLUE, \
+                   LOW_POWER_WAKEUP_TEXT1,                  \
+                   LCD_COLOR_WHITE, LCD_COLOR_ST_BLUE );
 
-  HAL_Delay(100);
+    HAL_Delay( 100 );
 
-  user_event = JOY_UP;
-  while(user_event != JOY_SEL)
-  {
-    user_action = 0;
-  };
+    user_event = JOY_UP;
 
-  kWindow_Popup("", LCD_COLOR_WHITE, LCD_COLOR_WHITE,         \
-                LOW_POWER_WAKEUP_TEXT2,\
-                 LCD_COLOR_ST_BLUE, LCD_COLOR_WHITE );
-  
-  /* Enable WKUP pin */
-  HAL_PWR_EnableWakeUpPin(LOW_POWER_WAKEUP_POLARITY);
+    while( user_event != JOY_SEL )
+    {
+        user_action = 0;
+    };
 
-  /* Enable GPIO pull-down state in Standby mode */
-  /* Note: This configuration is matching GPIO pulling configuration
-           previously performed during BSP initialization */
-  HAL_PWREx_EnableGPIOPullDown(LOW_POWER_WAKEKUP_GPIO_PORT, LOW_POWER_WAKEKUP_GPIO_PIN);
+    kWindow_Popup( "", LCD_COLOR_WHITE, LCD_COLOR_WHITE,         \
+                   LOW_POWER_WAKEUP_TEXT2, \
+                   LCD_COLOR_ST_BLUE, LCD_COLOR_WHITE );
 
-  /* Enable pull-up and pull-down configuration */
-  HAL_PWREx_EnablePullUpPullDownConfig();
-  
-  /* Standby mode */
-  HAL_PWR_EnterSTANDBYMode();
+    /* Enable WKUP pin */
+    HAL_PWR_EnableWakeUpPin( LOW_POWER_WAKEUP_POLARITY );
+
+    /* Enable GPIO pull-down state in Standby mode */
+    /* Note: This configuration is matching GPIO pulling configuration
+             previously performed during BSP initialization */
+    HAL_PWREx_EnableGPIOPullDown( LOW_POWER_WAKEKUP_GPIO_PORT, LOW_POWER_WAKEKUP_GPIO_PIN );
+
+    /* Enable pull-up and pull-down configuration */
+    HAL_PWREx_EnablePullUpPullDownConfig();
+
+    /* Standby mode */
+    HAL_PWR_EnterSTANDBYMode();
 }
 
 /**
   * @brief  Run the Lowpower Standby mode RTC Alarm
   * @param  None.
-  * @note   run and display information about the lowpower feature.  
+  * @note   run and display information about the lowpower feature.
   * @retval None.
   */
-void LowPowerStandbyRTCAlarm(void)
+void LowPowerStandbyRTCAlarm( void )
 {
-  kWindow_Popup("STANDBY Alarm", LCD_COLOR_WHITE, LCD_COLOR_ST_BLUE,\
-                "\nset delay time\n",                            \
-                LCD_COLOR_ST_BLUE, LCD_COLOR_WHITE );
+    kWindow_Popup( "STANDBY Alarm", LCD_COLOR_WHITE, LCD_COLOR_ST_BLUE, \
+                   "\nset delay time\n",                            \
+                   LCD_COLOR_ST_BLUE, LCD_COLOR_WHITE );
 
-  /* Set the alarm */
-  LowPowerHandleAlarm();
+    /* Set the alarm */
+    LowPowerHandleAlarm();
 
-  kWindow_Popup("", LCD_COLOR_WHITE, LCD_COLOR_WHITE, \
-                "\n\nstandby mode\nstarted\nwait alarm\nto exit\nand reset\n", \
-                LCD_COLOR_ST_BLUE, LCD_COLOR_WHITE );  
+    kWindow_Popup( "", LCD_COLOR_WHITE, LCD_COLOR_WHITE, \
+                   "\n\nstandby mode\nstarted\nwait alarm\nto exit\nand reset\n", \
+                   LCD_COLOR_ST_BLUE, LCD_COLOR_WHITE );
 
-  /*#### Enter StandBy mode ####*/
-  HAL_PWR_EnterSTANDBYMode();
-  while(1);
+    /*#### Enter StandBy mode ####*/
+    HAL_PWR_EnterSTANDBYMode();
+
+    while( 1 );
 }
 
 
 /**
   * @brief  Enter in stop mode and exit by pressingf the tamper button
   * @param  None
-  * @note   This example enter in stop mode.  
+  * @note   This example enter in stop mode.
   * @retval None
   */
-void LowPowerStopEXTI(void)
+void LowPowerStopEXTI( void )
 {
-  kWindow_Popup("STOP EXTI", LCD_COLOR_WHITE, LCD_COLOR_ST_BLUE,\
-                "\n\nPress JOY sel to\nstart\nstop mode\n",   \
-                 LCD_COLOR_WHITE, LCD_COLOR_ST_BLUE );
+    kWindow_Popup( "STOP EXTI", LCD_COLOR_WHITE, LCD_COLOR_ST_BLUE, \
+                   "\n\nPress JOY sel to\nstart\nstop mode\n",   \
+                   LCD_COLOR_WHITE, LCD_COLOR_ST_BLUE );
 
-  HAL_Delay(100);
+    HAL_Delay( 100 );
 
-  user_event = JOY_UP;
-  while(user_event != JOY_SEL)
-  {
-    user_action = 0;
-  };
+    user_event = JOY_UP;
 
-  kWindow_Popup("STOP EXTI", LCD_COLOR_WHITE, LCD_COLOR_ST_BLUE,     \
-                "\n\nstop mode\nstarted\npress tamper\nto exit\n",\
-                 LCD_COLOR_ST_BLUE, LCD_COLOR_WHITE );  
+    while( user_event != JOY_SEL )
+    {
+        user_action = 0;
+    };
 
-  /* User push-button (EXTI_Line0) will be used to wakeup the system from STOP mode */
-  BSP_PB_Init(BUTTON_TAMPER, BUTTON_MODE_EXTI);
+    kWindow_Popup( "STOP EXTI", LCD_COLOR_WHITE, LCD_COLOR_ST_BLUE,     \
+                   "\n\nstop mode\nstarted\npress tamper\nto exit\n", \
+                   LCD_COLOR_ST_BLUE, LCD_COLOR_WHITE );
 
-  /* avoid wakeup from JOY event */
-  BSP_JOY_DeInit();
+    /* User push-button (EXTI_Line0) will be used to wakeup the system from STOP mode */
+    BSP_PB_Init( BUTTON_TAMPER, BUTTON_MODE_EXTI );
 
-  /* Clear PWR wake up Flag */
-  __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WUF);
+    /* avoid wakeup from JOY event */
+    BSP_JOY_DeInit();
 
-  /* Enter Stop Mode */
-  HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
+    /* Clear PWR wake up Flag */
+    __HAL_PWR_CLEAR_FLAG( PWR_FLAG_WUF );
 
-  /* Display info */
-  LowPowerExitDisplay(STOP);
+    /* Enter Stop Mode */
+    HAL_PWR_EnterSTOPMode( PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI );
 
-  /* Restore the clock configuration */
-  SystemClock_Config_64MHz();
+    /* Display info */
+    LowPowerExitDisplay( STOP );
 
-  /* User push-button (EXTI_Line0) will be used to wakeup the system from STOP mode */
-  BSP_PB_Init(BUTTON_TAMPER, BUTTON_MODE_GPIO);
-  BSP_JOY_Init(JOY_MODE_EXTI);
+    /* Restore the clock configuration */
+    SystemClock_Config_64MHz();
+
+    /* User push-button (EXTI_Line0) will be used to wakeup the system from STOP mode */
+    BSP_PB_Init( BUTTON_TAMPER, BUTTON_MODE_GPIO );
+
+    BSP_JOY_Init( JOY_MODE_EXTI );
 }
 
 /**
   * @brief  Enter in stop mode and exit by an alarm
   * @param  None
-  * @note   This example enter in stop mode.  
+  * @note   This example enter in stop mode.
   * @retval None
   */
-void LowPowerStopRTCAlarm(void)
+void LowPowerStopRTCAlarm( void )
 {
-  kWindow_Popup("STOP Alarm", LCD_COLOR_WHITE, LCD_COLOR_ST_BLUE,\
-                "\nset delay time\n",                          \
-                LCD_COLOR_ST_BLUE, LCD_COLOR_WHITE ); 
+    kWindow_Popup( "STOP Alarm", LCD_COLOR_WHITE, LCD_COLOR_ST_BLUE, \
+                   "\nset delay time\n",                          \
+                   LCD_COLOR_ST_BLUE, LCD_COLOR_WHITE );
 
-  /* set the alarm */
-  LowPowerHandleAlarm();
+    /* set the alarm */
+    LowPowerHandleAlarm();
 
-  kWindow_Popup("STOP Alarm", LCD_COLOR_WHITE, LCD_COLOR_ST_BLUE,  \
-                "\n\nstop mode\nstarted\nwait alarm\nto exit\n",\
-                LCD_COLOR_ST_BLUE, LCD_COLOR_WHITE );  
+    kWindow_Popup( "STOP Alarm", LCD_COLOR_WHITE, LCD_COLOR_ST_BLUE,  \
+                   "\n\nstop mode\nstarted\nwait alarm\nto exit\n", \
+                   LCD_COLOR_ST_BLUE, LCD_COLOR_WHITE );
 
-  /* De Init Joystick */
-  BSP_JOY_DeInit();
+    /* De Init Joystick */
+    BSP_JOY_DeInit();
 
-  /* Enter Stop Mode */
-  HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
+    /* Enter Stop Mode */
+    HAL_PWR_EnterSTOPMode( PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI );
 
-  /* Restore the clock configuration */
-  SystemClock_Config_64MHz();
+    /* Restore the clock configuration */
+    SystemClock_Config_64MHz();
 
-  /* Display info */
-  LowPowerExitDisplay(STOP);
+    /* Display info */
+    LowPowerExitDisplay( STOP );
 
-  HAL_RTC_DeactivateAlarm(&hrtc, RTC_ALARM_B);
+    HAL_RTC_DeactivateAlarm( &hrtc, RTC_ALARM_B );
 
-  /* Clear the Alarm interrupt pending bit */
-  __HAL_RTC_ALARM_CLEAR_FLAG(&hrtc,RTC_FLAG_ALRBF);
+    /* Clear the Alarm interrupt pending bit */
+    __HAL_RTC_ALARM_CLEAR_FLAG( &hrtc, RTC_FLAG_ALRBF );
 
-  BSP_JOY_Init(JOY_MODE_EXTI);
+    BSP_JOY_Init( JOY_MODE_EXTI );
 }
 
 /**
   * @brief  Get user info to setup an alarm
   * @param  RTC handle
-  * @note   This function wait user info to setup the alarm.  
+  * @note   This function wait user info to setup the alarm.
   * @retval None
   */
-static void LowPowerHandleAlarm(void)
+static void LowPowerHandleAlarm( void )
 {
-  enum {
-    HOURS,
-    MINUTES,
-    SECONDS,
-    END
-  };
-
-  RTC_DateTypeDef currentdate = {0};
-  RTC_TimeTypeDef time = {0};
-  RTC_TimeTypeDef currenttime = {0};
-  RTC_AlarmTypeDef Alarm = {0};
-  sFONT *font;
-  uint8_t temp[16];
-  uint8_t exit = 0;
-  uint8_t index = SECONDS;
-  uint8_t position;
-  uint8_t statpos;
-
-  /* get current font */
-  font = BSP_LCD_GetFont();
-  statpos = (BSP_LCD_GetXSize() >> 1) - (4 * font->Width);
-
-  /* Get the alarm time from user */
-  do
-  {
-    BSP_LCD_SetTextColor(LCD_COLOR_ST_BLUE);
-    sprintf((char *)temp, "%.2d:%.2d:%.2d", time.Hours, time.Minutes, time.Seconds);
-    BSP_LCD_DisplayStringAt(statpos, 5 * font->Height, temp, NO_MODE);
-    BSP_LCD_SetTextColor(LCD_COLOR_ST_PINK);
-
-    switch(index)
+    enum
     {
-    case HOURS :
-      position = statpos;
-      sprintf((char *)temp, "%.2d", time.Hours);
-      break;
-    case MINUTES:
-      position = statpos + (3 * font->Width);
-      sprintf((char *)temp, "%.2d", time.Minutes);
-      break;
-    case SECONDS :
-      position = statpos + (6 * font->Width);
-      sprintf((char *)temp, "%.2d", time.Seconds);
-      break;
-    }
-    BSP_LCD_DisplayStringAt(position, 5 * font->Height, temp, NO_MODE);
+        HOURS,
+        MINUTES,
+        SECONDS,
+        END
+    };
 
-    user_event = JOY_NONE;
-    user_action = 0;
-    while(user_event == JOY_NONE);
-    switch(user_event)
+    RTC_DateTypeDef currentdate = {0};
+    RTC_TimeTypeDef time = {0};
+    RTC_TimeTypeDef currenttime = {0};
+    RTC_AlarmTypeDef Alarm = {0};
+    sFONT *font;
+    uint8_t temp[16];
+    uint8_t exit = 0;
+    uint8_t index = SECONDS;
+    uint8_t position;
+    uint8_t statpos;
+
+    /* get current font */
+    font = BSP_LCD_GetFont();
+    statpos = ( BSP_LCD_GetXSize() >> 1 ) - ( 4 * font->Width );
+
+    /* Get the alarm time from user */
+    do
     {
-    case JOY_UP :
-      if(index == HOURS)
-      {
-        if( time.Hours == 23 ) time.Hours = 0;
-        else
-          time.Hours++;
-      }
+        BSP_LCD_SetTextColor( LCD_COLOR_ST_BLUE );
+        sprintf( ( char * )temp, "%.2d:%.2d:%.2d", time.Hours, time.Minutes, time.Seconds );
+        BSP_LCD_DisplayStringAt( statpos, 5 * font->Height, temp, NO_MODE );
+        BSP_LCD_SetTextColor( LCD_COLOR_ST_PINK );
 
-      if(index == MINUTES)
-      {
-        if(time.Minutes == 59 ) time.Minutes= 0;
-        else
-          time.Minutes++;
-      }
-      if(index == SECONDS)
-      {
-        if(time.Seconds == 59 ) time.Seconds =0;
-        else
-          time.Seconds++;
-      }
-      break;
-    case JOY_DOWN :
-      if(index == HOURS)
-      {
-        if (time.Hours == 0 ) time.Hours = 23;
-        else time.Hours--;
-      }
-      if(index == MINUTES)
-      {
-        if(time.Minutes == 0) time.Minutes=59;
-        else 
-          time.Minutes--;
-      }
-      if(index == SECONDS)
-      {
-        if(time.Seconds == 0) time.Seconds = 59;
-        else
-          time.Seconds--;
-      }
-      break;
-    case JOY_RIGHT :
-      if(index != SECONDS ) index++; 
-      break;
-    case JOY_LEFT :
-      if(index != HOURS ) index--;
-      break;
-    case JOY_SEL :
-      exit = 1;
-      break;
+        switch( index )
+        {
+        case HOURS :
+            position = statpos;
+            sprintf( ( char * )temp, "%.2d", time.Hours );
+            break;
+
+        case MINUTES:
+            position = statpos + ( 3 * font->Width );
+            sprintf( ( char * )temp, "%.2d", time.Minutes );
+            break;
+
+        case SECONDS :
+            position = statpos + ( 6 * font->Width );
+            sprintf( ( char * )temp, "%.2d", time.Seconds );
+            break;
+        }
+
+        BSP_LCD_DisplayStringAt( position, 5 * font->Height, temp, NO_MODE );
+
+        user_event = JOY_NONE;
+        user_action = 0;
+
+        while( user_event == JOY_NONE );
+
+        switch( user_event )
+        {
+        case JOY_UP :
+            if( index == HOURS )
+            {
+                if( time.Hours == 23 )
+                {
+                    time.Hours = 0;
+                }
+                else
+                {
+                    time.Hours++;
+                }
+            }
+
+            if( index == MINUTES )
+            {
+                if( time.Minutes == 59 )
+                {
+                    time.Minutes = 0;
+                }
+                else
+                {
+                    time.Minutes++;
+                }
+            }
+
+            if( index == SECONDS )
+            {
+                if( time.Seconds == 59 )
+                {
+                    time.Seconds = 0;
+                }
+                else
+                {
+                    time.Seconds++;
+                }
+            }
+
+            break;
+
+        case JOY_DOWN :
+            if( index == HOURS )
+            {
+                if( time.Hours == 0 )
+                {
+                    time.Hours = 23;
+                }
+                else
+                {
+                    time.Hours--;
+                }
+            }
+
+            if( index == MINUTES )
+            {
+                if( time.Minutes == 0 )
+                {
+                    time.Minutes = 59;
+                }
+                else
+                {
+                    time.Minutes--;
+                }
+            }
+
+            if( index == SECONDS )
+            {
+                if( time.Seconds == 0 )
+                {
+                    time.Seconds = 59;
+                }
+                else
+                {
+                    time.Seconds--;
+                }
+            }
+
+            break;
+
+        case JOY_RIGHT :
+            if( index != SECONDS )
+            {
+                index++;
+            }
+
+            break;
+
+        case JOY_LEFT :
+            if( index != HOURS )
+            {
+                index--;
+            }
+
+            break;
+
+        case JOY_SEL :
+            exit = 1;
+            break;
+        }
+    } while( exit == 0 );
+
+    HAL_RTC_GetTime( &hrtc, &currenttime,  RTC_FORMAT_BIN );
+    HAL_RTC_GetDate( &hrtc, &currentdate, RTC_FORMAT_BIN );
+    time.SubSeconds = currenttime.SubSeconds;
+
+    if( ( time.Seconds + currenttime.Seconds ) > 60 )
+    {
+        time.Minutes++;
     }
-  } while(exit == 0);
 
-  HAL_RTC_GetTime(&hrtc, &currenttime,  RTC_FORMAT_BIN);
-  HAL_RTC_GetDate(&hrtc, &currentdate, RTC_FORMAT_BIN);
-  time.SubSeconds = currenttime.SubSeconds;
-  if((time.Seconds + currenttime.Seconds) > 60 )  time.Minutes++;
-  time.Seconds = ((time.Seconds + currenttime.Seconds) % 60);
+    time.Seconds = ( ( time.Seconds + currenttime.Seconds ) % 60 );
 
-  if((time.Minutes + currenttime.Minutes) > 60 )  time.Hours++;
-  time.Minutes = ((time.Minutes + currenttime.Minutes) % 60);
+    if( ( time.Minutes + currenttime.Minutes ) > 60 )
+    {
+        time.Hours++;
+    }
 
-  time.Hours = ((time.Hours + currenttime.Hours) % 24);
+    time.Minutes = ( ( time.Minutes + currenttime.Minutes ) % 60 );
 
-  /* Set the alarm */
-  Alarm.Alarm = RTC_ALARM_B;
-  Alarm.AlarmDateWeekDay = RTC_WEEKDAY_MONDAY;
-  Alarm.AlarmDateWeekDaySel = RTC_ALARMDATEWEEKDAYSEL_DATE;
-  Alarm.AlarmMask = RTC_ALARMMASK_DATEWEEKDAY;
-  Alarm.AlarmSubSecondMask = RTC_ALARMSUBSECONDMASK_ALL;
-  Alarm.AlarmTime.TimeFormat = RTC_HOURFORMAT_24;
-  Alarm.AlarmTime.Hours = time.Hours;
-  Alarm.AlarmTime.Minutes = time.Minutes;
-  Alarm.AlarmTime.Seconds = time.Seconds;
-  if(HAL_RTC_SetAlarm_IT(&hrtc, &Alarm, RTC_FORMAT_BIN) != HAL_OK)
-  {
-    while(1);
-  }
+    time.Hours = ( ( time.Hours + currenttime.Hours ) % 24 );
+
+    /* Set the alarm */
+    Alarm.Alarm = RTC_ALARM_B;
+    Alarm.AlarmDateWeekDay = RTC_WEEKDAY_MONDAY;
+    Alarm.AlarmDateWeekDaySel = RTC_ALARMDATEWEEKDAYSEL_DATE;
+    Alarm.AlarmMask = RTC_ALARMMASK_DATEWEEKDAY;
+    Alarm.AlarmSubSecondMask = RTC_ALARMSUBSECONDMASK_ALL;
+    Alarm.AlarmTime.TimeFormat = RTC_HOURFORMAT_24;
+    Alarm.AlarmTime.Hours = time.Hours;
+    Alarm.AlarmTime.Minutes = time.Minutes;
+    Alarm.AlarmTime.Seconds = time.Seconds;
+
+    if( HAL_RTC_SetAlarm_IT( &hrtc, &Alarm, RTC_FORMAT_BIN ) != HAL_OK )
+    {
+        while( 1 );
+    }
 }
 
 
-void LowPowerExitDisplay(uint32_t Mode)
+void LowPowerExitDisplay( uint32_t Mode )
 {
-  char msg[22] = "\n\nexit from\n";
+    char msg[22] = "\n\nexit from\n";
 
-  if(Mode == STANDBY)
-  {
-    strcat(msg, "STANDBY\n");
-  }
-  else
-  {
-    strcat(msg, "STOP\n");
-  }
+    if( Mode == STANDBY )
+    {
+        strcat( msg, "STANDBY\n" );
+    }
+    else
+    {
+        strcat( msg, "STOP\n" );
+    }
 
-  kWindow_Popup("Low Power", LCD_COLOR_WHITE, LCD_COLOR_ST_BLUE,\
-                msg, LCD_COLOR_ST_BLUE, LCD_COLOR_WHITE );
+    kWindow_Popup( "Low Power", LCD_COLOR_WHITE, LCD_COLOR_ST_BLUE, \
+                   msg, LCD_COLOR_ST_BLUE, LCD_COLOR_WHITE );
 
-  HAL_Delay(500);
+    HAL_Delay( 500 );
 }
 
-void HAL_RTCEx_AlarmBEventCallback(RTC_HandleTypeDef *hrtc)
+void HAL_RTCEx_AlarmBEventCallback( RTC_HandleTypeDef *hrtc )
 {
-  HAL_RTC_DeactivateAlarm(hrtc, RTC_ALARM_B);
+    HAL_RTC_DeactivateAlarm( hrtc, RTC_ALARM_B );
 }
 
 

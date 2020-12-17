@@ -3,17 +3,17 @@
   ******************************************************************************
   * @file    Examples_LL/TIM/TIM_InputCapture_Init/Src/main.c
   * @author  MCD Application Team
-  * @brief   This example describes how to use a timer instance in input 
+  * @brief   This example describes how to use a timer instance in input
   *          capture mode using the STM32G0xx TIM LL API.
   *          Peripheral initialization done using LL unitary services functions.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -48,17 +48,18 @@
 
 /* USER CODE BEGIN PV */
 /* Frequency table */
-static uint32_t aFrequency[TIM_FREQUENCIES_NB] = {
-  2000,   /*  2 kHz */
-  4000,   /*  4 kHz */
-  6000,   /*  6 kHz */
-  8000,   /*  8 kHz */
-  10000,  /* 10 kHz */
-  12000,  /* 12 kHz */
-  14000,  /* 14 kHz */
-  16000,  /* 16 kHz */
-  18000,  /* 18 kHz */
-  20000,  /* 20 kHz */
+static uint32_t aFrequency[TIM_FREQUENCIES_NB] =
+{
+    2000,   /*  2 kHz */
+    4000,   /*  4 kHz */
+    6000,   /*  6 kHz */
+    8000,   /*  8 kHz */
+    10000,  /* 10 kHz */
+    12000,  /* 12 kHz */
+    14000,  /* 14 kHz */
+    16000,  /* 16 kHz */
+    18000,  /* 18 kHz */
+    20000,  /* 20 kHz */
 };
 
 /* Frequency index */
@@ -75,13 +76,13 @@ static uint32_t tim_pulse_value = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
-void SystemClock_Config(void);
-static void MX_GPIO_Init(void);
-static void MX_TIM1_Init(void);
-static void MX_TIM2_Init(void);
+void SystemClock_Config( void );
+static void MX_GPIO_Init( void );
+static void MX_TIM1_Init( void );
+static void MX_TIM2_Init( void );
 /* USER CODE BEGIN PFP */
-__STATIC_INLINE void Configure_Frequency(uint32_t Frequency);
-__STATIC_INLINE void LED_Blinking(uint32_t Period);
+__STATIC_INLINE void Configure_Frequency( uint32_t Frequency );
+__STATIC_INLINE void LED_Blinking( uint32_t Period );
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -93,129 +94,133 @@ __STATIC_INLINE void LED_Blinking(uint32_t Period);
   * @brief  The application entry point.
   * @retval int
   */
-int main(void)
+int main( void )
 {
-  /* USER CODE BEGIN 1 */
+    /* USER CODE BEGIN 1 */
 
-  /* USER CODE END 1 */
+    /* USER CODE END 1 */
 
-  /* MCU Configuration--------------------------------------------------------*/
+    /* MCU Configuration--------------------------------------------------------*/
 
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
 
-  LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SYSCFG);
-  LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_PWR);
+    LL_APB2_GRP1_EnableClock( LL_APB2_GRP1_PERIPH_SYSCFG );
+    LL_APB1_GRP1_EnableClock( LL_APB1_GRP1_PERIPH_PWR );
 
-  /* System interrupt init*/
+    /* System interrupt init*/
 
-  /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
-  */
-  LL_SYSCFG_DisableDBATT(LL_SYSCFG_UCPD1_STROBE | LL_SYSCFG_UCPD2_STROBE);
+    /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
+    */
+    LL_SYSCFG_DisableDBATT( LL_SYSCFG_UCPD1_STROBE | LL_SYSCFG_UCPD2_STROBE );
 
-  /* USER CODE BEGIN Init */
+    /* USER CODE BEGIN Init */
 
-  /* USER CODE END Init */
+    /* USER CODE END Init */
 
-  /* Configure the system clock */
-  SystemClock_Config();
+    /* Configure the system clock */
+    SystemClock_Config();
 
-  /* USER CODE BEGIN SysInit */
+    /* USER CODE BEGIN SysInit */
 
-  /* Set the auto-reload value to have a counter frequency of 2 kHz           */
-  /* TIM2CLK = SystemCoreClock / (APB prescaler & multiplier)                 */
-  TimOutClock = SystemCoreClock/(2/2);
-  /* TIM2 counter frequency = TimOutClock / (ARR + 1)                   */
-  tim_period = __LL_TIM_CALC_ARR(TimOutClock, 0, aFrequency[0]);
+    /* Set the auto-reload value to have a counter frequency of 2 kHz           */
+    /* TIM2CLK = SystemCoreClock / (APB prescaler & multiplier)                 */
+    TimOutClock = SystemCoreClock / ( 2 / 2 );
+    /* TIM2 counter frequency = TimOutClock / (ARR + 1)                   */
+    tim_period = __LL_TIM_CALC_ARR( TimOutClock, 0, aFrequency[0] );
 
-  /* Set compare value to half of the counter period (50% duty cycle )*/
-  tim_pulse_value = tim_period / 2;
+    /* Set compare value to half of the counter period (50% duty cycle )*/
+    tim_pulse_value = tim_period / 2;
 
-  /* USER CODE END SysInit */
+    /* USER CODE END SysInit */
 
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  MX_TIM1_Init();
-  MX_TIM2_Init();
-  /* USER CODE BEGIN 2 */
+    /* Initialize all configured peripherals */
+    MX_GPIO_Init();
+    MX_TIM1_Init();
+    MX_TIM2_Init();
+    /* USER CODE BEGIN 2 */
 
-  /**************************/
-  /* TIM1 interrupts set-up */
-  /**************************/
-  /* Enable the capture/compare interrupt for channel 1 */
-  LL_TIM_EnableIT_CC1(TIM1);
-  
-  /***********************/
-  /* Start input capture */
-  /***********************/
-  /* Enable output channel 1 */
-  LL_TIM_CC_EnableChannel(TIM1, LL_TIM_CHANNEL_CH1);
-    
-  /* Enable counter */
-  LL_TIM_EnableCounter(TIM1);
+    /**************************/
+    /* TIM1 interrupts set-up */
+    /**************************/
+    /* Enable the capture/compare interrupt for channel 1 */
+    LL_TIM_EnableIT_CC1( TIM1 );
 
-  /* Enable TIM2_CCR1 register preload. Read/Write operations access the      */
-  /* preload register. TIM2_CCR1 preload value is loaded in the active        */
-  /* at each update event.                                                    */
-  LL_TIM_OC_EnablePreload(TIM2, LL_TIM_CHANNEL_CH1);
-  
-  /**********************************/
-  /* Start output signal generation */
-  /**********************************/
-  /* Enable output channel 1 */
-  LL_TIM_CC_EnableChannel(TIM2, LL_TIM_CHANNEL_CH1);
-    
-  /* Enable counter */
-  LL_TIM_EnableCounter(TIM2);
+    /***********************/
+    /* Start input capture */
+    /***********************/
+    /* Enable output channel 1 */
+    LL_TIM_CC_EnableChannel( TIM1, LL_TIM_CHANNEL_CH1 );
 
-  /* USER CODE END 2 */
+    /* Enable counter */
+    LL_TIM_EnableCounter( TIM1 );
 
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-    /* USER CODE END WHILE */
+    /* Enable TIM2_CCR1 register preload. Read/Write operations access the      */
+    /* preload register. TIM2_CCR1 preload value is loaded in the active        */
+    /* at each update event.                                                    */
+    LL_TIM_OC_EnablePreload( TIM2, LL_TIM_CHANNEL_CH1 );
 
-    /* USER CODE BEGIN 3 */
-  }
-  /* USER CODE END 3 */
+    /**********************************/
+    /* Start output signal generation */
+    /**********************************/
+    /* Enable output channel 1 */
+    LL_TIM_CC_EnableChannel( TIM2, LL_TIM_CHANNEL_CH1 );
+
+    /* Enable counter */
+    LL_TIM_EnableCounter( TIM2 );
+
+    /* USER CODE END 2 */
+
+    /* Infinite loop */
+    /* USER CODE BEGIN WHILE */
+    while( 1 )
+    {
+        /* USER CODE END WHILE */
+
+        /* USER CODE BEGIN 3 */
+    }
+
+    /* USER CODE END 3 */
 }
 
 /**
   * @brief System Clock Configuration
   * @retval None
   */
-void SystemClock_Config(void)
+void SystemClock_Config( void )
 {
-  LL_FLASH_SetLatency(LL_FLASH_LATENCY_2);
+    LL_FLASH_SetLatency( LL_FLASH_LATENCY_2 );
 
-  /* HSI configuration and activation */
-  LL_RCC_HSI_Enable();
-  while(LL_RCC_HSI_IsReady() != 1)
-  {
-  }
+    /* HSI configuration and activation */
+    LL_RCC_HSI_Enable();
 
-  /* Main PLL configuration and activation */
-  LL_RCC_PLL_ConfigDomain_SYS(LL_RCC_PLLSOURCE_HSI, LL_RCC_PLLM_DIV_4, 70, LL_RCC_PLLR_DIV_5);
-  LL_RCC_PLL_Enable();
-  LL_RCC_PLL_EnableDomain_SYS();
-  while(LL_RCC_PLL_IsReady() != 1)
-  {
-  }
+    while( LL_RCC_HSI_IsReady() != 1 )
+    {
+    }
 
-  /* Set AHB prescaler*/
-  LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
+    /* Main PLL configuration and activation */
+    LL_RCC_PLL_ConfigDomain_SYS( LL_RCC_PLLSOURCE_HSI, LL_RCC_PLLM_DIV_4, 70, LL_RCC_PLLR_DIV_5 );
+    LL_RCC_PLL_Enable();
+    LL_RCC_PLL_EnableDomain_SYS();
 
-  /* Sysclk activation on the main PLL */
-  LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_PLL);
-  while(LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_PLL)
-  {
-  }
+    while( LL_RCC_PLL_IsReady() != 1 )
+    {
+    }
 
-  /* Set APB1 prescaler*/
-  LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
-  LL_Init1msTick(56000000);
-  /* Update CMSIS variable (which can be updated also through SystemCoreClockUpdate function) */
-  LL_SetSystemCoreClock(56000000);
+    /* Set AHB prescaler*/
+    LL_RCC_SetAHBPrescaler( LL_RCC_SYSCLK_DIV_1 );
+
+    /* Sysclk activation on the main PLL */
+    LL_RCC_SetSysClkSource( LL_RCC_SYS_CLKSOURCE_PLL );
+
+    while( LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_PLL )
+    {
+    }
+
+    /* Set APB1 prescaler*/
+    LL_RCC_SetAPB1Prescaler( LL_RCC_APB1_DIV_1 );
+    LL_Init1msTick( 56000000 );
+    /* Update CMSIS variable (which can be updated also through SystemCoreClockUpdate function) */
+    LL_SetSystemCoreClock( 56000000 );
 }
 
 /**
@@ -223,60 +228,60 @@ void SystemClock_Config(void)
   * @param None
   * @retval None
   */
-static void MX_TIM1_Init(void)
+static void MX_TIM1_Init( void )
 {
 
-  /* USER CODE BEGIN TIM1_Init 0 */
+    /* USER CODE BEGIN TIM1_Init 0 */
 
-  /* USER CODE END TIM1_Init 0 */
+    /* USER CODE END TIM1_Init 0 */
 
-  LL_TIM_InitTypeDef TIM_InitStruct = {0};
-  LL_TIM_BDTR_InitTypeDef TIM_BDTRInitStruct = {0};
+    LL_TIM_InitTypeDef TIM_InitStruct = {0};
+    LL_TIM_BDTR_InitTypeDef TIM_BDTRInitStruct = {0};
 
-  LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
+    LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
 
-  /* Peripheral clock enable */
-  LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_TIM1);
+    /* Peripheral clock enable */
+    LL_APB2_GRP1_EnableClock( LL_APB2_GRP1_PERIPH_TIM1 );
 
-  LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOA);
-  /**TIM1 GPIO Configuration
-  PA8   ------> TIM1_CH1
-  */
-  GPIO_InitStruct.Pin = LL_GPIO_PIN_8;
-  GPIO_InitStruct.Mode = LL_GPIO_MODE_ALTERNATE;
-  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  GPIO_InitStruct.Alternate = LL_GPIO_AF_2;
-  LL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+    LL_IOP_GRP1_EnableClock( LL_IOP_GRP1_PERIPH_GPIOA );
+    /**TIM1 GPIO Configuration
+    PA8   ------> TIM1_CH1
+    */
+    GPIO_InitStruct.Pin = LL_GPIO_PIN_8;
+    GPIO_InitStruct.Mode = LL_GPIO_MODE_ALTERNATE;
+    GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+    GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+    GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+    GPIO_InitStruct.Alternate = LL_GPIO_AF_2;
+    LL_GPIO_Init( GPIOA, &GPIO_InitStruct );
 
-  /* TIM1 interrupt Init */
-  NVIC_SetPriority(TIM1_CC_IRQn, 0);
-  NVIC_EnableIRQ(TIM1_CC_IRQn);
+    /* TIM1 interrupt Init */
+    NVIC_SetPriority( TIM1_CC_IRQn, 0 );
+    NVIC_EnableIRQ( TIM1_CC_IRQn );
 
-  /* USER CODE BEGIN TIM1_Init 1 */
+    /* USER CODE BEGIN TIM1_Init 1 */
 
-  /* USER CODE END TIM1_Init 1 */
-  TIM_InitStruct.Prescaler = 0;
-  TIM_InitStruct.CounterMode = LL_TIM_COUNTERMODE_UP;
-  TIM_InitStruct.Autoreload = 0xFFFF;
-  TIM_InitStruct.ClockDivision = LL_TIM_CLOCKDIVISION_DIV1;
-  TIM_InitStruct.RepetitionCounter = 0;
-  LL_TIM_Init(TIM1, &TIM_InitStruct);
-  LL_TIM_DisableARRPreload(TIM1);
-  LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_RESET);
-  LL_TIM_SetTriggerOutput2(TIM1, LL_TIM_TRGO2_RESET);
-  LL_TIM_DisableMasterSlaveMode(TIM1);
-  LL_TIM_IC_SetActiveInput(TIM1, LL_TIM_CHANNEL_CH1, LL_TIM_ACTIVEINPUT_DIRECTTI);
-  LL_TIM_IC_SetPrescaler(TIM1, LL_TIM_CHANNEL_CH1, LL_TIM_ICPSC_DIV1);
-  LL_TIM_IC_SetFilter(TIM1, LL_TIM_CHANNEL_CH1, LL_TIM_IC_FILTER_FDIV1);
-  LL_TIM_IC_SetPolarity(TIM1, LL_TIM_CHANNEL_CH1, LL_TIM_IC_POLARITY_RISING);
-  TIM_BDTRInitStruct.BreakAFMode = LL_TIM_BREAK_AFMODE_INPUT;
-  TIM_BDTRInitStruct.Break2AFMode = LL_TIM_BREAK_AFMODE_INPUT;
-  LL_TIM_BDTR_Init(TIM1, &TIM_BDTRInitStruct);
-  /* USER CODE BEGIN TIM1_Init 2 */
+    /* USER CODE END TIM1_Init 1 */
+    TIM_InitStruct.Prescaler = 0;
+    TIM_InitStruct.CounterMode = LL_TIM_COUNTERMODE_UP;
+    TIM_InitStruct.Autoreload = 0xFFFF;
+    TIM_InitStruct.ClockDivision = LL_TIM_CLOCKDIVISION_DIV1;
+    TIM_InitStruct.RepetitionCounter = 0;
+    LL_TIM_Init( TIM1, &TIM_InitStruct );
+    LL_TIM_DisableARRPreload( TIM1 );
+    LL_TIM_SetTriggerOutput( TIM1, LL_TIM_TRGO_RESET );
+    LL_TIM_SetTriggerOutput2( TIM1, LL_TIM_TRGO2_RESET );
+    LL_TIM_DisableMasterSlaveMode( TIM1 );
+    LL_TIM_IC_SetActiveInput( TIM1, LL_TIM_CHANNEL_CH1, LL_TIM_ACTIVEINPUT_DIRECTTI );
+    LL_TIM_IC_SetPrescaler( TIM1, LL_TIM_CHANNEL_CH1, LL_TIM_ICPSC_DIV1 );
+    LL_TIM_IC_SetFilter( TIM1, LL_TIM_CHANNEL_CH1, LL_TIM_IC_FILTER_FDIV1 );
+    LL_TIM_IC_SetPolarity( TIM1, LL_TIM_CHANNEL_CH1, LL_TIM_IC_POLARITY_RISING );
+    TIM_BDTRInitStruct.BreakAFMode = LL_TIM_BREAK_AFMODE_INPUT;
+    TIM_BDTRInitStruct.Break2AFMode = LL_TIM_BREAK_AFMODE_INPUT;
+    LL_TIM_BDTR_Init( TIM1, &TIM_BDTRInitStruct );
+    /* USER CODE BEGIN TIM1_Init 2 */
 
-  /* USER CODE END TIM1_Init 2 */
+    /* USER CODE END TIM1_Init 2 */
 
 }
 
@@ -285,54 +290,54 @@ static void MX_TIM1_Init(void)
   * @param None
   * @retval None
   */
-static void MX_TIM2_Init(void)
+static void MX_TIM2_Init( void )
 {
 
-  /* USER CODE BEGIN TIM2_Init 0 */
+    /* USER CODE BEGIN TIM2_Init 0 */
 
-  /* USER CODE END TIM2_Init 0 */
+    /* USER CODE END TIM2_Init 0 */
 
-  LL_TIM_InitTypeDef TIM_InitStruct = {0};
-  LL_TIM_OC_InitTypeDef TIM_OC_InitStruct = {0};
+    LL_TIM_InitTypeDef TIM_InitStruct = {0};
+    LL_TIM_OC_InitTypeDef TIM_OC_InitStruct = {0};
 
-  LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
+    LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
 
-  /* Peripheral clock enable */
-  LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM2);
+    /* Peripheral clock enable */
+    LL_APB1_GRP1_EnableClock( LL_APB1_GRP1_PERIPH_TIM2 );
 
-  /* USER CODE BEGIN TIM2_Init 1 */
+    /* USER CODE BEGIN TIM2_Init 1 */
 
-  /* USER CODE END TIM2_Init 1 */
-  TIM_InitStruct.Prescaler = 0;
-  TIM_InitStruct.CounterMode = LL_TIM_COUNTERMODE_UP;
-  TIM_InitStruct.Autoreload = tim_period;
-  TIM_InitStruct.ClockDivision = LL_TIM_CLOCKDIVISION_DIV1;
-  LL_TIM_Init(TIM2, &TIM_InitStruct);
-  LL_TIM_EnableARRPreload(TIM2);
-  LL_TIM_OC_EnablePreload(TIM2, LL_TIM_CHANNEL_CH1);
-  TIM_OC_InitStruct.OCMode = LL_TIM_OCMODE_PWM1;
-  TIM_OC_InitStruct.OCState = LL_TIM_OCSTATE_DISABLE;
-  TIM_OC_InitStruct.OCNState = LL_TIM_OCSTATE_DISABLE;
-  TIM_OC_InitStruct.CompareValue = tim_pulse_value;
-  TIM_OC_InitStruct.OCPolarity = LL_TIM_OCPOLARITY_HIGH;
-  LL_TIM_OC_Init(TIM2, LL_TIM_CHANNEL_CH1, &TIM_OC_InitStruct);
-  LL_TIM_OC_DisableFast(TIM2, LL_TIM_CHANNEL_CH1);
-  LL_TIM_SetTriggerOutput(TIM2, LL_TIM_TRGO_RESET);
-  LL_TIM_DisableMasterSlaveMode(TIM2);
-  /* USER CODE BEGIN TIM2_Init 2 */
+    /* USER CODE END TIM2_Init 1 */
+    TIM_InitStruct.Prescaler = 0;
+    TIM_InitStruct.CounterMode = LL_TIM_COUNTERMODE_UP;
+    TIM_InitStruct.Autoreload = tim_period;
+    TIM_InitStruct.ClockDivision = LL_TIM_CLOCKDIVISION_DIV1;
+    LL_TIM_Init( TIM2, &TIM_InitStruct );
+    LL_TIM_EnableARRPreload( TIM2 );
+    LL_TIM_OC_EnablePreload( TIM2, LL_TIM_CHANNEL_CH1 );
+    TIM_OC_InitStruct.OCMode = LL_TIM_OCMODE_PWM1;
+    TIM_OC_InitStruct.OCState = LL_TIM_OCSTATE_DISABLE;
+    TIM_OC_InitStruct.OCNState = LL_TIM_OCSTATE_DISABLE;
+    TIM_OC_InitStruct.CompareValue = tim_pulse_value;
+    TIM_OC_InitStruct.OCPolarity = LL_TIM_OCPOLARITY_HIGH;
+    LL_TIM_OC_Init( TIM2, LL_TIM_CHANNEL_CH1, &TIM_OC_InitStruct );
+    LL_TIM_OC_DisableFast( TIM2, LL_TIM_CHANNEL_CH1 );
+    LL_TIM_SetTriggerOutput( TIM2, LL_TIM_TRGO_RESET );
+    LL_TIM_DisableMasterSlaveMode( TIM2 );
+    /* USER CODE BEGIN TIM2_Init 2 */
 
-  /* USER CODE END TIM2_Init 2 */
-  LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOA);
-  /**TIM2 GPIO Configuration
-  PA5   ------> TIM2_CH1
-  */
-  GPIO_InitStruct.Pin = LED4_Pin;
-  GPIO_InitStruct.Mode = LL_GPIO_MODE_ALTERNATE;
-  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  GPIO_InitStruct.Alternate = LL_GPIO_AF_2;
-  LL_GPIO_Init(LED4_GPIO_Port, &GPIO_InitStruct);
+    /* USER CODE END TIM2_Init 2 */
+    LL_IOP_GRP1_EnableClock( LL_IOP_GRP1_PERIPH_GPIOA );
+    /**TIM2 GPIO Configuration
+    PA5   ------> TIM2_CH1
+    */
+    GPIO_InitStruct.Pin = LED4_Pin;
+    GPIO_InitStruct.Mode = LL_GPIO_MODE_ALTERNATE;
+    GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+    GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+    GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+    GPIO_InitStruct.Alternate = LL_GPIO_AF_2;
+    LL_GPIO_Init( LED4_GPIO_Port, &GPIO_InitStruct );
 
 }
 
@@ -341,33 +346,33 @@ static void MX_TIM2_Init(void)
   * @param None
   * @retval None
   */
-static void MX_GPIO_Init(void)
+static void MX_GPIO_Init( void )
 {
-  LL_EXTI_InitTypeDef EXTI_InitStruct = {0};
+    LL_EXTI_InitTypeDef EXTI_InitStruct = {0};
 
-  /* GPIO Ports Clock Enable */
-  LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOC);
-  LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOA);
+    /* GPIO Ports Clock Enable */
+    LL_IOP_GRP1_EnableClock( LL_IOP_GRP1_PERIPH_GPIOC );
+    LL_IOP_GRP1_EnableClock( LL_IOP_GRP1_PERIPH_GPIOA );
 
-  /**/
-  LL_EXTI_SetEXTISource(LL_EXTI_CONFIG_PORTC, LL_EXTI_CONFIG_LINE13);
+    /**/
+    LL_EXTI_SetEXTISource( LL_EXTI_CONFIG_PORTC, LL_EXTI_CONFIG_LINE13 );
 
-  /**/
-  EXTI_InitStruct.Line_0_31 = LL_EXTI_LINE_13;
-  EXTI_InitStruct.LineCommand = ENABLE;
-  EXTI_InitStruct.Mode = LL_EXTI_MODE_IT;
-  EXTI_InitStruct.Trigger = LL_EXTI_TRIGGER_FALLING;
-  LL_EXTI_Init(&EXTI_InitStruct);
+    /**/
+    EXTI_InitStruct.Line_0_31 = LL_EXTI_LINE_13;
+    EXTI_InitStruct.LineCommand = ENABLE;
+    EXTI_InitStruct.Mode = LL_EXTI_MODE_IT;
+    EXTI_InitStruct.Trigger = LL_EXTI_TRIGGER_FALLING;
+    LL_EXTI_Init( &EXTI_InitStruct );
 
-  /**/
-  LL_GPIO_SetPinPull(USER_BUTTON_GPIO_Port, USER_BUTTON_Pin, LL_GPIO_PULL_UP);
+    /**/
+    LL_GPIO_SetPinPull( USER_BUTTON_GPIO_Port, USER_BUTTON_Pin, LL_GPIO_PULL_UP );
 
-  /**/
-  LL_GPIO_SetPinMode(USER_BUTTON_GPIO_Port, USER_BUTTON_Pin, LL_GPIO_MODE_INPUT);
+    /**/
+    LL_GPIO_SetPinMode( USER_BUTTON_GPIO_Port, USER_BUTTON_Pin, LL_GPIO_MODE_INPUT );
 
-  /* EXTI interrupt init*/
-  NVIC_SetPriority(EXTI4_15_IRQn, 0);
-  NVIC_EnableIRQ(EXTI4_15_IRQn);
+    /* EXTI interrupt init*/
+    NVIC_SetPriority( EXTI4_15_IRQn, 0 );
+    NVIC_EnableIRQ( EXTI4_15_IRQn );
 
 }
 
@@ -380,14 +385,14 @@ static void MX_GPIO_Init(void)
   * @param  Requested frequency
   * @retval None
   */
-__STATIC_INLINE void Configure_Frequency(uint32_t Frequency)
+__STATIC_INLINE void Configure_Frequency( uint32_t Frequency )
 {
-  /* Set the auto-reload value to have the requested frequency */
-  /* Frequency = TIM2CLK / (ARR + 1)                   */
-  LL_TIM_SetAutoReload(TIM2, __LL_TIM_CALC_ARR(TimOutClock, LL_TIM_GetPrescaler(TIM2), Frequency));
- 
-  /* Set compare value to half of the counter period (50% duty cycle )*/
-  LL_TIM_OC_SetCompareCH1(TIM2, (LL_TIM_GetAutoReload(TIM2) / 2));
+    /* Set the auto-reload value to have the requested frequency */
+    /* Frequency = TIM2CLK / (ARR + 1)                   */
+    LL_TIM_SetAutoReload( TIM2, __LL_TIM_CALC_ARR( TimOutClock, LL_TIM_GetPrescaler( TIM2 ), Frequency ) );
+
+    /* Set compare value to half of the counter period (50% duty cycle )*/
+    LL_TIM_OC_SetCompareCH1( TIM2, ( LL_TIM_GetAutoReload( TIM2 ) / 2 ) );
 }
 
 /**
@@ -399,14 +404,14 @@ __STATIC_INLINE void Configure_Frequency(uint32_t Frequency)
   *     @arg LED_BLINK_ERROR : Error specific Blinking
   * @retval None
   */
-__STATIC_INLINE void LED_Blinking(uint32_t Period)
+__STATIC_INLINE void LED_Blinking( uint32_t Period )
 {
-  /* Toggle IO in an infinite loop */
-  while (1)
-  {
-    LL_GPIO_TogglePin(LED4_GPIO_Port, LED4_Pin);  
-    LL_mDelay(Period);
-  }
+    /* Toggle IO in an infinite loop */
+    while( 1 )
+    {
+        LL_GPIO_TogglePin( LED4_GPIO_Port, LED4_Pin );
+        LL_mDelay( Period );
+    }
 }
 
 /******************************************************************************/
@@ -414,18 +419,18 @@ __STATIC_INLINE void LED_Blinking(uint32_t Period)
 /******************************************************************************/
 /**
   * @brief  User button interrupt processing
-  * @note   When the user key button is pressed the frequency of the  
-  *         PWM signal generated by TIM2 is updated. 
+  * @note   When the user key button is pressed the frequency of the
+  *         PWM signal generated by TIM2 is updated.
   * @param  None
   * @retval None
   */
-void UserButton_Callback(void)
+void UserButton_Callback( void )
 {
-  /* Set new PWM signal frequency */
-  iFrequency = (iFrequency + 1) % TIM_FREQUENCIES_NB;
+    /* Set new PWM signal frequency */
+    iFrequency = ( iFrequency + 1 ) % TIM_FREQUENCIES_NB;
 
-  /* Change PWM signal frequency */
-  Configure_Frequency(aFrequency[iFrequency]);
+    /* Change PWM signal frequency */
+    Configure_Frequency( aFrequency[iFrequency] );
 }
 
 /**
@@ -435,80 +440,84 @@ void UserButton_Callback(void)
   * @param  None
   * @retval None
   */
-void TimerCaptureCompare_Callback(void)
+void TimerCaptureCompare_Callback( void )
 {
-  /* Capture index */
-  static uint16_t uhCaptureIndex = 0;
-  
-  /* Captured Values */
-  static uint32_t uwICValue1 = 0;
-  static uint32_t uwICValue2 = 0;
-  static uint32_t uwDiffCapture = 0;
-  
-  uint32_t TIM1CLK;
-  uint32_t PSC;
-  uint32_t IC1PSC;
-  uint32_t IC1Polarity;
-  
-  if(uhCaptureIndex == 0)
-  {
-    /* Get the 1st Input Capture value */
-    uwICValue1 = LL_TIM_IC_GetCaptureCH1(TIM1);
-    uhCaptureIndex = 1;
-  }
-  else if(uhCaptureIndex == 1)
-  {
-    /* Get the 2nd Input Capture value */
-    uwICValue2 = LL_TIM_IC_GetCaptureCH1(TIM1); 
-    
-    /* Capture computation */
-    if (uwICValue2 > uwICValue1)
+    /* Capture index */
+    static uint16_t uhCaptureIndex = 0;
+
+    /* Captured Values */
+    static uint32_t uwICValue1 = 0;
+    static uint32_t uwICValue2 = 0;
+    static uint32_t uwDiffCapture = 0;
+
+    uint32_t TIM1CLK;
+    uint32_t PSC;
+    uint32_t IC1PSC;
+    uint32_t IC1Polarity;
+
+    if( uhCaptureIndex == 0 )
     {
-      uwDiffCapture = (uwICValue2 - uwICValue1); 
+        /* Get the 1st Input Capture value */
+        uwICValue1 = LL_TIM_IC_GetCaptureCH1( TIM1 );
+        uhCaptureIndex = 1;
     }
-    else if (uwICValue2 < uwICValue1)
+    else if( uhCaptureIndex == 1 )
     {
-      uwDiffCapture = ((TIM1_ARR_MAX - uwICValue1) + uwICValue2) + 1; 
+        /* Get the 2nd Input Capture value */
+        uwICValue2 = LL_TIM_IC_GetCaptureCH1( TIM1 );
+
+        /* Capture computation */
+        if( uwICValue2 > uwICValue1 )
+        {
+            uwDiffCapture = ( uwICValue2 - uwICValue1 );
+        }
+        else if( uwICValue2 < uwICValue1 )
+        {
+            uwDiffCapture = ( ( TIM1_ARR_MAX - uwICValue1 ) + uwICValue2 ) + 1;
+        }
+        else
+        {
+            /* If capture values are equal, we have reached the limit of frequency  */
+            /* measures.                                                            */
+            LED_Blinking( LED_BLINK_ERROR );
+        }
+
+        /* The signal frequency is calculated as follows:                         */
+        /* Frequency = (TIM1*IC1PSC) / (Capture*(PSC+1)*IC1Polarity)           */
+        /* where:                                                                 */
+        /*  Capture is the difference between two consecutive captures            */
+        /*  TIM1CLK is the timer counter clock frequency                           */
+        /*  PSC is the timer prescaler value                                      */
+        /*  IC1PSC is the input capture prescaler value                           */
+        /*  IC1Polarity value depends on the capture sensitivity:                 */
+        /*    1 if the input is sensitive to rising or falling edges              */
+        /*    2 if the input is sensitive to both rising and falling edges        */
+
+        /* Retrieve actual TIM1 counter clock frequency */
+        TIM1CLK = SystemCoreClock;
+
+        /* Retrieve actual TIM1 prescaler value */
+        PSC = LL_TIM_GetPrescaler( TIM1 );
+
+        /* Retrieve actual IC1 prescaler ratio */
+        IC1PSC = __LL_TIM_GET_ICPSC_RATIO( LL_TIM_IC_GetPrescaler( TIM1, LL_TIM_CHANNEL_CH1 ) );
+
+        /* Retrieve actual IC1 polarity setting */
+        if( LL_TIM_IC_GetPolarity( TIM1, LL_TIM_CHANNEL_CH1 ) == LL_TIM_IC_POLARITY_BOTHEDGE )
+        {
+            IC1Polarity = 2;
+        }
+        else
+        {
+            IC1Polarity = 1;
+        }
+
+        /* Calculate input signal frequency */
+        uwMeasuredFrequency = ( TIM1CLK * IC1PSC ) / ( uwDiffCapture * ( PSC + 1 ) * IC1Polarity );
+
+        /* reset capture index */
+        uhCaptureIndex = 0;
     }
-    else
-    {
-      /* If capture values are equal, we have reached the limit of frequency  */
-      /* measures.                                                            */
-      LED_Blinking(LED_BLINK_ERROR);
-    }
-    
-    /* The signal frequency is calculated as follows:                         */      
-    /* Frequency = (TIM1*IC1PSC) / (Capture*(PSC+1)*IC1Polarity)           */
-    /* where:                                                                 */                                                          
-    /*  Capture is the difference between two consecutive captures            */
-    /*  TIM1CLK is the timer counter clock frequency                           */
-    /*  PSC is the timer prescaler value                                      */
-    /*  IC1PSC is the input capture prescaler value                           */
-    /*  IC1Polarity value depends on the capture sensitivity:                 */
-    /*    1 if the input is sensitive to rising or falling edges              */
-    /*    2 if the input is sensitive to both rising and falling edges        */
-    
-    /* Retrieve actual TIM1 counter clock frequency */
-    TIM1CLK = SystemCoreClock;
-    
-    /* Retrieve actual TIM1 prescaler value */
-    PSC = LL_TIM_GetPrescaler(TIM1);
-    
-    /* Retrieve actual IC1 prescaler ratio */
-    IC1PSC = __LL_TIM_GET_ICPSC_RATIO(LL_TIM_IC_GetPrescaler(TIM1, LL_TIM_CHANNEL_CH1));
-   
-    /* Retrieve actual IC1 polarity setting */
-    if (LL_TIM_IC_GetPolarity(TIM1, LL_TIM_CHANNEL_CH1) == LL_TIM_IC_POLARITY_BOTHEDGE)
-      IC1Polarity = 2;
-    else
-      IC1Polarity = 1;
-    
-    /* Calculate input signal frequency */
-    uwMeasuredFrequency = (TIM1CLK *IC1PSC) / (uwDiffCapture*(PSC+1)*IC1Polarity);
-    
-    /* reset capture index */
-    uhCaptureIndex = 0;    
-  }
 }
 
 /* USER CODE END 4 */
@@ -517,12 +526,12 @@ void TimerCaptureCompare_Callback(void)
   * @brief  This function is executed in case of error occurrence.
   * @retval None
   */
-void Error_Handler(void)
+void Error_Handler( void )
 {
-  /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
- 
-  /* USER CODE END Error_Handler_Debug */
+    /* USER CODE BEGIN Error_Handler_Debug */
+    /* User can add his own implementation to report the HAL error return state */
+
+    /* USER CODE END Error_Handler_Debug */
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -533,12 +542,12 @@ void Error_Handler(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t *file, uint32_t line)
+void assert_failed( uint8_t *file, uint32_t line )
 {
-  /* USER CODE BEGIN 6 */
-  /* User can add his own implementation to report the file name and line number,
-     tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-  /* USER CODE END 6 */
+    /* USER CODE BEGIN 6 */
+    /* User can add his own implementation to report the file name and line number,
+       tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
 

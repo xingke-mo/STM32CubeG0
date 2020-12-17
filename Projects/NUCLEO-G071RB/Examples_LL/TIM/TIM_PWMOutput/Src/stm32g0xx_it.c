@@ -1,4 +1,4 @@
-/** 
+/**
   ******************************************************************************
   * @file    Examples_LL/TIM/TIM_PWMOutput/Src/stm32g0xx_it.c
   * @author  MCD Application Team
@@ -8,11 +8,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -47,7 +47,7 @@
   * @param  None
   * @retval None
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
 }
 
@@ -56,12 +56,12 @@ void NMI_Handler(void)
   * @param  None
   * @retval None
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Hard Fault exception occurs */
+    while( 1 )
+    {
+    }
 }
 
 
@@ -70,7 +70,7 @@ void HardFault_Handler(void)
   * @param  None
   * @retval None
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
 }
 
@@ -80,7 +80,7 @@ void SVC_Handler(void)
   * @param  None
   * @retval None
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
 }
 
@@ -89,7 +89,7 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
 }
 
@@ -105,33 +105,33 @@ void SysTick_Handler(void)
 * @param  None
 * @retval None
 */
-void TIM2_IRQHandler(void)
+void TIM2_IRQHandler( void )
 {
-  /* Check whether CC1 interrupt is pending */
-  if(LL_TIM_IsActiveFlag_CC1(TIM2) == 1)
-  {
-    /* Clear the update interrupt flag*/
-    LL_TIM_ClearFlag_CC1(TIM2);
+    /* Check whether CC1 interrupt is pending */
+    if( LL_TIM_IsActiveFlag_CC1( TIM2 ) == 1 )
+    {
+        /* Clear the update interrupt flag*/
+        LL_TIM_ClearFlag_CC1( TIM2 );
 
-    /* TIM2 capture/compare interrupt processing(function defined in main.c) */
-    TimerCaptureCompare_Callback();
-  }
+        /* TIM2 capture/compare interrupt processing(function defined in main.c) */
+        TimerCaptureCompare_Callback();
+    }
 }
 /**
   * @brief  This function handles external line 4_15 interrupt request.
   * @param  None
   * @retval None
   */
-void USER_BUTTON_IRQHANDLER(void)
+void USER_BUTTON_IRQHANDLER( void )
 {
-  /* Manage Flags */
-  if(LL_EXTI_IsActiveFallingFlag_0_31(USER_BUTTON_EXTI_LINE) != RESET)
-  {
-    LL_EXTI_ClearFallingFlag_0_31(USER_BUTTON_EXTI_LINE);
+    /* Manage Flags */
+    if( LL_EXTI_IsActiveFallingFlag_0_31( USER_BUTTON_EXTI_LINE ) != RESET )
+    {
+        LL_EXTI_ClearFallingFlag_0_31( USER_BUTTON_EXTI_LINE );
 
-    /* User button interrupt processing(function defined in main.c) */
-    UserButton_Callback(); 
-  }
+        /* User button interrupt processing(function defined in main.c) */
+        UserButton_Callback();
+    }
 }
 
 /**

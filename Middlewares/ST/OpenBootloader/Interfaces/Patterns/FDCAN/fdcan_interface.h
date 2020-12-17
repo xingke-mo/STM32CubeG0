@@ -28,14 +28,14 @@
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void OPENBL_FDCAN_Configuration(void);
-uint8_t OPENBL_FDCAN_ProtocolDetection(void);
+void OPENBL_FDCAN_Configuration( void );
+uint8_t OPENBL_FDCAN_ProtocolDetection( void );
 
-uint8_t OPENBL_FDCAN_GetCommandOpcode(void);
-uint8_t OPENBL_FDCAN_ReadByte(void);
-void OPENBL_FDCAN_ReadBytes(uint8_t *Buffer, uint32_t BufferSize);
-void OPENBL_FDCAN_SendByte(uint8_t Byte);
-void OPENBL_FDCAN_SendBytes(uint8_t *Buffer, uint32_t BufferSize);
+uint8_t OPENBL_FDCAN_GetCommandOpcode( void );
+uint8_t OPENBL_FDCAN_ReadByte( void );
+void OPENBL_FDCAN_ReadBytes( uint8_t *Buffer, uint32_t BufferSize );
+void OPENBL_FDCAN_SendByte( uint8_t Byte );
+void OPENBL_FDCAN_SendBytes( uint8_t *Buffer, uint32_t BufferSize );
 
 #endif /* FDCAN_INTERFACE_H */
 

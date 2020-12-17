@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    Demonstrations/Gravitech_4digits/Inc/main.h 
+  * @file    Demonstrations/Gravitech_4digits/Inc/main.h
   * @author  MCD Application Team
   * @brief   Header for main.c module
   ******************************************************************************
@@ -31,7 +31,7 @@
 #define RTC_ASYNCH_PREDIV    0x7F
 #define RTC_SYNCH_PREDIV     0xF9
 
-void Error_Handler(void);
+void Error_Handler( void );
 
 #endif /* __MAIN_H */
 

@@ -9,11 +9,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -36,7 +36,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
- 
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -71,69 +71,69 @@
 /**
   * @brief This function handles Non maskable interrupt.
   */
-void NMI_Handler(void)
+void NMI_Handler( void )
 {
-  /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
+    /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
 
-  /* USER CODE END NonMaskableInt_IRQn 0 */
-  /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
+    /* USER CODE END NonMaskableInt_IRQn 0 */
+    /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
 
-  /* USER CODE END NonMaskableInt_IRQn 1 */
+    /* USER CODE END NonMaskableInt_IRQn 1 */
 }
 
 /**
   * @brief This function handles Hard fault interrupt.
   */
-void HardFault_Handler(void)
+void HardFault_Handler( void )
 {
-  /* USER CODE BEGIN HardFault_IRQn 0 */
+    /* USER CODE BEGIN HardFault_IRQn 0 */
 
-  /* USER CODE END HardFault_IRQn 0 */
-  while (1)
-  {
-    /* USER CODE BEGIN W1_HardFault_IRQn 0 */
-    /* USER CODE END W1_HardFault_IRQn 0 */
-  }
+    /* USER CODE END HardFault_IRQn 0 */
+    while( 1 )
+    {
+        /* USER CODE BEGIN W1_HardFault_IRQn 0 */
+        /* USER CODE END W1_HardFault_IRQn 0 */
+    }
 }
 
 /**
   * @brief This function handles System service call via SWI instruction.
   */
-void SVC_Handler(void)
+void SVC_Handler( void )
 {
-  /* USER CODE BEGIN SVC_IRQn 0 */
+    /* USER CODE BEGIN SVC_IRQn 0 */
 
-  /* USER CODE END SVC_IRQn 0 */
-  /* USER CODE BEGIN SVC_IRQn 1 */
+    /* USER CODE END SVC_IRQn 0 */
+    /* USER CODE BEGIN SVC_IRQn 1 */
 
-  /* USER CODE END SVC_IRQn 1 */
+    /* USER CODE END SVC_IRQn 1 */
 }
 
 /**
   * @brief This function handles Pendable request for system service.
   */
-void PendSV_Handler(void)
+void PendSV_Handler( void )
 {
-  /* USER CODE BEGIN PendSV_IRQn 0 */
+    /* USER CODE BEGIN PendSV_IRQn 0 */
 
-  /* USER CODE END PendSV_IRQn 0 */
-  /* USER CODE BEGIN PendSV_IRQn 1 */
+    /* USER CODE END PendSV_IRQn 0 */
+    /* USER CODE BEGIN PendSV_IRQn 1 */
 
-  /* USER CODE END PendSV_IRQn 1 */
+    /* USER CODE END PendSV_IRQn 1 */
 }
 
 /**
   * @brief This function handles System tick timer.
   */
-void SysTick_Handler(void)
+void SysTick_Handler( void )
 {
-  /* USER CODE BEGIN SysTick_IRQn 0 */
+    /* USER CODE BEGIN SysTick_IRQn 0 */
 
-  /* USER CODE END SysTick_IRQn 0 */
+    /* USER CODE END SysTick_IRQn 0 */
 
-  /* USER CODE BEGIN SysTick_IRQn 1 */
+    /* USER CODE BEGIN SysTick_IRQn 1 */
 
-  /* USER CODE END SysTick_IRQn 1 */
+    /* USER CODE END SysTick_IRQn 1 */
 }
 
 /******************************************************************************/
@@ -146,43 +146,44 @@ void SysTick_Handler(void)
 /**
   * @brief This function handles DMA1 channel 1 interrupt.
   */
-void DMA1_Channel1_IRQHandler(void)
+void DMA1_Channel1_IRQHandler( void )
 {
-  /* USER CODE BEGIN DMA1_Channel1_IRQn 0 */
- /* Check whether DMA transfer complete caused the DMA interruption */
-  if(LL_DMA_IsActiveFlag_TC1(DMA1) == 1)
-  {
-    /* Clear flag DMA transfer complete */
-    LL_DMA_ClearFlag_TC1(DMA1);
-    
-    /* Call interruption treatment function */
-    AdcDmaTransferComplete_Callback();
-  }
-  
-  /* Check whether DMA half transfer caused the DMA interruption */
-  if(LL_DMA_IsActiveFlag_HT1(DMA1) == 1)
-  {
-    /* Clear flag DMA half transfer */
-    LL_DMA_ClearFlag_HT1(DMA1);
-    
-    /* Call interruption treatment function */
-    AdcDmaTransferHalf_Callback();
-  }
-  
-  /* Check whether DMA transfer error caused the DMA interruption */
-  if(LL_DMA_IsActiveFlag_TE1(DMA1) == 1)
-  {
-    /* Clear flag DMA transfer error */
-    LL_DMA_ClearFlag_TE1(DMA1);
-    
-    /* Call interruption treatment function */
-    AdcDmaTransferError_Callback();
-  }
-  /* USER CODE END DMA1_Channel1_IRQn 0 */
+    /* USER CODE BEGIN DMA1_Channel1_IRQn 0 */
+    /* Check whether DMA transfer complete caused the DMA interruption */
+    if( LL_DMA_IsActiveFlag_TC1( DMA1 ) == 1 )
+    {
+        /* Clear flag DMA transfer complete */
+        LL_DMA_ClearFlag_TC1( DMA1 );
 
-  /* USER CODE BEGIN DMA1_Channel1_IRQn 1 */
+        /* Call interruption treatment function */
+        AdcDmaTransferComplete_Callback();
+    }
 
-  /* USER CODE END DMA1_Channel1_IRQn 1 */
+    /* Check whether DMA half transfer caused the DMA interruption */
+    if( LL_DMA_IsActiveFlag_HT1( DMA1 ) == 1 )
+    {
+        /* Clear flag DMA half transfer */
+        LL_DMA_ClearFlag_HT1( DMA1 );
+
+        /* Call interruption treatment function */
+        AdcDmaTransferHalf_Callback();
+    }
+
+    /* Check whether DMA transfer error caused the DMA interruption */
+    if( LL_DMA_IsActiveFlag_TE1( DMA1 ) == 1 )
+    {
+        /* Clear flag DMA transfer error */
+        LL_DMA_ClearFlag_TE1( DMA1 );
+
+        /* Call interruption treatment function */
+        AdcDmaTransferError_Callback();
+    }
+
+    /* USER CODE END DMA1_Channel1_IRQn 0 */
+
+    /* USER CODE BEGIN DMA1_Channel1_IRQn 1 */
+
+    /* USER CODE END DMA1_Channel1_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
@@ -192,36 +193,36 @@ void DMA1_Channel1_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void USER_BUTTON_IRQHANDLER(void)
+void USER_BUTTON_IRQHANDLER( void )
 {
-  /* Manage Flags */
-  if(LL_EXTI_IsActiveFallingFlag_0_31(USER_BUTTON_EXTI_LINE) != RESET)
-  {
-    /* Call interruption treatment function */
-    UserButton_Callback();
-    
-    /* Clear EXTI line flag */
-    /* Note: Clear flag after callback function to minimize user button       */
-    /*       switch debounce parasitics.                                      */
-    LL_EXTI_ClearFallingFlag_0_31(USER_BUTTON_EXTI_LINE);
-  }
+    /* Manage Flags */
+    if( LL_EXTI_IsActiveFallingFlag_0_31( USER_BUTTON_EXTI_LINE ) != RESET )
+    {
+        /* Call interruption treatment function */
+        UserButton_Callback();
+
+        /* Clear EXTI line flag */
+        /* Note: Clear flag after callback function to minimize user button       */
+        /*       switch debounce parasitics.                                      */
+        LL_EXTI_ClearFallingFlag_0_31( USER_BUTTON_EXTI_LINE );
+    }
 }
 /**
   * @brief  This function handles ADC1 interrupt request.
   * @param  None
   * @retval None
   */
-void ADC1_IRQHandler(void)
+void ADC1_IRQHandler( void )
 {
-  /* Check whether ADC group regular overrun caused the ADC interruption */
-  if(LL_ADC_IsActiveFlag_OVR(ADC1) != 0)
-  {
-    /* Clear flag ADC group regular overrun */
-    LL_ADC_ClearFlag_OVR(ADC1);
-    
-    /* Call interruption treatment function */
-    AdcGrpRegularOverrunError_Callback();
-  }
+    /* Check whether ADC group regular overrun caused the ADC interruption */
+    if( LL_ADC_IsActiveFlag_OVR( ADC1 ) != 0 )
+    {
+        /* Clear flag ADC group regular overrun */
+        LL_ADC_ClearFlag_OVR( ADC1 );
+
+        /* Call interruption treatment function */
+        AdcGrpRegularOverrunError_Callback();
+    }
 }
 
 /* USER CODE END 1 */

@@ -19,9 +19,9 @@
 
 #undef GLOBAL
 #ifdef __APP_LOWPOWER_C
-#define GLOBAL
+    #define GLOBAL
 #else
-#define GLOBAL extern
+    #define GLOBAL extern
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -39,6 +39,6 @@ GLOBAL const K_ModuleItem_Typedef ModuleLowPower;
 /* Private macros ------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
-void LowPowerExitDisplay(uint32_t Mode);
+void LowPowerExitDisplay( uint32_t Mode );
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

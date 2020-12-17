@@ -23,7 +23,7 @@
 #define SSD1315_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -91,41 +91,41 @@
 /** @defgroup ssd1315_Exported_Functions
   * @{
   */
-void     ssd1315_Init(void);
+void     ssd1315_Init( void );
 
-void     ssd1315_DisplayOn(void);
-void     ssd1315_DisplayOff(void);
-void     ssd1315_Clear(uint16_t RGBCode);
-void     ssd1315_Refresh(void);
+void     ssd1315_DisplayOn( void );
+void     ssd1315_DisplayOff( void );
+void     ssd1315_Clear( uint16_t RGBCode );
+void     ssd1315_Refresh( void );
 
-void     ssd1315_WritePixel(uint16_t Xpos, uint16_t Ypos, uint16_t RGBCode);
-uint16_t ssd1315_ReadPixel(uint16_t Xpos, uint16_t Ypos);
-void     ssd1315_SetPage(uint16_t Page);
-void     ssd1315_SetColumn(uint16_t Column);
+void     ssd1315_WritePixel( uint16_t Xpos, uint16_t Ypos, uint16_t RGBCode );
+uint16_t ssd1315_ReadPixel( uint16_t Xpos, uint16_t Ypos );
+void     ssd1315_SetPage( uint16_t Page );
+void     ssd1315_SetColumn( uint16_t Column );
 
-void     ssd1315_DrawHLine(uint16_t RGBCode, uint16_t Xpos, uint16_t Ypos, uint16_t Length);
-void     ssd1315_DrawVLine(uint16_t RGBCode, uint16_t Xpos, uint16_t Ypos, uint16_t Length);
-void     ssd1315_DrawBitmap(uint16_t Xpos, uint16_t Ypos, uint8_t *pbmp);
-void     ssd1315_ShiftBitmap(uint16_t Xpos, uint16_t Ypos, int16_t Xshift, int16_t Yshift,uint8_t *pbmp);
+void     ssd1315_DrawHLine( uint16_t RGBCode, uint16_t Xpos, uint16_t Ypos, uint16_t Length );
+void     ssd1315_DrawVLine( uint16_t RGBCode, uint16_t Xpos, uint16_t Ypos, uint16_t Length );
+void     ssd1315_DrawBitmap( uint16_t Xpos, uint16_t Ypos, uint8_t *pbmp );
+void     ssd1315_ShiftBitmap( uint16_t Xpos, uint16_t Ypos, int16_t Xshift, int16_t Yshift, uint8_t *pbmp );
 
-uint16_t ssd1315_GetLcdPixelWidth(void);
-uint16_t ssd1315_GetLcdPixelHeight(void);
+uint16_t ssd1315_GetLcdPixelWidth( void );
+uint16_t ssd1315_GetLcdPixelHeight( void );
 
-void     ssd1315_ScrollingSetup(uint16_t ScrollMode, uint16_t StartPage, uint16_t EndPage, uint16_t Frequency);
-void     ssd1315_ScrollingStart(void);
-void     ssd1315_ScrollingStop(void);
+void     ssd1315_ScrollingSetup( uint16_t ScrollMode, uint16_t StartPage, uint16_t EndPage, uint16_t Frequency );
+void     ssd1315_ScrollingStart( void );
+void     ssd1315_ScrollingStop( void );
 
 /* LCD driver structure */
 extern LCD_DrvTypeDef   ssd1315_drv;
 
 /* LCD IO functions */
 /* Link function for LCD peripheral */
-void    LCD_IO_Init(void);
-void    LCD_IO_DeInit(void);
-void    LCD_IO_WriteCommand(uint8_t Cmd);
-void    LCD_IO_WriteData(uint8_t Value);
-void    LCD_IO_WriteMultipleData(uint8_t *pData, uint32_t Size);
-void    LCD_Delay (uint32_t delay);
+void    LCD_IO_Init( void );
+void    LCD_IO_DeInit( void );
+void    LCD_IO_WriteCommand( uint8_t Cmd );
+void    LCD_IO_WriteData( uint8_t Value );
+void    LCD_IO_WriteMultipleData( uint8_t *pData, uint32_t Size );
+void    LCD_Delay( uint32_t delay );
 /**
   * @}
   */

@@ -32,32 +32,32 @@
 /* Exported variables --------------------------------------------------------*/
 OPENBL_MemoryTypeDef ICP1_Descriptor =
 {
-  ICP1_START_ADDRESS,
-  ICP1_END_ADDRESS,
-  (28U * 1024U),
-  ICP1_AREA,
-  OPENBL_ICP_Read,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL
+    ICP1_START_ADDRESS,
+    ICP1_END_ADDRESS,
+    ( 28U * 1024U ),
+    ICP1_AREA,
+    OPENBL_ICP_Read,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
 };
 
 OPENBL_MemoryTypeDef ICP2_Descriptor =
 {
-  ICP2_START_ADDRESS,
-  ICP2_END_ADDRESS,
-  (28U * 1024U),
-  ICP2_AREA,
-  OPENBL_ICP_Read,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL,
-  NULL
+    ICP2_START_ADDRESS,
+    ICP2_END_ADDRESS,
+    ( 28U * 1024U ),
+    ICP2_AREA,
+    OPENBL_ICP_Read,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
 };
 
 /**
@@ -65,9 +65,9 @@ OPENBL_MemoryTypeDef ICP2_Descriptor =
   * @param  Address The address to be read.
   * @retval Returns the read value.
   */
-uint8_t OPENBL_ICP_Read(uint32_t Address)
+uint8_t OPENBL_ICP_Read( uint32_t Address )
 {
-  return (*(uint8_t *)(Address));
+    return ( *( uint8_t * )( Address ) );
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -55,7 +55,7 @@
 #define I2Cx_IRQHandler                 I2C1_IRQHandler
 
 /* Definition for I2Cx's DMA */
-#define I2Cx_DMA                        DMA1   
+#define I2Cx_DMA                        DMA1
 #define I2Cx_DMA_CHANNEL_TX             DMA1_Channel1
 #define I2Cx_DMA_CHANNEL_RX             DMA1_Channel2
 #define I2Cx_DMA_REQUEST_TX             DMA_REQUEST_I2C1_TX

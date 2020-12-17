@@ -7,11 +7,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
@@ -51,7 +51,7 @@ extern "C" {
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void Error_Handler(void);
+void Error_Handler( void );
 
 /* USER CODE BEGIN EFP */
 
@@ -84,18 +84,18 @@ void Error_Handler(void);
 
 
 /* Definitions of environment analog values */
-  /* Value of analog reference voltage (Vref+), connected to analog voltage   */
-  /* supply Vdda (unit: mV).                                                  */
-  #define VDDA_APPLI                       ((uint32_t)3300)
-  
-/* Definitions of data related to this example */
-  /* Full-scale digital value with a resolution of 12 bits (voltage range     */
-  /* determined by analog voltage references Vref+ and Vref-,                 */
-  /* refer to reference manual).                                              */
-  #define DIGITAL_SCALE_12BITS             ((uint32_t) 0xFFF)
+/* Value of analog reference voltage (Vref+), connected to analog voltage   */
+/* supply Vdda (unit: mV).                                                  */
+#define VDDA_APPLI                       ((uint32_t)3300)
 
-  /* Init variable out of ADC expected conversion data range */
-  #define VAR_CONVERTED_DATA_INIT_VALUE    (DIGITAL_SCALE_12BITS + 1)
+/* Definitions of data related to this example */
+/* Full-scale digital value with a resolution of 12 bits (voltage range     */
+/* determined by analog voltage references Vref+ and Vref-,                 */
+/* refer to reference manual).                                              */
+#define DIGITAL_SCALE_12BITS             ((uint32_t) 0xFFF)
+
+/* Init variable out of ADC expected conversion data range */
+#define VAR_CONVERTED_DATA_INIT_VALUE    (DIGITAL_SCALE_12BITS + 1)
 
 /* Private macro -------------------------------------------------------------*/
 

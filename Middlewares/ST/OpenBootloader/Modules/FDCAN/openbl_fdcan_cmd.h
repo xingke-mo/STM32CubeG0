@@ -35,7 +35,7 @@ extern uint8_t RxData[FDCAN_RAM_BUFFER_SIZE];
 extern OPENBL_CommandsTypeDef OPENBL_FDCAN_Commands;
 
 /* Exported functions ------------------------------------------------------- */
-OPENBL_CommandsTypeDef *OPENBL_FDCAN_GetCommandsList(void);
+OPENBL_CommandsTypeDef *OPENBL_FDCAN_GetCommandsList( void );
 
 #endif /* OPENBL_FDCAN_CMD_H */
 

@@ -1,7 +1,7 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file    Demonstrations/Adafruit_LCD_1_8_SD_Joystick/Inc/main.h 
+  * @file    Demonstrations/Adafruit_LCD_1_8_SD_Joystick/Inc/main.h
   * @author  MCD Application Team
   * @brief   Header for main.c module
   ******************************************************************************
@@ -55,10 +55,10 @@ extern "C" {
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void Error_Handler(void);
+void Error_Handler( void );
 
 /* USER CODE BEGIN EFP */
-void TFT_DisplayErrorMessage(uint8_t message);
+void TFT_DisplayErrorMessage( uint8_t message );
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

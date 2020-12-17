@@ -63,53 +63,54 @@
 /**
   * Initializes the Global MSP.
   */
-void HAL_MspInit(void)
+void HAL_MspInit( void )
 {
-  /* USER CODE BEGIN MspInit 0 */
+    /* USER CODE BEGIN MspInit 0 */
 
-  /* USER CODE END MspInit 0 */
+    /* USER CODE END MspInit 0 */
 
-  __HAL_RCC_SYSCFG_CLK_ENABLE();
-  __HAL_RCC_PWR_CLK_ENABLE();
+    __HAL_RCC_SYSCFG_CLK_ENABLE();
+    __HAL_RCC_PWR_CLK_ENABLE();
 
-  /* USER CODE BEGIN MspInit 1 */
+    /* USER CODE BEGIN MspInit 1 */
 
-  /* USER CODE END MspInit 1 */
+    /* USER CODE END MspInit 1 */
 }
 
-void HAL_UART_MspInit(UART_HandleTypeDef* huart)
+void HAL_UART_MspInit( UART_HandleTypeDef *huart )
 {
-  GPIO_InitTypeDef  GPIO_InitStruct = {0};
-  RCC_PeriphCLKInitTypeDef RCC_PeriphClkInit = {0};
+    GPIO_InitTypeDef  GPIO_InitStruct = {0};
+    RCC_PeriphCLKInitTypeDef RCC_PeriphClkInit = {0};
 
-  if(huart->Instance==USARTx)
-  {
-    /*##-1- Enable peripherals and GPIO Clocks #################################*/
-    /* Enable GPIO TX/RX clock */
-    USARTx_TX_GPIO_CLK_ENABLE();
-    USARTx_RX_GPIO_CLK_ENABLE();
-
-    /* Select SysClk as source of USART3 clocks */
-    RCC_PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART3;
-    RCC_PeriphClkInit.Usart3ClockSelection = RCC_USART3CLKSOURCE_PCLK1;
-    if (HAL_RCCEx_PeriphCLKConfig(&RCC_PeriphClkInit) != HAL_OK)
+    if( huart->Instance == USARTx )
     {
-      Error_Handler();
+        /*##-1- Enable peripherals and GPIO Clocks #################################*/
+        /* Enable GPIO TX/RX clock */
+        USARTx_TX_GPIO_CLK_ENABLE();
+        USARTx_RX_GPIO_CLK_ENABLE();
+
+        /* Select SysClk as source of USART3 clocks */
+        RCC_PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART3;
+        RCC_PeriphClkInit.Usart3ClockSelection = RCC_USART3CLKSOURCE_PCLK1;
+
+        if( HAL_RCCEx_PeriphCLKConfig( &RCC_PeriphClkInit ) != HAL_OK )
+        {
+            Error_Handler();
+        }
+
+        HAL_RCCEx_PeriphCLKConfig( &RCC_PeriphClkInit );
+        /* Select SysClk as source of USART1 clocks */
+        __HAL_RCC_USART3_CLK_ENABLE();
+
+        /*##-2- Configure peripheral GPIO ##########################################*/
+
+        GPIO_InitStruct.Pin = GPIO_PIN_10 | GPIO_PIN_11;
+        GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+        GPIO_InitStruct.Pull = GPIO_PULLUP;
+        GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+        GPIO_InitStruct.Alternate = GPIO_AF0_USART3;
+        HAL_GPIO_Init( GPIOC, &GPIO_InitStruct );
     }
-    
-    HAL_RCCEx_PeriphCLKConfig(&RCC_PeriphClkInit);
-    /* Select SysClk as source of USART1 clocks */
-    __HAL_RCC_USART3_CLK_ENABLE();
-
-    /*##-2- Configure peripheral GPIO ##########################################*/
-
-    GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_11;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_PULLUP;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-    GPIO_InitStruct.Alternate = GPIO_AF0_USART3;
-    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-  }
 }
 
 /**
@@ -118,17 +119,17 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
 * @param huart: UART handle pointer
 * @retval None
 */
-void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
+void HAL_UART_MspDeInit( UART_HandleTypeDef *huart )
 {
-/*##-1- Reset peripherals ##################################################*/
-  USARTx_FORCE_RESET();
-  USARTx_RELEASE_RESET();
+    /*##-1- Reset peripherals ##################################################*/
+    USARTx_FORCE_RESET();
+    USARTx_RELEASE_RESET();
 
-  /*##-2- Disable peripherals and GPIO Clocks ################################*/
-  /* Configure UART Tx as alternate function  */
-  HAL_GPIO_DeInit(USARTx_TX_GPIO_PORT, USARTx_TX_PIN);
-  /* Configure UART Rx as alternate function  */
-  HAL_GPIO_DeInit(USARTx_RX_GPIO_PORT, USARTx_RX_PIN);
+    /*##-2- Disable peripherals and GPIO Clocks ################################*/
+    /* Configure UART Tx as alternate function  */
+    HAL_GPIO_DeInit( USARTx_TX_GPIO_PORT, USARTx_TX_PIN );
+    /* Configure UART Rx as alternate function  */
+    HAL_GPIO_DeInit( USARTx_RX_GPIO_PORT, USARTx_RX_PIN );
 
 }
 
