@@ -580,15 +580,24 @@ void BSP_PWRMON_DumpDeviceRegisters( Alert_TypeDef Alert, INA230_Registers_t *pR
 {
     uint8_t dt[2];
 
-    PWRMON_IO_Read( aAddress[Alert], INA230_REG_CONFIG,      dt ); pRegisters->Config.Register = ( dt[0] << 8 ) | dt[1];
-    PWRMON_IO_Read( aAddress[Alert], INA230_REG_VSHUNT,      dt ); pRegisters->VShunt = ( dt[0] << 8 ) | dt[1];
-    PWRMON_IO_Read( aAddress[Alert], INA230_REG_VBUS,        dt ); pRegisters->VBus = ( dt[0] << 8 ) | dt[1];
-    PWRMON_IO_Read( aAddress[Alert], INA230_REG_PWR,         dt ); pRegisters->Power = ( dt[0] << 8 ) | dt[1];
-    PWRMON_IO_Read( aAddress[Alert], INA230_REG_CURRENT,     dt ); pRegisters->Current = ( dt[0] << 8 ) | dt[1];
-    PWRMON_IO_Read( aAddress[Alert], INA230_REG_CALIBRATION, dt ); pRegisters->Calibration = ( dt[0] << 8 ) | dt[1];
-    PWRMON_IO_Read( aAddress[Alert], INA230_REG_MASK_ENABLE, dt ); pRegisters->MaskEnable.Register = ( dt[0] << 8 ) | dt[1];
-    PWRMON_IO_Read( aAddress[Alert], INA230_REG_ALERT_LIMIT, dt ); pRegisters->AlertLimit = ( dt[0] << 8 ) | dt[1];
-    PWRMON_IO_Read( aAddress[Alert], INA230_REG_ID,          dt ); pRegisters->DieId = ( dt[0] << 8 ) | dt[1];
+    PWRMON_IO_Read( aAddress[Alert], INA230_REG_CONFIG,      dt );
+    pRegisters->Config.Register = ( dt[0] << 8 ) | dt[1];
+    PWRMON_IO_Read( aAddress[Alert], INA230_REG_VSHUNT,      dt );
+    pRegisters->VShunt = ( dt[0] << 8 ) | dt[1];
+    PWRMON_IO_Read( aAddress[Alert], INA230_REG_VBUS,        dt );
+    pRegisters->VBus = ( dt[0] << 8 ) | dt[1];
+    PWRMON_IO_Read( aAddress[Alert], INA230_REG_PWR,         dt );
+    pRegisters->Power = ( dt[0] << 8 ) | dt[1];
+    PWRMON_IO_Read( aAddress[Alert], INA230_REG_CURRENT,     dt );
+    pRegisters->Current = ( dt[0] << 8 ) | dt[1];
+    PWRMON_IO_Read( aAddress[Alert], INA230_REG_CALIBRATION, dt );
+    pRegisters->Calibration = ( dt[0] << 8 ) | dt[1];
+    PWRMON_IO_Read( aAddress[Alert], INA230_REG_MASK_ENABLE, dt );
+    pRegisters->MaskEnable.Register = ( dt[0] << 8 ) | dt[1];
+    PWRMON_IO_Read( aAddress[Alert], INA230_REG_ALERT_LIMIT, dt );
+    pRegisters->AlertLimit = ( dt[0] << 8 ) | dt[1];
+    PWRMON_IO_Read( aAddress[Alert], INA230_REG_ID,          dt );
+    pRegisters->DieId = ( dt[0] << 8 ) | dt[1];
 }
 #endif /* INA230_DEBUG */
 
